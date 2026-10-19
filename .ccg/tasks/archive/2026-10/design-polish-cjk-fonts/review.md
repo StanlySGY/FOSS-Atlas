@@ -57,3 +57,40 @@ DOM 断言得出，不是读代码推断。
 - Wiki 三栏：标题旁图标、右侧元数据/标签/可替代/反向链接面板全部中文正常。
 - 移动端 390×844：统计卡两列、搜索全宽；“目录”抽屉打开含 38 个链接，当前项高亮。
 - 深度链接 `?focus=immich` 正常加载不报错。
+
+## 追加一轮（同任务）
+
+### 图标自托管（真实可用性修复）
+
+首轮卡片图标走 `https://www.google.com/s2/favicons`，对中文受众是错误取舍：
+google.com 与常用备选 DuckDuckGo 在中国大陆不可达，165 张卡片图标会全部退化成
+字母占位。改为构建期抓取、随包发布：
+
+- 新增 `scripts/build-icons.mjs`：按 host 下载一张图标到 `public/icons/`，
+  写 `src/data/icons.json`（host → 公共路径）。幂等：已存在的图标不重复下载。
+- **下载器用 `curl` 而非 Node `fetch`**：本机（及多数受限环境）经 `https_proxy`
+  出网，curl 认这个代理，undici 的 `fetch` 不认——用 fetch 时每个请求都
+  `ETIMEDOUT`，换 curl 后 106/106 host 全部成功。
+- `src/lib/data.js` 的 `iconFor()` 优先返回本地资源（带 base path），
+  仅当 manifest 里没有该 host 时才回落到 favicon 服务。
+- 结果：`public/icons/` 106 个文件、1.2 MB；页面无任何 google.com 运行时请求。
+
+### 图谱页右栏改版
+
+原来「图例 + 提示」只占 ~250px，下方 250px 是空白。现在：
+
+- 关系过滤 chip 带计数（属于 165 / 归类 21 / 标签 302 / 相关 56 / 替代 34）。
+- 图例面板按 `TYPE_ORDER` 展示，每类带节点数（分类 10 / 子类 21 / 工具 165 …）。
+- 空出的下半栏换成「怎么逛」引导（单击/双击/分类节点/关系过滤四种用法）；
+  选中分类或子类时该面板切换为该类包含的工具列表。
+- 右栏改 `lg:sticky`；过滤 chip 加 `aria-pressed`；顶部说明收紧为一行。
+
+### 追加验证
+
+- `npx oxlint` 0 warning；`npm run build` 通过（`dist/icons/` 106 个）。
+- 词法：`grep google.com/s2 src/` 仅剩 `data.js` 里的回落分支。
+- 浏览器：首页 163 张 `<img>` 全部走 `/FOSS-Atlas/icons/...`，0 张 broken、0 张 remote；
+  `measureText` 图谱画布证字体有效；资源请求 30 条 0 失败。
+- a11y：`missingAlt=0`、无名 button/link = 0、`lang=zh-CN`、h1 唯一。
+- 响应式：640→2 列、768→2 列、1024→3 列；无横向溢出。
+- 线上：`index-CwAOub-j.js` 与本地构建一致；`/icons/poe.com.png` 返回 200。
