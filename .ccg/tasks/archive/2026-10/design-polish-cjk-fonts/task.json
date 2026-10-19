@@ -1,0 +1,12 @@
+{
+  "id": "design-polish-cjk-fonts",
+  "title": "视觉升级 + CJK 字体修复：设计令牌 / 首页英雄区与图标卡片 / ECharts 画布字体",
+  "status": "completed",
+  "complexity": "L",
+  "risk": "low",
+  "domain": "frontend",
+  "currentPhase": "completed",
+  "nextAction": "已归档：见 review.md；本地 browser 验证通过，等待 push 触发的 Pages 部署完成",
+  "createdAt": "2026-10-20T00:00:00Z",
+  "branch": "main"
+}
