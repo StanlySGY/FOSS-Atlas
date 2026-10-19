@@ -94,3 +94,18 @@ google.com 与常用备选 DuckDuckGo 在中国大陆不可达，165 张卡片�
 - a11y：`missingAlt=0`、无名 button/link = 0、`lang=zh-CN`、h1 唯一。
 - 响应式：640→2 列、768→2 列、1024→3 列；无横向溢出。
 - 线上：`index-CwAOub-j.js` 与本地构建一致；`/icons/poe.com.png` 返回 200。
+
+## 再追加一轮：字体加载移出关键路径
+
+`fonts.googleapis.com` 在中国大陆不可达（本站主要受众）。原先用
+`<link rel="stylesheet">` 同步加载 Google Fonts，是**渲染阻塞**资源——在被墙的
+网络上首屏会一直等到该请求超时，这才是真实代价（此前把它当作“优雅降级”忽略了
+这一点）。
+
+- 改为 `media="print" onload="this.media='all'"` 异步加载：页面立刻用 `index.css`
+  里的系统 CJK 回退栈绘制，webfont 到达后再升级字形；`<noscript>` 兜底。
+- **评估过自托管子集，放弃**：Google Fonts 即便对 `text=` 子集也会把 Noto Sans SC
+  拆成 ~100 个 unicode-range 文件，提交进静态仓库要给纯装饰性升级增加数 MB，
+  不划算。
+- 验证：本地与线上 `document.fonts.check('16px "Noto Sans SC"') === true`，
+  加载后 `media` 由 `print` 变 `all`；165 张卡片正常渲染。
