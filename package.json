@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/spa-fallback.mjs",
+    "build": "node scripts/build-wikis.mjs && vite build && node scripts/spa-fallback.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "data": "node scripts/build-data.mjs"

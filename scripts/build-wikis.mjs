@@ -67,6 +67,13 @@ if (existsSync(CONTENT_DIR)) {
   }
 }
 
+/**
+ * A curated page is `continue`d before its prose is ever read, so an entry for
+ * one of those ids would load and then be silently ignored — an edit that goes
+ * nowhere. Collect them so the report can say so.
+ */
+const shadowedProse = [...content.keys()].filter((id) => CURATED[id])
+
 /* ------------------------------------------------------------------ *
  * Catalogue
  * ------------------------------------------------------------------ */
@@ -222,6 +229,12 @@ if (missingProse.length) {
   console.log(`\nno prose yet for ${missingProse.length} resource(s):`)
   console.log(`  ${missingProse.join(' ')}`)
   console.log('  these render the generic fallback page until scripts/wiki-content covers them')
+}
+
+if (shadowedProse.length) {
+  console.log(`\nprose that will never be emitted — these ids have hand-written pages (${shadowedProse.length}):`)
+  console.log(`  ${shadowedProse.join(' ')}`)
+  console.log('  edit public/wiki/<slug>.md directly instead, or drop them from CURATED')
 }
 
 const names = new Set(resources.map((r) => r.name.toLowerCase()))

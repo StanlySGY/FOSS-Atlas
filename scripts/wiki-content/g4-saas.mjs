@@ -47,18 +47,6 @@ export default {
       '跑需要长期在线的常驻进程',
     ],
   },
-  'cloudflare': {
-    summary: 'Cloudflare 免费计划把 DNS、CDN 与边缘计算打包在一起，Workers 每天有十万次请求额度。',
-    features: [
-      '免费 DNS 解析与全球 CDN 加速',
-      'Workers 每天 10 万次请求额度',
-      'Pages 静态托管与 R2 存储也带免费层',
-    ],
-    scenarios: [
-      '给个人站点做 DNS 与访问加速',
-      '用边缘函数写轻量 API 或重定向',
-    ],
-  },
   'render': {
     summary: 'Render 是一站式托管平台，可以免费部署 Web 服务、静态站点与后台任务。',
     features: [

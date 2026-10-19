@@ -82,6 +82,21 @@ export default function SidebarLayout() {
     }
   }, [drawerOpen])
 
+  // The drawer only exists below `md`. If the viewport grows past the breakpoint
+  // while it is open, CSS hides the panel but leaves it mounted — and with it the
+  // locked body scroll and the Tab trap, which then point into an invisible node
+  // (focusing a `display:none` element is a no-op, and the 目录 trigger that
+  // would reopen it is hidden too). Dismiss it on the crossing instead.
+  useEffect(() => {
+    if (!drawerOpen) return undefined
+    const desktop = window.matchMedia('(min-width: 768px)')
+    const onChange = (event) => {
+      if (event.matches) setDrawerPath(null)
+    }
+    desktop.addEventListener('change', onChange)
+    return () => desktop.removeEventListener('change', onChange)
+  }, [drawerOpen])
+
   return (
     <div className="flex w-full flex-1 items-start">
       {/* Flush against the viewport edge: no container margin, no rounded card.

@@ -2,7 +2,7 @@ import { GraphChart } from 'echarts/charts'
 import { LegendComponent, TooltipComponent } from 'echarts/components'
 import * as echarts from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 
 echarts.use([GraphChart, TooltipComponent, LegendComponent, CanvasRenderer])
@@ -19,6 +19,18 @@ const FOCUS_FILL = '#f5f0e6'
 export default function GraphView({ graph, enabledEdges, onSelect, selectedId, focusId }) {
   const containerRef = useRef(null)
   const chartRef = useRef(null)
+  /*
+   * A `graph` series with `layout: 'force'` re-seeds the simulation on every
+   * `setOption`, so toggling a relation filter would scatter the graph — and
+   * because `notMerge` rebuilds the view, the roam transform goes with it, which
+   * is what made an immediate re-centring *compound* its zoom. The simulation is
+   * therefore run exactly once; its result is captured and every later
+   * `setOption` re-places the nodes from those fixed coordinates. With the layout
+   * deterministic, the focus framing can simply be declared in the option
+   * (`center` + `zoom`) and is re-applied identically on every render.
+   */
+  const frozenRef = useRef(null)
+  const [frozenLayout, setFrozenLayout] = useState(null)
 
   // The series is fed `graph.nodes` in order, so a node's `dataIndex` is simply
   // its position in that array — no name lookup needed.
@@ -27,14 +39,23 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
     return graph.nodes.findIndex((n) => n.id === focusId)
   }, [graph, focusId])
 
+  // Where the simulation put the focused node, once it has been captured. Until
+  // then the node is only marked, not framed, since its position is unknown.
+  const focusPos = focusIndex >= 0 ? frozenLayout?.[focusIndex] : null
+
   const option = useMemo(() => {
-    const nodes = graph.nodes.map((n) => {
+    const nodes = graph.nodes.map((n, i) => {
       const meta = TYPE_META[n.type] ?? TYPE_META.tool
       const isSelected = n.id === selectedId
       const isFocused = n.id === focusId
+      const pos = frozenLayout?.[i]
       return {
         id: n.id,
         name: n.name,
+        // Present only once the simulation has been captured; `layout: 'none'`
+        // then places the node here instead of running the force model.
+        x: pos?.[0],
+        y: pos?.[1],
         category: TYPE_ORDER.indexOf(n.type),
         symbolSize: isFocused ? meta.size * 2 : isSelected ? meta.size * 1.5 : meta.size,
         itemStyle: {
@@ -102,7 +123,11 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
       series: [
         {
           type: 'graph',
-          layout: 'force',
+          layout: frozenLayout ? 'none' : 'force',
+          // Framing for the `?focus=` deep link. Declared rather than dispatched:
+          // `notMerge` re-creates the view on every `setOption`, so anything
+          // written imperatively is lost (and re-applied on top of itself).
+          ...(focusPos ? { center: [focusPos[0], focusPos[1]], zoom: FOCUS_ZOOM } : {}),
           roam: true,
           draggable: true,
           focusNodeAdjacency: false,
@@ -141,7 +166,7 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
         },
       ],
     }
-  }, [graph, enabledEdges, selectedId, focusId])
+  }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout])
 
   useEffect(() => {
     if (!containerRef.current) return undefined
@@ -166,81 +191,36 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
   }, [onSelect])
 
   useEffect(() => {
-    chartRef.current?.setOption(option, { notMerge: true })
-  }, [option])
-
-  /**
-   * Bring a `?focus=<id>` node into view: pan it under the middle of the chart
-   * and zoom in on it.
-   *
-   * Roaming is driven with the `graphRoam` action rather than by writing
-   * `series.center`/`zoom`: those options are only read into the coord system
-   * when it is created, so a plain `setOption` leaves the view where it is (and
-   * the coord system then writes its *actual* centre back over ours). The action
-   * is the same path a mouse wheel or drag takes.
-   *
-   * Two dispatches, in this order: zoom about the node's own pixel so it does
-   * not move, then pan by the remaining offset to land it in the middle.
-   *
-   * Applied once, only after the layout has produced coordinates. Re-applying
-   * would be both redundant and harmful — every `setOption` re-runs the force
-   * layout, so a timer that kept "correcting" the view would keep re-seeding the
-   * simulation it is trying to follow.
-   */
-  useEffect(() => {
     const chart = chartRef.current
-    if (!chart || focusIndex < 0) return undefined
+    if (!chart) return undefined
+    chart.setOption(option, { notMerge: true })
 
-    let cancelled = false
+    // The first pass runs the force simulation. Capture where it settled and
+    // re-apply the same coordinates so later `setOption` calls (relation-filter
+    // toggles) are laid out deterministically instead of re-seeding the graph.
+    if (frozenRef.current) return undefined
     let timer = 0
     let tries = 0
-
-    const apply = () => {
-      if (cancelled) return
-
-      const series = chart.getModel()?.getSeriesByIndex(0)
-      const layout = series?.getData()?.getItemLayout(focusIndex)
-      const ready =
-        layout && Number.isFinite(layout[0]) && Number.isFinite(layout[1]) && (layout[0] || layout[1])
-
-      if (!ready) {
-        // The force layout has not written coordinates yet.
-        if (tries++ < 40) timer = setTimeout(apply, 50)
-        return
+    const capture = () => {
+      const data = chart.getModel()?.getSeriesByIndex(0)?.getData()
+      const positions = []
+      let ready = Boolean(data)
+      for (let i = 0; ready && i < graph.nodes.length; i++) {
+        const l = data.getItemLayout(i)
+        // The layout writes coordinates asynchronously, node by node.
+        if (!l || !Number.isFinite(l[0]) || !Number.isFinite(l[1])) ready = false
+        else positions.push([l[0], l[1]])
       }
-
-      const coordSys = series.coordinateSystem
-      const point = coordSys.dataToPoint(layout)
-      const zoom = coordSys.getRoamTransform().scaleX || 1
-
-      chart.dispatchAction({
-        type: 'graphRoam',
-        seriesIndex: 0,
-        zoom: FOCUS_ZOOM / zoom,
-        originX: point[0],
-        originY: point[1],
-      })
-
-      // Read back: the action has already moved the node, and the pan has to be
-      // measured against where it ended up rather than where it started.
-      const moved = coordSys.dataToPoint(layout)
-      chart.dispatchAction({
-        type: 'graphRoam',
-        seriesIndex: 0,
-        dx: chart.getWidth() / 2 - moved[0],
-        dy: chart.getHeight() / 2 - moved[1],
-      })
-
-      chart.dispatchAction({ type: 'highlight', seriesIndex: 0, dataIndex: focusIndex })
+      if (ready) {
+        frozenRef.current = positions
+        setFrozenLayout(positions)
+      } else if (tries++ < 100) {
+        timer = setTimeout(capture, 30)
+      }
     }
-
-    timer = setTimeout(apply, 0)
-
-    return () => {
-      cancelled = true
-      clearTimeout(timer)
-    }
-  }, [focusIndex, option])
+    capture()
+    return () => clearTimeout(timer)
+  }, [option, graph.nodes.length])
 
   return <div ref={containerRef} className="h-full w-full" />
 }
