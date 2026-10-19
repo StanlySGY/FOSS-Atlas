@@ -109,3 +109,17 @@ google.com 与常用备选 DuckDuckGo 在中国大陆不可达，165 张卡片�
   不划算。
 - 验证：本地与线上 `document.fonts.check('16px "Noto Sans SC"') === true`，
   加载后 `media` 由 `print` 变 `all`；165 张卡片正常渲染。
+
+## 收尾：令牌迁移补全
+
+首轮只把 Home / Layout / Card / Sidebar 迁到令牌，WikiPage、GraphPage、
+GraphNodePopover、WikiNavSidebar 里还留着 ~45 处裸 hex，调色板处于半迁移状态。
+
+- `:root` 补齐这些文件用到的色阶：`--ink-tint` / `--ink-tint-hover` / `--ink-chip` /
+  `--ink-tab` / `--line-muted` / `--line-hover` / `--text-mute` / `--focus-fill`。
+- 所有 Tailwind 任意值 `[#hex]` → `[var(--token)]`。
+- ECharts 需要字面色串、无法解析 `var()`，故图表 chrome 的颜色抽出为
+  `graphStyle.js` 的 `CANVAS` 常量（每项注释回指对应令牌），`FOCUS_RING/FOCUS_FILL`
+  也改为读取它。
+- 无视觉变化：`getComputedStyle` 复核卡片边框 `#23282a`、底色 `#101314`、
+  标题 `#f2f4f5`、强调 `#f0b429` 均与迁移前一致；无元素落到未设色。
