@@ -1,0 +1,12 @@
+{
+  "id": "graph-click-popover",
+  "title": "图谱交互重构：单击气泡 / 双击跳转 / Hover 邻居高亮",
+  "status": "completed",
+  "complexity": "M",
+  "risk": "medium",
+  "domain": "frontend",
+  "currentPhase": "completed",
+  "nextAction": "已归档；C1（分类 CTA 触发 setOption 重置视图）为既有行为，列为后续项",
+  "createdAt": "2026-10-19T11:00:00Z",
+  "branch": "main"
+}

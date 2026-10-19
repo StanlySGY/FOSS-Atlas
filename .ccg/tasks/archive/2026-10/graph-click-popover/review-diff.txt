@@ -1,0 +1,418 @@
+### MODIFIED: src/components/GraphView.jsx, src/pages/GraphPage.jsx
+diff --git a/src/components/GraphView.jsx b/src/components/GraphView.jsx
+index e890728..98f5fc6 100644
+--- a/src/components/GraphView.jsx
++++ b/src/components/GraphView.jsx
+@@ -16,7 +16,19 @@ const FOCUS_ZOOM = 2.2
+ const FOCUS_RING = '#f0b429'
+ const FOCUS_FILL = '#f5f0e6'
+ 
+-export default function GraphView({ graph, enabledEdges, onSelect, selectedId, focusId }) {
++// Everything that is not adjacent to the hovered node fades to this.
++const BLUR_OPACITY = 0.2
++
++export default function GraphView({
++  graph,
++  enabledEdges,
++  selectedId,
++  focusId,
++  onNodeClick,
++  onNodeDoubleClick,
++  onDismiss,
++  children,
++}) {
+   const containerRef = useRef(null)
+   const chartRef = useRef(null)
+   /*
+@@ -136,6 +148,19 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
+             lineStyle: { width: 3 },
+             label: { show: true, color: '#f2f4f5' },
+           },
++          /*
++           * Hover dimming for the non-adjacent surroundings. This is a *state*
++           * style, never an imperative call: any `setOption` with `notMerge`
++           * rebuilds the view and discards the reader's pan/zoom, so hover must
++           * not touch the option at all. With `emphasis.focus: 'adjacency'`
++           * ECharts applies this `blur` state to every node and edge that is not
++           * directly connected to the hovered node.
++           */
++          blur: {
++            itemStyle: { opacity: BLUR_OPACITY },
++            label: { opacity: BLUR_OPACITY },
++            lineStyle: { opacity: BLUR_OPACITY },
++          },
+           force: {
+             repulsion: 190,
+             edgeLength: [30, 130],
+@@ -168,16 +193,63 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
+     }
+   }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout])
+ 
++  /*
++   * The handlers are read through a ref so that the chart is initialised exactly
++   * once. Passing them through the effect's dependency list would tear the chart
++   * down and rebuild it (losing pan/zoom) every time the parent re-renders with
++   * a fresh closure — which is now every time a popover opens.
++   */
++  const handlersRef = useRef({ onNodeClick, onNodeDoubleClick, onDismiss })
++  useEffect(() => {
++    handlersRef.current = { onNodeClick, onNodeDoubleClick, onDismiss }
++  })
++
+   useEffect(() => {
+     if (!containerRef.current) return undefined
+     const chart = echarts.init(containerRef.current, null, { renderer: 'canvas' })
+     chartRef.current = chart
+ 
++    // A single click only opens the popover; navigation is an explicit action
++    // inside it. Mis-clicks in a 500-edge hairball are far more common than
++    // deliberate ones, so the destructive action must not be the default.
+     const handleClick = (params) => {
+-      if (params.dataType !== 'node') return
+-      onSelect?.(params.data._raw)
++      const raw = params?.data?._raw
++      if (params?.dataType !== 'node' || !raw) return
++      const box = containerRef.current.getBoundingClientRect()
++      handlersRef.current.onNodeClick?.(raw, {
++        x: params.event?.offsetX ?? params.offX ?? box.width / 2,
++        y: params.event?.offsetY ?? params.offY ?? box.height / 2,
++        width: box.width,
++        height: box.height,
++      })
+     }
++
++    // Double click keeps the old one-gesture shortcut.
++    const handleDblClick = (params) => {
++      const raw = params?.data?._raw
++      if (params?.dataType !== 'node' || !raw) return
++      handlersRef.current.onNodeDoubleClick?.(raw)
++    }
++
++    /*
++     * A click that lands on empty canvas never reaches `chart.on('click')` — and
++     * that is exactly the gesture that should dismiss the popover, so the
++     * zrender-level event is the only place to hear it. Node clicks are filtered
++     * out by `e.target`.
++     */
++    const handleZrClick = (e) => {
++      if (e.target) return
++      handlersRef.current.onDismiss?.()
++    }
++
++    // Panning or zooming moves the node the popover is anchored to, so the
++    // bubble would point at empty space. Dismissing is the honest option.
++    const handleRoam = () => handlersRef.current.onDismiss?.()
++
+     chart.on('click', handleClick)
++    chart.on('dblclick', handleDblClick)
++    chart.getZr().on('click', handleZrClick)
++    chart.on('graphroam', handleRoam)
+ 
+     const observer = new ResizeObserver(() => chart.resize())
+     observer.observe(containerRef.current)
+@@ -185,10 +257,13 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
+     return () => {
+       observer.disconnect()
+       chart.off('click', handleClick)
++      chart.off('dblclick', handleDblClick)
++      chart.getZr().off('click', handleZrClick)
++      chart.off('graphroam', handleRoam)
+       chart.dispose()
+       chartRef.current = null
+     }
+-  }, [onSelect])
++  }, [])
+ 
+   useEffect(() => {
+     const chart = chartRef.current
+@@ -222,5 +297,15 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
+     return () => clearTimeout(timer)
+   }, [option, graph.nodes.length])
+ 
+-  return <div ref={containerRef} className="h-full w-full" />
++  /*
++   * The canvas fills this box exactly, so a node's `offsetX/offsetY` is also its
++   * position inside the wrapper — which is why the popover can be a plain
++   * absolutely-positioned sibling rather than being drawn on the canvas.
++   */
++  return (
++    <div className="relative h-full w-full">
++      <div ref={containerRef} className="h-full w-full" />
++      {children}
++    </div>
++  )
+ }
+diff --git a/src/pages/GraphPage.jsx b/src/pages/GraphPage.jsx
+index 671950e..b6f66ef 100644
+--- a/src/pages/GraphPage.jsx
++++ b/src/pages/GraphPage.jsx
+@@ -1,16 +1,32 @@
+-import { useCallback, useMemo, useState } from 'react'
++import { useCallback, useEffect, useMemo, useState } from 'react'
+ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
++import GraphNodePopover from '../components/GraphNodePopover.jsx'
+ import GraphView from '../components/GraphView.jsx'
+ import { graph, graphStats, resourceById } from '../lib/data.js'
+ import { EDGE_META, TYPE_META } from '../lib/graphStyle.js'
+ 
+ const ALL_EDGES = Object.keys(EDGE_META)
+ 
++/*
++ * One-line blurbs for nodes that are not tools. A tool borrows the catalogue's
++ * own `description` instead, so the bubble never has to invent copy.
++ */
++const TYPE_BLURB = {
++  category: '工具分类，包含一批同类工具。',
++  subcategory: '二级分类，挂在某个工具分类之下。',
++  tag: '标签节点，用来跨分类串联功能相近的工具。',
++  external: '被表中开源工具替代的商业服务，可访问其官网。',
++}
++
+ export default function GraphPage() {
+   const navigate = useNavigate()
+   const [searchParams] = useSearchParams()
+   const [enabledEdges, setEnabledEdges] = useState(ALL_EDGES)
+   const [selected, setSelected] = useState(null)
++  // `{ node, point }` for the single-click peek bubble. Kept out of the ECharts
++  // option on purpose: `setOption` with `notMerge` rebuilds the view and would
++  // throw away the reader's pan/zoom on every click.
++  const [popover, setPopover] = useState(null)
+ 
+   // `?focus=<id>` is set by the "在知识图谱中查看 →" link on a wiki page, so
+   // the graph can centre on the tool the reader just came from. Unknown ids are
+@@ -24,27 +40,77 @@ export default function GraphPage() {
+     )
+   }
+ 
+-  const handleSelect = useCallback(
++  /*
++   * The only way out of the graph. A single click just opens the bubble, so
++   * every exit is an explicit press of this button — mis-clicks in a 578-edge
++   * hairball are far more common than deliberate ones.
++   */
++  const primaryAction = useCallback(
+     (node) => {
+-      if (!node) return
+       if (node.type === 'tool') {
+-        navigate(`/wiki/${node.id}`)
+-        return
++        return { label: '查看详情 →', run: () => navigate(`/wiki/${node.id}`) }
+       }
+       if (node.type === 'tag') {
+-        navigate(`/?q=${encodeURIComponent(node.name)}`)
+-        return
++        return {
++          label: '查看相关工具 →',
++          run: () => navigate(`/?q=${encodeURIComponent(node.name)}`),
++        }
+       }
+       if (node.type === 'external') {
+         // Commercial services the catalogue tools replace — open their site.
+-        if (node.url) window.open(node.url, '_blank', 'noopener,noreferrer')
+-        return
++        return {
++          label: '访问官网 →',
++          run: () => window.open(node.url, '_blank', 'noopener,noreferrer'),
++        }
+       }
+-      setSelected(node)
++      return { label: '查看包含的工具 →', run: () => setSelected(node) }
+     },
+     [navigate],
+   )
+ 
++  const handleNodeClick = useCallback((node, point) => setPopover({ node, point }), [])
++
++  // The one-gesture shortcut, kept for people who already know the graph.
++  const handleNodeDoubleClick = useCallback(
++    (node) => {
++      setPopover(null)
++      primaryAction(node).run()
++    },
++    [primaryAction],
++  )
++
++  // Panning or zooming moves the node the bubble hangs off, so it would end up
++  // pointing at empty space — same for a click on blank canvas.
++  const closePopover = useCallback(() => setPopover(null), [])
++
++  useEffect(() => {
++    if (!popover) return undefined
++    const onKey = (event) => {
++      if (event.key === 'Escape') setPopover(null)
++    }
++    window.addEventListener('keydown', onKey)
++    return () => window.removeEventListener('keydown', onKey)
++  }, [popover])
++
++  const popoverModel = useMemo(() => {
++    if (!popover) return null
++    const { node, point } = popover
++    const resource = node.type === 'tool' ? resourceById.get(node.id) : null
++    const action = primaryAction(node)
++    const tags = resource?.tags ?? []
++    return {
++      node,
++      point,
++      description: resource?.description || TYPE_BLURB[node.type] || '',
++      tags: tags.length > 0 ? tags : [TYPE_META[node.type]?.label ?? node.type],
++      actionLabel: action.label,
++      onAction: () => {
++        setPopover(null)
++        action.run()
++      },
++    }
++  }, [popover, primaryAction])
++
+   const contained = useMemo(() => {
+     if (!selected) return []
+     if (selected.type === 'category') {
+@@ -70,7 +136,8 @@ export default function GraphPage() {
+         <p className="max-w-3xl text-sm leading-relaxed text-neutral-400">
+           {graphStats.tools} 个工具、{graphStats.categories} 个分类、{graphStats.tags} 个标签、
+           {graphStats.externals} 个外部服务，共 {graphStats.edges} 条关系。
+-          可拖拽节点、滚轮缩放、拖动空白平移。点击工具节点跳转 Wiki，点击标签跳转搜索，点击外部服务节点打开其官网。
++          可拖拽节点、滚轮缩放、拖动空白平移。<b className="text-neutral-300">单击</b>
++          节点弹出速览气泡，<b className="text-neutral-300">双击</b>节点直接跳转。
+         </p>
+       </header>
+ 
+@@ -103,10 +170,24 @@ export default function GraphPage() {
+           <GraphView
+             graph={graph}
+             enabledEdges={enabledEdges}
+-            onSelect={handleSelect}
++            onNodeClick={handleNodeClick}
++            onNodeDoubleClick={handleNodeDoubleClick}
++            onDismiss={closePopover}
+             selectedId={selected?.id ?? null}
+             focusId={focusId}
+-          />
++          >
++            {popoverModel && (
++              <GraphNodePopover
++                node={popoverModel.node}
++                point={popoverModel.point}
++                description={popoverModel.description}
++                tags={popoverModel.tags}
++                actionLabel={popoverModel.actionLabel}
++                onAction={popoverModel.onAction}
++                onDismiss={closePopover}
++              />
++            )}
++          </GraphView>
+         </div>
+ 
+         <aside className="space-y-4">
+@@ -148,9 +229,9 @@ export default function GraphPage() {
+             </section>
+           ) : (
+             <section className="rounded-[6px] border border-[#23282a] bg-[#101314] p-3.5 text-xs leading-relaxed text-neutral-500">
+-              点击<b className="text-neutral-300">分类</b>或
++              单击<b className="text-neutral-300">分类</b>或
+               <b className="text-neutral-300">子类</b>
+-              节点，这里会列出它包含的工具。
++              节点，在气泡里选择「查看包含的工具」，这里会列出它包含的工具。
+             </section>
+           )}
+         </aside>
+
+### NEW FILE: src/components/GraphNodePopover.jsx
+import { TYPE_META } from '../lib/graphStyle.js'
+
+const POPOVER_WIDTH = 264
+// Gap between the node and the bubble, and the minimum distance the bubble keeps
+// from the edges of the canvas.
+const GAP = 12
+const MARGIN = 8
+/*
+ * Only used to decide whether the bubble fits *below* the node. The flipped case
+ * anchors with `bottom`, so an estimate is enough and no measurement pass is
+ * needed — which keeps the bubble from jittering as it re-measures itself.
+ */
+const ESTIMATED_HEIGHT = 172
+
+/**
+ * The single-click "peek" bubble. It is a plain DOM element rather than an
+ * ECharts tooltip so the button inside it can be a real button (focusable,
+ * tappable) — and so interacting with it never reaches the canvas underneath.
+ */
+export default function GraphNodePopover({
+  node,
+  point,
+  description,
+  tags,
+  actionLabel,
+  onAction,
+  onDismiss,
+}) {
+  const { x, y, width, height } = point
+  const left = Math.min(Math.max(x + GAP, MARGIN), Math.max(MARGIN, width - POPOVER_WIDTH - MARGIN))
+  const flip = y + ESTIMATED_HEIGHT + GAP > height
+  const vertical = flip
+    ? { bottom: Math.max(MARGIN, height - y + GAP) }
+    : { top: Math.min(y + GAP, Math.max(MARGIN, height - MARGIN)) }
+  // Keep the caret pointing at the node even when the bubble is clamped to an edge.
+  const caretX = Math.min(Math.max(x - left, 14), POPOVER_WIDTH - 14)
+  const kind = TYPE_META[node.type]?.label ?? node.type
+
+  return (
+    <div
+      role="dialog"
+      aria-label={`${node.name} 速览`}
+      style={{ left, width: POPOVER_WIDTH, ...vertical }}
+      // A tap that lands on the bubble must not be mistaken for a tap on the
+      // canvas, which would dismiss the bubble before the button gets the click.
+      onPointerDown={(e) => e.stopPropagation()}
+      onPointerUp={(e) => e.stopPropagation()}
+      className="absolute z-20 rounded-[6px] border border-[#2c3336] bg-[#101314] shadow-[0_14px_36px_rgba(0,0,0,0.6)]"
+    >
+      <span
+        aria-hidden="true"
+        style={{ left: caretX - 6, [flip ? 'bottom' : 'top']: -5 }}
+        className="absolute h-2.5 w-2.5 rotate-45 border-0 bg-[#101314] [border-bottom:1px_solid_#2c3336] [border-left:1px_solid_#2c3336]"
+      />
+      <div className="p-3">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <h3 className="truncate text-sm font-semibold text-neutral-100">{node.name}</h3>
+            <p className="mono mt-0.5 text-[10px] uppercase tracking-wider text-neutral-500">
+              {kind}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onDismiss}
+            aria-label="关闭"
+            className="-mr-1 -mt-0.5 shrink-0 rounded-[3px] px-1.5 py-0.5 text-neutral-500 transition-colors hover:bg-[#171b1c] hover:text-neutral-200"
+          >
+            ✕
+          </button>
+        </div>
+
+        <p className="mt-2 text-xs leading-relaxed text-neutral-400">{description}</p>
+
+        {tags.length > 0 && (
+          <ul className="mt-2.5 flex flex-wrap gap-1">
+            {tags.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-[3px] border border-[#23282a] bg-[#151a1b] px-1.5 py-0.5 text-[10px] text-neutral-400"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <button
+          type="button"
+          onClick={onAction}
+          className="mt-3 flex w-full items-center justify-center rounded-[4px] border border-[#3a4245] bg-[#171b1c] px-2.5 py-1.5 text-xs font-medium text-[#f0b429] transition-colors hover:border-[#4a5457] hover:bg-[#1e2426]"
+        >
+          {actionLabel}
+        </button>
+      </div>
+    </div>
+  )
+}
