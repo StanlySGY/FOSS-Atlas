@@ -8,6 +8,7 @@ url: https://joplinapp.org
 alternatives: [Notion]
 related: [nextcloud, seafile, trilium, memos]
 updated: 2026-10-19
+generated: true
 ---
 
 # Joplin

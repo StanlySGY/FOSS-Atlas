@@ -7,6 +7,7 @@ tags: [对话, 国内, 长文本]
 url: https://www.kimi.com
 related: [tencent-hunyuan, bigmodel-glm, deepseek-api, siliconflow]
 updated: 2026-10-19
+generated: true
 ---
 
 # Kimi

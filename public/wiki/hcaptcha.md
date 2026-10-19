@@ -7,6 +7,7 @@ tags: [验证码, 安全, 免费]
 url: https://www.hcaptcha.com
 related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # hCaptcha

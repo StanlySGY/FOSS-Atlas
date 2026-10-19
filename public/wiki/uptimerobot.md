@@ -7,6 +7,7 @@ tags: [监控, 告警, 免费]
 url: https://uptimerobot.com
 related: [better-stack, logtail, sentry, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # UptimeRobot

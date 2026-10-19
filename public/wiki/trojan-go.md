@@ -7,6 +7,7 @@ tags: [代理, TLS, 开源]
 url: https://github.com/p4gefau1t/trojan-go
 related: [xray-reality, sing-box, mihomo, hysteria2]
 updated: 2026-10-19
+generated: true
 ---
 
 # Trojan-Go

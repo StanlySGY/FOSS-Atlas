@@ -7,6 +7,7 @@ tags: [API, 短信, 免费]
 url: https://textbelt.com
 related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # Textbelt

@@ -7,6 +7,7 @@ tags: [对话, 国内, 昆仑万维]
 url: https://www.tiangong.cn
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
 updated: 2026-10-19
+generated: true
 ---
 
 # 天工 AI

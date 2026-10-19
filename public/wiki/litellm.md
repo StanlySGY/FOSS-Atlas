@@ -7,6 +7,7 @@ tags: [代理, API, 开源]
 url: https://github.com/BerriAI/litellm
 related: [langchain, llamaindex, langfuse, promptfoo]
 updated: 2026-10-19
+generated: true
 ---
 
 # LiteLLM

@@ -7,6 +7,7 @@ tags: [对话, 国内, 讯飞]
 url: https://xinghuo.xfyun.cn
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
 updated: 2026-10-19
+generated: true
 ---
 
 # 讯飞星火

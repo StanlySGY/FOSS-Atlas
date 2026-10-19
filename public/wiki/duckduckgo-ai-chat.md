@@ -7,6 +7,7 @@ tags: [对话, 匿名, 隐私]
 url: https://duck.ai
 related: [poe, huggingchat, lmsys-chat, microsoft-copilot]
 updated: 2026-10-19
+generated: true
 ---
 
 # DuckDuckGo AI Chat

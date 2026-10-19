@@ -7,6 +7,7 @@ tags: [对话, 微软, GPT]
 url: https://copilot.microsoft.com
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
 updated: 2026-10-19
+generated: true
 ---
 
 # Microsoft Copilot

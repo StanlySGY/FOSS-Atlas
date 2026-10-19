@@ -7,6 +7,7 @@ tags: [安全, 漏洞扫描, 开源]
 url: https://github.com/projectdiscovery/nuclei-templates
 related: [awesome-hacking, payloadsallthethings, hacktricks, seclists]
 updated: 2026-10-19
+generated: true
 ---
 
 # nuclei-templates

@@ -7,6 +7,7 @@ tags: [日志, 可观测性, 免费]
 url: https://betterstack.com/logs
 related: [uptimerobot, better-stack, sentry, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # Logtail

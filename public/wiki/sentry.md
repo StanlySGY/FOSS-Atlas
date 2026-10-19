@@ -7,6 +7,7 @@ tags: [错误追踪, 可观测性, 免费]
 url: https://sentry.io
 related: [uptimerobot, better-stack, logtail, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # Sentry

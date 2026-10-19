@@ -185,6 +185,7 @@ wiki-content/*.mjs ──► scripts/build-wikis.mjs ──► public/wiki/*.md
 
 ### 给新资源配一篇 Wiki
 `public/wiki/*.md` 由 `scripts/build-wikis.mjs` 生成，**不要手改**（除非按下面的方式做成手写页）。
+生成页的 frontmatter 里带 `generated: true` 标记；没带这个标记的页面说明是手写的，改它才有意义。
 
 - **普通页**：往 `scripts/wiki-content/` 里任一 `.mjs` 追加一条，key 用资源 `id`：
 
@@ -220,6 +221,7 @@ url: https://example.com
 alternatives: [商业替代品]
 related: [another-tool-id]
 updated: 2026-10-19
+generated: true   # 生成器写下的标记：这些页面每次运行都会被整体重写
 ---
 
 # My Tool

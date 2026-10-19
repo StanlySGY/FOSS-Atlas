@@ -7,6 +7,7 @@ tags: [对话, 国内, 阿里]
 url: https://tongyi.aliyun.com
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
 updated: 2026-10-19
+generated: true
 ---
 
 # 阿里通义千问

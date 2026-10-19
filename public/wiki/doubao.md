@@ -7,6 +7,7 @@ tags: [对话, 国内, 字节]
 url: https://www.doubao.com
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
 updated: 2026-10-19
+generated: true
 ---
 
 # 豆包

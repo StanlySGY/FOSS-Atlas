@@ -8,6 +8,7 @@ url: https://www.getoutline.com
 alternatives: [Confluence]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Outline

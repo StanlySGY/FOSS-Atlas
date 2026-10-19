@@ -7,6 +7,7 @@ tags: [代理, 内核, 开源]
 url: https://github.com/SagerNet/sing-box
 related: [xray-reality, mihomo, hysteria2, trojan-go]
 updated: 2026-10-19
+generated: true
 ---
 
 # sing-box

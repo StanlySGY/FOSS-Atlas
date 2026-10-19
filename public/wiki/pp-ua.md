@@ -7,6 +7,7 @@ tags: [域名, 子域名, 免费]
 url: https://nic.ua/en/domains/.pp.ua
 related: [is-a-dev, js-org, eu-org, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # pp.ua

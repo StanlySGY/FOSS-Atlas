@@ -7,6 +7,7 @@ tags: [API, 国内, 多模态]
 url: https://www.minimax.io
 related: [kimi, tencent-hunyuan, bigmodel-glm, deepseek-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # MiniMax

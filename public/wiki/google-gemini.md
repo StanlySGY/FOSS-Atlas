@@ -7,6 +7,7 @@ tags: [对话, Google, 多模态]
 url: https://gemini.google.com
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
 updated: 2026-10-19
+generated: true
 ---
 
 # Google Gemini

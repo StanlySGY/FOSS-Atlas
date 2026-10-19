@@ -7,6 +7,7 @@ tags: [API, 国内, GLM]
 url: https://open.bigmodel.cn
 related: [kimi, tencent-hunyuan, deepseek-api, siliconflow]
 updated: 2026-10-19
+generated: true
 ---
 
 # 智谱 GLM-4 API

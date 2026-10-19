@@ -7,6 +7,7 @@ tags: [对话, Anthropic, 长文本]
 url: https://claude.ai
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
 updated: 2026-10-19
+generated: true
 ---
 
 # Anthropic Claude

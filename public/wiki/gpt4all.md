@@ -7,6 +7,7 @@ tags: [本地推理, 离线, 开源]
 url: https://gpt4all.io
 related: [ollama, lm-studio, text-generation-webui, jan]
 updated: 2026-10-19
+generated: true
 ---
 
 # GPT4All

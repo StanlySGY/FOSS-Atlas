@@ -7,6 +7,7 @@ tags: [API, LLM, Anthropic]
 url: https://docs.anthropic.com
 related: [openai-api, google-ai-api, hf-inference-api, replicate]
 updated: 2026-10-19
+generated: true
 ---
 
 # Anthropic API

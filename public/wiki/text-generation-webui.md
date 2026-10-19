@@ -7,6 +7,7 @@ tags: [本地推理, WebUI, 开源]
 url: https://github.com/oobabooga/textgen
 related: [ollama, lm-studio, jan, gpt4all]
 updated: 2026-10-19
+generated: true
 ---
 
 # Text Generation WebUI

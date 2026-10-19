@@ -8,6 +8,7 @@ url: https://www.seafile.com
 alternatives: [Google Drive]
 related: [nextcloud, joplin, trilium, memos]
 updated: 2026-10-19
+generated: true
 ---
 
 # Seafile

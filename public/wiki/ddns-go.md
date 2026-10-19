@@ -7,6 +7,7 @@ tags: [DDNS, 网络, 开源]
 url: https://github.com/jeessy2/ddns-go
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # ddns-go

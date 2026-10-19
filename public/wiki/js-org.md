@@ -7,6 +7,7 @@ tags: [域名, 子域名, 免费]
 url: https://js.org
 related: [is-a-dev, eu-org, pp-ua, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # js.org

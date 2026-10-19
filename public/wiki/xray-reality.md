@@ -7,6 +7,7 @@ tags: [代理, Xray, Reality]
 url: https://github.com/XTLS/Xray-core
 related: [sing-box, mihomo, hysteria2, trojan-go]
 updated: 2026-10-19
+generated: true
 ---
 
 # Xray + Reality

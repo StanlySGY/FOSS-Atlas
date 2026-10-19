@@ -7,6 +7,7 @@ tags: [代理, QUIC, 开源]
 url: https://github.com/HyNetworks/hysteria
 related: [xray-reality, sing-box, mihomo, trojan-go]
 updated: 2026-10-19
+generated: true
 ---
 
 # Hysteria2

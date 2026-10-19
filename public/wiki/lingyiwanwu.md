@@ -7,6 +7,7 @@ tags: [API, 国内, Yi]
 url: https://platform.lingyiwanwu.com
 related: [kimi, tencent-hunyuan, bigmodel-glm, deepseek-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # 零一万物

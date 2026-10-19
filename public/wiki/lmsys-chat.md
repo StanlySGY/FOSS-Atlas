@@ -7,6 +7,7 @@ tags: [对话, 评测, 对比]
 url: https://chat.lmsys.org
 related: [poe, huggingchat, duckduckgo-ai-chat, microsoft-copilot]
 updated: 2026-10-19
+generated: true
 ---
 
 # LMSYS Chatbot Arena

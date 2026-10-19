@@ -7,6 +7,7 @@ tags: [云厂商, 免费层, Azure]
 url: https://azure.microsoft.com/free
 related: [google-cloud, aws, oracle-cloud, cloudflare]
 updated: 2026-10-19
+generated: true
 ---
 
 # Microsoft Azure

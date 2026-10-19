@@ -7,6 +7,7 @@ tags: [PaaS, 前端托管, 免费层]
 url: https://www.netlify.com
 related: [render, railway, fly-io, koyeb]
 updated: 2026-10-19
+generated: true
 ---
 
 # Netlify

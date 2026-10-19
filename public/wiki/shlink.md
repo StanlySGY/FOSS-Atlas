@@ -7,6 +7,7 @@ tags: [短链, 开源]
 url: https://shlink.io
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Shlink

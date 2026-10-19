@@ -7,6 +7,7 @@ tags: [订阅, 节点, 开源]
 url: https://github.com/mfuu/FreeProxies
 related: [aiboboxx-v2rayfree, barry-far-v2ray-configs, epodonators-v2ray-configs]
 updated: 2026-10-19
+generated: true
 ---
 
 # mfuu/FreeProxies

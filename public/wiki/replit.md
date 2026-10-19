@@ -7,6 +7,7 @@ tags: [VPS, 在线 IDE, 免费]
 url: https://replit.com
 related: [huggingface-spaces]
 updated: 2026-10-19
+generated: true
 ---
 
 # Replit

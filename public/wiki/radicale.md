@@ -7,6 +7,7 @@ tags: [通讯录, 日历, 开源]
 url: https://radicale.org
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Radicale

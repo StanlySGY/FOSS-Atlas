@@ -8,6 +8,7 @@ url: https://github.com/louislam/uptime-kuma
 alternatives: [UptimeRobot]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Uptime Kuma

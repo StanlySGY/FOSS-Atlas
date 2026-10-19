@@ -8,6 +8,7 @@ url: https://github.com/mattermost-community/focalboard
 alternatives: [Trello]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Focalboard

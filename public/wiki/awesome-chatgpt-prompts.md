@@ -7,6 +7,7 @@ tags: [提示词, 合集, 开源]
 url: https://github.com/f/prompts.chat
 related: [openai-prompt-guide, deeplearning-ai-prompts, poe, huggingchat]
 updated: 2026-10-19
+generated: true
 ---
 
 # awesome-chatgpt-prompts (prompts.chat)

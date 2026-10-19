@@ -7,6 +7,7 @@ tags: [域名, 免费]
 url: https://nic.eu.org
 related: [is-a-dev, js-org, pp-ua, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # eu.org

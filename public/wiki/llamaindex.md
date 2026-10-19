@@ -7,6 +7,7 @@ tags: [框架, RAG, 开源]
 url: https://github.com/run-llama/llama_index
 related: [langchain, langfuse, litellm, promptfoo]
 updated: 2026-10-19
+generated: true
 ---
 
 # LlamaIndex

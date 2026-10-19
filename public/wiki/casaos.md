@@ -7,6 +7,7 @@ tags: [面板, NAS, 开源]
 url: https://casaos.io
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # CasaOS

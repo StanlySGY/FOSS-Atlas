@@ -8,6 +8,7 @@ url: https://freshrss.org
 alternatives: [Feedly]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # FreshRSS

@@ -7,6 +7,7 @@ tags: [反向代理, Nginx, 开源]
 url: https://github.com/NginxProxyManager/nginx-proxy-manager
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Nginx Proxy Manager

@@ -7,6 +7,7 @@ tags: [对话, 开源模型]
 url: https://huggingface.co/chat
 related: [poe, duckduckgo-ai-chat, lmsys-chat, microsoft-copilot]
 updated: 2026-10-19
+generated: true
 ---
 
 # HuggingChat

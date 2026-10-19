@@ -8,6 +8,7 @@ url: https://github.com/usememos/memos
 alternatives: [flomo]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Memos

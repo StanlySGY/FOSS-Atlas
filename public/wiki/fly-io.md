@@ -7,6 +7,7 @@ tags: [PaaS, 部署, 免费层]
 url: https://fly.io
 related: [render, railway, koyeb, supabase]
 updated: 2026-10-19
+generated: true
 ---
 
 # Fly.io

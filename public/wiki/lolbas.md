@@ -7,6 +7,7 @@ tags: [安全, Windows, 手册]
 url: https://lolbas-project.github.io
 related: [awesome-hacking, payloadsallthethings, hacktricks, seclists]
 updated: 2026-10-19
+generated: true
 ---
 
 # LOLBAS

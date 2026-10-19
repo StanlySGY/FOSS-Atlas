@@ -7,6 +7,7 @@ tags: [API, 模型托管]
 url: https://replicate.com
 related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # Replicate

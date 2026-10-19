@@ -7,6 +7,7 @@ tags: [云厂商, 免费层, Oracle, ARM]
 url: https://www.oracle.com/cloud/free/
 related: [google-cloud, aws, azure, cloudflare]
 updated: 2026-10-19
+generated: true
 ---
 
 # Oracle Cloud

@@ -8,6 +8,7 @@ url: https://woodpecker-ci.org
 alternatives: [GitLab CI]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Woodpecker CI

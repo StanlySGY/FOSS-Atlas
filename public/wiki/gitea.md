@@ -8,6 +8,7 @@ url: https://about.gitea.com
 alternatives: [GitHub]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Gitea

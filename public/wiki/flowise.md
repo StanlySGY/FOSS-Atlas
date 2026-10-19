@@ -7,6 +7,7 @@ tags: [工作流, 可视化, 开源]
 url: https://github.com/FlowiseAI/Flowise
 related: [langchain, llamaindex, langfuse, litellm]
 updated: 2026-10-19
+generated: true
 ---
 
 # Flowise

@@ -7,6 +7,7 @@ tags: [编程, 补全, 免费]
 url: https://codeium.com
 related: [cursor, cline, continue, cody]
 updated: 2026-10-19
+generated: true
 ---
 
 # Codeium

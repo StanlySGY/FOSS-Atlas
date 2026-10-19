@@ -7,6 +7,7 @@ tags: [对话, 助手, 情感]
 url: https://pi.ai
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
 updated: 2026-10-19
+generated: true
 ---
 
 # Pi

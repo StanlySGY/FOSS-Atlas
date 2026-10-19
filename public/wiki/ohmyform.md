@@ -8,6 +8,7 @@ url: https://ohmyform.com
 alternatives: [Google Forms]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # OhMyForm

@@ -7,6 +7,7 @@ tags: [框架, 开源, Agent]
 url: https://github.com/langchain-ai/langchain
 related: [llamaindex, langfuse, litellm, promptfoo]
 updated: 2026-10-19
+generated: true
 ---
 
 # LangChain

@@ -7,6 +7,7 @@ tags: [编程, 代码检索, Sourcegraph]
 url: https://sourcegraph.com/cody
 related: [cursor, cline, continue, tabby]
 updated: 2026-10-19
+generated: true
 ---
 
 # Cody

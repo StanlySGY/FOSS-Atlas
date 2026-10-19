@@ -7,6 +7,7 @@ tags: [API, 聚合, 国内]
 url: https://siliconflow.cn
 related: [kimi, tencent-hunyuan, bigmodel-glm, deepseek-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # 硅基流动

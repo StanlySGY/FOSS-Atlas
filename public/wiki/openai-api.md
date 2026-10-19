@@ -7,6 +7,7 @@ tags: [API, LLM, OpenAI]
 url: https://platform.openai.com
 related: [anthropic-api, google-ai-api, hf-inference-api, replicate]
 updated: 2026-10-19
+generated: true
 ---
 
 # OpenAI API

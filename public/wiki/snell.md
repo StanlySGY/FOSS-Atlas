@@ -7,6 +7,7 @@ tags: [代理, Surge]
 url: https://manual.nssurge.com/policies/snell.html
 related: [xray-reality, sing-box, mihomo, hysteria2]
 updated: 2026-10-19
+generated: true
 ---
 
 # Snell

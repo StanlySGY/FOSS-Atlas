@@ -7,6 +7,7 @@ tags: [安全, Payload, 开源]
 url: https://github.com/swisskyrepo/PayloadsAllTheThings
 related: [awesome-hacking, hacktricks, seclists, nuclei-templates]
 updated: 2026-10-19
+generated: true
 ---
 
 # PayloadsAllTheThings

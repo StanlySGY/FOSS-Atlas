@@ -7,6 +7,7 @@ tags: [编程, 开源, 插件]
 url: https://continue.dev
 related: [cursor, cline, cody, tabby]
 updated: 2026-10-19
+generated: true
 ---
 
 # Continue

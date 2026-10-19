@@ -7,6 +7,7 @@ tags: [面板, 运维, 开源]
 url: https://github.com/1Panel-dev/1Panel
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # 1Panel

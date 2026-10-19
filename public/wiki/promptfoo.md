@@ -7,6 +7,7 @@ tags: [测试, 提示词, 开源]
 url: https://github.com/promptfoo/promptfoo
 related: [langchain, llamaindex, langfuse, litellm]
 updated: 2026-10-19
+generated: true
 ---
 
 # promptfoo

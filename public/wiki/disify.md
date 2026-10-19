@@ -7,6 +7,7 @@ tags: [API, 邮箱, 临时]
 url: https://www.disify.com
 related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # Disify

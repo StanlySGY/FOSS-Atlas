@@ -7,6 +7,7 @@ tags: [代理, Clash, 开源]
 url: https://github.com/MetaCubeX/mihomo
 related: [xray-reality, sing-box, hysteria2, trojan-go]
 updated: 2026-10-19
+generated: true
 ---
 
 # mihomo / Clash Meta

@@ -7,6 +7,7 @@ tags: [编程, CLI, 开源, 结对编程]
 url: https://github.com/Aider-AI/aider
 related: [cursor, cline, continue, cody]
 updated: 2026-10-19
+generated: true
 ---
 
 # Aider

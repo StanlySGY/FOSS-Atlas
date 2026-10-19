@@ -7,6 +7,7 @@ tags: [下载, BT, 开源]
 url: https://www.qbittorrent.org
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # qBittorrent

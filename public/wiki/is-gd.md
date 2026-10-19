@@ -7,6 +7,7 @@ tags: [短链, 免费]
 url: https://is.gd
 related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # is.gd

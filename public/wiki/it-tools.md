@@ -7,6 +7,7 @@ tags: [工具集, 开发, 开源]
 url: https://github.com/CorentinTh/it-tools
 related: [cloudflare-imgbed, cloudflare-tunnel, subconverter, localsend]
 updated: 2026-10-19
+generated: true
 ---
 
 # IT-Tools

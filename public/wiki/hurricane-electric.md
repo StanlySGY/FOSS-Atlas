@@ -7,6 +7,7 @@ tags: [DNS, 免费]
 url: https://dns.he.net
 related: [cloudflare-dns, nextdns, bunnydns, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # Hurricane Electric

@@ -7,6 +7,7 @@ tags: [订阅, 转换, 开源]
 url: https://github.com/tindy2013/subconverter
 related: [cloudflare-imgbed, cloudflare-tunnel, localsend, stirling-pdf]
 updated: 2026-10-19
+generated: true
 ---
 
 # subconverter

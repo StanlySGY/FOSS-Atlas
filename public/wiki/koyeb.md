@@ -7,6 +7,7 @@ tags: [PaaS, 部署, 免费层]
 url: https://www.koyeb.com
 related: [render, railway, fly-io, supabase]
 updated: 2026-10-19
+generated: true
 ---
 
 # Koyeb

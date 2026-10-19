@@ -8,6 +8,7 @@ url: https://github.com/langgenius/dify
 alternatives: [LangFlow]
 related: [langchain, llamaindex, langfuse, litellm]
 updated: 2026-10-19
+generated: true
 ---
 
 # Dify

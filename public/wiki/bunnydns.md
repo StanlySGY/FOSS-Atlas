@@ -7,6 +7,7 @@ tags: [DNS, CDN, 免费]
 url: https://bunny.net/dns/
 related: [cloudflare-dns, hurricane-electric, nextdns, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # Bunny DNS

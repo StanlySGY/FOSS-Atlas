@@ -7,6 +7,7 @@ tags: [RAG, 知识库, 开源]
 url: https://github.com/labring/FastGPT
 related: [langchain, llamaindex, langfuse, litellm]
 updated: 2026-10-19
+generated: true
 ---
 
 # FastGPT

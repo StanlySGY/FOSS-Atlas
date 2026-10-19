@@ -7,6 +7,7 @@ tags: [对话, 国内, 腾讯]
 url: https://hunyuan.tencent.com
 related: [kimi, bigmodel-glm, deepseek-api, siliconflow]
 updated: 2026-10-19
+generated: true
 ---
 
 # 腾讯混元

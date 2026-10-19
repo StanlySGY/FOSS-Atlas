@@ -7,6 +7,7 @@ tags: [DNS, 隐私, 过滤]
 url: https://nextdns.io
 related: [cloudflare-dns, hurricane-electric, bunnydns, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # NextDNS

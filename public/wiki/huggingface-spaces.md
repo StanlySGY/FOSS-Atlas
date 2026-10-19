@@ -7,6 +7,7 @@ tags: [VPS, 容器, AI 托管]
 url: https://huggingface.co/spaces
 related: [replit]
 updated: 2026-10-19
+generated: true
 ---
 
 # HuggingFace Spaces

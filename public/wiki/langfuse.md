@@ -7,6 +7,7 @@ tags: [可观测性, 追踪, 开源]
 url: https://github.com/langfuse/langfuse
 related: [langchain, llamaindex, litellm, promptfoo]
 updated: 2026-10-19
+generated: true
 ---
 
 # Langfuse

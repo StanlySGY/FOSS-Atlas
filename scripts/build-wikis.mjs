@@ -130,6 +130,9 @@ function renderPage(resource, entry) {
     alternatives.length ? `alternatives: [${alternatives.join(', ')}]` : null,
     related.length ? `related: [${related.join(', ')}]` : null,
     `updated: ${CONTENT_REVISION}`,
+    // Marks the file as machine-owned: this script rewrites generated pages
+    // unconditionally, so an edit made here is gone on the next run.
+    'generated: true',
     '---',
   ]
     .filter(Boolean)

@@ -7,6 +7,7 @@ tags: [API, LLM, Google]
 url: https://ai.google.dev
 related: [openai-api, anthropic-api, hf-inference-api, replicate]
 updated: 2026-10-19
+generated: true
 ---
 
 # Google AI (Gemini) API

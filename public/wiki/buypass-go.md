@@ -7,6 +7,7 @@ tags: [SSL, 证书, ACME]
 url: https://www.buypass.com/ssl/products/acme
 related: [lets-encrypt, zerossl, cloudflare-origin-ca, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # Buypass Go SSL

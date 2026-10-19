@@ -7,6 +7,7 @@ tags: [云厂商, 免费层, Google]
 url: https://cloud.google.com/free
 related: [aws, azure, oracle-cloud, cloudflare]
 updated: 2026-10-19
+generated: true
 ---
 
 # Google Cloud

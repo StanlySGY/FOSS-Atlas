@@ -7,6 +7,7 @@ tags: [数据库, Postgres, Serverless]
 url: https://neon.tech
 related: [render, railway, fly-io, koyeb]
 updated: 2026-10-19
+generated: true
 ---
 
 # Neon Postgres

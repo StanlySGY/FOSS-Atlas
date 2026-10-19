@@ -8,6 +8,7 @@ url: https://github.com/localsend/localsend
 alternatives: [AirDrop]
 related: [cloudflare-imgbed, cloudflare-tunnel, subconverter, stirling-pdf]
 updated: 2026-10-19
+generated: true
 ---
 
 # LocalSend

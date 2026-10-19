@@ -8,6 +8,7 @@ url: https://mattermost.com
 alternatives: [Slack]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Mattermost

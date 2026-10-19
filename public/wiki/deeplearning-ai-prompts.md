@@ -7,6 +7,7 @@ tags: [提示词, 课程, 免费]
 url: https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/
 related: [awesome-chatgpt-prompts, openai-prompt-guide, poe, huggingchat]
 updated: 2026-10-19
+generated: true
 ---
 
 # DeepLearning.AI 提示词课

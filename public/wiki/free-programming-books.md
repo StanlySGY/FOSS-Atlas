@@ -6,6 +6,7 @@ sub_category: ebook-free
 tags: [电子书, 编程, 合集]
 url: https://github.com/EbookFoundation/free-programming-books
 updated: 2026-10-19
+generated: true
 ---
 
 # free-programming-books

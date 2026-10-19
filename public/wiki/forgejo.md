@@ -8,6 +8,7 @@ url: https://forgejo.org
 alternatives: [GitHub]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Forgejo

@@ -7,6 +7,7 @@ tags: [BaaS, 数据库, Postgres]
 url: https://supabase.com
 related: [render, railway, fly-io, koyeb]
 updated: 2026-10-19
+generated: true
 ---
 
 # Supabase

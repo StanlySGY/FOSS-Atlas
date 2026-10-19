@@ -7,6 +7,7 @@ tags: [本地推理, 桌面端, 开源]
 url: https://jan.ai
 related: [ollama, lm-studio, text-generation-webui, gpt4all]
 updated: 2026-10-19
+generated: true
 ---
 
 # Jan

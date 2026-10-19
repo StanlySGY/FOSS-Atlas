@@ -8,6 +8,7 @@ url: https://github.com/sissbruecker/linkding
 alternatives: [Pocket]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Linkding

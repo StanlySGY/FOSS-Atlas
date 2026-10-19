@@ -8,6 +8,7 @@ url: https://github.com/n8n-io/n8n
 alternatives: [Zapier]
 related: [cloudflare-imgbed, cloudflare-tunnel, subconverter, localsend]
 updated: 2026-10-19
+generated: true
 ---
 
 # n8n

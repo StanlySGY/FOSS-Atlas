@@ -8,6 +8,7 @@ url: https://matrix.org
 alternatives: [Discord]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Matrix / Synapse

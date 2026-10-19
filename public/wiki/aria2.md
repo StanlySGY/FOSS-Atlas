@@ -7,6 +7,7 @@ tags: [下载, CLI, 开源]
 url: https://aria2.github.io
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Aria2

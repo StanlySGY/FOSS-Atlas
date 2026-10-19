@@ -7,6 +7,7 @@ tags: [编程, VSCode, 开源, Agent]
 url: https://cline.bot
 related: [cursor, continue, cody, tabby]
 updated: 2026-10-19
+generated: true
 ---
 
 # Cline

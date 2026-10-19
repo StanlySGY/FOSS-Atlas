@@ -8,6 +8,7 @@ url: https://github.com/ajnart/homarr
 alternatives: [Heimdall]
 related: [cloudflare-imgbed, cloudflare-tunnel, subconverter, localsend]
 updated: 2026-10-19
+generated: true
 ---
 
 # Homarr

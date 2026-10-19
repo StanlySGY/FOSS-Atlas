@@ -7,6 +7,7 @@ tags: [API, 二维码, 免费]
 url: https://goqr.me/api/
 related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # QRServer

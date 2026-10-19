@@ -7,6 +7,7 @@ tags: [云厂商, 免费层, AWS]
 url: https://aws.amazon.com/free
 related: [google-cloud, azure, oracle-cloud, cloudflare]
 updated: 2026-10-19
+generated: true
 ---
 
 # AWS

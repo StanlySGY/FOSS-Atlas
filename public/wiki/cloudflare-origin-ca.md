@@ -7,6 +7,7 @@ tags: [SSL, 证书, Cloudflare]
 url: https://developers.cloudflare.com/ssl/origin-configuration/origin-ca/
 related: [lets-encrypt, zerossl, buypass-go, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # Cloudflare Origin CA

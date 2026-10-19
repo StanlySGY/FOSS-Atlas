@@ -7,6 +7,7 @@ tags: [对话, Meta]
 url: https://www.meta.ai
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
 updated: 2026-10-19
+generated: true
 ---
 
 # Meta AI

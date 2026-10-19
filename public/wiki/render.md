@@ -7,6 +7,7 @@ tags: [PaaS, 部署, 免费层]
 url: https://render.com
 related: [railway, fly-io, koyeb, supabase]
 updated: 2026-10-19
+generated: true
 ---
 
 # Render

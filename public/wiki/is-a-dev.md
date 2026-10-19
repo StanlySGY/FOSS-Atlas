@@ -7,6 +7,7 @@ tags: [域名, 子域名, 免费]
 url: https://www.is-a.dev
 related: [js-org, eu-org, pp-ua, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # is-a.dev

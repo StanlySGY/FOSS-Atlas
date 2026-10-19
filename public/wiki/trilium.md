@@ -8,6 +8,7 @@ url: https://github.com/TriliumNext/Trilium
 alternatives: [Notion]
 related: [nextcloud, seafile, joplin, memos]
 updated: 2026-10-19
+generated: true
 ---
 
 # Trilium

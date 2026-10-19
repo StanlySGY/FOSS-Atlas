@@ -7,6 +7,7 @@ tags: [提示词, 官方文档, OpenAI]
 url: https://platform.openai.com/docs/guides/prompt-engineering
 related: [awesome-chatgpt-prompts, deeplearning-ai-prompts, poe, huggingchat]
 updated: 2026-10-19
+generated: true
 ---
 
 # Prompt 工程指南（OpenAI）

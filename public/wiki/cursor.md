@@ -7,6 +7,7 @@ tags: [编程, IDE, 编辑器]
 url: https://cursor.com
 related: [cline, continue, cody, tabby]
 updated: 2026-10-19
+generated: true
 ---
 
 # Cursor

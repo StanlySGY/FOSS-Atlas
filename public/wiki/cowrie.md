@@ -7,6 +7,7 @@ tags: [蜜罐, SSH, 开源]
 url: https://github.com/cowrie/cowrie
 related: [tpot, dionaea, hfish, nextcloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # Cowrie

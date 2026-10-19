@@ -7,6 +7,7 @@ tags: [本地推理, GUI, 桌面端]
 url: https://lmstudio.ai
 related: [ollama, text-generation-webui, jan, gpt4all]
 updated: 2026-10-19
+generated: true
 ---
 
 # LM Studio

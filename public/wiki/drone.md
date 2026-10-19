@@ -8,6 +8,7 @@ url: https://www.drone.io
 alternatives: [GitLab CI]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # Drone CI

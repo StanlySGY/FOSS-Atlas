@@ -7,6 +7,7 @@ tags: [对话, 国内, 百度]
 url: https://yiyan.baidu.com
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
 updated: 2026-10-19
+generated: true
 ---
 
 # 百度文心一言

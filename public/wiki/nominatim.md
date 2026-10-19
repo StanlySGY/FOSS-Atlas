@@ -7,6 +7,7 @@ tags: [API, 地图, 地理编码]
 url: https://nominatim.org
 related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # OpenStreetMap Nominatim

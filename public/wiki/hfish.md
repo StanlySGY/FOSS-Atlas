@@ -7,6 +7,7 @@ tags: [蜜罐, 安全, 开源]
 url: https://github.com/hacklcx/HFish
 related: [tpot, cowrie, dionaea, nextcloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # HFish

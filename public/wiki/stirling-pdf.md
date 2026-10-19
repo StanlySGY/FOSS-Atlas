@@ -8,6 +8,7 @@ url: https://github.com/Stirling-Tools/Stirling-PDF
 alternatives: [Adobe Acrobat]
 related: [cloudflare-imgbed, cloudflare-tunnel, subconverter, localsend]
 updated: 2026-10-19
+generated: true
 ---
 
 # Stirling-PDF

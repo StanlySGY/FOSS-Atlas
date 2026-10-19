@@ -7,6 +7,7 @@ tags: [终端, WebSSH, 开源]
 url: https://github.com/tsl0922/ttyd
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # ttyd

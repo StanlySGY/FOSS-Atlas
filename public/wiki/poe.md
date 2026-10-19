@@ -7,6 +7,7 @@ tags: [对话, 聚合, 多模型]
 url: https://poe.com
 related: [huggingchat, duckduckgo-ai-chat, lmsys-chat, microsoft-copilot]
 updated: 2026-10-19
+generated: true
 ---
 
 # Poe

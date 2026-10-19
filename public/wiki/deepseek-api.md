@@ -7,6 +7,7 @@ tags: [API, 国内, DeepSeek]
 url: https://platform.deepseek.com
 related: [kimi, tencent-hunyuan, bigmodel-glm, siliconflow]
 updated: 2026-10-19
+generated: true
 ---
 
 # DeepSeek API

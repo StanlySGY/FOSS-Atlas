@@ -7,6 +7,7 @@ tags: [蜜罐, 安全, 开源]
 url: https://github.com/telekom-security/tpotce
 related: [cowrie, dionaea, hfish, nextcloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # T-Pot

@@ -7,6 +7,7 @@ tags: [图床, Cloudflare, 开源]
 url: https://github.com/MarSeventh/CloudFlare-ImgBed
 related: [cloudflare-tunnel, subconverter, localsend, stirling-pdf]
 updated: 2026-10-19
+generated: true
 ---
 
 # CloudFlare-ImgBed

@@ -7,6 +7,7 @@ tags: [订阅, v2ray, 开源]
 url: https://github.com/free-nodes/v2rayfree
 related: [mfuu-freeproxies, barry-far-v2ray-configs, epodonators-v2ray-configs]
 updated: 2026-10-19
+generated: true
 ---
 
 # aiboboxx/v2rayfree

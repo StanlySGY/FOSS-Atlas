@@ -8,6 +8,7 @@ url: https://github.com/rustdesk/rustdesk
 alternatives: [TeamViewer]
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-10-19
+generated: true
 ---
 
 # RustDesk

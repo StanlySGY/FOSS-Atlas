@@ -7,6 +7,7 @@ tags: [DNS, CDN, 免费]
 url: https://www.cloudflare.com/dns/
 related: [hurricane-electric, nextdns, bunnydns, google-cloud]
 updated: 2026-10-19
+generated: true
 ---
 
 # Cloudflare DNS

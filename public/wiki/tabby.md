@@ -7,6 +7,7 @@ tags: [编程, 自部署, 补全]
 url: https://tabby.tabbyml.com
 related: [cursor, cline, continue, cody]
 updated: 2026-10-19
+generated: true
 ---
 
 # Tabby

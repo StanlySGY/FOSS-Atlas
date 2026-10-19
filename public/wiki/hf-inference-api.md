@@ -7,6 +7,7 @@ tags: [API, 推理, 开源模型]
 url: https://huggingface.co/docs/api-inference
 related: [openai-api, anthropic-api, google-ai-api, replicate]
 updated: 2026-10-19
+generated: true
 ---
 
 # Hugging Face Inference API

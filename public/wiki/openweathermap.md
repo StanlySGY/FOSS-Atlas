@@ -7,6 +7,7 @@ tags: [API, 天气, 免费]
 url: https://openweathermap.org/api
 related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # OpenWeatherMap

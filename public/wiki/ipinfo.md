@@ -7,6 +7,7 @@ tags: [API, IP, 地理]
 url: https://ipinfo.io
 related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
 updated: 2026-10-19
+generated: true
 ---
 
 # IPinfo
