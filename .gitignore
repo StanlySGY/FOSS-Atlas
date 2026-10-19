@@ -25,3 +25,6 @@ dist-ssr
 
 # OS
 Thumbs.db
+
+# Playwright MCP artifacts
+.playwright-mcp/
