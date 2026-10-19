@@ -16,7 +16,19 @@ const FOCUS_ZOOM = 2.2
 const FOCUS_RING = '#f0b429'
 const FOCUS_FILL = '#f5f0e6'
 
-export default function GraphView({ graph, enabledEdges, onSelect, selectedId, focusId }) {
+// Everything that is not adjacent to the hovered node fades to this.
+const BLUR_OPACITY = 0.2
+
+export default function GraphView({
+  graph,
+  enabledEdges,
+  selectedId,
+  focusId,
+  onNodeClick,
+  onNodeDoubleClick,
+  onDismiss,
+  children,
+}) {
   const containerRef = useRef(null)
   const chartRef = useRef(null)
   /*
@@ -130,11 +142,23 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
           ...(focusPos ? { center: [focusPos[0], focusPos[1]], zoom: FOCUS_ZOOM } : {}),
           roam: true,
           draggable: true,
-          focusNodeAdjacency: false,
           emphasis: {
             focus: 'adjacency',
             lineStyle: { width: 3 },
             label: { show: true, color: '#f2f4f5' },
+          },
+          /*
+           * Hover dimming for the non-adjacent surroundings. This is a *state*
+           * style, never an imperative call: any `setOption` with `notMerge`
+           * rebuilds the view and discards the reader's pan/zoom, so hover must
+           * not touch the option at all. With `emphasis.focus: 'adjacency'`
+           * ECharts applies this `blur` state to every node and edge that is not
+           * directly connected to the hovered node.
+           */
+          blur: {
+            itemStyle: { opacity: BLUR_OPACITY },
+            label: { opacity: BLUR_OPACITY },
+            lineStyle: { opacity: BLUR_OPACITY },
           },
           force: {
             repulsion: 190,
@@ -168,16 +192,74 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
     }
   }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout])
 
+  /*
+   * The handlers are read through a ref so that the chart is initialised exactly
+   * once. Passing them through the effect's dependency list would tear the chart
+   * down and rebuild it (losing pan/zoom) every time the parent re-renders with
+   * a fresh closure — which is now every time a popover opens.
+   */
+  const handlersRef = useRef({ onNodeClick, onNodeDoubleClick, onDismiss })
+  useEffect(() => {
+    handlersRef.current = { onNodeClick, onNodeDoubleClick, onDismiss }
+  })
+
   useEffect(() => {
     if (!containerRef.current) return undefined
     const chart = echarts.init(containerRef.current, null, { renderer: 'canvas' })
     chartRef.current = chart
 
+    // A single click only opens the popover; navigation is an explicit action
+    // inside it. Mis-clicks in a 500-edge hairball are far more common than
+    // deliberate ones, so the destructive action must not be the default.
     const handleClick = (params) => {
-      if (params.dataType !== 'node') return
-      onSelect?.(params.data._raw)
+      const raw = params?.data?._raw
+      /*
+       * This fires for edges and legend swatches too, and that click is not a
+       * reason to keep the bubble from the previously tapped node on screen.
+       * `dataType` is undefined for legend items, hence the inverted check.
+       */
+      if (params?.dataType !== 'node' || !raw) {
+        handlersRef.current.onDismiss?.()
+        return
+      }
+      const box = containerRef.current.getBoundingClientRect()
+      handlersRef.current.onNodeClick?.(raw, {
+        // zrender always fills `offsetX/offsetY`; the centre is only a guard for
+        // the unlikely case of a click delivered without a native event.
+        x: params.event?.offsetX ?? box.width / 2,
+        y: params.event?.offsetY ?? box.height / 2,
+        width: box.width,
+        height: box.height,
+      })
     }
+
+    // Double click keeps the old one-gesture shortcut.
+    const handleDblClick = (params) => {
+      const raw = params?.data?._raw
+      if (params?.dataType !== 'node' || !raw) return
+      handlersRef.current.onNodeDoubleClick?.(raw)
+    }
+
+    /*
+     * A click that lands on empty canvas never reaches `chart.on('click')` — and
+     * that is exactly the gesture that should dismiss the popover, so the
+     * zrender-level event is the only place to hear it. Clicks on a shape (node,
+     * edge, legend swatch) do reach the chart handler above, which already tells
+     * them apart; here they are filtered out by `e.target`.
+     */
+    const handleZrClick = (e) => {
+      if (e.target) return
+      handlersRef.current.onDismiss?.()
+    }
+
+    // Panning or zooming moves the node the popover is anchored to, so the
+    // bubble would point at empty space. Dismissing is the honest option.
+    const handleRoam = () => handlersRef.current.onDismiss?.()
+
     chart.on('click', handleClick)
+    chart.on('dblclick', handleDblClick)
+    chart.getZr().on('click', handleZrClick)
+    chart.on('graphroam', handleRoam)
 
     const observer = new ResizeObserver(() => chart.resize())
     observer.observe(containerRef.current)
@@ -185,10 +267,13 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
     return () => {
       observer.disconnect()
       chart.off('click', handleClick)
+      chart.off('dblclick', handleDblClick)
+      chart.getZr().off('click', handleZrClick)
+      chart.off('graphroam', handleRoam)
       chart.dispose()
       chartRef.current = null
     }
-  }, [onSelect])
+  }, [])
 
   useEffect(() => {
     const chart = chartRef.current
@@ -222,5 +307,15 @@ export default function GraphView({ graph, enabledEdges, onSelect, selectedId, f
     return () => clearTimeout(timer)
   }, [option, graph.nodes.length])
 
-  return <div ref={containerRef} className="h-full w-full" />
+  /*
+   * The canvas fills this box exactly, so a node's `offsetX/offsetY` is also its
+   * position inside the wrapper — which is why the popover can be a plain
+   * absolutely-positioned sibling rather than being drawn on the canvas.
+   */
+  return (
+    <div className="relative h-full w-full">
+      <div ref={containerRef} className="h-full w-full" />
+      {children}
+    </div>
+  )
 }

@@ -1,16 +1,32 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import GraphNodePopover from '../components/GraphNodePopover.jsx'
 import GraphView from '../components/GraphView.jsx'
 import { graph, graphStats, resourceById } from '../lib/data.js'
 import { EDGE_META, TYPE_META } from '../lib/graphStyle.js'
 
 const ALL_EDGES = Object.keys(EDGE_META)
 
+/*
+ * One-line blurbs for nodes that are not tools. A tool borrows the catalogue's
+ * own `description` instead, so the bubble never has to invent copy.
+ */
+const TYPE_BLURB = {
+  category: '工具分类，包含一批同类工具。',
+  subcategory: '二级分类，挂在某个工具分类之下。',
+  tag: '标签节点，用来跨分类串联功能相近的工具。',
+  external: '被表中开源工具替代的商业服务，可访问其官网。',
+}
+
 export default function GraphPage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const [enabledEdges, setEnabledEdges] = useState(ALL_EDGES)
   const [selected, setSelected] = useState(null)
+  // `{ node, point }` for the single-click peek bubble. Kept out of the ECharts
+  // option on purpose: `setOption` with `notMerge` rebuilds the view and would
+  // throw away the reader's pan/zoom on every click.
+  const [popover, setPopover] = useState(null)
 
   // `?focus=<id>` is set by the "在知识图谱中查看 →" link on a wiki page, so
   // the graph can centre on the tool the reader just came from. Unknown ids are
@@ -24,26 +40,76 @@ export default function GraphPage() {
     )
   }
 
-  const handleSelect = useCallback(
+  /*
+   * The only way out of the graph. A single click just opens the bubble, so
+   * every exit is an explicit press of this button — mis-clicks in a 578-edge
+   * hairball are far more common than deliberate ones.
+   */
+  const primaryAction = useCallback(
     (node) => {
-      if (!node) return
       if (node.type === 'tool') {
-        navigate(`/wiki/${node.id}`)
-        return
+        return { label: '查看详情 →', run: () => navigate(`/wiki/${node.id}`) }
       }
       if (node.type === 'tag') {
-        navigate(`/?q=${encodeURIComponent(node.name)}`)
-        return
+        return {
+          label: '查看相关工具 →',
+          run: () => navigate(`/?q=${encodeURIComponent(node.name)}`),
+        }
       }
       if (node.type === 'external') {
         // Commercial services the catalogue tools replace — open their site.
-        if (node.url) window.open(node.url, '_blank', 'noopener,noreferrer')
-        return
+        return {
+          label: '访问官网 →',
+          run: () => window.open(node.url, '_blank', 'noopener,noreferrer'),
+        }
       }
-      setSelected(node)
+      return { label: '查看包含的工具 →', run: () => setSelected(node) }
     },
     [navigate],
   )
+
+  const handleNodeClick = useCallback((node, point) => setPopover({ node, point }), [])
+
+  // The one-gesture shortcut, kept for people who already know the graph.
+  const handleNodeDoubleClick = useCallback(
+    (node) => {
+      setPopover(null)
+      primaryAction(node).run()
+    },
+    [primaryAction],
+  )
+
+  // Panning or zooming moves the node the bubble hangs off, so it would end up
+  // pointing at empty space — same for a click on blank canvas.
+  const closePopover = useCallback(() => setPopover(null), [])
+
+  useEffect(() => {
+    if (!popover) return undefined
+    const onKey = (event) => {
+      if (event.key === 'Escape') setPopover(null)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [popover])
+
+  const popoverModel = useMemo(() => {
+    if (!popover) return null
+    const { node, point } = popover
+    const resource = node.type === 'tool' ? resourceById.get(node.id) : null
+    const action = primaryAction(node)
+    const tags = resource?.tags ?? []
+    return {
+      node,
+      point,
+      description: resource?.description || TYPE_BLURB[node.type] || '',
+      tags: tags.length > 0 ? tags : [TYPE_META[node.type]?.label ?? node.type],
+      actionLabel: action.label,
+      onAction: () => {
+        setPopover(null)
+        action.run()
+      },
+    }
+  }, [popover, primaryAction])
 
   const contained = useMemo(() => {
     if (!selected) return []
@@ -70,7 +136,9 @@ export default function GraphPage() {
         <p className="max-w-3xl text-sm leading-relaxed text-neutral-400">
           {graphStats.tools} 个工具、{graphStats.categories} 个分类、{graphStats.tags} 个标签、
           {graphStats.externals} 个外部服务，共 {graphStats.edges} 条关系。
-          可拖拽节点、滚轮缩放、拖动空白平移。点击工具节点跳转 Wiki，点击标签跳转搜索，点击外部服务节点打开其官网。
+          可拖拽节点、滚轮缩放、拖动空白平移。<b className="text-neutral-300">单击</b>
+          节点弹出速览气泡，<b className="text-neutral-300">双击</b>节点（桌面端）直接跳转。
+          悬停节点可高亮它的邻居。
         </p>
       </header>
 
@@ -103,10 +171,24 @@ export default function GraphPage() {
           <GraphView
             graph={graph}
             enabledEdges={enabledEdges}
-            onSelect={handleSelect}
+            onNodeClick={handleNodeClick}
+            onNodeDoubleClick={handleNodeDoubleClick}
+            onDismiss={closePopover}
             selectedId={selected?.id ?? null}
             focusId={focusId}
-          />
+          >
+            {popoverModel && (
+              <GraphNodePopover
+                node={popoverModel.node}
+                point={popoverModel.point}
+                description={popoverModel.description}
+                tags={popoverModel.tags}
+                actionLabel={popoverModel.actionLabel}
+                onAction={popoverModel.onAction}
+                onDismiss={closePopover}
+              />
+            )}
+          </GraphView>
         </div>
 
         <aside className="space-y-4">
@@ -148,9 +230,9 @@ export default function GraphPage() {
             </section>
           ) : (
             <section className="rounded-[6px] border border-[#23282a] bg-[#101314] p-3.5 text-xs leading-relaxed text-neutral-500">
-              点击<b className="text-neutral-300">分类</b>或
+              单击<b className="text-neutral-300">分类</b>或
               <b className="text-neutral-300">子类</b>
-              节点，这里会列出它包含的工具。
+              节点，在气泡里选择「查看包含的工具」，这里会列出它包含的工具。
             </section>
           )}
         </aside>
