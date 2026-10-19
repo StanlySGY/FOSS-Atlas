@@ -29,8 +29,8 @@ export default function GraphPage() {
         return
       }
       if (node.type === 'external') {
-        const target = resourceById.get(node.id)
-        if (target) navigate(`/wiki/${target.id}`)
+        // Commercial services the catalogue tools replace — open their site.
+        if (node.url) window.open(node.url, '_blank', 'noopener,noreferrer')
         return
       }
       setSelected(node)
@@ -63,7 +63,7 @@ export default function GraphPage() {
         <p className="max-w-3xl text-sm leading-relaxed text-neutral-400">
           {graphStats.tools} 个工具、{graphStats.categories} 个分类、{graphStats.tags} 个标签、
           {graphStats.externals} 个外部服务，共 {graphStats.edges} 条关系。
-          可拖拽节点、滚轮缩放、拖动空白平移。点击工具节点跳转 Wiki，点击标签跳转搜索。
+          可拖拽节点、滚轮缩放、拖动空白平移。点击工具节点跳转 Wiki，点击标签跳转搜索，点击外部服务节点打开其官网。
         </p>
       </header>
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T05:08:57.716Z",
+  "generated_at": "2026-10-19T06:10:12.253Z",
   "stats": {
     "tools": 165,
     "categories": 10,
@@ -1717,132 +1717,158 @@
     {
       "id": "ext:Google Drive",
       "name": "Google Drive",
-      "type": "external"
+      "type": "external",
+      "url": "https://drive.google.com"
     },
     {
       "id": "ext:Notion",
       "name": "Notion",
-      "type": "external"
+      "type": "external",
+      "url": "https://www.notion.so"
     },
     {
       "id": "ext:flomo",
       "name": "flomo",
-      "type": "external"
+      "type": "external",
+      "url": "https://flomoapp.com"
     },
     {
       "id": "ext:Feedly",
       "name": "Feedly",
-      "type": "external"
+      "type": "external",
+      "url": "https://feedly.com"
     },
     {
       "id": "ext:Bitwarden",
       "name": "Bitwarden",
-      "type": "external"
+      "type": "external",
+      "url": "https://bitwarden.com"
     },
     {
       "id": "ext:1Password",
       "name": "1Password",
-      "type": "external"
+      "type": "external",
+      "url": "https://1password.com"
     },
     {
       "id": "ext:Plex",
       "name": "Plex",
-      "type": "external"
+      "type": "external",
+      "url": "https://www.plex.tv"
     },
     {
       "id": "ext:Spotify",
       "name": "Spotify",
-      "type": "external"
+      "type": "external",
+      "url": "https://www.spotify.com"
     },
     {
       "id": "ext:Google Photos",
       "name": "Google Photos",
-      "type": "external"
+      "type": "external",
+      "url": "https://photos.google.com"
     },
     {
       "id": "ext:Discord",
       "name": "Discord",
-      "type": "external"
+      "type": "external",
+      "url": "https://discord.com"
     },
     {
       "id": "ext:Slack",
       "name": "Slack",
-      "type": "external"
+      "type": "external",
+      "url": "https://slack.com"
     },
     {
       "id": "ext:UptimeRobot",
       "name": "UptimeRobot",
-      "type": "external"
+      "type": "external",
+      "url": "https://uptimerobot.com"
     },
     {
       "id": "ext:TeamViewer",
       "name": "TeamViewer",
-      "type": "external"
+      "type": "external",
+      "url": "https://www.teamviewer.com"
     },
     {
       "id": "ext:GitHub",
       "name": "GitHub",
-      "type": "external"
+      "type": "external",
+      "url": "https://github.com"
     },
     {
       "id": "ext:GitLab CI",
       "name": "GitLab CI",
-      "type": "external"
+      "type": "external",
+      "url": "https://docs.gitlab.com/ee/ci/"
     },
     {
       "id": "ext:Google Forms",
       "name": "Google Forms",
-      "type": "external"
+      "type": "external",
+      "url": "https://docs.google.com/forms"
     },
     {
       "id": "ext:Google Search",
       "name": "Google Search",
-      "type": "external"
+      "type": "external",
+      "url": "https://www.google.com"
     },
     {
       "id": "ext:Confluence",
       "name": "Confluence",
-      "type": "external"
+      "type": "external",
+      "url": "https://www.atlassian.com/software/confluence"
     },
     {
       "id": "ext:Trello",
       "name": "Trello",
-      "type": "external"
+      "type": "external",
+      "url": "https://trello.com"
     },
     {
       "id": "ext:Pocket",
       "name": "Pocket",
-      "type": "external"
+      "type": "external",
+      "url": "https://getpocket.com"
     },
     {
       "id": "ext:AirDrop",
       "name": "AirDrop",
-      "type": "external"
+      "type": "external",
+      "url": "https://support.apple.com/en-us/102430"
     },
     {
       "id": "ext:Miro",
       "name": "Miro",
-      "type": "external"
+      "type": "external",
+      "url": "https://miro.com"
     },
     {
       "id": "ext:Zapier",
       "name": "Zapier",
-      "type": "external"
+      "type": "external",
+      "url": "https://zapier.com"
     },
     {
       "id": "ext:Adobe Acrobat",
       "name": "Adobe Acrobat",
-      "type": "external"
+      "type": "external",
+      "url": "https://www.adobe.com/acrobat.html"
     },
     {
       "id": "ext:Heimdall",
       "name": "Heimdall",
-      "type": "external"
+      "type": "external",
+      "url": "https://github.com/linuxserver/Heimdall"
     },
     {
       "id": "ext:LangFlow",
       "name": "LangFlow",
-      "type": "external"
+      "type": "external",
+      "url": "https://github.com/langflow-ai/langflow"
     }
   ],
   "edges": [

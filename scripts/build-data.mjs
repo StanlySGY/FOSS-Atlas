@@ -459,6 +459,37 @@ const RELATED = [
   ['gitea', 'woodpecker'], ['forgejo', 'woodpecker'], ['immich', 'filebrowser'],
 ]
 
+// Official links for the commercial services these tools replace, so graph
+// nodes of type "external" are clickable instead of dead ends.
+const EXTERNALS = {
+  'Google Drive': 'https://drive.google.com',
+  'Notion': 'https://www.notion.so',
+  'flomo': 'https://flomoapp.com',
+  'Feedly': 'https://feedly.com',
+  'Bitwarden': 'https://bitwarden.com',
+  '1Password': 'https://1password.com',
+  'Plex': 'https://www.plex.tv',
+  'Spotify': 'https://www.spotify.com',
+  'Google Photos': 'https://photos.google.com',
+  'Discord': 'https://discord.com',
+  'Slack': 'https://slack.com',
+  'UptimeRobot': 'https://uptimerobot.com',
+  'TeamViewer': 'https://www.teamviewer.com',
+  'GitHub': 'https://github.com',
+  'GitLab CI': 'https://docs.gitlab.com/ee/ci/',
+  'Google Forms': 'https://docs.google.com/forms',
+  'Google Search': 'https://www.google.com',
+  'Confluence': 'https://www.atlassian.com/software/confluence',
+  'Trello': 'https://trello.com',
+  'Pocket': 'https://getpocket.com',
+  'AirDrop': 'https://support.apple.com/en-us/102430',
+  'Miro': 'https://miro.com',
+  'Zapier': 'https://zapier.com',
+  'Adobe Acrobat': 'https://www.adobe.com/acrobat.html',
+  'Heimdall': 'https://github.com/linuxserver/Heimdall',
+  'LangFlow': 'https://github.com/langflow-ai/langflow',
+}
+
 /* ------------------------------------------------------------------ *
  * Build
  * ------------------------------------------------------------------ */
@@ -555,13 +586,18 @@ for (const r of resources) {
 for (const [from, to] of ALTERNATIVES) {
   if (!byId.has(from)) continue
   const targetId = byId.has(to) ? to : `ext:${to}`
-  if (!byId.has(to)) addNode({ id: targetId, name: to, type: 'external' })
+  if (!byId.has(to)) addNode({ id: targetId, name: to, type: 'external', url: EXTERNALS[to] ?? null })
   addEdge(from, targetId, 'alternative_to')
 }
 
 for (const [a, b] of RELATED) {
   if (!byId.has(a) || !byId.has(b)) continue
   addEdge(a, b, 'related')
+}
+
+const externalsMissingUrl = nodes.filter((n) => n.type === 'external' && !n.url).map((n) => n.name)
+if (externalsMissingUrl.length) {
+  throw new Error(`external nodes missing a URL: ${externalsMissingUrl.join(', ')}`)
 }
 
 const graph = {

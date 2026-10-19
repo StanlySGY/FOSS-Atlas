@@ -76,6 +76,8 @@ export function wikiSlugFor(resourceId) {
 /* ------------------------------------------------------------------ *
  * Graph helpers
  * ------------------------------------------------------------------ */
+const graphNodeById = new Map(graph.nodes.map((n) => [n.id, n]))
+
 const relatedMap = new Map()
 const alternativeMap = new Map()
 
@@ -99,13 +101,24 @@ export function relatedResources(id) {
   return [...ids].map((x) => resourceById.get(x)).filter(Boolean)
 }
 
-/** What `id` is an alternative to (may include external, non-catalogue names). */
+/**
+ * What `id` is an alternative to. Targets may be catalogue resources (rendered
+ * as internal wiki links) or external commercial services (rendered as outbound
+ * links using the URL carried by the graph node).
+ */
 export function alternativesFor(id) {
   const ids = alternativeMap.get(id)
   if (!ids) return []
   return [...ids].map((x) => {
     const res = resourceById.get(x)
-    return res ? { id: x, name: res.name, url: res.url } : { id: x, name: x.replace(/^ext:/, ''), url: null }
+    if (res) return { id: x, name: res.name, url: res.url, linkId: x }
+    const node = graphNodeById.get(x)
+    return {
+      id: x,
+      name: node?.name ?? x.replace(/^ext:/, ''),
+      url: node?.url ?? null,
+      linkId: null,
+    }
   })
 }
 
