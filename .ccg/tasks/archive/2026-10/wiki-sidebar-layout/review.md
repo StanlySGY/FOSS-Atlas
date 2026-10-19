@@ -109,3 +109,18 @@ AGENTS.md 要求 L 级任务用 `codeagent-wrapper` 双模型（antigravity + cl
 
 风险与缓解：本轮缺少**第二个模型的独立视角**，这是真实缺口，不粉饰。缓解是上述证据都可复现、可复核，且精确覆盖了审查原本要看的每一处（状态重置、焦点管理、正则是否会误删正文、断点行为）。若需要补上交叉验证，可在 wrapper 恢复后重跑一次针对 `/tmp/fa-task.diff` 的审查。
 
+## 上线后复核（console / 404）
+
+线上 `/graph` 曾观察到 ECharts 内部 `TypeError: Cannot read properties of null (reading '0')`。复核结论是**测试方式造成的假阳性，非线上缺陷**：
+
+- 干净加载对比：线上 `errorCount = 1`（仅一条 `Failed to load resource: 404`），本地 `errorCount = 0`；两侧 canvas 均正常渲染（806×556），**无任何 ECharts TypeError**
+- 该 TypeError 仅在「对 canvas 连续合成点击 160 次 + `goBack()` 历史回退」这类对抗性操作后才出现。`src/pages/GraphPage.jsx:31-33` 的外部节点点击逻辑本轮未改动
+
+唯一的真实 404 是 favicon：
+
+- `index.html` 使用 `href="./favicon.svg"`（相对路径），在深层路由下解析为 `/FOSS-Atlas/wiki/favicon.svg` → 404
+- 校验：`/FOSS-Atlas/favicon.svg` → 200；`/FOSS-Atlas/wiki/favicon.svg` → 404
+- **属既有问题（早于本轮重构），且不在本次需求范围内**，故未修改。可选修复：`href` 改为绝对路径 `/FOSS-Atlas/favicon.svg`（或交由 Vite `base` 处理）
+
+产物一致性：线上 `assets/index-DNLR7MLB.js` 与本地 `dist/index.html` 引用完全一致，即线上运行的就是本轮验证过的构建。
+
