@@ -9,7 +9,7 @@ import {
   resolveTarget,
   wikiSlugFor,
 } from '../lib/data.js'
-import { fetchWiki, parseFrontmatter, transformWikilinks } from '../lib/wiki.js'
+import { fetchWiki, parseFrontmatter, stripLeadingH1, transformWikilinks } from '../lib/wiki.js'
 
 function fallbackMarkdown(resource) {
   return [
@@ -111,7 +111,12 @@ export default function WikiPage() {
   const content = loading ? '' : hasWiki ? fetched.content : resource ? fallbackMarkdown(resource) : ''
   const isFallback = !loading && !hasWiki
 
-  const rendered = useMemo(() => transformWikilinks(content, resolveTarget), [content])
+  // The body's own `# Title` is dropped: the header above already renders the
+  // title, so keeping it would duplicate it on screen.
+  const rendered = useMemo(
+    () => transformWikilinks(stripLeadingH1(content), resolveTarget),
+    [content],
+  )
 
   const related = useMemo(() => {
     const fromGraph = relatedResources(id)
@@ -141,7 +146,7 @@ export default function WikiPage() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_260px]">
+    <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_260px]">
       <article className="min-w-0 space-y-6">
         <nav className="mono flex items-center gap-2 text-xs text-neutral-500">
           <Link to="/" className="hover:text-neutral-300">
@@ -222,7 +227,7 @@ export default function WikiPage() {
         ) : null}
       </article>
 
-      <aside className="space-y-5 lg:sticky lg:top-20 lg:self-start">
+      <aside className="space-y-5 xl:sticky xl:top-[4.5rem] xl:self-start">
         <Panel title="元数据">
           <dl className="space-y-2 text-xs">
             <Row label="分类" value={resource.category_name} />

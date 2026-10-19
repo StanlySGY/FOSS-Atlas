@@ -1,0 +1,12 @@
+{
+  "id": "wiki-sidebar-layout",
+  "title": "Wiki 阅读体验重构：布局分离 + 侧边导航树 + 元数据吸顶 + 移动端抽屉",
+  "status": "completed",
+  "complexity": "L",
+  "risk": "medium",
+  "domain": "frontend",
+  "currentPhase": "completed",
+  "nextAction": "已归档：见 review.md；真实浏览器 + 真实键盘 + stripLeadingH1 属性测试全部通过，待 push 触发 Pages 部署",
+  "createdAt": "2026-10-19T14:30:00Z",
+  "branch": "main"
+}

@@ -68,6 +68,26 @@ export async function fetchWiki(slug) {
 }
 
 /**
+ * Drop the document's leading ATX H1, if the body opens with one.
+ *
+ * Wiki sources repeat the title as an H1, but the page chrome already renders
+ * it alongside the frontmatter and action buttons — leaving both would show the
+ * title twice.
+ *
+ * The match is deliberately narrow so it can only ever remove a real heading:
+ * line endings are normalised first, any number of *blank* lines may precede
+ * it, and the indent is capped at 3 spaces because CommonMark treats 4 spaces
+ * as an indented code block. A leading code fence can never match, and a mid
+ * document H1 is untouched. Setext (`Title` + `=====`) headings are not
+ * recognised — see the contribution guide.
+ */
+export function stripLeadingH1(markdown) {
+  return markdown
+    .replace(/\r\n?/g, '\n')
+    .replace(/^(?:[ \t]*\n)*[ \t]{0,3}#[ \t]+[^\n]*(?:\n+|$)/, '')
+}
+
+/**
  * Rewrite [[Wikilink]] syntax into standard markdown links.
  * `resolve(name)` returns a resource id, or null when unknown.
  * Code fences and inline code are left untouched.

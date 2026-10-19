@@ -45,6 +45,20 @@
 页面底部与右侧栏自动聚合**相关工具**与**反向链接（backlinks）**。
 没有独立 Wiki 的条目会自动生成一个包含官网、分类、标签的兜底页面 —— 165 个条目**全部可点**。
 
+Wiki 页使用**三栏阅读布局**：
+
+| 栏位 | 内容 |
+| --- | --- |
+| 左（260px） | **导航树**：按 `分类 → 子分类` 折叠，列出全部 165 个工具；当前浏览的工具自动展开并高亮；点击即跳转 |
+| 中 | 正文。正文里的首个 `# H1` 会被自动去掉，标题统一由页面头部的原生 `<h1>` 呈现，避免重复 |
+| 右（260px） | **元数据**：分类、子类、许可、标签、可替代、反向链接；PC 端 `sticky` 吸顶跟随 |
+
+窄屏（`< 768px`）时左栏收起，页面顶部出现**「目录」按钮**，点击以抽屉（Drawer）形式弹出同一棵导航树，
+支持 `Esc` 关闭；选择任一工具后抽屉自动收起。
+
+> 首页与图谱页使用全宽布局（`FullWidthLayout`，无侧边栏），仅 Wiki 页走三栏布局（`SidebarLayout`）——
+> 二者在 `src/App.jsx` 中作为嵌套路由区分。
+
 ### 3. 知识图谱（`/graph`）
 ECharts 力导向图，可**拖拽节点、滚轮缩放、拖拽画布平移**：
 
@@ -100,10 +114,13 @@ FOSS-Atlas/
 │  │  ├─ resources.json     # 165 条资源（生成物，勿手改）
 │  │  └─ graph.json         # 知识图谱 nodes + edges（生成物）
 │  ├─ lib/
-│  │  ├─ data.js            # 索引、别名解析、图谱查询
-│  │  ├─ wiki.js            # Frontmatter 解析 + [[双链]] 转换
+│  │  ├─ data.js            # 索引、别名解析、图谱查询、侧边栏导航树
+│  │  ├─ wiki.js            # Frontmatter 解析 + [[双链]] 转换 + 标题去重
 │  │  └─ graphStyle.js      # 节点/边样式与语义常量
-│  ├─ components/           # Layout / ResourceCard / Markdown / GraphView
+│  ├─ layouts/
+│  │  ├─ FullWidthLayout.jsx # 首页 / 图谱：全宽单列
+│  │  └─ SidebarLayout.jsx   # Wiki：左导航树 + 内容 + 移动端抽屉
+│  ├─ components/           # Layout / WikiNavSidebar / ResourceCard / Markdown / GraphView
 │  └─ pages/                # Home / WikiPage / GraphPage
 └─ .github/workflows/deploy.yml
 ```
@@ -178,6 +195,9 @@ updated: 2026-10-19
 
 正文……引用其它条目用 [[Another Tool]] 或 [[another-tool]]。
 ```
+
+> 正文开头的 `# My Tool` 由前端自动去掉：页面头部已用原生 `<h1>` 渲染标题，保留会在页面上重复出现。
+> 只识别 ATX 形式（`# 标题`）；写成 Setext 形式（标题下面加一行 `===`）不会被去掉——请统一用 `#`。
 
 ## 🚢 部署
 

@@ -56,9 +56,9 @@ export default function Layout() {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6">
-        <Outlet />
-      </main>
+      {/* Child layouts own their own container: FullWidthLayout centres a
+          single column, SidebarLayout adds the wiki navigation rail. */}
+      <Outlet />
 
       <footer className="border-t border-[#23282a]">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between sm:px-6">

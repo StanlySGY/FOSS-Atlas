@@ -166,3 +166,25 @@ kbd,
   border-top: 1px solid var(--line);
   margin: 2rem 0;
 }
+
+/* ---------------------------------------------------------------- *
+ * Mobile wiki navigation drawer (SidebarLayout)
+ * ---------------------------------------------------------------- */
+@keyframes fa-drawer-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.fa-drawer {
+  animation: fa-drawer-in 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fa-drawer {
+    animation: none;
+  }
+}

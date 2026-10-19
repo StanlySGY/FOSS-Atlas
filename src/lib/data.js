@@ -23,6 +23,25 @@ export const countBySubCategory = resources.reduce((acc, r) => {
   return acc
 }, {})
 
+/**
+ * Category → sub-category → tools tree backing the wiki sidebar accordion.
+ * Derived once at module load so render never re-walks the catalogue.
+ */
+export const navTree = categories.map((cat) => ({
+  id: cat.id,
+  name: cat.name,
+  icon: cat.icon,
+  count: countByCategory[cat.id] ?? 0,
+  subs: (subCategoriesByCategory[cat.id] ?? []).map((sub) => ({
+    id: sub.id,
+    name: sub.name,
+    count: countBySubCategory[sub.id] ?? 0,
+    tools: resources
+      .filter((r) => r.sub_category === sub.id)
+      .map((r) => ({ id: r.id, name: r.name })),
+  })),
+}))
+
 /* ------------------------------------------------------------------ *
  * Name -> resource id resolution, used by [[wikilinks]] and by the
  * "related" panel.
