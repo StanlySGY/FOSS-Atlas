@@ -1,4 +1,5 @@
 import graph from '../data/graph.json'
+import iconManifest from '../data/icons.json'
 import resources from '../data/resources.json'
 
 export { graph, resources }
@@ -157,15 +158,21 @@ export function hostFor(resource) {
 }
 
 /**
- * Site icon for a resource. There is no icon field in the catalogue and no
- * build-time fetch (the whole point is a static, offline-friendly bundle), so
- * we resolve it at render time from a favicon service keyed by hostname.
- * `Google's s2` returns a real 128px bitmap for the overwhelming majority of
- * hosts and a neutral globe for the rest, which keeps every card visually
- * anchored without shipping 165 images.
+ * Site icon for a resource.
+ *
+ * The bytes are fetched once at build time by `scripts/build-icons.mjs` and
+ * shipped under `public/icons/`, keyed by hostname in `icons.json`. Serving
+ * them ourselves (rather than pointing at Google's / DuckDuckGo's favicon
+ * service at runtime) keeps the site working behind a firewall — both services
+ * are unreachable from mainland China, which is this catalogue's main audience.
+ *
+ * `size` only affects the remote fallback, used solely when the manifest has no
+ * entry for the host (e.g. a resource added without re-running the icon build).
  */
 export function iconFor(resource, size = 64) {
   const host = hostFor(resource)
+  const local = iconManifest[host]
+  if (local) return `${import.meta.env.BASE_URL}${local.replace(/^\//, '')}`
   return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=${size}`
 }
 
