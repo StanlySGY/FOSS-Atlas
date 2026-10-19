@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Markdown from '../components/Markdown.jsx'
+import { backlinksFor } from '../lib/backlinks.js'
 import {
   alternativesFor,
   resourceById,
@@ -8,7 +9,7 @@ import {
   resolveTarget,
   wikiSlugFor,
 } from '../lib/data.js'
-import { extractWikilinks, fetchWiki, parseFrontmatter, transformWikilinks } from '../lib/wiki.js'
+import { fetchWiki, parseFrontmatter, transformWikilinks } from '../lib/wiki.js'
 
 function fallbackMarkdown(resource) {
   return [
@@ -30,12 +31,44 @@ function fallbackMarkdown(resource) {
   ].join('\n')
 }
 
+/** Merge graph-derived alternatives with the wiki frontmatter list. */
+function mergeAlternatives(id, fromFrontmatter) {
+  const merged = []
+  const seen = new Set()
+
+  for (const item of alternativesFor(id)) {
+    const key = item.name.toLowerCase()
+    if (seen.has(key)) continue
+    seen.add(key)
+    merged.push(item)
+  }
+
+  for (const name of fromFrontmatter) {
+    const resolvedId = resolveTarget(name)
+    // Skip anything that resolves back to this very page.
+    if (resolvedId === id) continue
+    const key = name.toLowerCase()
+    if (seen.has(key)) continue
+    seen.add(key)
+    const resource = resolvedId ? resourceById.get(resolvedId) : null
+    merged.push({
+      id: resolvedId ?? `ext:${name}`,
+      name: resource ? resource.name : name,
+      url: resource ? resource.url : null,
+      linkId: resolvedId ?? null,
+    })
+  }
+
+  return merged
+}
+
 export default function WikiPage() {
   const { id } = useParams()
   const resource = resourceById.get(id)
 
   const slug = wikiSlugFor(id)
   const [fetched, setFetched] = useState(null)
+  const [backlinkState, setBacklinkState] = useState(null)
 
   useEffect(() => {
     if (!slug) return undefined
@@ -55,32 +88,44 @@ export default function WikiPage() {
   }, [id, slug])
 
   useEffect(() => {
+    let cancelled = false
+    backlinksFor(id).then((sources) => {
+      if (cancelled) return
+      setBacklinkState({
+        id,
+        list: sources.map((s) => resourceById.get(s)).filter(Boolean),
+      })
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [id])
+
+  useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [id])
 
   const loading = Boolean(slug) && fetched?.id !== id
+  const hasWiki = Boolean(slug && fetched?.id === id && fetched.content)
   const data = !loading && fetched?.id === id ? fetched.data : {}
-  const content = loading
-    ? ''
-    : (slug && fetched?.content) || (resource ? fallbackMarkdown(resource) : '')
-  const isFallback = !loading && !(slug && fetched?.content)
+  const content = loading ? '' : hasWiki ? fetched.content : resource ? fallbackMarkdown(resource) : ''
+  const isFallback = !loading && !hasWiki
 
   const rendered = useMemo(() => transformWikilinks(content, resolveTarget), [content])
 
   const related = useMemo(() => {
     const fromGraph = relatedResources(id)
     const seen = new Set(fromGraph.map((r) => r.id))
-    const fromFrontmatter = (data.related ?? [])
+    return [...fromGraph, ...(data.related ?? [])
+      .filter((x) => x !== id)
       .map((x) => resourceById.get(x))
-      .filter((r) => r && !seen.has(r.id))
-    return [...fromGraph, ...fromFrontmatter]
+      .filter((r) => r && !seen.has(r.id))]
   }, [id, data.related])
 
-  const alternatives = useMemo(() => alternativesFor(id), [id])
-  const backlinks = useMemo(
-    () => extractWikilinks(content).map((n) => ({ name: n, id: resolveTarget(n) })),
-    [content],
-  )
+  const alternatives = useMemo(() => mergeAlternatives(id, data.alternatives ?? []), [id, data.alternatives])
+
+  const tags = data.tags?.length ? data.tags : resource?.tags ?? []
+  const backlinks = backlinkState?.id === id ? backlinkState.list : []
 
   if (!resource) {
     return (
@@ -94,8 +139,6 @@ export default function WikiPage() {
       </div>
     )
   }
-
-  const tags = data.tags ?? resource.tags
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_260px]">
@@ -155,7 +198,7 @@ export default function WikiPage() {
 
         {related.length ? (
           <section className="space-y-3 border-t border-[#23282a] pt-6">
-            <h2 className="text-sm font-semibold text-neutral-200">相关工具</h2>
+            <h2 className="text-sm font-semibold text-neutral-200">图谱关联</h2>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {related.map((r) => (
                 <Link
@@ -189,19 +232,21 @@ export default function WikiPage() {
           </dl>
         </Panel>
 
-        <Panel title="标签">
-          <div className="flex flex-wrap gap-1.5">
-            {tags.map((t) => (
-              <Link
-                key={t}
-                to={`/?q=${encodeURIComponent(t)}`}
-                className="rounded-[3px] bg-[#171b1c] px-1.5 py-0.5 text-[10px] text-neutral-400 hover:text-[#f0b429]"
-              >
-                {t}
-              </Link>
-            ))}
-          </div>
-        </Panel>
+        {tags.length ? (
+          <Panel title="标签">
+            <div className="flex flex-wrap gap-1.5">
+              {tags.map((t) => (
+                <Link
+                  key={t}
+                  to={`/?q=${encodeURIComponent(t)}`}
+                  className="rounded-[3px] bg-[#171b1c] px-1.5 py-0.5 text-[10px] text-neutral-400 hover:text-[#f0b429]"
+                >
+                  {t}
+                </Link>
+              ))}
+            </div>
+          </Panel>
+        ) : null}
 
         {alternatives.length ? (
           <Panel title="可替代">
@@ -209,7 +254,11 @@ export default function WikiPage() {
               {alternatives.map((a) => (
                 <li key={a.id} className="flex items-center gap-2">
                   <span className="text-neutral-500">替代</span>
-                  {a.url ? (
+                  {a.linkId ? (
+                    <Link to={`/wiki/${a.linkId}`} className="text-neutral-300 hover:text-[#f0b429]">
+                      {a.name}
+                    </Link>
+                  ) : a.url ? (
                     <a
                       href={a.url}
                       target="_blank"
@@ -227,31 +276,25 @@ export default function WikiPage() {
           </Panel>
         ) : null}
 
-        {backlinks.length ? (
-          <Panel title="链接到">
+        <Panel title="反向链接">
+          {backlinks.length ? (
             <div className="flex flex-wrap gap-1.5">
-              {backlinks.map((b) =>
-                b.id ? (
-                  <Link
-                    key={b.name}
-                    to={`/wiki/${b.id}`}
-                    className="rounded-[3px] border border-[#23282a] px-1.5 py-0.5 text-[10px] text-neutral-400 hover:border-[#f0b429]/50 hover:text-[#f0b429]"
-                  >
-                    {b.name}
-                  </Link>
-                ) : (
-                  <span
-                    key={b.name}
-                    className="rounded-[3px] border border-[#1c2123] px-1.5 py-0.5 text-[10px] text-neutral-600"
-                    title="本站暂无该条目"
-                  >
-                    {b.name}
-                  </span>
-                ),
-              )}
+              {backlinks.map((r) => (
+                <Link
+                  key={r.id}
+                  to={`/wiki/${r.id}`}
+                  className="rounded-[3px] border border-[#23282a] px-1.5 py-0.5 text-[10px] text-neutral-400 hover:border-[#f0b429]/50 hover:text-[#f0b429]"
+                >
+                  {r.name}
+                </Link>
+              ))}
             </div>
-          </Panel>
-        ) : null}
+          ) : (
+            <p className="text-[11px] leading-relaxed text-neutral-600">
+              暂无其它 Wiki 链接到这里。
+            </p>
+          )}
+        </Panel>
 
         <Link
           to="/graph"

@@ -62,7 +62,9 @@ for (const r of resources) {
 export function resolveTarget(raw) {
   if (!raw) return null
   const key = raw.trim().toLowerCase()
-  if (key in ALIASES) return ALIASES[key]
+  // `key in ALIASES` would walk the prototype chain and resolve names like
+  // "constructor" / "toString" to Object members. Only own keys count.
+  if (Object.prototype.hasOwnProperty.call(ALIASES, key)) return ALIASES[key]
   return nameIndex.get(key) ?? null
 }
 

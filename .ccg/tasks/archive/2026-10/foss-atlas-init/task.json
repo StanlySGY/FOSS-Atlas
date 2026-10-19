@@ -1,12 +1,12 @@
 {
   "id": "foss-atlas-init",
   "title": "基于白P资源清单构建并部署 FOSS-Atlas 导航+Wiki+知识图谱项目",
-  "status": "in_progress",
+  "status": "completed",
   "complexity": "L",
   "risk": "medium",
   "domain": "fullstack",
-  "currentPhase": "review",
-  "nextAction": "提交并 push，等待 GitHub Actions 首次部署",
+  "currentPhase": "completed",
+  "nextAction": "已归档；等待 GitHub Pages 首次部署完成",
   "createdAt": "2026-10-19T05:10:00Z",
   "branch": "main",
   "notes": "CCG 外部后端不可用：antigravity 需交互式 Google OAuth；wrapper --backend claude 退出码 1。已改用 claude CLI 直连能力完成，并全程用真实浏览器验证。"
