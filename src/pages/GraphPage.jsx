@@ -169,12 +169,12 @@ export default function GraphPage() {
                 'flex items-center gap-1.5 rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors',
                 on
                   ? 'border-[var(--line-strong)] text-[var(--text-strong)]'
-                  : 'border-[var(--line-soft)] text-[#5a6366]',
+                  : 'border-[var(--line-soft)] text-[var(--text-mute)]',
               ].join(' ')}
             >
               <span
                 className="inline-block h-2 w-2 rounded-full"
-                style={{ background: on ? EDGE_META[type].color : '#2a3033' }}
+                style={{ background: on ? EDGE_META[type].color : 'var(--line-muted)' }}
               />
               {EDGE_META[type].label}
               <span className="mono text-[10px] opacity-60">{EDGE_COUNT[type] ?? 0}</span>
@@ -184,7 +184,7 @@ export default function GraphPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <div className="h-[62vh] min-h-[420px] overflow-hidden rounded-[6px] border border-[#23282a] bg-[#0d1112]">
+        <div className="h-[62vh] min-h-[420px] overflow-hidden rounded-[6px] border border-[var(--line)] bg-[var(--ink-sunken)]">
           <GraphView
             graph={graph}
             enabledEdges={enabledEdges}
@@ -243,7 +243,7 @@ export default function GraphPage() {
                   <li key={r.id}>
                     <Link
                       to={`/wiki/${r.id}`}
-                      className="block truncate rounded-[3px] px-1.5 py-1 text-xs text-[var(--text-dim)] hover:bg-[#171b1c] hover:text-[var(--accent)]"
+                      className="block truncate rounded-[3px] px-1.5 py-1 text-xs text-[var(--text-dim)] hover:bg-[var(--ink-tint)] hover:text-[var(--accent)]"
                     >
                       {r.name}
                     </Link>

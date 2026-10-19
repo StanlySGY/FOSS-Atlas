@@ -16,3 +16,26 @@ export const EDGE_META = {
 }
 
 export const TYPE_ORDER = Object.keys(TYPE_META)
+
+/*
+ * Canvas palette.
+ *
+ * ECharts paints to a <canvas> and takes literal colour strings — it cannot
+ * resolve a CSS custom property. These mirror the design tokens in index.css
+ * and live here (rather than inline in GraphView) so the graph's chrome has one
+ * source of truth. Keep them in sync with `:root` when the palette changes.
+ */
+export const CANVAS = {
+  surface: '#101314', // --ink-card, tooltip background
+  line: '#23282a', // --line, tooltip border
+  lineStrong: '#3a4245', // --line-strong, legend inactive swatch
+  text: '#cfd4d6', // --text, tooltip body
+  textStrong: '#f2f4f5', // --text-strong, emphasis label
+  textDim: '#7d8c93', // dimmed legend / tooltip meta
+  label: '#9aa2a5', // --text-dim, node labels
+  edge: '#2f3639', // resting edge colour
+  focusRing: '#f0b429', // --accent
+  // A warm white no other node uses, so a focused category node (solid accent)
+  // stays legible. See the note in GraphView.
+  focusFill: '#f5f0e6',
+}

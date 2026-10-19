@@ -140,9 +140,9 @@ export default function SidebarLayout() {
           <div
             ref={panelRef}
             tabIndex={-1}
-            className="fa-drawer absolute inset-y-0 left-0 flex w-[280px] max-w-[85vw] flex-col border-r border-[#23282a] bg-[#0a0c0d] outline-none"
+            className="fa-drawer absolute inset-y-0 left-0 flex w-[280px] max-w-[85vw] flex-col border-r border-[var(--line)] bg-[var(--ink)] outline-none"
           >
-            <div className="flex items-center justify-between border-b border-[#23282a] px-3 py-3">
+            <div className="flex items-center justify-between border-b border-[var(--line)] px-3 py-3">
               <span className="mono text-[10px] uppercase tracking-wider text-neutral-500">
                 工具目录
               </span>

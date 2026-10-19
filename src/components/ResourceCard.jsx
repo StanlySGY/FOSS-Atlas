@@ -53,7 +53,7 @@ export default function ResourceCard({ resource }) {
           {tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="rounded-[3px] bg-[#171b1c] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)]"
+              className="rounded-[3px] bg-[var(--ink-tint)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)]"
             >
               {tag}
             </span>

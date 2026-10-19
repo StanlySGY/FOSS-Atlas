@@ -75,12 +75,12 @@ export default function GraphNodePopover({
       // canvas, which would dismiss the bubble before the button gets the click.
       onPointerDown={(e) => e.stopPropagation()}
       onPointerUp={(e) => e.stopPropagation()}
-      className="absolute z-20 rounded-[6px] border border-[#23282a] bg-[#101314] shadow-[0_14px_36px_rgba(0,0,0,0.6)] outline-none"
+      className="absolute z-20 rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] shadow-[0_14px_36px_rgba(0,0,0,0.6)] outline-none"
     >
       <span
         aria-hidden="true"
         style={{ left: caretX - 6, [flip ? 'bottom' : 'top']: -5 }}
-        className="absolute h-2.5 w-2.5 rotate-45 border-b border-l border-[#23282a] bg-[#101314]"
+        className="absolute h-2.5 w-2.5 rotate-45 border-b border-l border-[var(--line)] bg-[var(--ink-card)]"
       />
       <div className="p-3">
         <div className="flex items-start justify-between gap-2">
@@ -94,7 +94,7 @@ export default function GraphNodePopover({
             type="button"
             onClick={onDismiss}
             aria-label="关闭"
-            className="-mr-1 -mt-0.5 shrink-0 rounded-[3px] px-1.5 py-0.5 text-neutral-500 transition-colors hover:bg-[#171b1c] hover:text-neutral-200"
+            className="-mr-1 -mt-0.5 shrink-0 rounded-[3px] px-1.5 py-0.5 text-neutral-500 transition-colors hover:bg-[var(--ink-tint)] hover:text-neutral-200"
           >
             ✕
           </button>
@@ -107,7 +107,7 @@ export default function GraphNodePopover({
             {tags.map((tag) => (
               <li
                 key={tag}
-                className="rounded-[3px] border border-[#23282a] bg-[#151a1b] px-1.5 py-0.5 text-[10px] text-neutral-400"
+                className="rounded-[3px] border border-[var(--line)] bg-[var(--ink-chip)] px-1.5 py-0.5 text-[10px] text-neutral-400"
               >
                 {tag}
               </li>
@@ -118,7 +118,7 @@ export default function GraphNodePopover({
         <button
           type="button"
           onClick={onAction}
-          className="mt-3 flex w-full items-center justify-center rounded-[4px] border border-[#3a4245] bg-[#171b1c] px-2.5 py-1.5 text-xs font-medium text-[#f0b429] transition-colors hover:border-[#4a5457] hover:bg-[#1e2426]"
+          className="mt-3 flex w-full items-center justify-center rounded-[4px] border border-[var(--line-strong)] bg-[var(--ink-tint)] px-2.5 py-1.5 text-xs font-medium text-[var(--accent)] transition-colors hover:border-[var(--line-hover)] hover:bg-[var(--ink-tint-hover)]"
         >
           {actionLabel}
         </button>

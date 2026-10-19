@@ -94,7 +94,7 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
             </button>
 
             {catOpen ? (
-              <div id={catPanelId} className="ml-[13px] border-l border-[#1c2123] pl-1.5">
+              <div id={catPanelId} className="ml-[13px] border-l border-[var(--line-soft)] pl-1.5">
                 {cat.subs.map((sub) => {
                   const subOpen = isSubOpen(sub.id)
                   const subActive = sub.id === activeSub
@@ -134,8 +134,8 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                                   className={[
                                     'block truncate rounded-[4px] border-l-2 px-2 py-1 text-[11px] transition-colors',
                                     isActive
-                                      ? 'border-[#f0b429] bg-[#f0b429]/10 text-[#f0b429]'
-                                      : 'border-transparent text-neutral-400 hover:bg-[#171b1c] hover:text-neutral-200',
+                                      ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--accent)]'
+                                      : 'border-transparent text-neutral-400 hover:bg-[var(--ink-tint)] hover:text-neutral-200',
                                   ].join(' ')}
                                 >
                                   {tool.name}

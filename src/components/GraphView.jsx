@@ -3,7 +3,7 @@ import { LegendComponent, TooltipComponent } from 'echarts/components'
 import * as echarts from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
+import { CANVAS, EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 
 echarts.use([GraphChart, TooltipComponent, LegendComponent, CanvasRenderer])
 
@@ -13,8 +13,8 @@ const FOCUS_ZOOM = 2.2
  * rest of the graph never uses — category nodes are already solid #f0b429, so an
  * accent-only highlight would be indistinguishable from them.
  */
-const FOCUS_RING = '#f0b429'
-const FOCUS_FILL = '#f5f0e6'
+const FOCUS_RING = CANVAS.focusRing
+const FOCUS_FILL = CANVAS.focusFill
 
 // Everything that is not adjacent to the hovered node fades to this.
 const BLUR_OPACITY = 0.2
@@ -94,7 +94,7 @@ export default function GraphView({
           color: isFocused
             ? FOCUS_FILL
             : n.type === 'tool' || n.type === 'external'
-              ? '#101314'
+              ? CANVAS.surface
               : meta.color,
           borderColor: isFocused ? FOCUS_RING : meta.color,
           borderWidth: isFocused ? 3.5 : isSelected ? 3 : 1.6,
@@ -128,28 +128,28 @@ export default function GraphView({
     return {
       backgroundColor: 'transparent',
       tooltip: {
-        backgroundColor: '#101314',
-        borderColor: '#23282a',
+        backgroundColor: CANVAS.surface,
+        borderColor: CANVAS.line,
         borderWidth: 1,
-        textStyle: { color: '#cfd4d6', fontSize: 12, fontFamily: GRAPH_FONT },
+        textStyle: { color: CANVAS.text, fontSize: 12, fontFamily: GRAPH_FONT },
         formatter: (p) => {
           if (p.dataType === 'edge') return ''
           const raw = p.data._raw
           const kind = TYPE_META[raw.type]?.label ?? raw.type
-          const extra = raw.url ? `<br/><span style="color:#7d8c93">${raw.url}</span>` : ''
-          return `<b>${raw.name}</b><br/><span style="color:#7d8c93">${kind}</span>${extra}`
+          const extra = raw.url ? `<br/><span style="color:${CANVAS.textDim}">${raw.url}</span>` : ''
+          return `<b>${raw.name}</b><br/><span style="color:${CANVAS.textDim}">${kind}</span>${extra}`
         },
       },
       legend: [
         {
           data: TYPE_ORDER.map((t) => TYPE_META[t].label),
-          textStyle: { color: '#7d8c93', fontSize: 11, fontFamily: GRAPH_FONT },
+          textStyle: { color: CANVAS.textDim, fontSize: 11, fontFamily: GRAPH_FONT },
           icon: 'circle',
           itemWidth: 9,
           itemHeight: 9,
           bottom: 8,
           left: 'center',
-          inactiveColor: '#3a4245',
+          inactiveColor: CANVAS.lineStrong,
         },
       ],
       series: [
@@ -165,7 +165,7 @@ export default function GraphView({
           emphasis: {
             focus: 'adjacency',
             lineStyle: { width: 3 },
-            label: { show: true, color: '#f2f4f5' },
+            label: { show: true, color: CANVAS.textStrong },
           },
           /*
            * Hover dimming for the non-adjacent surroundings. This is a *state*
@@ -195,13 +195,13 @@ export default function GraphView({
           },
           label: {
             position: 'right',
-            color: '#9aa2a5',
+            color: CANVAS.label,
             fontSize: 10,
             fontFamily: GRAPH_FONT,
             formatter: '{b}',
           },
           labelLayout: { hideOverlap: true },
-          lineStyle: { color: '#2f3639', opacity: 0.6 },
+          lineStyle: { color: CANVAS.edge, opacity: 0.6 },
           categories: TYPE_ORDER.map((t) => ({ name: TYPE_META[t].label })),
           data: nodes,
           edges,

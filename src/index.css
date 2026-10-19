@@ -13,9 +13,17 @@
   --ink-card: #101314;
   --ink-card-hover: #14191a;
   --ink-sunken: #0d1112;
+  /* Small tinted surfaces: dropdown rows, chip backgrounds, active tab wells. */
+  --ink-tint: #171b1c;
+  --ink-tint-hover: #1e2426;
+  --ink-chip: #151a1b;
+  --ink-tab: #1b2021;
   --line: #23282a;
   --line-strong: #3a4245;
   --line-soft: #1c2123;
+  /* Line shades used only around interactive chips / swatches. */
+  --line-muted: #2a3033;
+  --line-hover: #4a5457;
 
   --accent: #f0b429;
   --accent-dim: #8a6a1f;
@@ -25,6 +33,9 @@
   --text-strong: #f2f4f5;
   --text-dim: #9aa2a5;
   --text-faint: #6a7376;
+  --text-mute: #5a6366;
+  /* Warm white reserved for the focused graph node (see GraphView). */
+  --focus-fill: #f5f0e6;
 
   --radius: 6px;
   --radius-sm: 4px;

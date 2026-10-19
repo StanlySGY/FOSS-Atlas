@@ -34,7 +34,7 @@ export default function Layout() {
                   [
                     'rounded-[var(--radius-sm)] px-2.5 py-1.5 transition-colors',
                     isActive
-                      ? 'bg-[#1b2021] text-[var(--text-strong)]'
+                      ? 'bg-[var(--ink-tab)] text-[var(--text-strong)]'
                       : 'text-[var(--text-dim)] hover:text-[var(--text-strong)]',
                   ].join(' ')
                 }
