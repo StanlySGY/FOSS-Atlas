@@ -1,0 +1,2471 @@
+[
+  {
+    "id": "poe",
+    "name": "Poe",
+    "url": "https://poe.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "多模型聚合对话站点，提供有限免费额度",
+    "tags": [
+      "对话",
+      "聚合",
+      "多模型"
+    ]
+  },
+  {
+    "id": "huggingchat",
+    "name": "HuggingChat",
+    "url": "https://huggingface.co/chat",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "Hugging Face 开源模型免费聊天",
+    "tags": [
+      "对话",
+      "开源模型"
+    ]
+  },
+  {
+    "id": "duckduckgo-ai-chat",
+    "name": "DuckDuckGo AI Chat",
+    "url": "https://duck.ai",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "匿名 AI 聊天，不记录对话",
+    "tags": [
+      "对话",
+      "匿名",
+      "隐私"
+    ]
+  },
+  {
+    "id": "lmsys-chat",
+    "name": "LMSYS Chatbot Arena",
+    "url": "https://chat.lmsys.org",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "多模型直接对比与竞技场排名",
+    "tags": [
+      "对话",
+      "评测",
+      "对比"
+    ]
+  },
+  {
+    "id": "microsoft-copilot",
+    "name": "Microsoft Copilot",
+    "url": "https://copilot.microsoft.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "微软 Copilot，GPT 系列免费版",
+    "tags": [
+      "对话",
+      "微软",
+      "GPT"
+    ]
+  },
+  {
+    "id": "meta-ai",
+    "name": "Meta AI",
+    "url": "https://www.meta.ai",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "Meta 出品的对话助手",
+    "tags": [
+      "对话",
+      "Meta"
+    ]
+  },
+  {
+    "id": "google-gemini",
+    "name": "Google Gemini",
+    "url": "https://gemini.google.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "Google Gemini 免费对话",
+    "tags": [
+      "对话",
+      "Google",
+      "多模态"
+    ]
+  },
+  {
+    "id": "anthropic-claude",
+    "name": "Anthropic Claude",
+    "url": "https://claude.ai",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "Claude 官方站点，含免费层",
+    "tags": [
+      "对话",
+      "Anthropic",
+      "长文本"
+    ]
+  },
+  {
+    "id": "baidu-yiyan",
+    "name": "百度文心一言",
+    "url": "https://yiyan.baidu.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "百度文心大模型对话，国内免费",
+    "tags": [
+      "对话",
+      "国内",
+      "百度"
+    ]
+  },
+  {
+    "id": "aliyun-tongyi",
+    "name": "阿里通义千问",
+    "url": "https://tongyi.aliyun.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "阿里通义大模型对话与绘画",
+    "tags": [
+      "对话",
+      "国内",
+      "阿里"
+    ]
+  },
+  {
+    "id": "xfyun-xinghuo",
+    "name": "讯飞星火",
+    "url": "https://xinghuo.xfyun.cn",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "科大讯飞星火认知大模型",
+    "tags": [
+      "对话",
+      "国内",
+      "讯飞"
+    ]
+  },
+  {
+    "id": "doubao",
+    "name": "豆包",
+    "url": "https://www.doubao.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "字节跳动豆包，多模态对话",
+    "tags": [
+      "对话",
+      "国内",
+      "字节"
+    ]
+  },
+  {
+    "id": "chatglm",
+    "name": "智谱清言",
+    "url": "https://chatglm.cn",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "智谱 GLM 系列对话助手",
+    "tags": [
+      "对话",
+      "国内",
+      "GLM"
+    ]
+  },
+  {
+    "id": "deepseek-chat",
+    "name": "DeepSeek",
+    "url": "https://www.deepseek.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "深度求索对话与编码助手",
+    "tags": [
+      "对话",
+      "国内",
+      "编码"
+    ]
+  },
+  {
+    "id": "tiangong",
+    "name": "天工 AI",
+    "url": "https://www.tiangong.cn",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "昆仑万维天工大模型",
+    "tags": [
+      "对话",
+      "国内",
+      "昆仑万维"
+    ]
+  },
+  {
+    "id": "pi",
+    "name": "Pi",
+    "url": "https://pi.ai",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-chat",
+    "sub_category_name": "免费 AI 对话站点",
+    "description": "Inflection 出品的个人 AI 助手",
+    "tags": [
+      "对话",
+      "助手",
+      "情感"
+    ]
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor",
+    "url": "https://cursor.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-coding",
+    "sub_category_name": "AI 编程工具",
+    "description": "AI 优先的代码编辑器，含免费额度",
+    "tags": [
+      "编程",
+      "IDE",
+      "编辑器"
+    ]
+  },
+  {
+    "id": "cline",
+    "name": "Cline",
+    "url": "https://cline.bot",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-coding",
+    "sub_category_name": "AI 编程工具",
+    "description": "VSCode 开源 AI 编程 Agent",
+    "tags": [
+      "编程",
+      "VSCode",
+      "开源",
+      "Agent"
+    ]
+  },
+  {
+    "id": "continue",
+    "name": "Continue",
+    "url": "https://continue.dev",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-coding",
+    "sub_category_name": "AI 编程工具",
+    "description": "开源 AI 编程助手，可接任意模型",
+    "tags": [
+      "编程",
+      "开源",
+      "插件"
+    ]
+  },
+  {
+    "id": "cody",
+    "name": "Cody",
+    "url": "https://sourcegraph.com/cody",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-coding",
+    "sub_category_name": "AI 编程工具",
+    "description": "Sourcegraph 出品的 AI 编程助手",
+    "tags": [
+      "编程",
+      "代码检索",
+      "Sourcegraph"
+    ]
+  },
+  {
+    "id": "tabby",
+    "name": "Tabby",
+    "url": "https://tabby.tabbyml.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-coding",
+    "sub_category_name": "AI 编程工具",
+    "description": "可自部署的 AI 代码补全服务",
+    "tags": [
+      "编程",
+      "自部署",
+      "补全"
+    ]
+  },
+  {
+    "id": "codeium",
+    "name": "Codeium",
+    "url": "https://codeium.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-coding",
+    "sub_category_name": "AI 编程工具",
+    "description": "免费 AI 代码补全（现 Windsurf）",
+    "tags": [
+      "编程",
+      "补全",
+      "免费"
+    ]
+  },
+  {
+    "id": "aider",
+    "name": "Aider",
+    "url": "https://github.com/Aider-AI/aider",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-coding",
+    "sub_category_name": "AI 编程工具",
+    "description": "命令行 AI 结对编程工具（仓库已迁移至 Aider-AI/aider）",
+    "tags": [
+      "编程",
+      "CLI",
+      "开源",
+      "结对编程"
+    ]
+  },
+  {
+    "id": "ollama",
+    "name": "Ollama",
+    "url": "https://ollama.com",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-local",
+    "sub_category_name": "本地跑大模型",
+    "description": "一键在本地运行 Llama / Qwen / DeepSeek 等模型",
+    "tags": [
+      "本地推理",
+      "LLM",
+      "CLI"
+    ],
+    "wiki": "ollama"
+  },
+  {
+    "id": "lm-studio",
+    "name": "LM Studio",
+    "url": "https://lmstudio.ai",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-local",
+    "sub_category_name": "本地跑大模型",
+    "description": "图形化本地模型运行与下载",
+    "tags": [
+      "本地推理",
+      "GUI",
+      "桌面端"
+    ]
+  },
+  {
+    "id": "text-generation-webui",
+    "name": "Text Generation WebUI",
+    "url": "https://github.com/oobabooga/textgen",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-local",
+    "sub_category_name": "本地跑大模型",
+    "description": "功能齐全的本地模型 WebUI",
+    "tags": [
+      "本地推理",
+      "WebUI",
+      "开源"
+    ]
+  },
+  {
+    "id": "jan",
+    "name": "Jan",
+    "url": "https://jan.ai",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-local",
+    "sub_category_name": "本地跑大模型",
+    "description": "开源本地模型桌面客户端",
+    "tags": [
+      "本地推理",
+      "桌面端",
+      "开源"
+    ]
+  },
+  {
+    "id": "gpt4all",
+    "name": "GPT4All",
+    "url": "https://gpt4all.io",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-local",
+    "sub_category_name": "本地跑大模型",
+    "description": "可离线运行的本地 LLM 套件",
+    "tags": [
+      "本地推理",
+      "离线",
+      "开源"
+    ]
+  },
+  {
+    "id": "langchain",
+    "name": "LangChain",
+    "url": "https://github.com/langchain-ai/langchain",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "构建 LLM 应用的主流框架",
+    "tags": [
+      "框架",
+      "开源",
+      "Agent"
+    ]
+  },
+  {
+    "id": "llamaindex",
+    "name": "LlamaIndex",
+    "url": "https://github.com/run-llama/llama_index",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "面向 RAG 的数据框架",
+    "tags": [
+      "框架",
+      "RAG",
+      "开源"
+    ]
+  },
+  {
+    "id": "langfuse",
+    "name": "Langfuse",
+    "url": "https://github.com/langfuse/langfuse",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "LLM 可观测性与追踪平台",
+    "tags": [
+      "可观测性",
+      "追踪",
+      "开源"
+    ]
+  },
+  {
+    "id": "litellm",
+    "name": "LiteLLM",
+    "url": "https://github.com/BerriAI/litellm",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "统一 100+ 模型 API 的代理层",
+    "tags": [
+      "代理",
+      "API",
+      "开源"
+    ]
+  },
+  {
+    "id": "promptfoo",
+    "name": "promptfoo",
+    "url": "https://github.com/promptfoo/promptfoo",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "提示词与模型输出测试工具",
+    "tags": [
+      "测试",
+      "提示词",
+      "开源"
+    ]
+  },
+  {
+    "id": "dify",
+    "name": "Dify",
+    "url": "https://github.com/langgenius/dify",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "开源 LLM 应用开发平台",
+    "tags": [
+      "平台",
+      "低代码",
+      "开源"
+    ]
+  },
+  {
+    "id": "flowise",
+    "name": "Flowise",
+    "url": "https://github.com/FlowiseAI/Flowise",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "可视化拖拽编排 LLM 工作流",
+    "tags": [
+      "工作流",
+      "可视化",
+      "开源"
+    ]
+  },
+  {
+    "id": "fastgpt",
+    "name": "FastGPT",
+    "url": "https://github.com/labring/FastGPT",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "知识库 + RAG 问答平台",
+    "tags": [
+      "RAG",
+      "知识库",
+      "开源"
+    ]
+  },
+  {
+    "id": "awesome-chatgpt-prompts",
+    "name": "awesome-chatgpt-prompts (prompts.chat)",
+    "url": "https://github.com/f/prompts.chat",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-prompt",
+    "sub_category_name": "AI 提示词资源",
+    "description": "最全的 ChatGPT 提示词合集",
+    "tags": [
+      "提示词",
+      "合集",
+      "开源"
+    ]
+  },
+  {
+    "id": "openai-prompt-guide",
+    "name": "Prompt 工程指南（OpenAI）",
+    "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-prompt",
+    "sub_category_name": "AI 提示词资源",
+    "description": "OpenAI 官方提示词工程最佳实践",
+    "tags": [
+      "提示词",
+      "官方文档",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "deeplearning-ai-prompts",
+    "name": "DeepLearning.AI 提示词课",
+    "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-prompt",
+    "sub_category_name": "AI 提示词资源",
+    "description": "吴恩达团队的提示词工程短课",
+    "tags": [
+      "提示词",
+      "课程",
+      "免费"
+    ]
+  },
+  {
+    "id": "google-cloud",
+    "name": "Google Cloud",
+    "url": "https://cloud.google.com/free",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-cloud",
+    "sub_category_name": "云厂商永久免费层",
+    "description": "1 台 e2-micro VM（美区）、5GB 存储、1GB 出网/月",
+    "tags": [
+      "云厂商",
+      "免费层",
+      "Google"
+    ]
+  },
+  {
+    "id": "aws",
+    "name": "AWS",
+    "url": "https://aws.amazon.com/free",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-cloud",
+    "sub_category_name": "云厂商永久免费层",
+    "description": "750 小时 t2.micro/月（12 个月）+ Lambda 100 万次/月永久免费",
+    "tags": [
+      "云厂商",
+      "免费层",
+      "AWS"
+    ]
+  },
+  {
+    "id": "azure",
+    "name": "Microsoft Azure",
+    "url": "https://azure.microsoft.com/free",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-cloud",
+    "sub_category_name": "云厂商永久免费层",
+    "description": "55+ 永久免费服务，含 App Service F1",
+    "tags": [
+      "云厂商",
+      "免费层",
+      "Azure"
+    ]
+  },
+  {
+    "id": "oracle-cloud",
+    "name": "Oracle Cloud",
+    "url": "https://www.oracle.com/cloud/free/",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-cloud",
+    "sub_category_name": "云厂商永久免费层",
+    "description": "2 台 AMD VM + 4 台 ARM VM 永久免费，性价比最高",
+    "tags": [
+      "云厂商",
+      "免费层",
+      "Oracle",
+      "ARM"
+    ]
+  },
+  {
+    "id": "cloudflare",
+    "name": "Cloudflare",
+    "url": "https://www.cloudflare.com/plans/free/",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-cloud",
+    "sub_category_name": "云厂商永久免费层",
+    "description": "Workers 10 万次/天、Pages、R2 10GB、免费 DNS",
+    "tags": [
+      "云厂商",
+      "免费层",
+      "CDN",
+      "边缘计算"
+    ],
+    "wiki": "cloudflare-workers"
+  },
+  {
+    "id": "render",
+    "name": "Render",
+    "url": "https://render.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-paas",
+    "sub_category_name": "免费 PaaS / IaaS",
+    "description": "750 小时免费实例/月",
+    "tags": [
+      "PaaS",
+      "部署",
+      "免费层"
+    ]
+  },
+  {
+    "id": "railway",
+    "name": "Railway",
+    "url": "https://railway.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-paas",
+    "sub_category_name": "免费 PaaS / IaaS",
+    "description": "每月 5 美元试用额度（需绑卡）",
+    "tags": [
+      "PaaS",
+      "部署",
+      "免费层"
+    ]
+  },
+  {
+    "id": "fly-io",
+    "name": "Fly.io",
+    "url": "https://fly.io",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-paas",
+    "sub_category_name": "免费 PaaS / IaaS",
+    "description": "3 台 shared-cpu-1x VM 永久免费",
+    "tags": [
+      "PaaS",
+      "部署",
+      "免费层"
+    ]
+  },
+  {
+    "id": "koyeb",
+    "name": "Koyeb",
+    "url": "https://www.koyeb.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-paas",
+    "sub_category_name": "免费 PaaS / IaaS",
+    "description": "1 个 nano 实例免费",
+    "tags": [
+      "PaaS",
+      "部署",
+      "免费层"
+    ]
+  },
+  {
+    "id": "supabase",
+    "name": "Supabase",
+    "url": "https://supabase.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-paas",
+    "sub_category_name": "免费 PaaS / IaaS",
+    "description": "500MB 数据库 + 5 万 MAU",
+    "tags": [
+      "BaaS",
+      "数据库",
+      "Postgres"
+    ]
+  },
+  {
+    "id": "neon",
+    "name": "Neon Postgres",
+    "url": "https://neon.tech",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-paas",
+    "sub_category_name": "免费 PaaS / IaaS",
+    "description": "0.5GB Serverless Postgres 免费",
+    "tags": [
+      "数据库",
+      "Postgres",
+      "Serverless"
+    ]
+  },
+  {
+    "id": "vercel",
+    "name": "Vercel",
+    "url": "https://vercel.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-paas",
+    "sub_category_name": "免费 PaaS / IaaS",
+    "description": "Hobby 计划永久免费，含 100GB 带宽",
+    "tags": [
+      "PaaS",
+      "前端托管",
+      "免费层"
+    ]
+  },
+  {
+    "id": "netlify",
+    "name": "Netlify",
+    "url": "https://www.netlify.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-paas",
+    "sub_category_name": "免费 PaaS / IaaS",
+    "description": "100GB 带宽/月 + 300 分钟构建",
+    "tags": [
+      "PaaS",
+      "前端托管",
+      "免费层"
+    ]
+  },
+  {
+    "id": "is-a-dev",
+    "name": "is-a.dev",
+    "url": "https://www.is-a.dev",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-domain",
+    "sub_category_name": "免费域名",
+    "description": "免费 .is-a.dev 子域名，面向开发者",
+    "tags": [
+      "域名",
+      "子域名",
+      "免费"
+    ]
+  },
+  {
+    "id": "js-org",
+    "name": "js.org",
+    "url": "https://js.org",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-domain",
+    "sub_category_name": "免费域名",
+    "description": "免费 .js.org 子域名，面向 JS 项目",
+    "tags": [
+      "域名",
+      "子域名",
+      "免费"
+    ]
+  },
+  {
+    "id": "eu-org",
+    "name": "eu.org",
+    "url": "https://nic.eu.org",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-domain",
+    "sub_category_name": "免费域名",
+    "description": "永久免费的 .eu.org 域名",
+    "tags": [
+      "域名",
+      "免费"
+    ]
+  },
+  {
+    "id": "pp-ua",
+    "name": "pp.ua",
+    "url": "https://nic.ua/en/domains/.pp.ua",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-domain",
+    "sub_category_name": "免费域名",
+    "description": "免费 .pp.ua 子域名（需 nic.ua 账号）",
+    "tags": [
+      "域名",
+      "子域名",
+      "免费"
+    ]
+  },
+  {
+    "id": "cloudflare-dns",
+    "name": "Cloudflare DNS",
+    "url": "https://www.cloudflare.com/dns/",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-dns",
+    "sub_category_name": "免费 DNS / CDN",
+    "description": "免费 DNS 解析 + CDN 加速",
+    "tags": [
+      "DNS",
+      "CDN",
+      "免费"
+    ]
+  },
+  {
+    "id": "hurricane-electric",
+    "name": "Hurricane Electric",
+    "url": "https://dns.he.net",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-dns",
+    "sub_category_name": "免费 DNS / CDN",
+    "description": "老牌免费 DNS 托管（HE.net）",
+    "tags": [
+      "DNS",
+      "免费"
+    ]
+  },
+  {
+    "id": "nextdns",
+    "name": "NextDNS",
+    "url": "https://nextdns.io",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-dns",
+    "sub_category_name": "免费 DNS / CDN",
+    "description": "30 万次查询/月免费，带过滤与隐私保护",
+    "tags": [
+      "DNS",
+      "隐私",
+      "过滤"
+    ]
+  },
+  {
+    "id": "bunnydns",
+    "name": "Bunny DNS",
+    "url": "https://bunny.net/dns/",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-dns",
+    "sub_category_name": "免费 DNS / CDN",
+    "description": "第一个域名免费，全球 Anycast 解析",
+    "tags": [
+      "DNS",
+      "CDN",
+      "免费"
+    ]
+  },
+  {
+    "id": "lets-encrypt",
+    "name": "Let's Encrypt",
+    "url": "https://letsencrypt.org",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-ssl",
+    "sub_category_name": "免费 SSL 证书",
+    "description": "无限免费证书，90 天有效期，自动续期",
+    "tags": [
+      "SSL",
+      "证书",
+      "免费"
+    ]
+  },
+  {
+    "id": "zerossl",
+    "name": "ZeroSSL",
+    "url": "https://zerossl.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-ssl",
+    "sub_category_name": "免费 SSL 证书",
+    "description": "3 个 90 天免费证书",
+    "tags": [
+      "SSL",
+      "证书",
+      "免费"
+    ]
+  },
+  {
+    "id": "cloudflare-origin-ca",
+    "name": "Cloudflare Origin CA",
+    "url": "https://developers.cloudflare.com/ssl/origin-configuration/origin-ca/",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-ssl",
+    "sub_category_name": "免费 SSL 证书",
+    "description": "15 年有效期的免费源站证书",
+    "tags": [
+      "SSL",
+      "证书",
+      "Cloudflare"
+    ]
+  },
+  {
+    "id": "buypass-go",
+    "name": "Buypass Go SSL",
+    "url": "https://www.buypass.com/ssl/products/acme",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-ssl",
+    "sub_category_name": "免费 SSL 证书",
+    "description": "180 天免费 ACME 证书",
+    "tags": [
+      "SSL",
+      "证书",
+      "ACME"
+    ]
+  },
+  {
+    "id": "uptimerobot",
+    "name": "UptimeRobot",
+    "url": "https://uptimerobot.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-monitor",
+    "sub_category_name": "免费监控 / 日志",
+    "description": "50 个监控免费，站点可用性告警",
+    "tags": [
+      "监控",
+      "告警",
+      "免费"
+    ]
+  },
+  {
+    "id": "better-stack",
+    "name": "Better Stack",
+    "url": "https://betterstack.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-monitor",
+    "sub_category_name": "免费监控 / 日志",
+    "description": "1 个监控免费 + 日志/事件管理",
+    "tags": [
+      "监控",
+      "日志",
+      "免费"
+    ]
+  },
+  {
+    "id": "logtail",
+    "name": "Logtail",
+    "url": "https://betterstack.com/logs",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-monitor",
+    "sub_category_name": "免费监控 / 日志",
+    "description": "1GB 日志/月免费（已并入 Better Stack）",
+    "tags": [
+      "日志",
+      "可观测性",
+      "免费"
+    ]
+  },
+  {
+    "id": "sentry",
+    "name": "Sentry",
+    "url": "https://sentry.io",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-monitor",
+    "sub_category_name": "免费监控 / 日志",
+    "description": "5000 错误事件/月免费，异常追踪",
+    "tags": [
+      "错误追踪",
+      "可观测性",
+      "免费"
+    ]
+  },
+  {
+    "id": "nextcloud",
+    "name": "Nextcloud",
+    "url": "https://nextcloud.com",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建网盘与协作套件，替代 Google Drive",
+    "tags": [
+      "网盘",
+      "协作",
+      "开源"
+    ],
+    "wiki": "nextcloud"
+  },
+  {
+    "id": "seafile",
+    "name": "Seafile",
+    "url": "https://www.seafile.com",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "高性能自建网盘，替代 Google Drive",
+    "tags": [
+      "网盘",
+      "同步",
+      "开源"
+    ]
+  },
+  {
+    "id": "joplin",
+    "name": "Joplin",
+    "url": "https://joplinapp.org",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "端到端加密笔记，替代 Notion / Evernote",
+    "tags": [
+      "笔记",
+      "加密",
+      "开源"
+    ]
+  },
+  {
+    "id": "trilium",
+    "name": "Trilium",
+    "url": "https://github.com/TriliumNext/Trilium",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "层级化知识库笔记，替代 Notion",
+    "tags": [
+      "笔记",
+      "知识库",
+      "开源"
+    ]
+  },
+  {
+    "id": "memos",
+    "name": "Memos",
+    "url": "https://github.com/usememos/memos",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "轻量碎片化笔记，替代 flomo",
+    "tags": [
+      "笔记",
+      "碎片记录",
+      "开源"
+    ]
+  },
+  {
+    "id": "freshrss",
+    "name": "FreshRSS",
+    "url": "https://freshrss.org",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建 RSS 阅读器，替代 Feedly",
+    "tags": [
+      "RSS",
+      "阅读器",
+      "开源"
+    ]
+  },
+  {
+    "id": "miniflux",
+    "name": "Miniflux",
+    "url": "https://miniflux.app",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "极简自建 RSS 阅读器，替代 Feedly",
+    "tags": [
+      "RSS",
+      "阅读器",
+      "开源"
+    ]
+  },
+  {
+    "id": "vaultwarden",
+    "name": "Vaultwarden",
+    "url": "https://github.com/dani-garcia/vaultwarden",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "轻量 Bitwarden 服务端实现，密码管理首选",
+    "tags": [
+      "密码管理",
+      "Bitwarden",
+      "开源"
+    ],
+    "wiki": "vaultwarden"
+  },
+  {
+    "id": "jellyfin",
+    "name": "Jellyfin",
+    "url": "https://jellyfin.org",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建媒体服务器，替代 Plex",
+    "tags": [
+      "影音",
+      "媒体库",
+      "开源"
+    ]
+  },
+  {
+    "id": "immich",
+    "name": "Immich",
+    "url": "https://github.com/immich-app/immich",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建相册，替代 Google Photos",
+    "tags": [
+      "相册",
+      "备份",
+      "开源"
+    ],
+    "wiki": "immich"
+  },
+  {
+    "id": "matrix-synapse",
+    "name": "Matrix / Synapse",
+    "url": "https://matrix.org",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "去中心化即时通讯协议与服务端，替代 Discord",
+    "tags": [
+      "IM",
+      "去中心化",
+      "开源"
+    ]
+  },
+  {
+    "id": "uptime-kuma",
+    "name": "Uptime Kuma",
+    "url": "https://github.com/louislam/uptime-kuma",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建监控告警，替代 UptimeRobot",
+    "tags": [
+      "监控",
+      "告警",
+      "开源"
+    ]
+  },
+  {
+    "id": "shlink",
+    "name": "Shlink",
+    "url": "https://shlink.io",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建短链接服务",
+    "tags": [
+      "短链",
+      "开源"
+    ]
+  },
+  {
+    "id": "qbittorrent",
+    "name": "qBittorrent",
+    "url": "https://www.qbittorrent.org",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "开源 BT 下载客户端",
+    "tags": [
+      "下载",
+      "BT",
+      "开源"
+    ]
+  },
+  {
+    "id": "aria2",
+    "name": "Aria2",
+    "url": "https://aria2.github.io",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "轻量多协议命令行下载器",
+    "tags": [
+      "下载",
+      "CLI",
+      "开源"
+    ]
+  },
+  {
+    "id": "rustdesk",
+    "name": "RustDesk",
+    "url": "https://github.com/rustdesk/rustdesk",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "开源远程桌面，替代 TeamViewer",
+    "tags": [
+      "远程桌面",
+      "开源"
+    ]
+  },
+  {
+    "id": "gitea",
+    "name": "Gitea",
+    "url": "https://about.gitea.com",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "轻量自建 Git 服务，替代 GitHub",
+    "tags": [
+      "Git",
+      "代码托管",
+      "开源"
+    ]
+  },
+  {
+    "id": "forgejo",
+    "name": "Forgejo",
+    "url": "https://forgejo.org",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "社区驱动的 Gitea 分支，替代 GitHub",
+    "tags": [
+      "Git",
+      "代码托管",
+      "开源"
+    ]
+  },
+  {
+    "id": "woodpecker",
+    "name": "Woodpecker CI",
+    "url": "https://woodpecker-ci.org",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "轻量 CI/CD，替代 GitLab CI",
+    "tags": [
+      "CI/CD",
+      "开源"
+    ]
+  },
+  {
+    "id": "drone",
+    "name": "Drone CI",
+    "url": "https://www.drone.io",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "容器原生 CI/CD，替代 GitLab CI",
+    "tags": [
+      "CI/CD",
+      "开源"
+    ]
+  },
+  {
+    "id": "nginx-proxy-manager",
+    "name": "Nginx Proxy Manager",
+    "url": "https://github.com/NginxProxyManager/nginx-proxy-manager",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "可视化反向代理与证书管理",
+    "tags": [
+      "反向代理",
+      "Nginx",
+      "开源"
+    ]
+  },
+  {
+    "id": "1panel",
+    "name": "1Panel",
+    "url": "https://github.com/1Panel-dev/1Panel",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "现代化 Linux 服务器运维面板",
+    "tags": [
+      "面板",
+      "运维",
+      "开源"
+    ]
+  },
+  {
+    "id": "casaos",
+    "name": "CasaOS",
+    "url": "https://casaos.io",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "面向家庭服务器的轻量面板",
+    "tags": [
+      "面板",
+      "NAS",
+      "开源"
+    ]
+  },
+  {
+    "id": "ddns-go",
+    "name": "ddns-go",
+    "url": "https://github.com/jeessy2/ddns-go",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自动更新动态域名解析",
+    "tags": [
+      "DDNS",
+      "网络",
+      "开源"
+    ]
+  },
+  {
+    "id": "navidrome",
+    "name": "Navidrome",
+    "url": "https://www.navidrome.org",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建音乐流媒体服务",
+    "tags": [
+      "音乐",
+      "流媒体",
+      "开源"
+    ]
+  },
+  {
+    "id": "outline",
+    "name": "Outline",
+    "url": "https://www.getoutline.com",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "团队知识库与文档协作",
+    "tags": [
+      "文档",
+      "知识库",
+      "开源"
+    ]
+  },
+  {
+    "id": "mattermost",
+    "name": "Mattermost",
+    "url": "https://mattermost.com",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "团队聊天协作，替代 Slack",
+    "tags": [
+      "IM",
+      "团队协作",
+      "开源"
+    ]
+  },
+  {
+    "id": "kanboard",
+    "name": "Kanboard",
+    "url": "https://kanboard.org",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "极简看板式任务管理",
+    "tags": [
+      "看板",
+      "任务管理",
+      "开源"
+    ]
+  },
+  {
+    "id": "focalboard",
+    "name": "Focalboard",
+    "url": "https://github.com/mattermost-community/focalboard",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "开源看板与项目管理",
+    "tags": [
+      "看板",
+      "任务管理",
+      "开源"
+    ]
+  },
+  {
+    "id": "passbolt",
+    "name": "Passbolt",
+    "url": "https://www.passbolt.com",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "团队密码管理，替代 1Password",
+    "tags": [
+      "密码管理",
+      "团队",
+      "开源"
+    ]
+  },
+  {
+    "id": "radicale",
+    "name": "Radicale",
+    "url": "https://radicale.org",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "轻量 CalDAV / CardDAV 服务端",
+    "tags": [
+      "通讯录",
+      "日历",
+      "开源"
+    ]
+  },
+  {
+    "id": "ohmyform",
+    "name": "OhMyForm",
+    "url": "https://ohmyform.com",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "开源表单收集，替代 Google Forms",
+    "tags": [
+      "表单",
+      "开源"
+    ]
+  },
+  {
+    "id": "linkding",
+    "name": "Linkding",
+    "url": "https://github.com/sissbruecker/linkding",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "轻量自建书签管理",
+    "tags": [
+      "书签",
+      "开源"
+    ]
+  },
+  {
+    "id": "searxng",
+    "name": "SearXNG",
+    "url": "https://github.com/searxng/searxng",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建元搜索引擎，聚合多引擎结果",
+    "tags": [
+      "搜索",
+      "隐私",
+      "开源"
+    ]
+  },
+  {
+    "id": "filebrowser",
+    "name": "Filebrowser",
+    "url": "https://github.com/filebrowser/filebrowser",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "轻量网页文件管理器",
+    "tags": [
+      "文件管理",
+      "开源"
+    ]
+  },
+  {
+    "id": "wetty",
+    "name": "Wetty",
+    "url": "https://github.com/butlerx/wetty",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "浏览器里的终端（基于 xterm.js）",
+    "tags": [
+      "终端",
+      "WebSSH",
+      "开源"
+    ]
+  },
+  {
+    "id": "ttyd",
+    "name": "ttyd",
+    "url": "https://github.com/tsl0922/ttyd",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "把命令行共享到浏览器",
+    "tags": [
+      "终端",
+      "WebSSH",
+      "开源"
+    ]
+  },
+  {
+    "id": "excalidraw",
+    "name": "Excalidraw",
+    "url": "https://excalidraw.com",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "手绘风格白板与流程图",
+    "tags": [
+      "白板",
+      "绘图",
+      "开源"
+    ]
+  },
+  {
+    "id": "xray-reality",
+    "name": "Xray + Reality",
+    "url": "https://github.com/XTLS/Xray-core",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-proxy",
+    "sub_category_name": "网络代理自部署",
+    "description": "当前主流方案，Reality 伪装 SNI",
+    "tags": [
+      "代理",
+      "Xray",
+      "Reality"
+    ]
+  },
+  {
+    "id": "sing-box",
+    "name": "sing-box",
+    "url": "https://github.com/SagerNet/sing-box",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-proxy",
+    "sub_category_name": "网络代理自部署",
+    "description": "一体化通用代理内核，多协议支持",
+    "tags": [
+      "代理",
+      "内核",
+      "开源"
+    ]
+  },
+  {
+    "id": "mihomo",
+    "name": "mihomo / Clash Meta",
+    "url": "https://github.com/MetaCubeX/mihomo",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-proxy",
+    "sub_category_name": "网络代理自部署",
+    "description": "Clash Meta 内核，客户端与服务端通用",
+    "tags": [
+      "代理",
+      "Clash",
+      "开源"
+    ]
+  },
+  {
+    "id": "hysteria2",
+    "name": "Hysteria2",
+    "url": "https://github.com/HyNetworks/hysteria",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-proxy",
+    "sub_category_name": "网络代理自部署",
+    "description": "基于 QUIC 的高速代理协议",
+    "tags": [
+      "代理",
+      "QUIC",
+      "开源"
+    ]
+  },
+  {
+    "id": "trojan-go",
+    "name": "Trojan-Go",
+    "url": "https://github.com/p4gefau1t/trojan-go",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-proxy",
+    "sub_category_name": "网络代理自部署",
+    "description": "TLS 伪装的 Trojan 实现",
+    "tags": [
+      "代理",
+      "TLS",
+      "开源"
+    ]
+  },
+  {
+    "id": "snell",
+    "name": "Snell",
+    "url": "https://manual.nssurge.com/policies/snell.html",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-proxy",
+    "sub_category_name": "网络代理自部署",
+    "description": "Surge 自研的加密代理协议",
+    "tags": [
+      "代理",
+      "Surge"
+    ]
+  },
+  {
+    "id": "tuic",
+    "name": "TUIC",
+    "url": "https://github.com/tuic-protocol/tuic",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-proxy",
+    "sub_category_name": "网络代理自部署",
+    "description": "基于 QUIC 的轻量代理协议",
+    "tags": [
+      "代理",
+      "QUIC",
+      "开源"
+    ]
+  },
+  {
+    "id": "tpot",
+    "name": "T-Pot",
+    "url": "https://github.com/telekom-security/tpotce",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-honeypot",
+    "sub_category_name": "蜜罐 / 安全演练",
+    "description": "多蜜罐一体化平台（Deutsche Telekom）",
+    "tags": [
+      "蜜罐",
+      "安全",
+      "开源"
+    ]
+  },
+  {
+    "id": "cowrie",
+    "name": "Cowrie",
+    "url": "https://github.com/cowrie/cowrie",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-honeypot",
+    "sub_category_name": "蜜罐 / 安全演练",
+    "description": "SSH / Telnet 交互式蜜罐",
+    "tags": [
+      "蜜罐",
+      "SSH",
+      "开源"
+    ]
+  },
+  {
+    "id": "dionaea",
+    "name": "Dionaea",
+    "url": "https://github.com/DinoTools/dionaea",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-honeypot",
+    "sub_category_name": "蜜罐 / 安全演练",
+    "description": "捕获恶意软件的低交互蜜罐",
+    "tags": [
+      "蜜罐",
+      "恶意软件",
+      "开源"
+    ]
+  },
+  {
+    "id": "hfish",
+    "name": "HFish",
+    "url": "https://github.com/hacklcx/HFish",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-honeypot",
+    "sub_category_name": "蜜罐 / 安全演练",
+    "description": "国产跨平台蜜罐平台",
+    "tags": [
+      "蜜罐",
+      "安全",
+      "开源"
+    ]
+  },
+  {
+    "id": "openai-api",
+    "name": "OpenAI API",
+    "url": "https://platform.openai.com",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "GPT 系列官方 API",
+    "tags": [
+      "API",
+      "LLM",
+      "OpenAI"
+    ]
+  },
+  {
+    "id": "anthropic-api",
+    "name": "Anthropic API",
+    "url": "https://docs.anthropic.com",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "Claude 系列官方 API",
+    "tags": [
+      "API",
+      "LLM",
+      "Anthropic"
+    ]
+  },
+  {
+    "id": "google-ai-api",
+    "name": "Google AI (Gemini) API",
+    "url": "https://ai.google.dev",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "Gemini 官方开发者 API",
+    "tags": [
+      "API",
+      "LLM",
+      "Google"
+    ]
+  },
+  {
+    "id": "hf-inference-api",
+    "name": "Hugging Face Inference API",
+    "url": "https://huggingface.co/docs/api-inference",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "开源模型推理 API",
+    "tags": [
+      "API",
+      "推理",
+      "开源模型"
+    ]
+  },
+  {
+    "id": "replicate",
+    "name": "Replicate",
+    "url": "https://replicate.com",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "托管开源模型，部分模型免费试用",
+    "tags": [
+      "API",
+      "模型托管"
+    ]
+  },
+  {
+    "id": "openweathermap",
+    "name": "OpenWeatherMap",
+    "url": "https://openweathermap.org/api",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "天气数据 API，1000 次/天免费",
+    "tags": [
+      "API",
+      "天气",
+      "免费"
+    ]
+  },
+  {
+    "id": "ipinfo",
+    "name": "IPinfo",
+    "url": "https://ipinfo.io",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "IP 归属地查询，5 万次/月免费",
+    "tags": [
+      "API",
+      "IP",
+      "地理"
+    ]
+  },
+  {
+    "id": "mymemory",
+    "name": "MyMemory",
+    "url": "https://mymemory.translated.net",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "翻译 API，5000 字/天免费",
+    "tags": [
+      "API",
+      "翻译",
+      "免费"
+    ]
+  },
+  {
+    "id": "unsplash",
+    "name": "Unsplash",
+    "url": "https://unsplash.com/developers",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "免费高清图片 API",
+    "tags": [
+      "API",
+      "图片",
+      "免费"
+    ]
+  },
+  {
+    "id": "pexels",
+    "name": "Pexels",
+    "url": "https://www.pexels.com/api/",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "免费图片与视频 API",
+    "tags": [
+      "API",
+      "图片",
+      "视频"
+    ]
+  },
+  {
+    "id": "qrserver",
+    "name": "QRServer",
+    "url": "https://goqr.me/api/",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "二维码生成 API，无限免费",
+    "tags": [
+      "API",
+      "二维码",
+      "免费"
+    ]
+  },
+  {
+    "id": "disify",
+    "name": "Disify",
+    "url": "https://www.disify.com",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "临时邮箱与邮箱校验 API",
+    "tags": [
+      "API",
+      "邮箱",
+      "临时"
+    ]
+  },
+  {
+    "id": "textbelt",
+    "name": "Textbelt",
+    "url": "https://textbelt.com",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "短信发送 API，1 条/天免费",
+    "tags": [
+      "API",
+      "短信",
+      "免费"
+    ]
+  },
+  {
+    "id": "proxyscrape",
+    "name": "ProxyScrape",
+    "url": "https://proxyscrape.com",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "免费代理列表 API",
+    "tags": [
+      "API",
+      "代理",
+      "免费"
+    ]
+  },
+  {
+    "id": "is-gd",
+    "name": "is.gd",
+    "url": "https://is.gd",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "免费短链接服务",
+    "tags": [
+      "短链",
+      "免费"
+    ]
+  },
+  {
+    "id": "tinyurl",
+    "name": "TinyURL",
+    "url": "https://tinyurl.com",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "免费短链接服务",
+    "tags": [
+      "短链",
+      "免费"
+    ]
+  },
+  {
+    "id": "hcaptcha",
+    "name": "hCaptcha",
+    "url": "https://www.hcaptcha.com",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "非商业免费的人机验证服务",
+    "tags": [
+      "验证码",
+      "安全",
+      "免费"
+    ]
+  },
+  {
+    "id": "nominatim",
+    "name": "OpenStreetMap Nominatim",
+    "url": "https://nominatim.org",
+    "category": "api",
+    "category_name": "公开 API 大全",
+    "sub_category": "api-free",
+    "sub_category_name": "免费 API 服务",
+    "description": "免费地理编码与逆地理编码",
+    "tags": [
+      "API",
+      "地图",
+      "地理编码"
+    ]
+  },
+  {
+    "id": "awesome-hacking",
+    "name": "Awesome Hacking",
+    "url": "https://github.com/Hack-with-Github/Awesome-Hacking",
+    "category": "security",
+    "category_name": "黑客 / 安全工具书",
+    "sub_category": "security-pentest",
+    "sub_category_name": "渗透测试工具集",
+    "description": "黑客与安全资源大全",
+    "tags": [
+      "安全",
+      "合集",
+      "开源"
+    ]
+  },
+  {
+    "id": "payloadsallthethings",
+    "name": "PayloadsAllTheThings",
+    "url": "https://github.com/swisskyrepo/PayloadsAllTheThings",
+    "category": "security",
+    "category_name": "黑客 / 安全工具书",
+    "sub_category": "security-pentest",
+    "sub_category_name": "渗透测试工具集",
+    "description": "各类漏洞利用 Payload 合集",
+    "tags": [
+      "安全",
+      "Payload",
+      "开源"
+    ]
+  },
+  {
+    "id": "hacktricks",
+    "name": "HackTricks",
+    "url": "https://github.com/HackTricks-wiki/hacktricks",
+    "category": "security",
+    "category_name": "黑客 / 安全工具书",
+    "sub_category": "security-pentest",
+    "sub_category_name": "渗透测试工具集",
+    "description": "渗透测试技巧百科全书",
+    "tags": [
+      "安全",
+      "渗透测试",
+      "开源"
+    ]
+  },
+  {
+    "id": "seclists",
+    "name": "SecLists",
+    "url": "https://github.com/danielmiessler/SecLists",
+    "category": "security",
+    "category_name": "黑客 / 安全工具书",
+    "sub_category": "security-pentest",
+    "sub_category_name": "渗透测试工具集",
+    "description": "安全测试字典合集",
+    "tags": [
+      "安全",
+      "字典",
+      "开源"
+    ]
+  },
+  {
+    "id": "nuclei-templates",
+    "name": "nuclei-templates",
+    "url": "https://github.com/projectdiscovery/nuclei-templates",
+    "category": "security",
+    "category_name": "黑客 / 安全工具书",
+    "sub_category": "security-pentest",
+    "sub_category_name": "渗透测试工具集",
+    "description": "Nuclei 漏洞检测模板库",
+    "tags": [
+      "安全",
+      "漏洞扫描",
+      "开源"
+    ]
+  },
+  {
+    "id": "gtfobins",
+    "name": "GTFOBins",
+    "url": "https://gtfobins.github.io",
+    "category": "security",
+    "category_name": "黑客 / 安全工具书",
+    "sub_category": "security-pentest",
+    "sub_category_name": "渗透测试工具集",
+    "description": "Unix 提权二进制利用手册",
+    "tags": [
+      "安全",
+      "提权",
+      "手册"
+    ]
+  },
+  {
+    "id": "lolbas",
+    "name": "LOLBAS",
+    "url": "https://lolbas-project.github.io",
+    "category": "security",
+    "category_name": "黑客 / 安全工具书",
+    "sub_category": "security-pentest",
+    "sub_category_name": "渗透测试工具集",
+    "description": "Windows 原生二进制滥用手册",
+    "tags": [
+      "安全",
+      "Windows",
+      "手册"
+    ]
+  },
+  {
+    "id": "free-programming-books",
+    "name": "free-programming-books",
+    "url": "https://github.com/EbookFoundation/free-programming-books",
+    "category": "ebook",
+    "category_name": "免费电子书",
+    "sub_category": "ebook-free",
+    "sub_category_name": "免费编程书",
+    "description": "Free Ebook Foundation 维护的免费编程书清单",
+    "tags": [
+      "电子书",
+      "编程",
+      "合集"
+    ]
+  },
+  {
+    "id": "mfuu-freeproxies",
+    "name": "mfuu/FreeProxies",
+    "url": "https://github.com/mfuu/FreeProxies",
+    "category": "proxy",
+    "category_name": "免费节点 / 代理订阅",
+    "sub_category": "proxy-sub",
+    "sub_category_name": "活跃订阅仓库",
+    "description": "每日更新的免费节点订阅仓库",
+    "tags": [
+      "订阅",
+      "节点",
+      "开源"
+    ]
+  },
+  {
+    "id": "aiboboxx-v2rayfree",
+    "name": "aiboboxx/v2rayfree",
+    "url": "https://github.com/free-nodes/v2rayfree",
+    "category": "proxy",
+    "category_name": "免费节点 / 代理订阅",
+    "sub_category": "proxy-sub",
+    "sub_category_name": "活跃订阅仓库",
+    "description": "免费 v2ray 节点订阅",
+    "tags": [
+      "订阅",
+      "v2ray",
+      "开源"
+    ]
+  },
+  {
+    "id": "barry-far-v2ray-configs",
+    "name": "barry-far/V2ray-Configs",
+    "url": "https://github.com/barry-far/V2ray-Config",
+    "category": "proxy",
+    "category_name": "免费节点 / 代理订阅",
+    "sub_category": "proxy-sub",
+    "sub_category_name": "活跃订阅仓库",
+    "description": "聚合式免费节点配置",
+    "tags": [
+      "订阅",
+      "v2ray",
+      "开源"
+    ]
+  },
+  {
+    "id": "epodonators-v2ray-configs",
+    "name": "Epodonators/v2ray-configs",
+    "url": "https://github.com/Epodonios/v2ray-configs",
+    "category": "proxy",
+    "category_name": "免费节点 / 代理订阅",
+    "sub_category": "proxy-sub",
+    "sub_category_name": "活跃订阅仓库",
+    "description": "高频更新的免费节点订阅",
+    "tags": [
+      "订阅",
+      "v2ray",
+      "开源"
+    ]
+  },
+  {
+    "id": "huggingface-spaces",
+    "name": "HuggingFace Spaces",
+    "url": "https://huggingface.co/spaces",
+    "category": "vps",
+    "category_name": "免费 VPS / 服务器",
+    "sub_category": "vps-free",
+    "sub_category_name": "免费服务器资源",
+    "description": "免费 CPU 实例，支持 Docker 部署",
+    "tags": [
+      "VPS",
+      "容器",
+      "AI 托管"
+    ]
+  },
+  {
+    "id": "replit",
+    "name": "Replit",
+    "url": "https://replit.com",
+    "category": "vps",
+    "category_name": "免费 VPS / 服务器",
+    "sub_category": "vps-free",
+    "sub_category_name": "免费服务器资源",
+    "description": "免费 5 个 Repl 项目，在线 IDE",
+    "tags": [
+      "VPS",
+      "在线 IDE",
+      "免费"
+    ]
+  },
+  {
+    "id": "kimi",
+    "name": "Kimi",
+    "url": "https://www.kimi.com",
+    "category": "cn-ai",
+    "category_name": "国内免费 AI 工具",
+    "sub_category": "cn-ai-dev",
+    "sub_category_name": "国内 AI 开发者 API",
+    "description": "月之暗面 Kimi，长文本对话助手",
+    "tags": [
+      "对话",
+      "国内",
+      "长文本"
+    ]
+  },
+  {
+    "id": "tencent-hunyuan",
+    "name": "腾讯混元",
+    "url": "https://hunyuan.tencent.com",
+    "category": "cn-ai",
+    "category_name": "国内免费 AI 工具",
+    "sub_category": "cn-ai-dev",
+    "sub_category_name": "国内 AI 开发者 API",
+    "description": "腾讯混元大模型对话与 API",
+    "tags": [
+      "对话",
+      "国内",
+      "腾讯"
+    ]
+  },
+  {
+    "id": "bigmodel-glm",
+    "name": "智谱 GLM-4 API",
+    "url": "https://open.bigmodel.cn",
+    "category": "cn-ai",
+    "category_name": "国内免费 AI 工具",
+    "sub_category": "cn-ai-dev",
+    "sub_category_name": "国内 AI 开发者 API",
+    "description": "智谱开放平台开发者 API",
+    "tags": [
+      "API",
+      "国内",
+      "GLM"
+    ]
+  },
+  {
+    "id": "deepseek-api",
+    "name": "DeepSeek API",
+    "url": "https://platform.deepseek.com",
+    "category": "cn-ai",
+    "category_name": "国内免费 AI 工具",
+    "sub_category": "cn-ai-dev",
+    "sub_category_name": "国内 AI 开发者 API",
+    "description": "DeepSeek 开放平台 API",
+    "tags": [
+      "API",
+      "国内",
+      "DeepSeek"
+    ]
+  },
+  {
+    "id": "siliconflow",
+    "name": "硅基流动",
+    "url": "https://siliconflow.cn",
+    "category": "cn-ai",
+    "category_name": "国内免费 AI 工具",
+    "sub_category": "cn-ai-dev",
+    "sub_category_name": "国内 AI 开发者 API",
+    "description": "模型聚合 API 平台，含免费额度",
+    "tags": [
+      "API",
+      "聚合",
+      "国内"
+    ]
+  },
+  {
+    "id": "lingyiwanwu",
+    "name": "零一万物",
+    "url": "https://platform.lingyiwanwu.com",
+    "category": "cn-ai",
+    "category_name": "国内免费 AI 工具",
+    "sub_category": "cn-ai-dev",
+    "sub_category_name": "国内 AI 开发者 API",
+    "description": "Yi 系列模型开放平台",
+    "tags": [
+      "API",
+      "国内",
+      "Yi"
+    ]
+  },
+  {
+    "id": "minimax",
+    "name": "MiniMax",
+    "url": "https://www.minimax.io",
+    "category": "cn-ai",
+    "category_name": "国内免费 AI 工具",
+    "sub_category": "cn-ai-dev",
+    "sub_category_name": "国内 AI 开发者 API",
+    "description": "MiniMax 海螺 AI 与开放平台",
+    "tags": [
+      "API",
+      "国内",
+      "多模态"
+    ]
+  },
+  {
+    "id": "cloudflare-imgbed",
+    "name": "CloudFlare-ImgBed",
+    "url": "https://github.com/MarSeventh/CloudFlare-ImgBed",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-tools",
+    "sub_category_name": "高频实用工具",
+    "description": "基于 Cloudflare 的免费图床",
+    "tags": [
+      "图床",
+      "Cloudflare",
+      "开源"
+    ]
+  },
+  {
+    "id": "cloudflare-tunnel",
+    "name": "Cloudflare Tunnel",
+    "url": "https://developers.cloudflare.com/cloudflare-one/",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-tools",
+    "sub_category_name": "高频实用工具",
+    "description": "无需公网 IP 的内网穿透隧道",
+    "tags": [
+      "内网穿透",
+      "Cloudflare",
+      "免费"
+    ]
+  },
+  {
+    "id": "subconverter",
+    "name": "subconverter",
+    "url": "https://github.com/tindy2013/subconverter",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-tools",
+    "sub_category_name": "高频实用工具",
+    "description": "订阅格式转换工具",
+    "tags": [
+      "订阅",
+      "转换",
+      "开源"
+    ]
+  },
+  {
+    "id": "localsend",
+    "name": "LocalSend",
+    "url": "https://github.com/localsend/localsend",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-tools",
+    "sub_category_name": "高频实用工具",
+    "description": "跨平台局域网文件互传，替代 AirDrop",
+    "tags": [
+      "文件传输",
+      "局域网",
+      "开源"
+    ]
+  },
+  {
+    "id": "stirling-pdf",
+    "name": "Stirling-PDF",
+    "url": "https://github.com/Stirling-Tools/Stirling-PDF",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-tools",
+    "sub_category_name": "高频实用工具",
+    "description": "自建 PDF 工具箱",
+    "tags": [
+      "PDF",
+      "工具集",
+      "开源"
+    ]
+  },
+  {
+    "id": "it-tools",
+    "name": "IT-Tools",
+    "url": "https://github.com/CorentinTh/it-tools",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-tools",
+    "sub_category_name": "高频实用工具",
+    "description": "开发者在线工具箱合集",
+    "tags": [
+      "工具集",
+      "开发",
+      "开源"
+    ]
+  },
+  {
+    "id": "n8n",
+    "name": "n8n",
+    "url": "https://github.com/n8n-io/n8n",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-tools",
+    "sub_category_name": "高频实用工具",
+    "description": "开源工作流自动化，替代 Zapier",
+    "tags": [
+      "自动化",
+      "工作流",
+      "开源"
+    ]
+  },
+  {
+    "id": "activepieces",
+    "name": "Activepieces",
+    "url": "https://github.com/activepieces/activepieces",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-tools",
+    "sub_category_name": "高频实用工具",
+    "description": "开源自动化平台，替代 Zapier",
+    "tags": [
+      "自动化",
+      "工作流",
+      "开源"
+    ]
+  },
+  {
+    "id": "homarr",
+    "name": "Homarr",
+    "url": "https://github.com/ajnart/homarr",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-tools",
+    "sub_category_name": "高频实用工具",
+    "description": "自建服务导航首页面板",
+    "tags": [
+      "导航",
+      "面板",
+      "开源"
+    ]
+  }
+]

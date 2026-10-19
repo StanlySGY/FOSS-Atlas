@@ -1,0 +1,4740 @@
+{
+  "generated_at": "2026-10-19T05:08:57.716Z",
+  "stats": {
+    "tools": 165,
+    "categories": 10,
+    "sub_categories": 21,
+    "tags": 40,
+    "externals": 26,
+    "edges": 578
+  },
+  "categories": [
+    {
+      "id": "ai",
+      "name": "AI / LLM 白嫖",
+      "icon": "🤖"
+    },
+    {
+      "id": "saas",
+      "name": "免费 SaaS 开发资源",
+      "icon": "☁️"
+    },
+    {
+      "id": "selfhost",
+      "name": "自部署开源神器",
+      "icon": "🏠"
+    },
+    {
+      "id": "api",
+      "name": "公开 API 大全",
+      "icon": "🔌"
+    },
+    {
+      "id": "security",
+      "name": "黑客 / 安全工具书",
+      "icon": "🛡️"
+    },
+    {
+      "id": "ebook",
+      "name": "免费电子书",
+      "icon": "📚"
+    },
+    {
+      "id": "proxy",
+      "name": "免费节点 / 代理订阅",
+      "icon": "🌐"
+    },
+    {
+      "id": "vps",
+      "name": "免费 VPS / 服务器",
+      "icon": "🖥️"
+    },
+    {
+      "id": "cn-ai",
+      "name": "国内免费 AI 工具",
+      "icon": "🇨🇳"
+    },
+    {
+      "id": "gear",
+      "name": "佬友神器",
+      "icon": "⭐"
+    }
+  ],
+  "sub_categories": [
+    {
+      "id": "ai-chat",
+      "name": "免费 AI 对话站点",
+      "category": "ai"
+    },
+    {
+      "id": "ai-coding",
+      "name": "AI 编程工具",
+      "category": "ai"
+    },
+    {
+      "id": "ai-local",
+      "name": "本地跑大模型",
+      "category": "ai"
+    },
+    {
+      "id": "ai-framework",
+      "name": "LLM 开发框架",
+      "category": "ai"
+    },
+    {
+      "id": "ai-prompt",
+      "name": "AI 提示词资源",
+      "category": "ai"
+    },
+    {
+      "id": "saas-cloud",
+      "name": "云厂商永久免费层",
+      "category": "saas"
+    },
+    {
+      "id": "saas-paas",
+      "name": "免费 PaaS / IaaS",
+      "category": "saas"
+    },
+    {
+      "id": "saas-domain",
+      "name": "免费域名",
+      "category": "saas"
+    },
+    {
+      "id": "saas-dns",
+      "name": "免费 DNS / CDN",
+      "category": "saas"
+    },
+    {
+      "id": "saas-ssl",
+      "name": "免费 SSL 证书",
+      "category": "saas"
+    },
+    {
+      "id": "saas-monitor",
+      "name": "免费监控 / 日志",
+      "category": "saas"
+    },
+    {
+      "id": "selfhost-core",
+      "name": "佬友首选自部署",
+      "category": "selfhost"
+    },
+    {
+      "id": "selfhost-proxy",
+      "name": "网络代理自部署",
+      "category": "selfhost"
+    },
+    {
+      "id": "selfhost-honeypot",
+      "name": "蜜罐 / 安全演练",
+      "category": "selfhost"
+    },
+    {
+      "id": "api-free",
+      "name": "免费 API 服务",
+      "category": "api"
+    },
+    {
+      "id": "security-pentest",
+      "name": "渗透测试工具集",
+      "category": "security"
+    },
+    {
+      "id": "ebook-free",
+      "name": "免费编程书",
+      "category": "ebook"
+    },
+    {
+      "id": "proxy-sub",
+      "name": "活跃订阅仓库",
+      "category": "proxy"
+    },
+    {
+      "id": "vps-free",
+      "name": "免费服务器资源",
+      "category": "vps"
+    },
+    {
+      "id": "cn-ai-dev",
+      "name": "国内 AI 开发者 API",
+      "category": "cn-ai"
+    },
+    {
+      "id": "gear-tools",
+      "name": "高频实用工具",
+      "category": "gear"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cat:ai",
+      "name": "AI / LLM 白嫖",
+      "type": "category",
+      "icon": "🤖"
+    },
+    {
+      "id": "cat:saas",
+      "name": "免费 SaaS 开发资源",
+      "type": "category",
+      "icon": "☁️"
+    },
+    {
+      "id": "cat:selfhost",
+      "name": "自部署开源神器",
+      "type": "category",
+      "icon": "🏠"
+    },
+    {
+      "id": "cat:api",
+      "name": "公开 API 大全",
+      "type": "category",
+      "icon": "🔌"
+    },
+    {
+      "id": "cat:security",
+      "name": "黑客 / 安全工具书",
+      "type": "category",
+      "icon": "🛡️"
+    },
+    {
+      "id": "cat:ebook",
+      "name": "免费电子书",
+      "type": "category",
+      "icon": "📚"
+    },
+    {
+      "id": "cat:proxy",
+      "name": "免费节点 / 代理订阅",
+      "type": "category",
+      "icon": "🌐"
+    },
+    {
+      "id": "cat:vps",
+      "name": "免费 VPS / 服务器",
+      "type": "category",
+      "icon": "🖥️"
+    },
+    {
+      "id": "cat:cn-ai",
+      "name": "国内免费 AI 工具",
+      "type": "category",
+      "icon": "🇨🇳"
+    },
+    {
+      "id": "cat:gear",
+      "name": "佬友神器",
+      "type": "category",
+      "icon": "⭐"
+    },
+    {
+      "id": "sub:ai-chat",
+      "name": "免费 AI 对话站点",
+      "type": "subcategory",
+      "category": "ai"
+    },
+    {
+      "id": "sub:ai-coding",
+      "name": "AI 编程工具",
+      "type": "subcategory",
+      "category": "ai"
+    },
+    {
+      "id": "sub:ai-local",
+      "name": "本地跑大模型",
+      "type": "subcategory",
+      "category": "ai"
+    },
+    {
+      "id": "sub:ai-framework",
+      "name": "LLM 开发框架",
+      "type": "subcategory",
+      "category": "ai"
+    },
+    {
+      "id": "sub:ai-prompt",
+      "name": "AI 提示词资源",
+      "type": "subcategory",
+      "category": "ai"
+    },
+    {
+      "id": "sub:saas-cloud",
+      "name": "云厂商永久免费层",
+      "type": "subcategory",
+      "category": "saas"
+    },
+    {
+      "id": "sub:saas-paas",
+      "name": "免费 PaaS / IaaS",
+      "type": "subcategory",
+      "category": "saas"
+    },
+    {
+      "id": "sub:saas-domain",
+      "name": "免费域名",
+      "type": "subcategory",
+      "category": "saas"
+    },
+    {
+      "id": "sub:saas-dns",
+      "name": "免费 DNS / CDN",
+      "type": "subcategory",
+      "category": "saas"
+    },
+    {
+      "id": "sub:saas-ssl",
+      "name": "免费 SSL 证书",
+      "type": "subcategory",
+      "category": "saas"
+    },
+    {
+      "id": "sub:saas-monitor",
+      "name": "免费监控 / 日志",
+      "type": "subcategory",
+      "category": "saas"
+    },
+    {
+      "id": "sub:selfhost-core",
+      "name": "佬友首选自部署",
+      "type": "subcategory",
+      "category": "selfhost"
+    },
+    {
+      "id": "sub:selfhost-proxy",
+      "name": "网络代理自部署",
+      "type": "subcategory",
+      "category": "selfhost"
+    },
+    {
+      "id": "sub:selfhost-honeypot",
+      "name": "蜜罐 / 安全演练",
+      "type": "subcategory",
+      "category": "selfhost"
+    },
+    {
+      "id": "sub:api-free",
+      "name": "免费 API 服务",
+      "type": "subcategory",
+      "category": "api"
+    },
+    {
+      "id": "sub:security-pentest",
+      "name": "渗透测试工具集",
+      "type": "subcategory",
+      "category": "security"
+    },
+    {
+      "id": "sub:ebook-free",
+      "name": "免费编程书",
+      "type": "subcategory",
+      "category": "ebook"
+    },
+    {
+      "id": "sub:proxy-sub",
+      "name": "活跃订阅仓库",
+      "type": "subcategory",
+      "category": "proxy"
+    },
+    {
+      "id": "sub:vps-free",
+      "name": "免费服务器资源",
+      "type": "subcategory",
+      "category": "vps"
+    },
+    {
+      "id": "sub:cn-ai-dev",
+      "name": "国内 AI 开发者 API",
+      "type": "subcategory",
+      "category": "cn-ai"
+    },
+    {
+      "id": "sub:gear-tools",
+      "name": "高频实用工具",
+      "type": "subcategory",
+      "category": "gear"
+    },
+    {
+      "id": "poe",
+      "name": "Poe",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://poe.com"
+    },
+    {
+      "id": "huggingchat",
+      "name": "HuggingChat",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://huggingface.co/chat"
+    },
+    {
+      "id": "duckduckgo-ai-chat",
+      "name": "DuckDuckGo AI Chat",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://duck.ai"
+    },
+    {
+      "id": "lmsys-chat",
+      "name": "LMSYS Chatbot Arena",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://chat.lmsys.org"
+    },
+    {
+      "id": "microsoft-copilot",
+      "name": "Microsoft Copilot",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://copilot.microsoft.com"
+    },
+    {
+      "id": "meta-ai",
+      "name": "Meta AI",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://www.meta.ai"
+    },
+    {
+      "id": "google-gemini",
+      "name": "Google Gemini",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://gemini.google.com"
+    },
+    {
+      "id": "anthropic-claude",
+      "name": "Anthropic Claude",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://claude.ai"
+    },
+    {
+      "id": "baidu-yiyan",
+      "name": "百度文心一言",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://yiyan.baidu.com"
+    },
+    {
+      "id": "aliyun-tongyi",
+      "name": "阿里通义千问",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://tongyi.aliyun.com"
+    },
+    {
+      "id": "xfyun-xinghuo",
+      "name": "讯飞星火",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://xinghuo.xfyun.cn"
+    },
+    {
+      "id": "doubao",
+      "name": "豆包",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://www.doubao.com"
+    },
+    {
+      "id": "chatglm",
+      "name": "智谱清言",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://chatglm.cn"
+    },
+    {
+      "id": "deepseek-chat",
+      "name": "DeepSeek",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://www.deepseek.com"
+    },
+    {
+      "id": "tiangong",
+      "name": "天工 AI",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://www.tiangong.cn"
+    },
+    {
+      "id": "pi",
+      "name": "Pi",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://pi.ai"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://cursor.com"
+    },
+    {
+      "id": "cline",
+      "name": "Cline",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://cline.bot"
+    },
+    {
+      "id": "continue",
+      "name": "Continue",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://continue.dev"
+    },
+    {
+      "id": "cody",
+      "name": "Cody",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://sourcegraph.com/cody"
+    },
+    {
+      "id": "tabby",
+      "name": "Tabby",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://tabby.tabbyml.com"
+    },
+    {
+      "id": "codeium",
+      "name": "Codeium",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://codeium.com"
+    },
+    {
+      "id": "aider",
+      "name": "Aider",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/Aider-AI/aider"
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://ollama.com",
+      "wiki": "ollama"
+    },
+    {
+      "id": "lm-studio",
+      "name": "LM Studio",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://lmstudio.ai"
+    },
+    {
+      "id": "text-generation-webui",
+      "name": "Text Generation WebUI",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/oobabooga/textgen"
+    },
+    {
+      "id": "jan",
+      "name": "Jan",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://jan.ai"
+    },
+    {
+      "id": "gpt4all",
+      "name": "GPT4All",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://gpt4all.io"
+    },
+    {
+      "id": "langchain",
+      "name": "LangChain",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/langchain-ai/langchain"
+    },
+    {
+      "id": "llamaindex",
+      "name": "LlamaIndex",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/run-llama/llama_index"
+    },
+    {
+      "id": "langfuse",
+      "name": "Langfuse",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/langfuse/langfuse"
+    },
+    {
+      "id": "litellm",
+      "name": "LiteLLM",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/BerriAI/litellm"
+    },
+    {
+      "id": "promptfoo",
+      "name": "promptfoo",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/promptfoo/promptfoo"
+    },
+    {
+      "id": "dify",
+      "name": "Dify",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/langgenius/dify"
+    },
+    {
+      "id": "flowise",
+      "name": "Flowise",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/FlowiseAI/Flowise"
+    },
+    {
+      "id": "fastgpt",
+      "name": "FastGPT",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/labring/FastGPT"
+    },
+    {
+      "id": "awesome-chatgpt-prompts",
+      "name": "awesome-chatgpt-prompts (prompts.chat)",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://github.com/f/prompts.chat"
+    },
+    {
+      "id": "openai-prompt-guide",
+      "name": "Prompt 工程指南（OpenAI）",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://platform.openai.com/docs/guides/prompt-engineering"
+    },
+    {
+      "id": "deeplearning-ai-prompts",
+      "name": "DeepLearning.AI 提示词课",
+      "type": "tool",
+      "category": "ai",
+      "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/"
+    },
+    {
+      "id": "google-cloud",
+      "name": "Google Cloud",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://cloud.google.com/free"
+    },
+    {
+      "id": "aws",
+      "name": "AWS",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://aws.amazon.com/free"
+    },
+    {
+      "id": "azure",
+      "name": "Microsoft Azure",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://azure.microsoft.com/free"
+    },
+    {
+      "id": "oracle-cloud",
+      "name": "Oracle Cloud",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://www.oracle.com/cloud/free/"
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://www.cloudflare.com/plans/free/",
+      "wiki": "cloudflare-workers"
+    },
+    {
+      "id": "render",
+      "name": "Render",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://render.com"
+    },
+    {
+      "id": "railway",
+      "name": "Railway",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://railway.com"
+    },
+    {
+      "id": "fly-io",
+      "name": "Fly.io",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://fly.io"
+    },
+    {
+      "id": "koyeb",
+      "name": "Koyeb",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://www.koyeb.com"
+    },
+    {
+      "id": "supabase",
+      "name": "Supabase",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://supabase.com"
+    },
+    {
+      "id": "neon",
+      "name": "Neon Postgres",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://neon.tech"
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://vercel.com"
+    },
+    {
+      "id": "netlify",
+      "name": "Netlify",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://www.netlify.com"
+    },
+    {
+      "id": "is-a-dev",
+      "name": "is-a.dev",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://www.is-a.dev"
+    },
+    {
+      "id": "js-org",
+      "name": "js.org",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://js.org"
+    },
+    {
+      "id": "eu-org",
+      "name": "eu.org",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://nic.eu.org"
+    },
+    {
+      "id": "pp-ua",
+      "name": "pp.ua",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://nic.ua/en/domains/.pp.ua"
+    },
+    {
+      "id": "cloudflare-dns",
+      "name": "Cloudflare DNS",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://www.cloudflare.com/dns/"
+    },
+    {
+      "id": "hurricane-electric",
+      "name": "Hurricane Electric",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://dns.he.net"
+    },
+    {
+      "id": "nextdns",
+      "name": "NextDNS",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://nextdns.io"
+    },
+    {
+      "id": "bunnydns",
+      "name": "Bunny DNS",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://bunny.net/dns/"
+    },
+    {
+      "id": "lets-encrypt",
+      "name": "Let's Encrypt",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://letsencrypt.org"
+    },
+    {
+      "id": "zerossl",
+      "name": "ZeroSSL",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://zerossl.com"
+    },
+    {
+      "id": "cloudflare-origin-ca",
+      "name": "Cloudflare Origin CA",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://developers.cloudflare.com/ssl/origin-configuration/origin-ca/"
+    },
+    {
+      "id": "buypass-go",
+      "name": "Buypass Go SSL",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://www.buypass.com/ssl/products/acme"
+    },
+    {
+      "id": "uptimerobot",
+      "name": "UptimeRobot",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://uptimerobot.com"
+    },
+    {
+      "id": "better-stack",
+      "name": "Better Stack",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://betterstack.com"
+    },
+    {
+      "id": "logtail",
+      "name": "Logtail",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://betterstack.com/logs"
+    },
+    {
+      "id": "sentry",
+      "name": "Sentry",
+      "type": "tool",
+      "category": "saas",
+      "url": "https://sentry.io"
+    },
+    {
+      "id": "nextcloud",
+      "name": "Nextcloud",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://nextcloud.com",
+      "wiki": "nextcloud"
+    },
+    {
+      "id": "seafile",
+      "name": "Seafile",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://www.seafile.com"
+    },
+    {
+      "id": "joplin",
+      "name": "Joplin",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://joplinapp.org"
+    },
+    {
+      "id": "trilium",
+      "name": "Trilium",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/TriliumNext/Trilium"
+    },
+    {
+      "id": "memos",
+      "name": "Memos",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/usememos/memos"
+    },
+    {
+      "id": "freshrss",
+      "name": "FreshRSS",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://freshrss.org"
+    },
+    {
+      "id": "miniflux",
+      "name": "Miniflux",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://miniflux.app"
+    },
+    {
+      "id": "vaultwarden",
+      "name": "Vaultwarden",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/dani-garcia/vaultwarden",
+      "wiki": "vaultwarden"
+    },
+    {
+      "id": "jellyfin",
+      "name": "Jellyfin",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://jellyfin.org"
+    },
+    {
+      "id": "immich",
+      "name": "Immich",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/immich-app/immich",
+      "wiki": "immich"
+    },
+    {
+      "id": "matrix-synapse",
+      "name": "Matrix / Synapse",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://matrix.org"
+    },
+    {
+      "id": "uptime-kuma",
+      "name": "Uptime Kuma",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/louislam/uptime-kuma"
+    },
+    {
+      "id": "shlink",
+      "name": "Shlink",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://shlink.io"
+    },
+    {
+      "id": "qbittorrent",
+      "name": "qBittorrent",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://www.qbittorrent.org"
+    },
+    {
+      "id": "aria2",
+      "name": "Aria2",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://aria2.github.io"
+    },
+    {
+      "id": "rustdesk",
+      "name": "RustDesk",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/rustdesk/rustdesk"
+    },
+    {
+      "id": "gitea",
+      "name": "Gitea",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://about.gitea.com"
+    },
+    {
+      "id": "forgejo",
+      "name": "Forgejo",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://forgejo.org"
+    },
+    {
+      "id": "woodpecker",
+      "name": "Woodpecker CI",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://woodpecker-ci.org"
+    },
+    {
+      "id": "drone",
+      "name": "Drone CI",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://www.drone.io"
+    },
+    {
+      "id": "nginx-proxy-manager",
+      "name": "Nginx Proxy Manager",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/NginxProxyManager/nginx-proxy-manager"
+    },
+    {
+      "id": "1panel",
+      "name": "1Panel",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/1Panel-dev/1Panel"
+    },
+    {
+      "id": "casaos",
+      "name": "CasaOS",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://casaos.io"
+    },
+    {
+      "id": "ddns-go",
+      "name": "ddns-go",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/jeessy2/ddns-go"
+    },
+    {
+      "id": "navidrome",
+      "name": "Navidrome",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://www.navidrome.org"
+    },
+    {
+      "id": "outline",
+      "name": "Outline",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://www.getoutline.com"
+    },
+    {
+      "id": "mattermost",
+      "name": "Mattermost",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://mattermost.com"
+    },
+    {
+      "id": "kanboard",
+      "name": "Kanboard",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://kanboard.org"
+    },
+    {
+      "id": "focalboard",
+      "name": "Focalboard",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/mattermost-community/focalboard"
+    },
+    {
+      "id": "passbolt",
+      "name": "Passbolt",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://www.passbolt.com"
+    },
+    {
+      "id": "radicale",
+      "name": "Radicale",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://radicale.org"
+    },
+    {
+      "id": "ohmyform",
+      "name": "OhMyForm",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://ohmyform.com"
+    },
+    {
+      "id": "linkding",
+      "name": "Linkding",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/sissbruecker/linkding"
+    },
+    {
+      "id": "searxng",
+      "name": "SearXNG",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/searxng/searxng"
+    },
+    {
+      "id": "filebrowser",
+      "name": "Filebrowser",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/filebrowser/filebrowser"
+    },
+    {
+      "id": "wetty",
+      "name": "Wetty",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/butlerx/wetty"
+    },
+    {
+      "id": "ttyd",
+      "name": "ttyd",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/tsl0922/ttyd"
+    },
+    {
+      "id": "excalidraw",
+      "name": "Excalidraw",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://excalidraw.com"
+    },
+    {
+      "id": "xray-reality",
+      "name": "Xray + Reality",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/XTLS/Xray-core"
+    },
+    {
+      "id": "sing-box",
+      "name": "sing-box",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/SagerNet/sing-box"
+    },
+    {
+      "id": "mihomo",
+      "name": "mihomo / Clash Meta",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/MetaCubeX/mihomo"
+    },
+    {
+      "id": "hysteria2",
+      "name": "Hysteria2",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/HyNetworks/hysteria"
+    },
+    {
+      "id": "trojan-go",
+      "name": "Trojan-Go",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/p4gefau1t/trojan-go"
+    },
+    {
+      "id": "snell",
+      "name": "Snell",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://manual.nssurge.com/policies/snell.html"
+    },
+    {
+      "id": "tuic",
+      "name": "TUIC",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/tuic-protocol/tuic"
+    },
+    {
+      "id": "tpot",
+      "name": "T-Pot",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/telekom-security/tpotce"
+    },
+    {
+      "id": "cowrie",
+      "name": "Cowrie",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/cowrie/cowrie"
+    },
+    {
+      "id": "dionaea",
+      "name": "Dionaea",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/DinoTools/dionaea"
+    },
+    {
+      "id": "hfish",
+      "name": "HFish",
+      "type": "tool",
+      "category": "selfhost",
+      "url": "https://github.com/hacklcx/HFish"
+    },
+    {
+      "id": "openai-api",
+      "name": "OpenAI API",
+      "type": "tool",
+      "category": "api",
+      "url": "https://platform.openai.com"
+    },
+    {
+      "id": "anthropic-api",
+      "name": "Anthropic API",
+      "type": "tool",
+      "category": "api",
+      "url": "https://docs.anthropic.com"
+    },
+    {
+      "id": "google-ai-api",
+      "name": "Google AI (Gemini) API",
+      "type": "tool",
+      "category": "api",
+      "url": "https://ai.google.dev"
+    },
+    {
+      "id": "hf-inference-api",
+      "name": "Hugging Face Inference API",
+      "type": "tool",
+      "category": "api",
+      "url": "https://huggingface.co/docs/api-inference"
+    },
+    {
+      "id": "replicate",
+      "name": "Replicate",
+      "type": "tool",
+      "category": "api",
+      "url": "https://replicate.com"
+    },
+    {
+      "id": "openweathermap",
+      "name": "OpenWeatherMap",
+      "type": "tool",
+      "category": "api",
+      "url": "https://openweathermap.org/api"
+    },
+    {
+      "id": "ipinfo",
+      "name": "IPinfo",
+      "type": "tool",
+      "category": "api",
+      "url": "https://ipinfo.io"
+    },
+    {
+      "id": "mymemory",
+      "name": "MyMemory",
+      "type": "tool",
+      "category": "api",
+      "url": "https://mymemory.translated.net"
+    },
+    {
+      "id": "unsplash",
+      "name": "Unsplash",
+      "type": "tool",
+      "category": "api",
+      "url": "https://unsplash.com/developers"
+    },
+    {
+      "id": "pexels",
+      "name": "Pexels",
+      "type": "tool",
+      "category": "api",
+      "url": "https://www.pexels.com/api/"
+    },
+    {
+      "id": "qrserver",
+      "name": "QRServer",
+      "type": "tool",
+      "category": "api",
+      "url": "https://goqr.me/api/"
+    },
+    {
+      "id": "disify",
+      "name": "Disify",
+      "type": "tool",
+      "category": "api",
+      "url": "https://www.disify.com"
+    },
+    {
+      "id": "textbelt",
+      "name": "Textbelt",
+      "type": "tool",
+      "category": "api",
+      "url": "https://textbelt.com"
+    },
+    {
+      "id": "proxyscrape",
+      "name": "ProxyScrape",
+      "type": "tool",
+      "category": "api",
+      "url": "https://proxyscrape.com"
+    },
+    {
+      "id": "is-gd",
+      "name": "is.gd",
+      "type": "tool",
+      "category": "api",
+      "url": "https://is.gd"
+    },
+    {
+      "id": "tinyurl",
+      "name": "TinyURL",
+      "type": "tool",
+      "category": "api",
+      "url": "https://tinyurl.com"
+    },
+    {
+      "id": "hcaptcha",
+      "name": "hCaptcha",
+      "type": "tool",
+      "category": "api",
+      "url": "https://www.hcaptcha.com"
+    },
+    {
+      "id": "nominatim",
+      "name": "OpenStreetMap Nominatim",
+      "type": "tool",
+      "category": "api",
+      "url": "https://nominatim.org"
+    },
+    {
+      "id": "awesome-hacking",
+      "name": "Awesome Hacking",
+      "type": "tool",
+      "category": "security",
+      "url": "https://github.com/Hack-with-Github/Awesome-Hacking"
+    },
+    {
+      "id": "payloadsallthethings",
+      "name": "PayloadsAllTheThings",
+      "type": "tool",
+      "category": "security",
+      "url": "https://github.com/swisskyrepo/PayloadsAllTheThings"
+    },
+    {
+      "id": "hacktricks",
+      "name": "HackTricks",
+      "type": "tool",
+      "category": "security",
+      "url": "https://github.com/HackTricks-wiki/hacktricks"
+    },
+    {
+      "id": "seclists",
+      "name": "SecLists",
+      "type": "tool",
+      "category": "security",
+      "url": "https://github.com/danielmiessler/SecLists"
+    },
+    {
+      "id": "nuclei-templates",
+      "name": "nuclei-templates",
+      "type": "tool",
+      "category": "security",
+      "url": "https://github.com/projectdiscovery/nuclei-templates"
+    },
+    {
+      "id": "gtfobins",
+      "name": "GTFOBins",
+      "type": "tool",
+      "category": "security",
+      "url": "https://gtfobins.github.io"
+    },
+    {
+      "id": "lolbas",
+      "name": "LOLBAS",
+      "type": "tool",
+      "category": "security",
+      "url": "https://lolbas-project.github.io"
+    },
+    {
+      "id": "free-programming-books",
+      "name": "free-programming-books",
+      "type": "tool",
+      "category": "ebook",
+      "url": "https://github.com/EbookFoundation/free-programming-books"
+    },
+    {
+      "id": "mfuu-freeproxies",
+      "name": "mfuu/FreeProxies",
+      "type": "tool",
+      "category": "proxy",
+      "url": "https://github.com/mfuu/FreeProxies"
+    },
+    {
+      "id": "aiboboxx-v2rayfree",
+      "name": "aiboboxx/v2rayfree",
+      "type": "tool",
+      "category": "proxy",
+      "url": "https://github.com/free-nodes/v2rayfree"
+    },
+    {
+      "id": "barry-far-v2ray-configs",
+      "name": "barry-far/V2ray-Configs",
+      "type": "tool",
+      "category": "proxy",
+      "url": "https://github.com/barry-far/V2ray-Config"
+    },
+    {
+      "id": "epodonators-v2ray-configs",
+      "name": "Epodonators/v2ray-configs",
+      "type": "tool",
+      "category": "proxy",
+      "url": "https://github.com/Epodonios/v2ray-configs"
+    },
+    {
+      "id": "huggingface-spaces",
+      "name": "HuggingFace Spaces",
+      "type": "tool",
+      "category": "vps",
+      "url": "https://huggingface.co/spaces"
+    },
+    {
+      "id": "replit",
+      "name": "Replit",
+      "type": "tool",
+      "category": "vps",
+      "url": "https://replit.com"
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi",
+      "type": "tool",
+      "category": "cn-ai",
+      "url": "https://www.kimi.com"
+    },
+    {
+      "id": "tencent-hunyuan",
+      "name": "腾讯混元",
+      "type": "tool",
+      "category": "cn-ai",
+      "url": "https://hunyuan.tencent.com"
+    },
+    {
+      "id": "bigmodel-glm",
+      "name": "智谱 GLM-4 API",
+      "type": "tool",
+      "category": "cn-ai",
+      "url": "https://open.bigmodel.cn"
+    },
+    {
+      "id": "deepseek-api",
+      "name": "DeepSeek API",
+      "type": "tool",
+      "category": "cn-ai",
+      "url": "https://platform.deepseek.com"
+    },
+    {
+      "id": "siliconflow",
+      "name": "硅基流动",
+      "type": "tool",
+      "category": "cn-ai",
+      "url": "https://siliconflow.cn"
+    },
+    {
+      "id": "lingyiwanwu",
+      "name": "零一万物",
+      "type": "tool",
+      "category": "cn-ai",
+      "url": "https://platform.lingyiwanwu.com"
+    },
+    {
+      "id": "minimax",
+      "name": "MiniMax",
+      "type": "tool",
+      "category": "cn-ai",
+      "url": "https://www.minimax.io"
+    },
+    {
+      "id": "cloudflare-imgbed",
+      "name": "CloudFlare-ImgBed",
+      "type": "tool",
+      "category": "gear",
+      "url": "https://github.com/MarSeventh/CloudFlare-ImgBed"
+    },
+    {
+      "id": "cloudflare-tunnel",
+      "name": "Cloudflare Tunnel",
+      "type": "tool",
+      "category": "gear",
+      "url": "https://developers.cloudflare.com/cloudflare-one/"
+    },
+    {
+      "id": "subconverter",
+      "name": "subconverter",
+      "type": "tool",
+      "category": "gear",
+      "url": "https://github.com/tindy2013/subconverter"
+    },
+    {
+      "id": "localsend",
+      "name": "LocalSend",
+      "type": "tool",
+      "category": "gear",
+      "url": "https://github.com/localsend/localsend"
+    },
+    {
+      "id": "stirling-pdf",
+      "name": "Stirling-PDF",
+      "type": "tool",
+      "category": "gear",
+      "url": "https://github.com/Stirling-Tools/Stirling-PDF"
+    },
+    {
+      "id": "it-tools",
+      "name": "IT-Tools",
+      "type": "tool",
+      "category": "gear",
+      "url": "https://github.com/CorentinTh/it-tools"
+    },
+    {
+      "id": "n8n",
+      "name": "n8n",
+      "type": "tool",
+      "category": "gear",
+      "url": "https://github.com/n8n-io/n8n"
+    },
+    {
+      "id": "activepieces",
+      "name": "Activepieces",
+      "type": "tool",
+      "category": "gear",
+      "url": "https://github.com/activepieces/activepieces"
+    },
+    {
+      "id": "homarr",
+      "name": "Homarr",
+      "type": "tool",
+      "category": "gear",
+      "url": "https://github.com/ajnart/homarr"
+    },
+    {
+      "id": "tag:开源",
+      "name": "开源",
+      "type": "tag"
+    },
+    {
+      "id": "tag:免费",
+      "name": "免费",
+      "type": "tag"
+    },
+    {
+      "id": "tag:API",
+      "name": "API",
+      "type": "tag"
+    },
+    {
+      "id": "tag:对话",
+      "name": "对话",
+      "type": "tag"
+    },
+    {
+      "id": "tag:国内",
+      "name": "国内",
+      "type": "tag"
+    },
+    {
+      "id": "tag:免费层",
+      "name": "免费层",
+      "type": "tag"
+    },
+    {
+      "id": "tag:安全",
+      "name": "安全",
+      "type": "tag"
+    },
+    {
+      "id": "tag:代理",
+      "name": "代理",
+      "type": "tag"
+    },
+    {
+      "id": "tag:编程",
+      "name": "编程",
+      "type": "tag"
+    },
+    {
+      "id": "tag:PaaS",
+      "name": "PaaS",
+      "type": "tag"
+    },
+    {
+      "id": "tag:本地推理",
+      "name": "本地推理",
+      "type": "tag"
+    },
+    {
+      "id": "tag:云厂商",
+      "name": "云厂商",
+      "type": "tag"
+    },
+    {
+      "id": "tag:订阅",
+      "name": "订阅",
+      "type": "tag"
+    },
+    {
+      "id": "tag:LLM",
+      "name": "LLM",
+      "type": "tag"
+    },
+    {
+      "id": "tag:提示词",
+      "name": "提示词",
+      "type": "tag"
+    },
+    {
+      "id": "tag:部署",
+      "name": "部署",
+      "type": "tag"
+    },
+    {
+      "id": "tag:域名",
+      "name": "域名",
+      "type": "tag"
+    },
+    {
+      "id": "tag:DNS",
+      "name": "DNS",
+      "type": "tag"
+    },
+    {
+      "id": "tag:SSL",
+      "name": "SSL",
+      "type": "tag"
+    },
+    {
+      "id": "tag:证书",
+      "name": "证书",
+      "type": "tag"
+    },
+    {
+      "id": "tag:蜜罐",
+      "name": "蜜罐",
+      "type": "tag"
+    },
+    {
+      "id": "tag:隐私",
+      "name": "隐私",
+      "type": "tag"
+    },
+    {
+      "id": "tag:Google",
+      "name": "Google",
+      "type": "tag"
+    },
+    {
+      "id": "tag:CLI",
+      "name": "CLI",
+      "type": "tag"
+    },
+    {
+      "id": "tag:可观测性",
+      "name": "可观测性",
+      "type": "tag"
+    },
+    {
+      "id": "tag:工作流",
+      "name": "工作流",
+      "type": "tag"
+    },
+    {
+      "id": "tag:知识库",
+      "name": "知识库",
+      "type": "tag"
+    },
+    {
+      "id": "tag:合集",
+      "name": "合集",
+      "type": "tag"
+    },
+    {
+      "id": "tag:CDN",
+      "name": "CDN",
+      "type": "tag"
+    },
+    {
+      "id": "tag:子域名",
+      "name": "子域名",
+      "type": "tag"
+    },
+    {
+      "id": "tag:Cloudflare",
+      "name": "Cloudflare",
+      "type": "tag"
+    },
+    {
+      "id": "tag:监控",
+      "name": "监控",
+      "type": "tag"
+    },
+    {
+      "id": "tag:笔记",
+      "name": "笔记",
+      "type": "tag"
+    },
+    {
+      "id": "tag:短链",
+      "name": "短链",
+      "type": "tag"
+    },
+    {
+      "id": "tag:面板",
+      "name": "面板",
+      "type": "tag"
+    },
+    {
+      "id": "tag:v2ray",
+      "name": "v2ray",
+      "type": "tag"
+    },
+    {
+      "id": "tag:聚合",
+      "name": "聚合",
+      "type": "tag"
+    },
+    {
+      "id": "tag:开源模型",
+      "name": "开源模型",
+      "type": "tag"
+    },
+    {
+      "id": "tag:多模态",
+      "name": "多模态",
+      "type": "tag"
+    },
+    {
+      "id": "tag:Anthropic",
+      "name": "Anthropic",
+      "type": "tag"
+    },
+    {
+      "id": "ext:Google Drive",
+      "name": "Google Drive",
+      "type": "external"
+    },
+    {
+      "id": "ext:Notion",
+      "name": "Notion",
+      "type": "external"
+    },
+    {
+      "id": "ext:flomo",
+      "name": "flomo",
+      "type": "external"
+    },
+    {
+      "id": "ext:Feedly",
+      "name": "Feedly",
+      "type": "external"
+    },
+    {
+      "id": "ext:Bitwarden",
+      "name": "Bitwarden",
+      "type": "external"
+    },
+    {
+      "id": "ext:1Password",
+      "name": "1Password",
+      "type": "external"
+    },
+    {
+      "id": "ext:Plex",
+      "name": "Plex",
+      "type": "external"
+    },
+    {
+      "id": "ext:Spotify",
+      "name": "Spotify",
+      "type": "external"
+    },
+    {
+      "id": "ext:Google Photos",
+      "name": "Google Photos",
+      "type": "external"
+    },
+    {
+      "id": "ext:Discord",
+      "name": "Discord",
+      "type": "external"
+    },
+    {
+      "id": "ext:Slack",
+      "name": "Slack",
+      "type": "external"
+    },
+    {
+      "id": "ext:UptimeRobot",
+      "name": "UptimeRobot",
+      "type": "external"
+    },
+    {
+      "id": "ext:TeamViewer",
+      "name": "TeamViewer",
+      "type": "external"
+    },
+    {
+      "id": "ext:GitHub",
+      "name": "GitHub",
+      "type": "external"
+    },
+    {
+      "id": "ext:GitLab CI",
+      "name": "GitLab CI",
+      "type": "external"
+    },
+    {
+      "id": "ext:Google Forms",
+      "name": "Google Forms",
+      "type": "external"
+    },
+    {
+      "id": "ext:Google Search",
+      "name": "Google Search",
+      "type": "external"
+    },
+    {
+      "id": "ext:Confluence",
+      "name": "Confluence",
+      "type": "external"
+    },
+    {
+      "id": "ext:Trello",
+      "name": "Trello",
+      "type": "external"
+    },
+    {
+      "id": "ext:Pocket",
+      "name": "Pocket",
+      "type": "external"
+    },
+    {
+      "id": "ext:AirDrop",
+      "name": "AirDrop",
+      "type": "external"
+    },
+    {
+      "id": "ext:Miro",
+      "name": "Miro",
+      "type": "external"
+    },
+    {
+      "id": "ext:Zapier",
+      "name": "Zapier",
+      "type": "external"
+    },
+    {
+      "id": "ext:Adobe Acrobat",
+      "name": "Adobe Acrobat",
+      "type": "external"
+    },
+    {
+      "id": "ext:Heimdall",
+      "name": "Heimdall",
+      "type": "external"
+    },
+    {
+      "id": "ext:LangFlow",
+      "name": "LangFlow",
+      "type": "external"
+    }
+  ],
+  "edges": [
+    {
+      "source": "sub:ai-chat",
+      "target": "cat:ai",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:ai-coding",
+      "target": "cat:ai",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:ai-local",
+      "target": "cat:ai",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:ai-framework",
+      "target": "cat:ai",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:ai-prompt",
+      "target": "cat:ai",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:saas-cloud",
+      "target": "cat:saas",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:saas-paas",
+      "target": "cat:saas",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:saas-domain",
+      "target": "cat:saas",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:saas-dns",
+      "target": "cat:saas",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:saas-ssl",
+      "target": "cat:saas",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:saas-monitor",
+      "target": "cat:saas",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:selfhost-core",
+      "target": "cat:selfhost",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:selfhost-proxy",
+      "target": "cat:selfhost",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:selfhost-honeypot",
+      "target": "cat:selfhost",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:api-free",
+      "target": "cat:api",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:security-pentest",
+      "target": "cat:security",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:ebook-free",
+      "target": "cat:ebook",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:proxy-sub",
+      "target": "cat:proxy",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:vps-free",
+      "target": "cat:vps",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:cn-ai-dev",
+      "target": "cat:cn-ai",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:gear-tools",
+      "target": "cat:gear",
+      "type": "in_category"
+    },
+    {
+      "source": "poe",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "huggingchat",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "duckduckgo-ai-chat",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "lmsys-chat",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "microsoft-copilot",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "meta-ai",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "google-gemini",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "anthropic-claude",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "baidu-yiyan",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "aliyun-tongyi",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "xfyun-xinghuo",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "doubao",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "chatglm",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "deepseek-chat",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "tiangong",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "pi",
+      "target": "sub:ai-chat",
+      "type": "belongs_to"
+    },
+    {
+      "source": "cursor",
+      "target": "sub:ai-coding",
+      "type": "belongs_to"
+    },
+    {
+      "source": "cline",
+      "target": "sub:ai-coding",
+      "type": "belongs_to"
+    },
+    {
+      "source": "continue",
+      "target": "sub:ai-coding",
+      "type": "belongs_to"
+    },
+    {
+      "source": "cody",
+      "target": "sub:ai-coding",
+      "type": "belongs_to"
+    },
+    {
+      "source": "tabby",
+      "target": "sub:ai-coding",
+      "type": "belongs_to"
+    },
+    {
+      "source": "codeium",
+      "target": "sub:ai-coding",
+      "type": "belongs_to"
+    },
+    {
+      "source": "aider",
+      "target": "sub:ai-coding",
+      "type": "belongs_to"
+    },
+    {
+      "source": "ollama",
+      "target": "sub:ai-local",
+      "type": "belongs_to"
+    },
+    {
+      "source": "lm-studio",
+      "target": "sub:ai-local",
+      "type": "belongs_to"
+    },
+    {
+      "source": "text-generation-webui",
+      "target": "sub:ai-local",
+      "type": "belongs_to"
+    },
+    {
+      "source": "jan",
+      "target": "sub:ai-local",
+      "type": "belongs_to"
+    },
+    {
+      "source": "gpt4all",
+      "target": "sub:ai-local",
+      "type": "belongs_to"
+    },
+    {
+      "source": "langchain",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "llamaindex",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "langfuse",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "litellm",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "promptfoo",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "dify",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "flowise",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "fastgpt",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "awesome-chatgpt-prompts",
+      "target": "sub:ai-prompt",
+      "type": "belongs_to"
+    },
+    {
+      "source": "openai-prompt-guide",
+      "target": "sub:ai-prompt",
+      "type": "belongs_to"
+    },
+    {
+      "source": "deeplearning-ai-prompts",
+      "target": "sub:ai-prompt",
+      "type": "belongs_to"
+    },
+    {
+      "source": "google-cloud",
+      "target": "sub:saas-cloud",
+      "type": "belongs_to"
+    },
+    {
+      "source": "aws",
+      "target": "sub:saas-cloud",
+      "type": "belongs_to"
+    },
+    {
+      "source": "azure",
+      "target": "sub:saas-cloud",
+      "type": "belongs_to"
+    },
+    {
+      "source": "oracle-cloud",
+      "target": "sub:saas-cloud",
+      "type": "belongs_to"
+    },
+    {
+      "source": "cloudflare",
+      "target": "sub:saas-cloud",
+      "type": "belongs_to"
+    },
+    {
+      "source": "render",
+      "target": "sub:saas-paas",
+      "type": "belongs_to"
+    },
+    {
+      "source": "railway",
+      "target": "sub:saas-paas",
+      "type": "belongs_to"
+    },
+    {
+      "source": "fly-io",
+      "target": "sub:saas-paas",
+      "type": "belongs_to"
+    },
+    {
+      "source": "koyeb",
+      "target": "sub:saas-paas",
+      "type": "belongs_to"
+    },
+    {
+      "source": "supabase",
+      "target": "sub:saas-paas",
+      "type": "belongs_to"
+    },
+    {
+      "source": "neon",
+      "target": "sub:saas-paas",
+      "type": "belongs_to"
+    },
+    {
+      "source": "vercel",
+      "target": "sub:saas-paas",
+      "type": "belongs_to"
+    },
+    {
+      "source": "netlify",
+      "target": "sub:saas-paas",
+      "type": "belongs_to"
+    },
+    {
+      "source": "is-a-dev",
+      "target": "sub:saas-domain",
+      "type": "belongs_to"
+    },
+    {
+      "source": "js-org",
+      "target": "sub:saas-domain",
+      "type": "belongs_to"
+    },
+    {
+      "source": "eu-org",
+      "target": "sub:saas-domain",
+      "type": "belongs_to"
+    },
+    {
+      "source": "pp-ua",
+      "target": "sub:saas-domain",
+      "type": "belongs_to"
+    },
+    {
+      "source": "cloudflare-dns",
+      "target": "sub:saas-dns",
+      "type": "belongs_to"
+    },
+    {
+      "source": "hurricane-electric",
+      "target": "sub:saas-dns",
+      "type": "belongs_to"
+    },
+    {
+      "source": "nextdns",
+      "target": "sub:saas-dns",
+      "type": "belongs_to"
+    },
+    {
+      "source": "bunnydns",
+      "target": "sub:saas-dns",
+      "type": "belongs_to"
+    },
+    {
+      "source": "lets-encrypt",
+      "target": "sub:saas-ssl",
+      "type": "belongs_to"
+    },
+    {
+      "source": "zerossl",
+      "target": "sub:saas-ssl",
+      "type": "belongs_to"
+    },
+    {
+      "source": "cloudflare-origin-ca",
+      "target": "sub:saas-ssl",
+      "type": "belongs_to"
+    },
+    {
+      "source": "buypass-go",
+      "target": "sub:saas-ssl",
+      "type": "belongs_to"
+    },
+    {
+      "source": "uptimerobot",
+      "target": "sub:saas-monitor",
+      "type": "belongs_to"
+    },
+    {
+      "source": "better-stack",
+      "target": "sub:saas-monitor",
+      "type": "belongs_to"
+    },
+    {
+      "source": "logtail",
+      "target": "sub:saas-monitor",
+      "type": "belongs_to"
+    },
+    {
+      "source": "sentry",
+      "target": "sub:saas-monitor",
+      "type": "belongs_to"
+    },
+    {
+      "source": "nextcloud",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "seafile",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "joplin",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "trilium",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "memos",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "freshrss",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "miniflux",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "vaultwarden",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "jellyfin",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "immich",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "matrix-synapse",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "uptime-kuma",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "shlink",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "qbittorrent",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "aria2",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "rustdesk",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "gitea",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "forgejo",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "woodpecker",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "drone",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "nginx-proxy-manager",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "1panel",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "casaos",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "ddns-go",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "navidrome",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "outline",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "mattermost",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "kanboard",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "focalboard",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "passbolt",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "radicale",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "ohmyform",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "linkding",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "searxng",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "filebrowser",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "wetty",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "ttyd",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "excalidraw",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "xray-reality",
+      "target": "sub:selfhost-proxy",
+      "type": "belongs_to"
+    },
+    {
+      "source": "sing-box",
+      "target": "sub:selfhost-proxy",
+      "type": "belongs_to"
+    },
+    {
+      "source": "mihomo",
+      "target": "sub:selfhost-proxy",
+      "type": "belongs_to"
+    },
+    {
+      "source": "hysteria2",
+      "target": "sub:selfhost-proxy",
+      "type": "belongs_to"
+    },
+    {
+      "source": "trojan-go",
+      "target": "sub:selfhost-proxy",
+      "type": "belongs_to"
+    },
+    {
+      "source": "snell",
+      "target": "sub:selfhost-proxy",
+      "type": "belongs_to"
+    },
+    {
+      "source": "tuic",
+      "target": "sub:selfhost-proxy",
+      "type": "belongs_to"
+    },
+    {
+      "source": "tpot",
+      "target": "sub:selfhost-honeypot",
+      "type": "belongs_to"
+    },
+    {
+      "source": "cowrie",
+      "target": "sub:selfhost-honeypot",
+      "type": "belongs_to"
+    },
+    {
+      "source": "dionaea",
+      "target": "sub:selfhost-honeypot",
+      "type": "belongs_to"
+    },
+    {
+      "source": "hfish",
+      "target": "sub:selfhost-honeypot",
+      "type": "belongs_to"
+    },
+    {
+      "source": "openai-api",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "anthropic-api",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "google-ai-api",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "hf-inference-api",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "replicate",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "openweathermap",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "ipinfo",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "mymemory",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "unsplash",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "pexels",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "qrserver",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "disify",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "textbelt",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "proxyscrape",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "is-gd",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "tinyurl",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "hcaptcha",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "nominatim",
+      "target": "sub:api-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "awesome-hacking",
+      "target": "sub:security-pentest",
+      "type": "belongs_to"
+    },
+    {
+      "source": "payloadsallthethings",
+      "target": "sub:security-pentest",
+      "type": "belongs_to"
+    },
+    {
+      "source": "hacktricks",
+      "target": "sub:security-pentest",
+      "type": "belongs_to"
+    },
+    {
+      "source": "seclists",
+      "target": "sub:security-pentest",
+      "type": "belongs_to"
+    },
+    {
+      "source": "nuclei-templates",
+      "target": "sub:security-pentest",
+      "type": "belongs_to"
+    },
+    {
+      "source": "gtfobins",
+      "target": "sub:security-pentest",
+      "type": "belongs_to"
+    },
+    {
+      "source": "lolbas",
+      "target": "sub:security-pentest",
+      "type": "belongs_to"
+    },
+    {
+      "source": "free-programming-books",
+      "target": "sub:ebook-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "mfuu-freeproxies",
+      "target": "sub:proxy-sub",
+      "type": "belongs_to"
+    },
+    {
+      "source": "aiboboxx-v2rayfree",
+      "target": "sub:proxy-sub",
+      "type": "belongs_to"
+    },
+    {
+      "source": "barry-far-v2ray-configs",
+      "target": "sub:proxy-sub",
+      "type": "belongs_to"
+    },
+    {
+      "source": "epodonators-v2ray-configs",
+      "target": "sub:proxy-sub",
+      "type": "belongs_to"
+    },
+    {
+      "source": "huggingface-spaces",
+      "target": "sub:vps-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "replit",
+      "target": "sub:vps-free",
+      "type": "belongs_to"
+    },
+    {
+      "source": "kimi",
+      "target": "sub:cn-ai-dev",
+      "type": "belongs_to"
+    },
+    {
+      "source": "tencent-hunyuan",
+      "target": "sub:cn-ai-dev",
+      "type": "belongs_to"
+    },
+    {
+      "source": "bigmodel-glm",
+      "target": "sub:cn-ai-dev",
+      "type": "belongs_to"
+    },
+    {
+      "source": "deepseek-api",
+      "target": "sub:cn-ai-dev",
+      "type": "belongs_to"
+    },
+    {
+      "source": "siliconflow",
+      "target": "sub:cn-ai-dev",
+      "type": "belongs_to"
+    },
+    {
+      "source": "lingyiwanwu",
+      "target": "sub:cn-ai-dev",
+      "type": "belongs_to"
+    },
+    {
+      "source": "minimax",
+      "target": "sub:cn-ai-dev",
+      "type": "belongs_to"
+    },
+    {
+      "source": "cloudflare-imgbed",
+      "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "cloudflare-tunnel",
+      "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "subconverter",
+      "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "localsend",
+      "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "stirling-pdf",
+      "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "it-tools",
+      "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "n8n",
+      "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "activepieces",
+      "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "homarr",
+      "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "poe",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "poe",
+      "target": "tag:聚合",
+      "type": "tagged"
+    },
+    {
+      "source": "huggingchat",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "huggingchat",
+      "target": "tag:开源模型",
+      "type": "tagged"
+    },
+    {
+      "source": "duckduckgo-ai-chat",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "duckduckgo-ai-chat",
+      "target": "tag:隐私",
+      "type": "tagged"
+    },
+    {
+      "source": "lmsys-chat",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "microsoft-copilot",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "meta-ai",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "google-gemini",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "google-gemini",
+      "target": "tag:Google",
+      "type": "tagged"
+    },
+    {
+      "source": "google-gemini",
+      "target": "tag:多模态",
+      "type": "tagged"
+    },
+    {
+      "source": "anthropic-claude",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "anthropic-claude",
+      "target": "tag:Anthropic",
+      "type": "tagged"
+    },
+    {
+      "source": "baidu-yiyan",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "baidu-yiyan",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "aliyun-tongyi",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "aliyun-tongyi",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "xfyun-xinghuo",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "xfyun-xinghuo",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "doubao",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "doubao",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "chatglm",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "chatglm",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "deepseek-chat",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "deepseek-chat",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "tiangong",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "tiangong",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "pi",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "cursor",
+      "target": "tag:编程",
+      "type": "tagged"
+    },
+    {
+      "source": "cline",
+      "target": "tag:编程",
+      "type": "tagged"
+    },
+    {
+      "source": "cline",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "continue",
+      "target": "tag:编程",
+      "type": "tagged"
+    },
+    {
+      "source": "continue",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "cody",
+      "target": "tag:编程",
+      "type": "tagged"
+    },
+    {
+      "source": "tabby",
+      "target": "tag:编程",
+      "type": "tagged"
+    },
+    {
+      "source": "codeium",
+      "target": "tag:编程",
+      "type": "tagged"
+    },
+    {
+      "source": "codeium",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "aider",
+      "target": "tag:编程",
+      "type": "tagged"
+    },
+    {
+      "source": "aider",
+      "target": "tag:CLI",
+      "type": "tagged"
+    },
+    {
+      "source": "aider",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "ollama",
+      "target": "tag:本地推理",
+      "type": "tagged"
+    },
+    {
+      "source": "ollama",
+      "target": "tag:LLM",
+      "type": "tagged"
+    },
+    {
+      "source": "ollama",
+      "target": "tag:CLI",
+      "type": "tagged"
+    },
+    {
+      "source": "lm-studio",
+      "target": "tag:本地推理",
+      "type": "tagged"
+    },
+    {
+      "source": "text-generation-webui",
+      "target": "tag:本地推理",
+      "type": "tagged"
+    },
+    {
+      "source": "text-generation-webui",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "jan",
+      "target": "tag:本地推理",
+      "type": "tagged"
+    },
+    {
+      "source": "jan",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "gpt4all",
+      "target": "tag:本地推理",
+      "type": "tagged"
+    },
+    {
+      "source": "gpt4all",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "langchain",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "llamaindex",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "langfuse",
+      "target": "tag:可观测性",
+      "type": "tagged"
+    },
+    {
+      "source": "langfuse",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "litellm",
+      "target": "tag:代理",
+      "type": "tagged"
+    },
+    {
+      "source": "litellm",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "litellm",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "promptfoo",
+      "target": "tag:提示词",
+      "type": "tagged"
+    },
+    {
+      "source": "promptfoo",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "dify",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "flowise",
+      "target": "tag:工作流",
+      "type": "tagged"
+    },
+    {
+      "source": "flowise",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "fastgpt",
+      "target": "tag:知识库",
+      "type": "tagged"
+    },
+    {
+      "source": "fastgpt",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "awesome-chatgpt-prompts",
+      "target": "tag:提示词",
+      "type": "tagged"
+    },
+    {
+      "source": "awesome-chatgpt-prompts",
+      "target": "tag:合集",
+      "type": "tagged"
+    },
+    {
+      "source": "awesome-chatgpt-prompts",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "openai-prompt-guide",
+      "target": "tag:提示词",
+      "type": "tagged"
+    },
+    {
+      "source": "deeplearning-ai-prompts",
+      "target": "tag:提示词",
+      "type": "tagged"
+    },
+    {
+      "source": "deeplearning-ai-prompts",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "google-cloud",
+      "target": "tag:云厂商",
+      "type": "tagged"
+    },
+    {
+      "source": "google-cloud",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "google-cloud",
+      "target": "tag:Google",
+      "type": "tagged"
+    },
+    {
+      "source": "aws",
+      "target": "tag:云厂商",
+      "type": "tagged"
+    },
+    {
+      "source": "aws",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "azure",
+      "target": "tag:云厂商",
+      "type": "tagged"
+    },
+    {
+      "source": "azure",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "oracle-cloud",
+      "target": "tag:云厂商",
+      "type": "tagged"
+    },
+    {
+      "source": "oracle-cloud",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare",
+      "target": "tag:云厂商",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare",
+      "target": "tag:CDN",
+      "type": "tagged"
+    },
+    {
+      "source": "render",
+      "target": "tag:PaaS",
+      "type": "tagged"
+    },
+    {
+      "source": "render",
+      "target": "tag:部署",
+      "type": "tagged"
+    },
+    {
+      "source": "render",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "railway",
+      "target": "tag:PaaS",
+      "type": "tagged"
+    },
+    {
+      "source": "railway",
+      "target": "tag:部署",
+      "type": "tagged"
+    },
+    {
+      "source": "railway",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "fly-io",
+      "target": "tag:PaaS",
+      "type": "tagged"
+    },
+    {
+      "source": "fly-io",
+      "target": "tag:部署",
+      "type": "tagged"
+    },
+    {
+      "source": "fly-io",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "koyeb",
+      "target": "tag:PaaS",
+      "type": "tagged"
+    },
+    {
+      "source": "koyeb",
+      "target": "tag:部署",
+      "type": "tagged"
+    },
+    {
+      "source": "koyeb",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "vercel",
+      "target": "tag:PaaS",
+      "type": "tagged"
+    },
+    {
+      "source": "vercel",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "netlify",
+      "target": "tag:PaaS",
+      "type": "tagged"
+    },
+    {
+      "source": "netlify",
+      "target": "tag:免费层",
+      "type": "tagged"
+    },
+    {
+      "source": "is-a-dev",
+      "target": "tag:域名",
+      "type": "tagged"
+    },
+    {
+      "source": "is-a-dev",
+      "target": "tag:子域名",
+      "type": "tagged"
+    },
+    {
+      "source": "is-a-dev",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "js-org",
+      "target": "tag:域名",
+      "type": "tagged"
+    },
+    {
+      "source": "js-org",
+      "target": "tag:子域名",
+      "type": "tagged"
+    },
+    {
+      "source": "js-org",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "eu-org",
+      "target": "tag:域名",
+      "type": "tagged"
+    },
+    {
+      "source": "eu-org",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "pp-ua",
+      "target": "tag:域名",
+      "type": "tagged"
+    },
+    {
+      "source": "pp-ua",
+      "target": "tag:子域名",
+      "type": "tagged"
+    },
+    {
+      "source": "pp-ua",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare-dns",
+      "target": "tag:DNS",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare-dns",
+      "target": "tag:CDN",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare-dns",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "hurricane-electric",
+      "target": "tag:DNS",
+      "type": "tagged"
+    },
+    {
+      "source": "hurricane-electric",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "nextdns",
+      "target": "tag:DNS",
+      "type": "tagged"
+    },
+    {
+      "source": "nextdns",
+      "target": "tag:隐私",
+      "type": "tagged"
+    },
+    {
+      "source": "bunnydns",
+      "target": "tag:DNS",
+      "type": "tagged"
+    },
+    {
+      "source": "bunnydns",
+      "target": "tag:CDN",
+      "type": "tagged"
+    },
+    {
+      "source": "bunnydns",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "lets-encrypt",
+      "target": "tag:SSL",
+      "type": "tagged"
+    },
+    {
+      "source": "lets-encrypt",
+      "target": "tag:证书",
+      "type": "tagged"
+    },
+    {
+      "source": "lets-encrypt",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "zerossl",
+      "target": "tag:SSL",
+      "type": "tagged"
+    },
+    {
+      "source": "zerossl",
+      "target": "tag:证书",
+      "type": "tagged"
+    },
+    {
+      "source": "zerossl",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare-origin-ca",
+      "target": "tag:SSL",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare-origin-ca",
+      "target": "tag:证书",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare-origin-ca",
+      "target": "tag:Cloudflare",
+      "type": "tagged"
+    },
+    {
+      "source": "buypass-go",
+      "target": "tag:SSL",
+      "type": "tagged"
+    },
+    {
+      "source": "buypass-go",
+      "target": "tag:证书",
+      "type": "tagged"
+    },
+    {
+      "source": "uptimerobot",
+      "target": "tag:监控",
+      "type": "tagged"
+    },
+    {
+      "source": "uptimerobot",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "better-stack",
+      "target": "tag:监控",
+      "type": "tagged"
+    },
+    {
+      "source": "better-stack",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "logtail",
+      "target": "tag:可观测性",
+      "type": "tagged"
+    },
+    {
+      "source": "logtail",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "sentry",
+      "target": "tag:可观测性",
+      "type": "tagged"
+    },
+    {
+      "source": "sentry",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "nextcloud",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "seafile",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "joplin",
+      "target": "tag:笔记",
+      "type": "tagged"
+    },
+    {
+      "source": "joplin",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "trilium",
+      "target": "tag:笔记",
+      "type": "tagged"
+    },
+    {
+      "source": "trilium",
+      "target": "tag:知识库",
+      "type": "tagged"
+    },
+    {
+      "source": "trilium",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "memos",
+      "target": "tag:笔记",
+      "type": "tagged"
+    },
+    {
+      "source": "memos",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "freshrss",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "miniflux",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "vaultwarden",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "jellyfin",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "immich",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "matrix-synapse",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "uptime-kuma",
+      "target": "tag:监控",
+      "type": "tagged"
+    },
+    {
+      "source": "uptime-kuma",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "shlink",
+      "target": "tag:短链",
+      "type": "tagged"
+    },
+    {
+      "source": "shlink",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "qbittorrent",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "aria2",
+      "target": "tag:CLI",
+      "type": "tagged"
+    },
+    {
+      "source": "aria2",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "rustdesk",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "gitea",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "forgejo",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "woodpecker",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "drone",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "nginx-proxy-manager",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "1panel",
+      "target": "tag:面板",
+      "type": "tagged"
+    },
+    {
+      "source": "1panel",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "casaos",
+      "target": "tag:面板",
+      "type": "tagged"
+    },
+    {
+      "source": "casaos",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "ddns-go",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "navidrome",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "outline",
+      "target": "tag:知识库",
+      "type": "tagged"
+    },
+    {
+      "source": "outline",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "mattermost",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "kanboard",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "focalboard",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "passbolt",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "radicale",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "ohmyform",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "linkding",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "searxng",
+      "target": "tag:隐私",
+      "type": "tagged"
+    },
+    {
+      "source": "searxng",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "filebrowser",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "wetty",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "ttyd",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "excalidraw",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "xray-reality",
+      "target": "tag:代理",
+      "type": "tagged"
+    },
+    {
+      "source": "sing-box",
+      "target": "tag:代理",
+      "type": "tagged"
+    },
+    {
+      "source": "sing-box",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "mihomo",
+      "target": "tag:代理",
+      "type": "tagged"
+    },
+    {
+      "source": "mihomo",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "hysteria2",
+      "target": "tag:代理",
+      "type": "tagged"
+    },
+    {
+      "source": "hysteria2",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "trojan-go",
+      "target": "tag:代理",
+      "type": "tagged"
+    },
+    {
+      "source": "trojan-go",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "snell",
+      "target": "tag:代理",
+      "type": "tagged"
+    },
+    {
+      "source": "tuic",
+      "target": "tag:代理",
+      "type": "tagged"
+    },
+    {
+      "source": "tuic",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "tpot",
+      "target": "tag:蜜罐",
+      "type": "tagged"
+    },
+    {
+      "source": "tpot",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "tpot",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "cowrie",
+      "target": "tag:蜜罐",
+      "type": "tagged"
+    },
+    {
+      "source": "cowrie",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "dionaea",
+      "target": "tag:蜜罐",
+      "type": "tagged"
+    },
+    {
+      "source": "dionaea",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "hfish",
+      "target": "tag:蜜罐",
+      "type": "tagged"
+    },
+    {
+      "source": "hfish",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "hfish",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "openai-api",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "openai-api",
+      "target": "tag:LLM",
+      "type": "tagged"
+    },
+    {
+      "source": "anthropic-api",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "anthropic-api",
+      "target": "tag:LLM",
+      "type": "tagged"
+    },
+    {
+      "source": "anthropic-api",
+      "target": "tag:Anthropic",
+      "type": "tagged"
+    },
+    {
+      "source": "google-ai-api",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "google-ai-api",
+      "target": "tag:LLM",
+      "type": "tagged"
+    },
+    {
+      "source": "google-ai-api",
+      "target": "tag:Google",
+      "type": "tagged"
+    },
+    {
+      "source": "hf-inference-api",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "hf-inference-api",
+      "target": "tag:开源模型",
+      "type": "tagged"
+    },
+    {
+      "source": "replicate",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "openweathermap",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "openweathermap",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "ipinfo",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "mymemory",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "mymemory",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "unsplash",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "unsplash",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "pexels",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "qrserver",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "qrserver",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "disify",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "textbelt",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "textbelt",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "proxyscrape",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "proxyscrape",
+      "target": "tag:代理",
+      "type": "tagged"
+    },
+    {
+      "source": "proxyscrape",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "is-gd",
+      "target": "tag:短链",
+      "type": "tagged"
+    },
+    {
+      "source": "is-gd",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "tinyurl",
+      "target": "tag:短链",
+      "type": "tagged"
+    },
+    {
+      "source": "tinyurl",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "hcaptcha",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "hcaptcha",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "nominatim",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "awesome-hacking",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "awesome-hacking",
+      "target": "tag:合集",
+      "type": "tagged"
+    },
+    {
+      "source": "awesome-hacking",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "payloadsallthethings",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "payloadsallthethings",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "hacktricks",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "hacktricks",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "seclists",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "seclists",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "nuclei-templates",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "nuclei-templates",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "gtfobins",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "lolbas",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "free-programming-books",
+      "target": "tag:编程",
+      "type": "tagged"
+    },
+    {
+      "source": "free-programming-books",
+      "target": "tag:合集",
+      "type": "tagged"
+    },
+    {
+      "source": "mfuu-freeproxies",
+      "target": "tag:订阅",
+      "type": "tagged"
+    },
+    {
+      "source": "mfuu-freeproxies",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "aiboboxx-v2rayfree",
+      "target": "tag:订阅",
+      "type": "tagged"
+    },
+    {
+      "source": "aiboboxx-v2rayfree",
+      "target": "tag:v2ray",
+      "type": "tagged"
+    },
+    {
+      "source": "aiboboxx-v2rayfree",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "barry-far-v2ray-configs",
+      "target": "tag:订阅",
+      "type": "tagged"
+    },
+    {
+      "source": "barry-far-v2ray-configs",
+      "target": "tag:v2ray",
+      "type": "tagged"
+    },
+    {
+      "source": "barry-far-v2ray-configs",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "epodonators-v2ray-configs",
+      "target": "tag:订阅",
+      "type": "tagged"
+    },
+    {
+      "source": "epodonators-v2ray-configs",
+      "target": "tag:v2ray",
+      "type": "tagged"
+    },
+    {
+      "source": "epodonators-v2ray-configs",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "replit",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "kimi",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "kimi",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "tencent-hunyuan",
+      "target": "tag:对话",
+      "type": "tagged"
+    },
+    {
+      "source": "tencent-hunyuan",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "bigmodel-glm",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "bigmodel-glm",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "deepseek-api",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "deepseek-api",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "siliconflow",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "siliconflow",
+      "target": "tag:聚合",
+      "type": "tagged"
+    },
+    {
+      "source": "siliconflow",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "lingyiwanwu",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "lingyiwanwu",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "minimax",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "minimax",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "minimax",
+      "target": "tag:多模态",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare-imgbed",
+      "target": "tag:Cloudflare",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare-imgbed",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare-tunnel",
+      "target": "tag:Cloudflare",
+      "type": "tagged"
+    },
+    {
+      "source": "cloudflare-tunnel",
+      "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "subconverter",
+      "target": "tag:订阅",
+      "type": "tagged"
+    },
+    {
+      "source": "subconverter",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "localsend",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "stirling-pdf",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "it-tools",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "n8n",
+      "target": "tag:工作流",
+      "type": "tagged"
+    },
+    {
+      "source": "n8n",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "activepieces",
+      "target": "tag:工作流",
+      "type": "tagged"
+    },
+    {
+      "source": "activepieces",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "homarr",
+      "target": "tag:面板",
+      "type": "tagged"
+    },
+    {
+      "source": "homarr",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "nextcloud",
+      "target": "ext:Google Drive",
+      "type": "alternative_to"
+    },
+    {
+      "source": "seafile",
+      "target": "ext:Google Drive",
+      "type": "alternative_to"
+    },
+    {
+      "source": "filebrowser",
+      "target": "ext:Google Drive",
+      "type": "alternative_to"
+    },
+    {
+      "source": "joplin",
+      "target": "ext:Notion",
+      "type": "alternative_to"
+    },
+    {
+      "source": "trilium",
+      "target": "ext:Notion",
+      "type": "alternative_to"
+    },
+    {
+      "source": "memos",
+      "target": "ext:flomo",
+      "type": "alternative_to"
+    },
+    {
+      "source": "freshrss",
+      "target": "ext:Feedly",
+      "type": "alternative_to"
+    },
+    {
+      "source": "miniflux",
+      "target": "ext:Feedly",
+      "type": "alternative_to"
+    },
+    {
+      "source": "vaultwarden",
+      "target": "ext:Bitwarden",
+      "type": "alternative_to"
+    },
+    {
+      "source": "passbolt",
+      "target": "ext:1Password",
+      "type": "alternative_to"
+    },
+    {
+      "source": "jellyfin",
+      "target": "ext:Plex",
+      "type": "alternative_to"
+    },
+    {
+      "source": "navidrome",
+      "target": "ext:Spotify",
+      "type": "alternative_to"
+    },
+    {
+      "source": "immich",
+      "target": "ext:Google Photos",
+      "type": "alternative_to"
+    },
+    {
+      "source": "matrix-synapse",
+      "target": "ext:Discord",
+      "type": "alternative_to"
+    },
+    {
+      "source": "mattermost",
+      "target": "ext:Slack",
+      "type": "alternative_to"
+    },
+    {
+      "source": "uptime-kuma",
+      "target": "ext:UptimeRobot",
+      "type": "alternative_to"
+    },
+    {
+      "source": "rustdesk",
+      "target": "ext:TeamViewer",
+      "type": "alternative_to"
+    },
+    {
+      "source": "gitea",
+      "target": "ext:GitHub",
+      "type": "alternative_to"
+    },
+    {
+      "source": "forgejo",
+      "target": "ext:GitHub",
+      "type": "alternative_to"
+    },
+    {
+      "source": "woodpecker",
+      "target": "ext:GitLab CI",
+      "type": "alternative_to"
+    },
+    {
+      "source": "drone",
+      "target": "ext:GitLab CI",
+      "type": "alternative_to"
+    },
+    {
+      "source": "ohmyform",
+      "target": "ext:Google Forms",
+      "type": "alternative_to"
+    },
+    {
+      "source": "searxng",
+      "target": "ext:Google Search",
+      "type": "alternative_to"
+    },
+    {
+      "source": "outline",
+      "target": "ext:Confluence",
+      "type": "alternative_to"
+    },
+    {
+      "source": "kanboard",
+      "target": "ext:Trello",
+      "type": "alternative_to"
+    },
+    {
+      "source": "focalboard",
+      "target": "ext:Trello",
+      "type": "alternative_to"
+    },
+    {
+      "source": "linkding",
+      "target": "ext:Pocket",
+      "type": "alternative_to"
+    },
+    {
+      "source": "localsend",
+      "target": "ext:AirDrop",
+      "type": "alternative_to"
+    },
+    {
+      "source": "excalidraw",
+      "target": "ext:Miro",
+      "type": "alternative_to"
+    },
+    {
+      "source": "n8n",
+      "target": "ext:Zapier",
+      "type": "alternative_to"
+    },
+    {
+      "source": "activepieces",
+      "target": "ext:Zapier",
+      "type": "alternative_to"
+    },
+    {
+      "source": "stirling-pdf",
+      "target": "ext:Adobe Acrobat",
+      "type": "alternative_to"
+    },
+    {
+      "source": "homarr",
+      "target": "ext:Heimdall",
+      "type": "alternative_to"
+    },
+    {
+      "source": "dify",
+      "target": "ext:LangFlow",
+      "type": "alternative_to"
+    },
+    {
+      "source": "ollama",
+      "target": "lm-studio",
+      "type": "related"
+    },
+    {
+      "source": "ollama",
+      "target": "jan",
+      "type": "related"
+    },
+    {
+      "source": "ollama",
+      "target": "gpt4all",
+      "type": "related"
+    },
+    {
+      "source": "ollama",
+      "target": "text-generation-webui",
+      "type": "related"
+    },
+    {
+      "source": "lm-studio",
+      "target": "jan",
+      "type": "related"
+    },
+    {
+      "source": "gpt4all",
+      "target": "jan",
+      "type": "related"
+    },
+    {
+      "source": "cline",
+      "target": "continue",
+      "type": "related"
+    },
+    {
+      "source": "cline",
+      "target": "cursor",
+      "type": "related"
+    },
+    {
+      "source": "cline",
+      "target": "aider",
+      "type": "related"
+    },
+    {
+      "source": "cline",
+      "target": "cody",
+      "type": "related"
+    },
+    {
+      "source": "cursor",
+      "target": "aider",
+      "type": "related"
+    },
+    {
+      "source": "continue",
+      "target": "cody",
+      "type": "related"
+    },
+    {
+      "source": "langchain",
+      "target": "llamaindex",
+      "type": "related"
+    },
+    {
+      "source": "dify",
+      "target": "flowise",
+      "type": "related"
+    },
+    {
+      "source": "dify",
+      "target": "fastgpt",
+      "type": "related"
+    },
+    {
+      "source": "flowise",
+      "target": "fastgpt",
+      "type": "related"
+    },
+    {
+      "source": "langfuse",
+      "target": "litellm",
+      "type": "related"
+    },
+    {
+      "source": "promptfoo",
+      "target": "langfuse",
+      "type": "related"
+    },
+    {
+      "source": "nextcloud",
+      "target": "seafile",
+      "type": "related"
+    },
+    {
+      "source": "nextcloud",
+      "target": "immich",
+      "type": "related"
+    },
+    {
+      "source": "joplin",
+      "target": "trilium",
+      "type": "related"
+    },
+    {
+      "source": "joplin",
+      "target": "memos",
+      "type": "related"
+    },
+    {
+      "source": "trilium",
+      "target": "memos",
+      "type": "related"
+    },
+    {
+      "source": "freshrss",
+      "target": "miniflux",
+      "type": "related"
+    },
+    {
+      "source": "vaultwarden",
+      "target": "passbolt",
+      "type": "related"
+    },
+    {
+      "source": "jellyfin",
+      "target": "navidrome",
+      "type": "related"
+    },
+    {
+      "source": "gitea",
+      "target": "forgejo",
+      "type": "related"
+    },
+    {
+      "source": "woodpecker",
+      "target": "drone",
+      "type": "related"
+    },
+    {
+      "source": "nginx-proxy-manager",
+      "target": "cloudflare-tunnel",
+      "type": "related"
+    },
+    {
+      "source": "1panel",
+      "target": "casaos",
+      "type": "related"
+    },
+    {
+      "source": "xray-reality",
+      "target": "sing-box",
+      "type": "related"
+    },
+    {
+      "source": "xray-reality",
+      "target": "hysteria2",
+      "type": "related"
+    },
+    {
+      "source": "xray-reality",
+      "target": "mihomo",
+      "type": "related"
+    },
+    {
+      "source": "sing-box",
+      "target": "mihomo",
+      "type": "related"
+    },
+    {
+      "source": "hysteria2",
+      "target": "tuic",
+      "type": "related"
+    },
+    {
+      "source": "trojan-go",
+      "target": "snell",
+      "type": "related"
+    },
+    {
+      "source": "excalidraw",
+      "target": "it-tools",
+      "type": "related"
+    },
+    {
+      "source": "n8n",
+      "target": "activepieces",
+      "type": "related"
+    },
+    {
+      "source": "it-tools",
+      "target": "stirling-pdf",
+      "type": "related"
+    },
+    {
+      "source": "uptime-kuma",
+      "target": "uptimerobot",
+      "type": "related"
+    },
+    {
+      "source": "cloudflare",
+      "target": "cloudflare-tunnel",
+      "type": "related"
+    },
+    {
+      "source": "cloudflare",
+      "target": "cloudflare-dns",
+      "type": "related"
+    },
+    {
+      "source": "lets-encrypt",
+      "target": "zerossl",
+      "type": "related"
+    },
+    {
+      "source": "cloudflare-dns",
+      "target": "nextdns",
+      "type": "related"
+    },
+    {
+      "source": "supabase",
+      "target": "neon",
+      "type": "related"
+    },
+    {
+      "source": "vercel",
+      "target": "netlify",
+      "type": "related"
+    },
+    {
+      "source": "render",
+      "target": "koyeb",
+      "type": "related"
+    },
+    {
+      "source": "fly-io",
+      "target": "render",
+      "type": "related"
+    },
+    {
+      "source": "railway",
+      "target": "fly-io",
+      "type": "related"
+    },
+    {
+      "source": "searxng",
+      "target": "linkding",
+      "type": "related"
+    },
+    {
+      "source": "tpot",
+      "target": "cowrie",
+      "type": "related"
+    },
+    {
+      "source": "cowrie",
+      "target": "dionaea",
+      "type": "related"
+    },
+    {
+      "source": "hacktricks",
+      "target": "payloadsallthethings",
+      "type": "related"
+    },
+    {
+      "source": "gitea",
+      "target": "woodpecker",
+      "type": "related"
+    },
+    {
+      "source": "forgejo",
+      "target": "woodpecker",
+      "type": "related"
+    },
+    {
+      "source": "immich",
+      "target": "filebrowser",
+      "type": "related"
+    }
+  ]
+}
