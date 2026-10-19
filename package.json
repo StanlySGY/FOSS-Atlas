@@ -8,6 +8,7 @@
     "build": "node scripts/build-wikis.mjs && vite build && node scripts/spa-fallback.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
+    "icons": "node scripts/build-icons.mjs",
     "data": "node scripts/build-data.mjs"
   },
   "dependencies": {

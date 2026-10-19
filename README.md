@@ -92,6 +92,7 @@ npm install
 
 npm run dev        # 启动开发服务器
 npm run data       # 数据源 → src/data/*.json（改完数据源后执行）
+npm run icons      # 抓取每个 host 的站点图标 → public/icons/ + src/data/icons.json
 node scripts/build-wikis.mjs   # 生成 160 篇 Wiki + src/data/backlinks.json
 npm run build      # 先刷新 Wiki 与 backlinks.json，再打包到 dist/ 并生成 SPA 兜底 404.html
 npm run preview    # 本地预览构建产物
@@ -108,11 +109,13 @@ npm run lint       # oxlint
 FOSS-Atlas/
 ├─ scripts/
 │  ├─ build-data.mjs        # 数据源 → resources.json + graph.json
+│  ├─ build-icons.mjs       # 每个 host → public/icons/* + src/data/icons.json
 │  ├─ build-wikis.mjs       # wiki-content + 目录 → public/wiki/*.md + backlinks.json
 │  ├─ wiki-content/         # 每篇 Wiki 的散文（一句话总结 / 功能 / 场景），分组存放
 │  └─ spa-fallback.mjs      # dist/index.html → dist/404.html
 ├─ public/
 │  ├─ .nojekyll             # 让 Pages 原样发布（不跑 Jekyll）
+│  ├─ icons/                # 106 个 host 的站点图标（构建期抓取，随包发布）
 │  └─ wiki/                 # 165 篇 Wiki（Markdown + Frontmatter）
 │     ├─ ollama.md          # 5 篇手写深度页……
 │     ├─ cloudflare-workers.md
@@ -147,7 +150,14 @@ FOSS-Atlas/
                                                                     ▼
 wiki-content/*.mjs ──► scripts/build-wikis.mjs ──► public/wiki/*.md
                              └────────────────────► src/data/backlinks.json
+
+resources.json ──► scripts/build-icons.mjs ──► public/icons/* + src/data/icons.json
+                    └── 每个 host 抓一张图标；幂等，已存在的不重复下载
 ```
+
+> 图标在**构建期**抓取并随包发布，而不是在浏览器里请求 favicon 服务：
+> `google.com` / `icons.duckduckgo.com` 在中国大陆不可达，运行时请求会让
+> 全部卡片图标退化成字母占位。`iconFor()` 仅在该 host 没有本地图标时才回落到远端。
 
 ### `resources.json` 字段
 
@@ -181,7 +191,9 @@ wiki-content/*.mjs ──► scripts/build-wikis.mjs ──► public/wiki/*.md
 ['my-tool', 'My Tool', 'https://example.com', '一句话说明', ['标签1', '标签2']],
 ```
 
-然后执行 `npm run data` 重新生成 JSON。**URL 必须是 `https://` 开头的绝对地址。**
+然后执行 `npm run data` 重新生成 JSON、再执行 `npm run icons` 抓取它的站点图标
+（新增 host 尤其要跑，否则该卡片会临时回落到远端 favicon 服务）。
+**URL 必须是 `https://` 开头的绝对地址。**
 
 ### 给新资源配一篇 Wiki
 `public/wiki/*.md` 由 `scripts/build-wikis.mjs` 生成，**不要手改**（除非按下面的方式做成手写页）。
