@@ -1,0 +1,12 @@
+{
+  "id": "fullwidth-wiki-expansion",
+  "title": "全宽 App-like 布局重构 + 165 工具 Wiki 内容补全 + 图谱 focus 联动",
+  "status": "in_progress",
+  "complexity": "L+",
+  "risk": "medium",
+  "domain": "frontend",
+  "currentPhase": "analysis",
+  "nextAction": "分析现有布局/渲染/图谱实现，制定 plan",
+  "createdAt": "2026-10-19T00:00:00Z",
+  "branch": "main"
+}

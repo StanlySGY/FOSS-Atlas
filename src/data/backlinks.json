@@ -1,0 +1,979 @@
+{
+  "poe": [
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena",
+    "Microsoft Copilot"
+  ],
+  "huggingchat": [
+    "Poe",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena",
+    "Microsoft Copilot"
+  ],
+  "duckduckgo-ai-chat": [
+    "Poe",
+    "HuggingChat",
+    "LMSYS Chatbot Arena",
+    "Microsoft Copilot"
+  ],
+  "lmsys-chat": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "Microsoft Copilot"
+  ],
+  "microsoft-copilot": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "meta-ai": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "google-gemini": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "anthropic-claude": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "baidu-yiyan": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "aliyun-tongyi": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "xfyun-xinghuo": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "doubao": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "chatglm": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "deepseek-chat": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "tiangong": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "pi": [
+    "Poe",
+    "HuggingChat",
+    "DuckDuckGo AI Chat",
+    "LMSYS Chatbot Arena"
+  ],
+  "cursor": [
+    "Cline",
+    "Continue",
+    "Cody",
+    "Tabby"
+  ],
+  "cline": [
+    "Cursor",
+    "Continue",
+    "Cody",
+    "Tabby"
+  ],
+  "continue": [
+    "Cursor",
+    "Cline",
+    "Cody",
+    "Tabby"
+  ],
+  "cody": [
+    "Cursor",
+    "Cline",
+    "Continue",
+    "Tabby"
+  ],
+  "tabby": [
+    "Cursor",
+    "Cline",
+    "Continue",
+    "Cody"
+  ],
+  "codeium": [
+    "Cursor",
+    "Cline",
+    "Continue",
+    "Cody"
+  ],
+  "aider": [
+    "Cursor",
+    "Cline",
+    "Continue",
+    "Cody"
+  ],
+  "ollama": [
+    "Dify",
+    "LangChain",
+    "Continue",
+    "Cline",
+    "LM Studio",
+    "Jan",
+    "GPT4All",
+    "Text Generation WebUI"
+  ],
+  "lm-studio": [
+    "Ollama",
+    "Text Generation WebUI",
+    "Jan",
+    "GPT4All"
+  ],
+  "text-generation-webui": [
+    "Ollama",
+    "LM Studio",
+    "Jan",
+    "GPT4All"
+  ],
+  "jan": [
+    "Ollama",
+    "LM Studio",
+    "Text Generation WebUI",
+    "GPT4All"
+  ],
+  "gpt4all": [
+    "Ollama",
+    "LM Studio",
+    "Text Generation WebUI",
+    "Jan"
+  ],
+  "langchain": [
+    "LlamaIndex",
+    "Langfuse",
+    "LiteLLM",
+    "promptfoo"
+  ],
+  "llamaindex": [
+    "LangChain",
+    "Langfuse",
+    "LiteLLM",
+    "promptfoo"
+  ],
+  "langfuse": [
+    "LangChain",
+    "LlamaIndex",
+    "LiteLLM",
+    "promptfoo"
+  ],
+  "litellm": [
+    "LangChain",
+    "LlamaIndex",
+    "Langfuse",
+    "promptfoo"
+  ],
+  "promptfoo": [
+    "LangChain",
+    "LlamaIndex",
+    "Langfuse",
+    "LiteLLM"
+  ],
+  "dify": [
+    "LangChain",
+    "LlamaIndex",
+    "Langfuse",
+    "LiteLLM"
+  ],
+  "flowise": [
+    "LangChain",
+    "LlamaIndex",
+    "Langfuse",
+    "LiteLLM"
+  ],
+  "fastgpt": [
+    "LangChain",
+    "LlamaIndex",
+    "Langfuse",
+    "LiteLLM"
+  ],
+  "awesome-chatgpt-prompts": [
+    "Prompt 工程指南（OpenAI）",
+    "DeepLearning.AI 提示词课",
+    "Poe",
+    "HuggingChat"
+  ],
+  "openai-prompt-guide": [
+    "awesome-chatgpt-prompts (prompts.chat)",
+    "DeepLearning.AI 提示词课",
+    "Poe",
+    "HuggingChat"
+  ],
+  "deeplearning-ai-prompts": [
+    "awesome-chatgpt-prompts (prompts.chat)",
+    "Prompt 工程指南（OpenAI）",
+    "Poe",
+    "HuggingChat"
+  ],
+  "google-cloud": [
+    "AWS",
+    "Microsoft Azure",
+    "Oracle Cloud",
+    "Cloudflare"
+  ],
+  "aws": [
+    "Google Cloud",
+    "Microsoft Azure",
+    "Oracle Cloud",
+    "Cloudflare"
+  ],
+  "azure": [
+    "Google Cloud",
+    "AWS",
+    "Oracle Cloud",
+    "Cloudflare"
+  ],
+  "oracle-cloud": [
+    "Google Cloud",
+    "AWS",
+    "Microsoft Azure",
+    "Cloudflare"
+  ],
+  "cloudflare": [
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "Vercel",
+    "Netlify"
+  ],
+  "render": [
+    "Railway",
+    "Fly.io",
+    "Koyeb",
+    "Supabase"
+  ],
+  "railway": [
+    "Render",
+    "Fly.io",
+    "Koyeb",
+    "Supabase"
+  ],
+  "fly-io": [
+    "Render",
+    "Railway",
+    "Koyeb",
+    "Supabase"
+  ],
+  "koyeb": [
+    "Render",
+    "Railway",
+    "Fly.io",
+    "Supabase"
+  ],
+  "supabase": [
+    "Render",
+    "Railway",
+    "Fly.io",
+    "Koyeb"
+  ],
+  "neon": [
+    "Render",
+    "Railway",
+    "Fly.io",
+    "Koyeb"
+  ],
+  "vercel": [
+    "Render",
+    "Railway",
+    "Fly.io",
+    "Koyeb"
+  ],
+  "netlify": [
+    "Render",
+    "Railway",
+    "Fly.io",
+    "Koyeb"
+  ],
+  "is-a-dev": [
+    "js.org",
+    "eu.org",
+    "pp.ua",
+    "Google Cloud"
+  ],
+  "js-org": [
+    "is-a.dev",
+    "eu.org",
+    "pp.ua",
+    "Google Cloud"
+  ],
+  "eu-org": [
+    "is-a.dev",
+    "js.org",
+    "pp.ua",
+    "Google Cloud"
+  ],
+  "pp-ua": [
+    "is-a.dev",
+    "js.org",
+    "eu.org",
+    "Google Cloud"
+  ],
+  "cloudflare-dns": [
+    "Hurricane Electric",
+    "NextDNS",
+    "Bunny DNS",
+    "Google Cloud"
+  ],
+  "hurricane-electric": [
+    "Cloudflare DNS",
+    "NextDNS",
+    "Bunny DNS",
+    "Google Cloud"
+  ],
+  "nextdns": [
+    "Cloudflare DNS",
+    "Hurricane Electric",
+    "Bunny DNS",
+    "Google Cloud"
+  ],
+  "bunnydns": [
+    "Cloudflare DNS",
+    "Hurricane Electric",
+    "NextDNS",
+    "Google Cloud"
+  ],
+  "lets-encrypt": [
+    "ZeroSSL",
+    "Cloudflare Origin CA",
+    "Buypass Go SSL",
+    "Google Cloud"
+  ],
+  "zerossl": [
+    "Let's Encrypt",
+    "Cloudflare Origin CA",
+    "Buypass Go SSL",
+    "Google Cloud"
+  ],
+  "cloudflare-origin-ca": [
+    "Let's Encrypt",
+    "ZeroSSL",
+    "Buypass Go SSL",
+    "Google Cloud"
+  ],
+  "buypass-go": [
+    "Let's Encrypt",
+    "ZeroSSL",
+    "Cloudflare Origin CA",
+    "Google Cloud"
+  ],
+  "uptimerobot": [
+    "Better Stack",
+    "Logtail",
+    "Sentry",
+    "Google Cloud"
+  ],
+  "better-stack": [
+    "UptimeRobot",
+    "Logtail",
+    "Sentry",
+    "Google Cloud"
+  ],
+  "logtail": [
+    "UptimeRobot",
+    "Better Stack",
+    "Sentry",
+    "Google Cloud"
+  ],
+  "sentry": [
+    "UptimeRobot",
+    "Better Stack",
+    "Logtail",
+    "Google Cloud"
+  ],
+  "nextcloud": [
+    "Immich",
+    "Seafile",
+    "Filebrowser",
+    "Nginx Proxy Manager"
+  ],
+  "seafile": [
+    "Nextcloud",
+    "Joplin",
+    "Trilium",
+    "Memos"
+  ],
+  "joplin": [
+    "Nextcloud",
+    "Seafile",
+    "Trilium",
+    "Memos"
+  ],
+  "trilium": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Memos"
+  ],
+  "memos": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "freshrss": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "miniflux": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "vaultwarden": [
+    "Nginx Proxy Manager",
+    "Cloudflare Tunnel",
+    "Passbolt",
+    "1Panel"
+  ],
+  "jellyfin": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "immich": [
+    "Nextcloud",
+    "Filebrowser",
+    "Seafile"
+  ],
+  "matrix-synapse": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "uptime-kuma": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "shlink": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "qbittorrent": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "aria2": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "rustdesk": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "gitea": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "forgejo": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "woodpecker": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "drone": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "nginx-proxy-manager": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "1panel": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "casaos": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "ddns-go": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "navidrome": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "outline": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "mattermost": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "kanboard": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "focalboard": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "passbolt": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "radicale": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "ohmyform": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "linkding": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "searxng": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "filebrowser": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "wetty": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "ttyd": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "excalidraw": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "xray-reality": [
+    "sing-box",
+    "mihomo / Clash Meta",
+    "Hysteria2",
+    "Trojan-Go"
+  ],
+  "sing-box": [
+    "Xray + Reality",
+    "mihomo / Clash Meta",
+    "Hysteria2",
+    "Trojan-Go"
+  ],
+  "mihomo": [
+    "Xray + Reality",
+    "sing-box",
+    "Hysteria2",
+    "Trojan-Go"
+  ],
+  "hysteria2": [
+    "Xray + Reality",
+    "sing-box",
+    "mihomo / Clash Meta",
+    "Trojan-Go"
+  ],
+  "trojan-go": [
+    "Xray + Reality",
+    "sing-box",
+    "mihomo / Clash Meta",
+    "Hysteria2"
+  ],
+  "snell": [
+    "Xray + Reality",
+    "sing-box",
+    "mihomo / Clash Meta",
+    "Hysteria2"
+  ],
+  "tuic": [
+    "Xray + Reality",
+    "sing-box",
+    "mihomo / Clash Meta",
+    "Hysteria2"
+  ],
+  "tpot": [
+    "Cowrie",
+    "Dionaea",
+    "HFish",
+    "Nextcloud"
+  ],
+  "cowrie": [
+    "T-Pot",
+    "Dionaea",
+    "HFish",
+    "Nextcloud"
+  ],
+  "dionaea": [
+    "T-Pot",
+    "Cowrie",
+    "HFish",
+    "Nextcloud"
+  ],
+  "hfish": [
+    "T-Pot",
+    "Cowrie",
+    "Dionaea",
+    "Nextcloud"
+  ],
+  "openai-api": [
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API",
+    "Replicate"
+  ],
+  "anthropic-api": [
+    "OpenAI API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API",
+    "Replicate"
+  ],
+  "google-ai-api": [
+    "OpenAI API",
+    "Anthropic API",
+    "Hugging Face Inference API",
+    "Replicate"
+  ],
+  "hf-inference-api": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Replicate"
+  ],
+  "replicate": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "openweathermap": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "ipinfo": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "mymemory": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "unsplash": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "pexels": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "qrserver": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "disify": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "textbelt": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "proxyscrape": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "is-gd": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "tinyurl": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "hcaptcha": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "nominatim": [
+    "OpenAI API",
+    "Anthropic API",
+    "Google AI (Gemini) API",
+    "Hugging Face Inference API"
+  ],
+  "awesome-hacking": [
+    "PayloadsAllTheThings",
+    "HackTricks",
+    "SecLists",
+    "nuclei-templates"
+  ],
+  "payloadsallthethings": [
+    "Awesome Hacking",
+    "HackTricks",
+    "SecLists",
+    "nuclei-templates"
+  ],
+  "hacktricks": [
+    "Awesome Hacking",
+    "PayloadsAllTheThings",
+    "SecLists",
+    "nuclei-templates"
+  ],
+  "seclists": [
+    "Awesome Hacking",
+    "PayloadsAllTheThings",
+    "HackTricks",
+    "nuclei-templates"
+  ],
+  "nuclei-templates": [
+    "Awesome Hacking",
+    "PayloadsAllTheThings",
+    "HackTricks",
+    "SecLists"
+  ],
+  "gtfobins": [
+    "Awesome Hacking",
+    "PayloadsAllTheThings",
+    "HackTricks",
+    "SecLists"
+  ],
+  "lolbas": [
+    "Awesome Hacking",
+    "PayloadsAllTheThings",
+    "HackTricks",
+    "SecLists"
+  ],
+  "mfuu-freeproxies": [
+    "aiboboxx/v2rayfree",
+    "barry-far/V2ray-Configs",
+    "Epodonators/v2ray-configs"
+  ],
+  "aiboboxx-v2rayfree": [
+    "mfuu/FreeProxies",
+    "barry-far/V2ray-Configs",
+    "Epodonators/v2ray-configs"
+  ],
+  "barry-far-v2ray-configs": [
+    "mfuu/FreeProxies",
+    "aiboboxx/v2rayfree",
+    "Epodonators/v2ray-configs"
+  ],
+  "epodonators-v2ray-configs": [
+    "mfuu/FreeProxies",
+    "aiboboxx/v2rayfree",
+    "barry-far/V2ray-Configs"
+  ],
+  "huggingface-spaces": [
+    "Replit"
+  ],
+  "replit": [
+    "HuggingFace Spaces"
+  ],
+  "kimi": [
+    "腾讯混元",
+    "智谱 GLM-4 API",
+    "DeepSeek API",
+    "硅基流动"
+  ],
+  "tencent-hunyuan": [
+    "Kimi",
+    "智谱 GLM-4 API",
+    "DeepSeek API",
+    "硅基流动"
+  ],
+  "bigmodel-glm": [
+    "Kimi",
+    "腾讯混元",
+    "DeepSeek API",
+    "硅基流动"
+  ],
+  "deepseek-api": [
+    "Kimi",
+    "腾讯混元",
+    "智谱 GLM-4 API",
+    "硅基流动"
+  ],
+  "siliconflow": [
+    "Kimi",
+    "腾讯混元",
+    "智谱 GLM-4 API",
+    "DeepSeek API"
+  ],
+  "lingyiwanwu": [
+    "Kimi",
+    "腾讯混元",
+    "智谱 GLM-4 API",
+    "DeepSeek API"
+  ],
+  "minimax": [
+    "Kimi",
+    "腾讯混元",
+    "智谱 GLM-4 API",
+    "DeepSeek API"
+  ],
+  "cloudflare-imgbed": [
+    "Cloudflare Tunnel",
+    "subconverter",
+    "LocalSend",
+    "Stirling-PDF"
+  ],
+  "cloudflare-tunnel": [
+    "CloudFlare-ImgBed",
+    "subconverter",
+    "LocalSend",
+    "Stirling-PDF"
+  ],
+  "subconverter": [
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "LocalSend",
+    "Stirling-PDF"
+  ],
+  "localsend": [
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "subconverter",
+    "Stirling-PDF"
+  ],
+  "stirling-pdf": [
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "subconverter",
+    "LocalSend"
+  ],
+  "it-tools": [
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "subconverter",
+    "LocalSend"
+  ],
+  "n8n": [
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "subconverter",
+    "LocalSend"
+  ],
+  "activepieces": [
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "subconverter",
+    "LocalSend"
+  ],
+  "homarr": [
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "subconverter",
+    "LocalSend"
+  ]
+}

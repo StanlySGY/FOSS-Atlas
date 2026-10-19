@@ -10,7 +10,7 @@ export default function Layout() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-30 border-b border-[#23282a] bg-[#0a0c0d]/92 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4 sm:px-6">
+        <div className="flex h-14 w-full items-center gap-6 px-4 sm:px-6">
           <NavLink to="/" className="group flex items-center gap-2">
             <span className="grid h-6 w-6 place-items-center rounded-[4px] border border-[#f0b429]/50 text-[11px] font-bold text-[#f0b429]">
               FA
@@ -56,12 +56,12 @@ export default function Layout() {
         </div>
       </header>
 
-      {/* Child layouts own their own container: FullWidthLayout centres a
-          single column, SidebarLayout adds the wiki navigation rail. */}
+      {/* Child layouts own their own content area: FullWidthLayout spans the
+          full viewport, SidebarLayout adds the flush-left wiki navigation rail. */}
       <Outlet />
 
       <footer className="border-t border-[#23282a]">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="flex w-full flex-col gap-2 px-4 py-6 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>
             FOSS-Atlas · 收录 {graphStats.tools} 个免费 / 开源资源，数据源自社区整理的
             「GitHub 精选白P资源清单」。

@@ -88,6 +88,40 @@ export function stripLeadingH1(markdown) {
 }
 
 /**
+ * Drop the page chrome that duplicates what the surrounding UI already shows.
+ *
+ * A wiki body conventionally opens with `# Title` followed by a `> one-line
+ * summary`. The page shell renders both the title and the catalogue
+ * description, so leaving them in the body prints them twice. This removes the
+ * leading H1 and the blockquote that immediately follows it, then stops —
+ * everything from the first `##` section onwards is untouched.
+ *
+ * Both removals are narrow and anchored to the start of the document:
+ *
+ * - the H1 uses the same strict ATX match as `stripLeadingH1` (blank lines may
+ *   precede it, indent capped at 3 spaces, so a code fence or an indented block
+ *   never matches);
+ * - the blockquote is only taken when it is the *first* block after the H1 —
+ *   a quote that appears later, after any prose or heading, is preserved.
+ *
+ * Blank lines left behind are collapsed, so the renderer starts cleanly on the
+ * first real section.
+ */
+export function stripLeadingChrome(markdown) {
+  let out = markdown.replace(/\r\n?/g, '\n')
+
+  const beforeH1 = out
+  out = out.replace(/^(?:[ \t]*\n)*[ \t]{0,3}#[ \t]+[^\n]*(?:\n+|$)/, '')
+
+  // Only peel a quote when it sits directly under the H1 we just removed.
+  if (out !== beforeH1) {
+    out = out.replace(/^(?:[ \t]*\n)*(?:[ \t]{0,3}>[^\n]*(?:\n+|$))+/, '')
+  }
+
+  return out.replace(/^(?:[ \t]*\n)+/, '')
+}
+
+/**
  * Rewrite [[Wikilink]] syntax into standard markdown links.
  * `resolve(name)` returns a resource id, or null when unknown.
  * Code fences and inline code are left untouched.

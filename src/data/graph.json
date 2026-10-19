@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T06:10:12.253Z",
+  "generated_at": "2026-10-19T09:48:13.003Z",
   "stats": {
     "tools": 165,
     "categories": 10,
@@ -359,161 +359,184 @@
       "name": "Poe",
       "type": "tool",
       "category": "ai",
-      "url": "https://poe.com"
+      "url": "https://poe.com",
+      "wiki": "poe"
     },
     {
       "id": "huggingchat",
       "name": "HuggingChat",
       "type": "tool",
       "category": "ai",
-      "url": "https://huggingface.co/chat"
+      "url": "https://huggingface.co/chat",
+      "wiki": "huggingchat"
     },
     {
       "id": "duckduckgo-ai-chat",
       "name": "DuckDuckGo AI Chat",
       "type": "tool",
       "category": "ai",
-      "url": "https://duck.ai"
+      "url": "https://duck.ai",
+      "wiki": "duckduckgo-ai-chat"
     },
     {
       "id": "lmsys-chat",
       "name": "LMSYS Chatbot Arena",
       "type": "tool",
       "category": "ai",
-      "url": "https://chat.lmsys.org"
+      "url": "https://chat.lmsys.org",
+      "wiki": "lmsys-chat"
     },
     {
       "id": "microsoft-copilot",
       "name": "Microsoft Copilot",
       "type": "tool",
       "category": "ai",
-      "url": "https://copilot.microsoft.com"
+      "url": "https://copilot.microsoft.com",
+      "wiki": "microsoft-copilot"
     },
     {
       "id": "meta-ai",
       "name": "Meta AI",
       "type": "tool",
       "category": "ai",
-      "url": "https://www.meta.ai"
+      "url": "https://www.meta.ai",
+      "wiki": "meta-ai"
     },
     {
       "id": "google-gemini",
       "name": "Google Gemini",
       "type": "tool",
       "category": "ai",
-      "url": "https://gemini.google.com"
+      "url": "https://gemini.google.com",
+      "wiki": "google-gemini"
     },
     {
       "id": "anthropic-claude",
       "name": "Anthropic Claude",
       "type": "tool",
       "category": "ai",
-      "url": "https://claude.ai"
+      "url": "https://claude.ai",
+      "wiki": "anthropic-claude"
     },
     {
       "id": "baidu-yiyan",
       "name": "百度文心一言",
       "type": "tool",
       "category": "ai",
-      "url": "https://yiyan.baidu.com"
+      "url": "https://yiyan.baidu.com",
+      "wiki": "baidu-yiyan"
     },
     {
       "id": "aliyun-tongyi",
       "name": "阿里通义千问",
       "type": "tool",
       "category": "ai",
-      "url": "https://tongyi.aliyun.com"
+      "url": "https://tongyi.aliyun.com",
+      "wiki": "aliyun-tongyi"
     },
     {
       "id": "xfyun-xinghuo",
       "name": "讯飞星火",
       "type": "tool",
       "category": "ai",
-      "url": "https://xinghuo.xfyun.cn"
+      "url": "https://xinghuo.xfyun.cn",
+      "wiki": "xfyun-xinghuo"
     },
     {
       "id": "doubao",
       "name": "豆包",
       "type": "tool",
       "category": "ai",
-      "url": "https://www.doubao.com"
+      "url": "https://www.doubao.com",
+      "wiki": "doubao"
     },
     {
       "id": "chatglm",
       "name": "智谱清言",
       "type": "tool",
       "category": "ai",
-      "url": "https://chatglm.cn"
+      "url": "https://chatglm.cn",
+      "wiki": "chatglm"
     },
     {
       "id": "deepseek-chat",
       "name": "DeepSeek",
       "type": "tool",
       "category": "ai",
-      "url": "https://www.deepseek.com"
+      "url": "https://www.deepseek.com",
+      "wiki": "deepseek-chat"
     },
     {
       "id": "tiangong",
       "name": "天工 AI",
       "type": "tool",
       "category": "ai",
-      "url": "https://www.tiangong.cn"
+      "url": "https://www.tiangong.cn",
+      "wiki": "tiangong"
     },
     {
       "id": "pi",
       "name": "Pi",
       "type": "tool",
       "category": "ai",
-      "url": "https://pi.ai"
+      "url": "https://pi.ai",
+      "wiki": "pi"
     },
     {
       "id": "cursor",
       "name": "Cursor",
       "type": "tool",
       "category": "ai",
-      "url": "https://cursor.com"
+      "url": "https://cursor.com",
+      "wiki": "cursor"
     },
     {
       "id": "cline",
       "name": "Cline",
       "type": "tool",
       "category": "ai",
-      "url": "https://cline.bot"
+      "url": "https://cline.bot",
+      "wiki": "cline"
     },
     {
       "id": "continue",
       "name": "Continue",
       "type": "tool",
       "category": "ai",
-      "url": "https://continue.dev"
+      "url": "https://continue.dev",
+      "wiki": "continue"
     },
     {
       "id": "cody",
       "name": "Cody",
       "type": "tool",
       "category": "ai",
-      "url": "https://sourcegraph.com/cody"
+      "url": "https://sourcegraph.com/cody",
+      "wiki": "cody"
     },
     {
       "id": "tabby",
       "name": "Tabby",
       "type": "tool",
       "category": "ai",
-      "url": "https://tabby.tabbyml.com"
+      "url": "https://tabby.tabbyml.com",
+      "wiki": "tabby"
     },
     {
       "id": "codeium",
       "name": "Codeium",
       "type": "tool",
       "category": "ai",
-      "url": "https://codeium.com"
+      "url": "https://codeium.com",
+      "wiki": "codeium"
     },
     {
       "id": "aider",
       "name": "Aider",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/Aider-AI/aider"
+      "url": "https://github.com/Aider-AI/aider",
+      "wiki": "aider"
     },
     {
       "id": "ollama",
@@ -528,133 +551,152 @@
       "name": "LM Studio",
       "type": "tool",
       "category": "ai",
-      "url": "https://lmstudio.ai"
+      "url": "https://lmstudio.ai",
+      "wiki": "lm-studio"
     },
     {
       "id": "text-generation-webui",
       "name": "Text Generation WebUI",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/oobabooga/textgen"
+      "url": "https://github.com/oobabooga/textgen",
+      "wiki": "text-generation-webui"
     },
     {
       "id": "jan",
       "name": "Jan",
       "type": "tool",
       "category": "ai",
-      "url": "https://jan.ai"
+      "url": "https://jan.ai",
+      "wiki": "jan"
     },
     {
       "id": "gpt4all",
       "name": "GPT4All",
       "type": "tool",
       "category": "ai",
-      "url": "https://gpt4all.io"
+      "url": "https://gpt4all.io",
+      "wiki": "gpt4all"
     },
     {
       "id": "langchain",
       "name": "LangChain",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/langchain-ai/langchain"
+      "url": "https://github.com/langchain-ai/langchain",
+      "wiki": "langchain"
     },
     {
       "id": "llamaindex",
       "name": "LlamaIndex",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/run-llama/llama_index"
+      "url": "https://github.com/run-llama/llama_index",
+      "wiki": "llamaindex"
     },
     {
       "id": "langfuse",
       "name": "Langfuse",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/langfuse/langfuse"
+      "url": "https://github.com/langfuse/langfuse",
+      "wiki": "langfuse"
     },
     {
       "id": "litellm",
       "name": "LiteLLM",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/BerriAI/litellm"
+      "url": "https://github.com/BerriAI/litellm",
+      "wiki": "litellm"
     },
     {
       "id": "promptfoo",
       "name": "promptfoo",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/promptfoo/promptfoo"
+      "url": "https://github.com/promptfoo/promptfoo",
+      "wiki": "promptfoo"
     },
     {
       "id": "dify",
       "name": "Dify",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/langgenius/dify"
+      "url": "https://github.com/langgenius/dify",
+      "wiki": "dify"
     },
     {
       "id": "flowise",
       "name": "Flowise",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/FlowiseAI/Flowise"
+      "url": "https://github.com/FlowiseAI/Flowise",
+      "wiki": "flowise"
     },
     {
       "id": "fastgpt",
       "name": "FastGPT",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/labring/FastGPT"
+      "url": "https://github.com/labring/FastGPT",
+      "wiki": "fastgpt"
     },
     {
       "id": "awesome-chatgpt-prompts",
       "name": "awesome-chatgpt-prompts (prompts.chat)",
       "type": "tool",
       "category": "ai",
-      "url": "https://github.com/f/prompts.chat"
+      "url": "https://github.com/f/prompts.chat",
+      "wiki": "awesome-chatgpt-prompts"
     },
     {
       "id": "openai-prompt-guide",
       "name": "Prompt 工程指南（OpenAI）",
       "type": "tool",
       "category": "ai",
-      "url": "https://platform.openai.com/docs/guides/prompt-engineering"
+      "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+      "wiki": "openai-prompt-guide"
     },
     {
       "id": "deeplearning-ai-prompts",
       "name": "DeepLearning.AI 提示词课",
       "type": "tool",
       "category": "ai",
-      "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/"
+      "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+      "wiki": "deeplearning-ai-prompts"
     },
     {
       "id": "google-cloud",
       "name": "Google Cloud",
       "type": "tool",
       "category": "saas",
-      "url": "https://cloud.google.com/free"
+      "url": "https://cloud.google.com/free",
+      "wiki": "google-cloud"
     },
     {
       "id": "aws",
       "name": "AWS",
       "type": "tool",
       "category": "saas",
-      "url": "https://aws.amazon.com/free"
+      "url": "https://aws.amazon.com/free",
+      "wiki": "aws"
     },
     {
       "id": "azure",
       "name": "Microsoft Azure",
       "type": "tool",
       "category": "saas",
-      "url": "https://azure.microsoft.com/free"
+      "url": "https://azure.microsoft.com/free",
+      "wiki": "azure"
     },
     {
       "id": "oracle-cloud",
       "name": "Oracle Cloud",
       "type": "tool",
       "category": "saas",
-      "url": "https://www.oracle.com/cloud/free/"
+      "url": "https://www.oracle.com/cloud/free/",
+      "wiki": "oracle-cloud"
     },
     {
       "id": "cloudflare",
@@ -669,168 +711,192 @@
       "name": "Render",
       "type": "tool",
       "category": "saas",
-      "url": "https://render.com"
+      "url": "https://render.com",
+      "wiki": "render"
     },
     {
       "id": "railway",
       "name": "Railway",
       "type": "tool",
       "category": "saas",
-      "url": "https://railway.com"
+      "url": "https://railway.com",
+      "wiki": "railway"
     },
     {
       "id": "fly-io",
       "name": "Fly.io",
       "type": "tool",
       "category": "saas",
-      "url": "https://fly.io"
+      "url": "https://fly.io",
+      "wiki": "fly-io"
     },
     {
       "id": "koyeb",
       "name": "Koyeb",
       "type": "tool",
       "category": "saas",
-      "url": "https://www.koyeb.com"
+      "url": "https://www.koyeb.com",
+      "wiki": "koyeb"
     },
     {
       "id": "supabase",
       "name": "Supabase",
       "type": "tool",
       "category": "saas",
-      "url": "https://supabase.com"
+      "url": "https://supabase.com",
+      "wiki": "supabase"
     },
     {
       "id": "neon",
       "name": "Neon Postgres",
       "type": "tool",
       "category": "saas",
-      "url": "https://neon.tech"
+      "url": "https://neon.tech",
+      "wiki": "neon"
     },
     {
       "id": "vercel",
       "name": "Vercel",
       "type": "tool",
       "category": "saas",
-      "url": "https://vercel.com"
+      "url": "https://vercel.com",
+      "wiki": "vercel"
     },
     {
       "id": "netlify",
       "name": "Netlify",
       "type": "tool",
       "category": "saas",
-      "url": "https://www.netlify.com"
+      "url": "https://www.netlify.com",
+      "wiki": "netlify"
     },
     {
       "id": "is-a-dev",
       "name": "is-a.dev",
       "type": "tool",
       "category": "saas",
-      "url": "https://www.is-a.dev"
+      "url": "https://www.is-a.dev",
+      "wiki": "is-a-dev"
     },
     {
       "id": "js-org",
       "name": "js.org",
       "type": "tool",
       "category": "saas",
-      "url": "https://js.org"
+      "url": "https://js.org",
+      "wiki": "js-org"
     },
     {
       "id": "eu-org",
       "name": "eu.org",
       "type": "tool",
       "category": "saas",
-      "url": "https://nic.eu.org"
+      "url": "https://nic.eu.org",
+      "wiki": "eu-org"
     },
     {
       "id": "pp-ua",
       "name": "pp.ua",
       "type": "tool",
       "category": "saas",
-      "url": "https://nic.ua/en/domains/.pp.ua"
+      "url": "https://nic.ua/en/domains/.pp.ua",
+      "wiki": "pp-ua"
     },
     {
       "id": "cloudflare-dns",
       "name": "Cloudflare DNS",
       "type": "tool",
       "category": "saas",
-      "url": "https://www.cloudflare.com/dns/"
+      "url": "https://www.cloudflare.com/dns/",
+      "wiki": "cloudflare-dns"
     },
     {
       "id": "hurricane-electric",
       "name": "Hurricane Electric",
       "type": "tool",
       "category": "saas",
-      "url": "https://dns.he.net"
+      "url": "https://dns.he.net",
+      "wiki": "hurricane-electric"
     },
     {
       "id": "nextdns",
       "name": "NextDNS",
       "type": "tool",
       "category": "saas",
-      "url": "https://nextdns.io"
+      "url": "https://nextdns.io",
+      "wiki": "nextdns"
     },
     {
       "id": "bunnydns",
       "name": "Bunny DNS",
       "type": "tool",
       "category": "saas",
-      "url": "https://bunny.net/dns/"
+      "url": "https://bunny.net/dns/",
+      "wiki": "bunnydns"
     },
     {
       "id": "lets-encrypt",
       "name": "Let's Encrypt",
       "type": "tool",
       "category": "saas",
-      "url": "https://letsencrypt.org"
+      "url": "https://letsencrypt.org",
+      "wiki": "lets-encrypt"
     },
     {
       "id": "zerossl",
       "name": "ZeroSSL",
       "type": "tool",
       "category": "saas",
-      "url": "https://zerossl.com"
+      "url": "https://zerossl.com",
+      "wiki": "zerossl"
     },
     {
       "id": "cloudflare-origin-ca",
       "name": "Cloudflare Origin CA",
       "type": "tool",
       "category": "saas",
-      "url": "https://developers.cloudflare.com/ssl/origin-configuration/origin-ca/"
+      "url": "https://developers.cloudflare.com/ssl/origin-configuration/origin-ca/",
+      "wiki": "cloudflare-origin-ca"
     },
     {
       "id": "buypass-go",
       "name": "Buypass Go SSL",
       "type": "tool",
       "category": "saas",
-      "url": "https://www.buypass.com/ssl/products/acme"
+      "url": "https://www.buypass.com/ssl/products/acme",
+      "wiki": "buypass-go"
     },
     {
       "id": "uptimerobot",
       "name": "UptimeRobot",
       "type": "tool",
       "category": "saas",
-      "url": "https://uptimerobot.com"
+      "url": "https://uptimerobot.com",
+      "wiki": "uptimerobot"
     },
     {
       "id": "better-stack",
       "name": "Better Stack",
       "type": "tool",
       "category": "saas",
-      "url": "https://betterstack.com"
+      "url": "https://betterstack.com",
+      "wiki": "better-stack"
     },
     {
       "id": "logtail",
       "name": "Logtail",
       "type": "tool",
       "category": "saas",
-      "url": "https://betterstack.com/logs"
+      "url": "https://betterstack.com/logs",
+      "wiki": "logtail"
     },
     {
       "id": "sentry",
       "name": "Sentry",
       "type": "tool",
       "category": "saas",
-      "url": "https://sentry.io"
+      "url": "https://sentry.io",
+      "wiki": "sentry"
     },
     {
       "id": "nextcloud",
@@ -845,42 +911,48 @@
       "name": "Seafile",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://www.seafile.com"
+      "url": "https://www.seafile.com",
+      "wiki": "seafile"
     },
     {
       "id": "joplin",
       "name": "Joplin",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://joplinapp.org"
+      "url": "https://joplinapp.org",
+      "wiki": "joplin"
     },
     {
       "id": "trilium",
       "name": "Trilium",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/TriliumNext/Trilium"
+      "url": "https://github.com/TriliumNext/Trilium",
+      "wiki": "trilium"
     },
     {
       "id": "memos",
       "name": "Memos",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/usememos/memos"
+      "url": "https://github.com/usememos/memos",
+      "wiki": "memos"
     },
     {
       "id": "freshrss",
       "name": "FreshRSS",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://freshrss.org"
+      "url": "https://freshrss.org",
+      "wiki": "freshrss"
     },
     {
       "id": "miniflux",
       "name": "Miniflux",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://miniflux.app"
+      "url": "https://miniflux.app",
+      "wiki": "miniflux"
     },
     {
       "id": "vaultwarden",
@@ -895,7 +967,8 @@
       "name": "Jellyfin",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://jellyfin.org"
+      "url": "https://jellyfin.org",
+      "wiki": "jellyfin"
     },
     {
       "id": "immich",
@@ -910,609 +983,696 @@
       "name": "Matrix / Synapse",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://matrix.org"
+      "url": "https://matrix.org",
+      "wiki": "matrix-synapse"
     },
     {
       "id": "uptime-kuma",
       "name": "Uptime Kuma",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/louislam/uptime-kuma"
+      "url": "https://github.com/louislam/uptime-kuma",
+      "wiki": "uptime-kuma"
     },
     {
       "id": "shlink",
       "name": "Shlink",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://shlink.io"
+      "url": "https://shlink.io",
+      "wiki": "shlink"
     },
     {
       "id": "qbittorrent",
       "name": "qBittorrent",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://www.qbittorrent.org"
+      "url": "https://www.qbittorrent.org",
+      "wiki": "qbittorrent"
     },
     {
       "id": "aria2",
       "name": "Aria2",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://aria2.github.io"
+      "url": "https://aria2.github.io",
+      "wiki": "aria2"
     },
     {
       "id": "rustdesk",
       "name": "RustDesk",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/rustdesk/rustdesk"
+      "url": "https://github.com/rustdesk/rustdesk",
+      "wiki": "rustdesk"
     },
     {
       "id": "gitea",
       "name": "Gitea",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://about.gitea.com"
+      "url": "https://about.gitea.com",
+      "wiki": "gitea"
     },
     {
       "id": "forgejo",
       "name": "Forgejo",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://forgejo.org"
+      "url": "https://forgejo.org",
+      "wiki": "forgejo"
     },
     {
       "id": "woodpecker",
       "name": "Woodpecker CI",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://woodpecker-ci.org"
+      "url": "https://woodpecker-ci.org",
+      "wiki": "woodpecker"
     },
     {
       "id": "drone",
       "name": "Drone CI",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://www.drone.io"
+      "url": "https://www.drone.io",
+      "wiki": "drone"
     },
     {
       "id": "nginx-proxy-manager",
       "name": "Nginx Proxy Manager",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/NginxProxyManager/nginx-proxy-manager"
+      "url": "https://github.com/NginxProxyManager/nginx-proxy-manager",
+      "wiki": "nginx-proxy-manager"
     },
     {
       "id": "1panel",
       "name": "1Panel",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/1Panel-dev/1Panel"
+      "url": "https://github.com/1Panel-dev/1Panel",
+      "wiki": "1panel"
     },
     {
       "id": "casaos",
       "name": "CasaOS",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://casaos.io"
+      "url": "https://casaos.io",
+      "wiki": "casaos"
     },
     {
       "id": "ddns-go",
       "name": "ddns-go",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/jeessy2/ddns-go"
+      "url": "https://github.com/jeessy2/ddns-go",
+      "wiki": "ddns-go"
     },
     {
       "id": "navidrome",
       "name": "Navidrome",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://www.navidrome.org"
+      "url": "https://www.navidrome.org",
+      "wiki": "navidrome"
     },
     {
       "id": "outline",
       "name": "Outline",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://www.getoutline.com"
+      "url": "https://www.getoutline.com",
+      "wiki": "outline"
     },
     {
       "id": "mattermost",
       "name": "Mattermost",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://mattermost.com"
+      "url": "https://mattermost.com",
+      "wiki": "mattermost"
     },
     {
       "id": "kanboard",
       "name": "Kanboard",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://kanboard.org"
+      "url": "https://kanboard.org",
+      "wiki": "kanboard"
     },
     {
       "id": "focalboard",
       "name": "Focalboard",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/mattermost-community/focalboard"
+      "url": "https://github.com/mattermost-community/focalboard",
+      "wiki": "focalboard"
     },
     {
       "id": "passbolt",
       "name": "Passbolt",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://www.passbolt.com"
+      "url": "https://www.passbolt.com",
+      "wiki": "passbolt"
     },
     {
       "id": "radicale",
       "name": "Radicale",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://radicale.org"
+      "url": "https://radicale.org",
+      "wiki": "radicale"
     },
     {
       "id": "ohmyform",
       "name": "OhMyForm",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://ohmyform.com"
+      "url": "https://ohmyform.com",
+      "wiki": "ohmyform"
     },
     {
       "id": "linkding",
       "name": "Linkding",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/sissbruecker/linkding"
+      "url": "https://github.com/sissbruecker/linkding",
+      "wiki": "linkding"
     },
     {
       "id": "searxng",
       "name": "SearXNG",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/searxng/searxng"
+      "url": "https://github.com/searxng/searxng",
+      "wiki": "searxng"
     },
     {
       "id": "filebrowser",
       "name": "Filebrowser",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/filebrowser/filebrowser"
+      "url": "https://github.com/filebrowser/filebrowser",
+      "wiki": "filebrowser"
     },
     {
       "id": "wetty",
       "name": "Wetty",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/butlerx/wetty"
+      "url": "https://github.com/butlerx/wetty",
+      "wiki": "wetty"
     },
     {
       "id": "ttyd",
       "name": "ttyd",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/tsl0922/ttyd"
+      "url": "https://github.com/tsl0922/ttyd",
+      "wiki": "ttyd"
     },
     {
       "id": "excalidraw",
       "name": "Excalidraw",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://excalidraw.com"
+      "url": "https://excalidraw.com",
+      "wiki": "excalidraw"
     },
     {
       "id": "xray-reality",
       "name": "Xray + Reality",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/XTLS/Xray-core"
+      "url": "https://github.com/XTLS/Xray-core",
+      "wiki": "xray-reality"
     },
     {
       "id": "sing-box",
       "name": "sing-box",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/SagerNet/sing-box"
+      "url": "https://github.com/SagerNet/sing-box",
+      "wiki": "sing-box"
     },
     {
       "id": "mihomo",
       "name": "mihomo / Clash Meta",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/MetaCubeX/mihomo"
+      "url": "https://github.com/MetaCubeX/mihomo",
+      "wiki": "mihomo"
     },
     {
       "id": "hysteria2",
       "name": "Hysteria2",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/HyNetworks/hysteria"
+      "url": "https://github.com/HyNetworks/hysteria",
+      "wiki": "hysteria2"
     },
     {
       "id": "trojan-go",
       "name": "Trojan-Go",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/p4gefau1t/trojan-go"
+      "url": "https://github.com/p4gefau1t/trojan-go",
+      "wiki": "trojan-go"
     },
     {
       "id": "snell",
       "name": "Snell",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://manual.nssurge.com/policies/snell.html"
+      "url": "https://manual.nssurge.com/policies/snell.html",
+      "wiki": "snell"
     },
     {
       "id": "tuic",
       "name": "TUIC",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/tuic-protocol/tuic"
+      "url": "https://github.com/tuic-protocol/tuic",
+      "wiki": "tuic"
     },
     {
       "id": "tpot",
       "name": "T-Pot",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/telekom-security/tpotce"
+      "url": "https://github.com/telekom-security/tpotce",
+      "wiki": "tpot"
     },
     {
       "id": "cowrie",
       "name": "Cowrie",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/cowrie/cowrie"
+      "url": "https://github.com/cowrie/cowrie",
+      "wiki": "cowrie"
     },
     {
       "id": "dionaea",
       "name": "Dionaea",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/DinoTools/dionaea"
+      "url": "https://github.com/DinoTools/dionaea",
+      "wiki": "dionaea"
     },
     {
       "id": "hfish",
       "name": "HFish",
       "type": "tool",
       "category": "selfhost",
-      "url": "https://github.com/hacklcx/HFish"
+      "url": "https://github.com/hacklcx/HFish",
+      "wiki": "hfish"
     },
     {
       "id": "openai-api",
       "name": "OpenAI API",
       "type": "tool",
       "category": "api",
-      "url": "https://platform.openai.com"
+      "url": "https://platform.openai.com",
+      "wiki": "openai-api"
     },
     {
       "id": "anthropic-api",
       "name": "Anthropic API",
       "type": "tool",
       "category": "api",
-      "url": "https://docs.anthropic.com"
+      "url": "https://docs.anthropic.com",
+      "wiki": "anthropic-api"
     },
     {
       "id": "google-ai-api",
       "name": "Google AI (Gemini) API",
       "type": "tool",
       "category": "api",
-      "url": "https://ai.google.dev"
+      "url": "https://ai.google.dev",
+      "wiki": "google-ai-api"
     },
     {
       "id": "hf-inference-api",
       "name": "Hugging Face Inference API",
       "type": "tool",
       "category": "api",
-      "url": "https://huggingface.co/docs/api-inference"
+      "url": "https://huggingface.co/docs/api-inference",
+      "wiki": "hf-inference-api"
     },
     {
       "id": "replicate",
       "name": "Replicate",
       "type": "tool",
       "category": "api",
-      "url": "https://replicate.com"
+      "url": "https://replicate.com",
+      "wiki": "replicate"
     },
     {
       "id": "openweathermap",
       "name": "OpenWeatherMap",
       "type": "tool",
       "category": "api",
-      "url": "https://openweathermap.org/api"
+      "url": "https://openweathermap.org/api",
+      "wiki": "openweathermap"
     },
     {
       "id": "ipinfo",
       "name": "IPinfo",
       "type": "tool",
       "category": "api",
-      "url": "https://ipinfo.io"
+      "url": "https://ipinfo.io",
+      "wiki": "ipinfo"
     },
     {
       "id": "mymemory",
       "name": "MyMemory",
       "type": "tool",
       "category": "api",
-      "url": "https://mymemory.translated.net"
+      "url": "https://mymemory.translated.net",
+      "wiki": "mymemory"
     },
     {
       "id": "unsplash",
       "name": "Unsplash",
       "type": "tool",
       "category": "api",
-      "url": "https://unsplash.com/developers"
+      "url": "https://unsplash.com/developers",
+      "wiki": "unsplash"
     },
     {
       "id": "pexels",
       "name": "Pexels",
       "type": "tool",
       "category": "api",
-      "url": "https://www.pexels.com/api/"
+      "url": "https://www.pexels.com/api/",
+      "wiki": "pexels"
     },
     {
       "id": "qrserver",
       "name": "QRServer",
       "type": "tool",
       "category": "api",
-      "url": "https://goqr.me/api/"
+      "url": "https://goqr.me/api/",
+      "wiki": "qrserver"
     },
     {
       "id": "disify",
       "name": "Disify",
       "type": "tool",
       "category": "api",
-      "url": "https://www.disify.com"
+      "url": "https://www.disify.com",
+      "wiki": "disify"
     },
     {
       "id": "textbelt",
       "name": "Textbelt",
       "type": "tool",
       "category": "api",
-      "url": "https://textbelt.com"
+      "url": "https://textbelt.com",
+      "wiki": "textbelt"
     },
     {
       "id": "proxyscrape",
       "name": "ProxyScrape",
       "type": "tool",
       "category": "api",
-      "url": "https://proxyscrape.com"
+      "url": "https://proxyscrape.com",
+      "wiki": "proxyscrape"
     },
     {
       "id": "is-gd",
       "name": "is.gd",
       "type": "tool",
       "category": "api",
-      "url": "https://is.gd"
+      "url": "https://is.gd",
+      "wiki": "is-gd"
     },
     {
       "id": "tinyurl",
       "name": "TinyURL",
       "type": "tool",
       "category": "api",
-      "url": "https://tinyurl.com"
+      "url": "https://tinyurl.com",
+      "wiki": "tinyurl"
     },
     {
       "id": "hcaptcha",
       "name": "hCaptcha",
       "type": "tool",
       "category": "api",
-      "url": "https://www.hcaptcha.com"
+      "url": "https://www.hcaptcha.com",
+      "wiki": "hcaptcha"
     },
     {
       "id": "nominatim",
       "name": "OpenStreetMap Nominatim",
       "type": "tool",
       "category": "api",
-      "url": "https://nominatim.org"
+      "url": "https://nominatim.org",
+      "wiki": "nominatim"
     },
     {
       "id": "awesome-hacking",
       "name": "Awesome Hacking",
       "type": "tool",
       "category": "security",
-      "url": "https://github.com/Hack-with-Github/Awesome-Hacking"
+      "url": "https://github.com/Hack-with-Github/Awesome-Hacking",
+      "wiki": "awesome-hacking"
     },
     {
       "id": "payloadsallthethings",
       "name": "PayloadsAllTheThings",
       "type": "tool",
       "category": "security",
-      "url": "https://github.com/swisskyrepo/PayloadsAllTheThings"
+      "url": "https://github.com/swisskyrepo/PayloadsAllTheThings",
+      "wiki": "payloadsallthethings"
     },
     {
       "id": "hacktricks",
       "name": "HackTricks",
       "type": "tool",
       "category": "security",
-      "url": "https://github.com/HackTricks-wiki/hacktricks"
+      "url": "https://github.com/HackTricks-wiki/hacktricks",
+      "wiki": "hacktricks"
     },
     {
       "id": "seclists",
       "name": "SecLists",
       "type": "tool",
       "category": "security",
-      "url": "https://github.com/danielmiessler/SecLists"
+      "url": "https://github.com/danielmiessler/SecLists",
+      "wiki": "seclists"
     },
     {
       "id": "nuclei-templates",
       "name": "nuclei-templates",
       "type": "tool",
       "category": "security",
-      "url": "https://github.com/projectdiscovery/nuclei-templates"
+      "url": "https://github.com/projectdiscovery/nuclei-templates",
+      "wiki": "nuclei-templates"
     },
     {
       "id": "gtfobins",
       "name": "GTFOBins",
       "type": "tool",
       "category": "security",
-      "url": "https://gtfobins.github.io"
+      "url": "https://gtfobins.github.io",
+      "wiki": "gtfobins"
     },
     {
       "id": "lolbas",
       "name": "LOLBAS",
       "type": "tool",
       "category": "security",
-      "url": "https://lolbas-project.github.io"
+      "url": "https://lolbas-project.github.io",
+      "wiki": "lolbas"
     },
     {
       "id": "free-programming-books",
       "name": "free-programming-books",
       "type": "tool",
       "category": "ebook",
-      "url": "https://github.com/EbookFoundation/free-programming-books"
+      "url": "https://github.com/EbookFoundation/free-programming-books",
+      "wiki": "free-programming-books"
     },
     {
       "id": "mfuu-freeproxies",
       "name": "mfuu/FreeProxies",
       "type": "tool",
       "category": "proxy",
-      "url": "https://github.com/mfuu/FreeProxies"
+      "url": "https://github.com/mfuu/FreeProxies",
+      "wiki": "mfuu-freeproxies"
     },
     {
       "id": "aiboboxx-v2rayfree",
       "name": "aiboboxx/v2rayfree",
       "type": "tool",
       "category": "proxy",
-      "url": "https://github.com/free-nodes/v2rayfree"
+      "url": "https://github.com/free-nodes/v2rayfree",
+      "wiki": "aiboboxx-v2rayfree"
     },
     {
       "id": "barry-far-v2ray-configs",
       "name": "barry-far/V2ray-Configs",
       "type": "tool",
       "category": "proxy",
-      "url": "https://github.com/barry-far/V2ray-Config"
+      "url": "https://github.com/barry-far/V2ray-Config",
+      "wiki": "barry-far-v2ray-configs"
     },
     {
       "id": "epodonators-v2ray-configs",
       "name": "Epodonators/v2ray-configs",
       "type": "tool",
       "category": "proxy",
-      "url": "https://github.com/Epodonios/v2ray-configs"
+      "url": "https://github.com/Epodonios/v2ray-configs",
+      "wiki": "epodonators-v2ray-configs"
     },
     {
       "id": "huggingface-spaces",
       "name": "HuggingFace Spaces",
       "type": "tool",
       "category": "vps",
-      "url": "https://huggingface.co/spaces"
+      "url": "https://huggingface.co/spaces",
+      "wiki": "huggingface-spaces"
     },
     {
       "id": "replit",
       "name": "Replit",
       "type": "tool",
       "category": "vps",
-      "url": "https://replit.com"
+      "url": "https://replit.com",
+      "wiki": "replit"
     },
     {
       "id": "kimi",
       "name": "Kimi",
       "type": "tool",
       "category": "cn-ai",
-      "url": "https://www.kimi.com"
+      "url": "https://www.kimi.com",
+      "wiki": "kimi"
     },
     {
       "id": "tencent-hunyuan",
       "name": "腾讯混元",
       "type": "tool",
       "category": "cn-ai",
-      "url": "https://hunyuan.tencent.com"
+      "url": "https://hunyuan.tencent.com",
+      "wiki": "tencent-hunyuan"
     },
     {
       "id": "bigmodel-glm",
       "name": "智谱 GLM-4 API",
       "type": "tool",
       "category": "cn-ai",
-      "url": "https://open.bigmodel.cn"
+      "url": "https://open.bigmodel.cn",
+      "wiki": "bigmodel-glm"
     },
     {
       "id": "deepseek-api",
       "name": "DeepSeek API",
       "type": "tool",
       "category": "cn-ai",
-      "url": "https://platform.deepseek.com"
+      "url": "https://platform.deepseek.com",
+      "wiki": "deepseek-api"
     },
     {
       "id": "siliconflow",
       "name": "硅基流动",
       "type": "tool",
       "category": "cn-ai",
-      "url": "https://siliconflow.cn"
+      "url": "https://siliconflow.cn",
+      "wiki": "siliconflow"
     },
     {
       "id": "lingyiwanwu",
       "name": "零一万物",
       "type": "tool",
       "category": "cn-ai",
-      "url": "https://platform.lingyiwanwu.com"
+      "url": "https://platform.lingyiwanwu.com",
+      "wiki": "lingyiwanwu"
     },
     {
       "id": "minimax",
       "name": "MiniMax",
       "type": "tool",
       "category": "cn-ai",
-      "url": "https://www.minimax.io"
+      "url": "https://www.minimax.io",
+      "wiki": "minimax"
     },
     {
       "id": "cloudflare-imgbed",
       "name": "CloudFlare-ImgBed",
       "type": "tool",
       "category": "gear",
-      "url": "https://github.com/MarSeventh/CloudFlare-ImgBed"
+      "url": "https://github.com/MarSeventh/CloudFlare-ImgBed",
+      "wiki": "cloudflare-imgbed"
     },
     {
       "id": "cloudflare-tunnel",
       "name": "Cloudflare Tunnel",
       "type": "tool",
       "category": "gear",
-      "url": "https://developers.cloudflare.com/cloudflare-one/"
+      "url": "https://developers.cloudflare.com/cloudflare-one/",
+      "wiki": "cloudflare-tunnel"
     },
     {
       "id": "subconverter",
       "name": "subconverter",
       "type": "tool",
       "category": "gear",
-      "url": "https://github.com/tindy2013/subconverter"
+      "url": "https://github.com/tindy2013/subconverter",
+      "wiki": "subconverter"
     },
     {
       "id": "localsend",
       "name": "LocalSend",
       "type": "tool",
       "category": "gear",
-      "url": "https://github.com/localsend/localsend"
+      "url": "https://github.com/localsend/localsend",
+      "wiki": "localsend"
     },
     {
       "id": "stirling-pdf",
       "name": "Stirling-PDF",
       "type": "tool",
       "category": "gear",
-      "url": "https://github.com/Stirling-Tools/Stirling-PDF"
+      "url": "https://github.com/Stirling-Tools/Stirling-PDF",
+      "wiki": "stirling-pdf"
     },
     {
       "id": "it-tools",
       "name": "IT-Tools",
       "type": "tool",
       "category": "gear",
-      "url": "https://github.com/CorentinTh/it-tools"
+      "url": "https://github.com/CorentinTh/it-tools",
+      "wiki": "it-tools"
     },
     {
       "id": "n8n",
       "name": "n8n",
       "type": "tool",
       "category": "gear",
-      "url": "https://github.com/n8n-io/n8n"
+      "url": "https://github.com/n8n-io/n8n",
+      "wiki": "n8n"
     },
     {
       "id": "activepieces",
       "name": "Activepieces",
       "type": "tool",
       "category": "gear",
-      "url": "https://github.com/activepieces/activepieces"
+      "url": "https://github.com/activepieces/activepieces",
+      "wiki": "activepieces"
     },
     {
       "id": "homarr",
       "name": "Homarr",
       "type": "tool",
       "category": "gear",
-      "url": "https://github.com/ajnart/homarr"
+      "url": "https://github.com/ajnart/homarr",
+      "wiki": "homarr"
     },
     {
       "id": "tag:开源",

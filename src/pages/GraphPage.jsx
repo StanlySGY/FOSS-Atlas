@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import GraphView from '../components/GraphView.jsx'
 import { graph, graphStats, resourceById } from '../lib/data.js'
 import { EDGE_META, TYPE_META } from '../lib/graphStyle.js'
@@ -8,8 +8,15 @@ const ALL_EDGES = Object.keys(EDGE_META)
 
 export default function GraphPage() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [enabledEdges, setEnabledEdges] = useState(ALL_EDGES)
   const [selected, setSelected] = useState(null)
+
+  // `?focus=<id>` is set by the "在知识图谱中查看 →" link on a wiki page, so
+  // the graph can centre on the tool the reader just came from. Unknown ids are
+  // ignored rather than passed down.
+  const focusParam = searchParams.get('focus')
+  const focusId = focusParam && resourceById.has(focusParam) ? focusParam : null
 
   const toggleEdge = (type) => {
     setEnabledEdges((prev) =>
@@ -98,6 +105,7 @@ export default function GraphPage() {
             enabledEdges={enabledEdges}
             onSelect={handleSelect}
             selectedId={selected?.id ?? null}
+            focusId={focusId}
           />
         </div>
 

@@ -28,7 +28,7 @@
 | 子分类 | **21** |
 | 图谱节点 | **262**（工具 / 分类 / 子类 / 标签 / 外部服务） |
 | 图谱关系边 | **578**（属于 / 归类 / 标签 / 相关 / 替代） |
-| 深度 Wiki | **5** 篇 |
+| Wiki 页面 | **165**（每个工具一篇，全部可读） |
 
 分类覆盖：AI / LLM 白嫖 · 免费 SaaS 开发资源 · 自部署开源神器 · 公开 API 大全 ·
 黑客 / 安全工具书 · 免费电子书 · 免费节点订阅 · 免费 VPS · 国内免费 AI · 佬友神器。
@@ -42,16 +42,18 @@
 ### 2. Wiki 页（`/wiki/:id`）
 读取 `public/wiki/*.md`，支持 YAML Frontmatter 与 `[[双向链接]]` 语法。
 `[[Vaultwarden]]` 会被自动解析成站内跳转；解析不到的链接会退化为全站搜索。
-页面底部与右侧栏自动聚合**相关工具**与**反向链接（backlinks）**。
-没有独立 Wiki 的条目会自动生成一个包含官网、分类、标签的兜底页面 —— 165 个条目**全部可点**。
+**165 个工具每个都有一篇独立 Wiki**：5 篇为手写深度页，其余 160 篇由
+`scripts/build-wikis.mjs` 依据 `scripts/wiki-content/*.mjs` 里的散文自动生成
+（含「一句话总结 / 核心功能 / 适用场景 / 同类推荐」，推荐项用 `[[工具名]]` 互链）。
+右侧栏自动聚合**相关工具**与**反向链接（backlinks）**；没有反向链接时该面板整体隐藏。
 
-Wiki 页使用**三栏阅读布局**：
+Wiki 页使用**三栏 App-like 全宽布局**（无居中容器，撑满视口）：
 
 | 栏位 | 内容 |
 | --- | --- |
-| 左（260px） | **导航树**：按 `分类 → 子分类` 折叠，列出全部 165 个工具；当前浏览的工具自动展开并高亮；点击即跳转 |
-| 中 | 正文。正文里的首个 `# H1` 会被自动去掉，标题统一由页面头部的原生 `<h1>` 呈现，避免重复 |
-| 右（260px） | **元数据**：分类、子类、许可、标签、可替代、反向链接；PC 端 `sticky` 吸顶跟随 |
+| 左（280px） | **导航树**：贴屏幕最左侧、`sticky` 吸顶、独立滚动；按 `分类 → 子分类` 折叠，列出全部 165 个工具；当前浏览的工具自动展开并高亮；点击即跳转 |
+| 中 | 正文，`flex-1` 自适应铺开。正文开头的 `# H1` 与其后的首个 `> 引用块` 会被自动去掉，标题与副标题统一由页面头部的原生 UI 呈现，避免重复 |
+| 右（280px） | **元数据**：分类、子类、更新日期、标签、可替代、反向链接；PC 端 `sticky` 吸顶跟随，贴靠视口最右侧 |
 
 窄屏（`< 768px`）时左栏收起，页面顶部出现**「目录」按钮**，点击以抽屉（Drawer）形式弹出同一棵导航树，
 支持 `Esc` 关闭；选择任一工具后抽屉自动收起。
@@ -66,6 +68,9 @@ ECharts 力导向图，可**拖拽节点、滚轮缩放、拖拽画布平移**�
 - 点击**标签**节点 → 跳转全站搜索
 - 点击**分类 / 子类**节点 → 右侧列出其包含的全部工具
 - 顶部可按关系类型（属于 / 归类 / 标签 / 相关 / 替代）逐层过滤
+- 支持 `?focus=<工具 id>` 深链：从 Wiki 页点「在知识图谱中查看 →」后会带参跳转，
+  图谱渲染完成后自动把该节点**平移居中、放大并高亮**——在 500+ 条边的图里一眼定位。
+  未知 id 会被忽略（正常全览）。
 
 ## 🛠 技术栈
 
@@ -84,7 +89,8 @@ ECharts 力导向图，可**拖拽节点、滚轮缩放、拖拽画布平移**�
 npm install
 
 npm run dev        # 启动开发服务器
-npm run data       # 重新生成 src/data/*.json（改完数据源后执行）
+npm run data       # 数据源 → src/data/*.json（改完数据源后执行）
+node scripts/build-wikis.mjs   # 生成 160 篇 Wiki + src/data/backlinks.json
 npm run build      # 产物输出到 dist/，并生成 SPA 兜底 404.html
 npm run preview    # 本地预览构建产物
 npm run lint       # oxlint
@@ -100,22 +106,27 @@ npm run lint       # oxlint
 FOSS-Atlas/
 ├─ scripts/
 │  ├─ build-data.mjs        # 数据源 → resources.json + graph.json
+│  ├─ build-wikis.mjs       # wiki-content + 目录 → public/wiki/*.md + backlinks.json
+│  ├─ wiki-content/         # 每篇 Wiki 的散文（一句话总结 / 功能 / 场景），分组存放
 │  └─ spa-fallback.mjs      # dist/index.html → dist/404.html
 ├─ public/
 │  ├─ .nojekyll             # 让 Pages 原样发布（不跑 Jekyll）
-│  └─ wiki/                 # 5 篇深度 Wiki（Markdown + Frontmatter）
-│     ├─ ollama.md
+│  └─ wiki/                 # 165 篇 Wiki（Markdown + Frontmatter）
+│     ├─ ollama.md          # 5 篇手写深度页……
 │     ├─ cloudflare-workers.md
 │     ├─ vaultwarden.md
 │     ├─ immich.md
-│     └─ nextcloud.md
+│     ├─ nextcloud.md
+│     └─ …                  # 其余 160 篇由 build-wikis.mjs 生成
 ├─ src/
 │  ├─ data/
 │  │  ├─ resources.json     # 165 条资源（生成物，勿手改）
-│  │  └─ graph.json         # 知识图谱 nodes + edges（生成物）
+│  │  ├─ graph.json         # 知识图谱 nodes + edges（生成物）
+│  │  └─ backlinks.json     # 反向链接索引（生成物）
 │  ├─ lib/
 │  │  ├─ data.js            # 索引、别名解析、图谱查询、侧边栏导航树
-│  │  ├─ wiki.js            # Frontmatter 解析 + [[双链]] 转换 + 标题去重
+│  │  ├─ wiki.js            # Frontmatter 解析 + [[双链]] 转换 + 头部去重
+│  │  ├─ backlinks.js       # 读 backlinks.json，同步查询反向链接
 │  │  └─ graphStyle.js      # 节点/边样式与语义常量
 │  ├─ layouts/
 │  │  ├─ FullWidthLayout.jsx # 首页 / 图谱：全宽单列
@@ -128,9 +139,12 @@ FOSS-Atlas/
 ## 🗂 数据流
 
 ```
-清单文本 ──► scripts/build-data.mjs ──► src/data/resources.json
-                  │                         src/data/graph.json
-                  └── 校验：所有 url 必须为 https:// 绝对地址
+清单文本 ──► scripts/build-data.mjs ──► src/data/resources.json   ┐
+                  │                         src/data/graph.json    │
+                  └── 校验：所有 url 必须为 https:// 绝对地址       │
+                                                                    ▼
+wiki-content/*.mjs ──► scripts/build-wikis.mjs ──► public/wiki/*.md
+                             └────────────────────► src/data/backlinks.json
 ```
 
 ### `resources.json` 字段
@@ -144,7 +158,7 @@ FOSS-Atlas/
 | `sub_category` / `sub_category_name` | 二级分类 |
 | `description` | 一句话说明 |
 | `tags` | 标签数组 |
-| `wiki` | 可选，存在独立 Wiki 时的文件名（不含 `.md`） |
+| `wiki` | Wiki 文件名（不含 `.md`），每个资源都有；极少数与 `id` 不同的见 `WIKI_SLUG_OVERRIDES` |
 
 ### `graph.json` 关系类型
 
@@ -167,12 +181,29 @@ FOSS-Atlas/
 
 然后执行 `npm run data` 重新生成 JSON。**URL 必须是 `https://` 开头的绝对地址。**
 
-### 新增一篇 Wiki
-在 `public/wiki/` 下新建 `<slug>.md`，并在 `build-data.mjs` 的 `WIKI` 映射里登记：
+### 给新资源配一篇 Wiki
+`public/wiki/*.md` 由 `scripts/build-wikis.mjs` 生成，**不要手改**（除非按下面的方式做成手写页）。
 
-```js
-const WIKI = { 'my-tool': 'my-tool-slug' }
-```
+- **普通页**：往 `scripts/wiki-content/` 里任一 `.mjs` 追加一条，key 用资源 `id`：
+
+  ```js
+  'my-tool': {
+    summary: '一句话总结（25–45 字）。',
+    features: ['特点一', '特点二', '特点三'],
+    scenarios: ['适用场景一', '适用场景二'],
+  },
+  ```
+
+  然后执行 `npm run data` 与 `node scripts/build-wikis.mjs`。生成器**幂等**，可反复运行；
+  它会自动补上 frontmatter、页面骨架和 `[[同类推荐]]` 双链，并刷新 `backlinks.json`。
+
+- **手写深度页**：在 `build-wikis.mjs` 的 `CURATED` 里登记 `id → slug`，脚本会跳过它、保留你的文件
+  （文件放在 `public/wiki/<slug>.md`，即现有 5 篇深度页的做法）。
+
+- **自定义文件名**：在 `build-data.mjs` 的 `WIKI_SLUG_OVERRIDES` 里加映射（如 `cloudflare → cloudflare-workers`）。
+
+- **⚠️ 双链写法**：`[[工具名]]` 里的名字必须是 `resources.json` 中 `name` 的**原文**，
+  否则解析不到，链接会退化成全站搜索。
 
 Wiki 模板：
 
@@ -184,8 +215,6 @@ category: selfhost
 sub_category: selfhost-core
 tags: [标签1, 标签2]
 url: https://example.com
-repo: https://github.com/owner/repo
-license: MIT
 alternatives: [商业替代品]
 related: [another-tool-id]
 updated: 2026-10-19
@@ -193,10 +222,13 @@ updated: 2026-10-19
 
 # My Tool
 
+> 一句话总结。
+
 正文……引用其它条目用 [[Another Tool]] 或 [[another-tool]]。
 ```
 
-> 正文开头的 `# My Tool` 由前端自动去掉：页面头部已用原生 `<h1>` 渲染标题，保留会在页面上重复出现。
+> 正文开头的 `# My Tool` **和紧随其后的 `> 引用块`** 都会由前端自动去掉：
+> 页面头部已用原生 `<h1>` + 描述渲染了同样的内容，保留会在页面上重复出现。
 > 只识别 ATX 形式（`# 标题`）；写成 Setext 形式（标题下面加一行 `===`）不会被去掉——请统一用 `#`。
 
 ## 🚢 部署

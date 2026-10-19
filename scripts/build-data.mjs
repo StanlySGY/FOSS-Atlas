@@ -388,13 +388,18 @@ const CATEGORIES = [
 /* ------------------------------------------------------------------ *
  * Wiki pages shipped in /public/wiki
  * ------------------------------------------------------------------ */
-const WIKI = {
-  ollama: 'ollama',
-  'cloudflare': 'cloudflare-workers',
-  vaultwarden: 'vaultwarden',
-  immich: 'immich',
-  nextcloud: 'nextcloud',
+/**
+ * Every resource ships a Wiki page, so the slug is normally just the id:
+ * `scripts/build-wikis.mjs` generates `public/wiki/<id>.md` for the whole
+ * catalogue from the prose in `scripts/wiki-content/`. The handful of pages that
+ * were hand-written before the generator existed keep the file name they shipped
+ * with, and that is all this table is for.
+ */
+const WIKI_SLUG_OVERRIDES = {
+  cloudflare: 'cloudflare-workers',
 }
+
+const wikiSlugFor = (id) => WIKI_SLUG_OVERRIDES[id] ?? id
 
 /* ------------------------------------------------------------------ *
  * Curated relationships
@@ -529,7 +534,7 @@ for (const cat of CATEGORIES) {
         sub_category_name: sub.name,
         description,
         tags,
-        ...(WIKI[id] ? { wiki: WIKI[id] } : {}),
+        wiki: wikiSlugFor(id),
       })
     }
   }

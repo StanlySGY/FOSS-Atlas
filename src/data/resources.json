@@ -12,7 +12,8 @@
       "对话",
       "聚合",
       "多模型"
-    ]
+    ],
+    "wiki": "poe"
   },
   {
     "id": "huggingchat",
@@ -26,7 +27,8 @@
     "tags": [
       "对话",
       "开源模型"
-    ]
+    ],
+    "wiki": "huggingchat"
   },
   {
     "id": "duckduckgo-ai-chat",
@@ -41,7 +43,8 @@
       "对话",
       "匿名",
       "隐私"
-    ]
+    ],
+    "wiki": "duckduckgo-ai-chat"
   },
   {
     "id": "lmsys-chat",
@@ -56,7 +59,8 @@
       "对话",
       "评测",
       "对比"
-    ]
+    ],
+    "wiki": "lmsys-chat"
   },
   {
     "id": "microsoft-copilot",
@@ -71,7 +75,8 @@
       "对话",
       "微软",
       "GPT"
-    ]
+    ],
+    "wiki": "microsoft-copilot"
   },
   {
     "id": "meta-ai",
@@ -85,7 +90,8 @@
     "tags": [
       "对话",
       "Meta"
-    ]
+    ],
+    "wiki": "meta-ai"
   },
   {
     "id": "google-gemini",
@@ -100,7 +106,8 @@
       "对话",
       "Google",
       "多模态"
-    ]
+    ],
+    "wiki": "google-gemini"
   },
   {
     "id": "anthropic-claude",
@@ -115,7 +122,8 @@
       "对话",
       "Anthropic",
       "长文本"
-    ]
+    ],
+    "wiki": "anthropic-claude"
   },
   {
     "id": "baidu-yiyan",
@@ -130,7 +138,8 @@
       "对话",
       "国内",
       "百度"
-    ]
+    ],
+    "wiki": "baidu-yiyan"
   },
   {
     "id": "aliyun-tongyi",
@@ -145,7 +154,8 @@
       "对话",
       "国内",
       "阿里"
-    ]
+    ],
+    "wiki": "aliyun-tongyi"
   },
   {
     "id": "xfyun-xinghuo",
@@ -160,7 +170,8 @@
       "对话",
       "国内",
       "讯飞"
-    ]
+    ],
+    "wiki": "xfyun-xinghuo"
   },
   {
     "id": "doubao",
@@ -175,7 +186,8 @@
       "对话",
       "国内",
       "字节"
-    ]
+    ],
+    "wiki": "doubao"
   },
   {
     "id": "chatglm",
@@ -190,7 +202,8 @@
       "对话",
       "国内",
       "GLM"
-    ]
+    ],
+    "wiki": "chatglm"
   },
   {
     "id": "deepseek-chat",
@@ -205,7 +218,8 @@
       "对话",
       "国内",
       "编码"
-    ]
+    ],
+    "wiki": "deepseek-chat"
   },
   {
     "id": "tiangong",
@@ -220,7 +234,8 @@
       "对话",
       "国内",
       "昆仑万维"
-    ]
+    ],
+    "wiki": "tiangong"
   },
   {
     "id": "pi",
@@ -235,7 +250,8 @@
       "对话",
       "助手",
       "情感"
-    ]
+    ],
+    "wiki": "pi"
   },
   {
     "id": "cursor",
@@ -250,7 +266,8 @@
       "编程",
       "IDE",
       "编辑器"
-    ]
+    ],
+    "wiki": "cursor"
   },
   {
     "id": "cline",
@@ -266,7 +283,8 @@
       "VSCode",
       "开源",
       "Agent"
-    ]
+    ],
+    "wiki": "cline"
   },
   {
     "id": "continue",
@@ -281,7 +299,8 @@
       "编程",
       "开源",
       "插件"
-    ]
+    ],
+    "wiki": "continue"
   },
   {
     "id": "cody",
@@ -296,7 +315,8 @@
       "编程",
       "代码检索",
       "Sourcegraph"
-    ]
+    ],
+    "wiki": "cody"
   },
   {
     "id": "tabby",
@@ -311,7 +331,8 @@
       "编程",
       "自部署",
       "补全"
-    ]
+    ],
+    "wiki": "tabby"
   },
   {
     "id": "codeium",
@@ -326,7 +347,8 @@
       "编程",
       "补全",
       "免费"
-    ]
+    ],
+    "wiki": "codeium"
   },
   {
     "id": "aider",
@@ -342,7 +364,8 @@
       "CLI",
       "开源",
       "结对编程"
-    ]
+    ],
+    "wiki": "aider"
   },
   {
     "id": "ollama",
@@ -373,7 +396,8 @@
       "本地推理",
       "GUI",
       "桌面端"
-    ]
+    ],
+    "wiki": "lm-studio"
   },
   {
     "id": "text-generation-webui",
@@ -388,7 +412,8 @@
       "本地推理",
       "WebUI",
       "开源"
-    ]
+    ],
+    "wiki": "text-generation-webui"
   },
   {
     "id": "jan",
@@ -403,7 +428,8 @@
       "本地推理",
       "桌面端",
       "开源"
-    ]
+    ],
+    "wiki": "jan"
   },
   {
     "id": "gpt4all",
@@ -418,7 +444,8 @@
       "本地推理",
       "离线",
       "开源"
-    ]
+    ],
+    "wiki": "gpt4all"
   },
   {
     "id": "langchain",
@@ -433,7 +460,8 @@
       "框架",
       "开源",
       "Agent"
-    ]
+    ],
+    "wiki": "langchain"
   },
   {
     "id": "llamaindex",
@@ -448,7 +476,8 @@
       "框架",
       "RAG",
       "开源"
-    ]
+    ],
+    "wiki": "llamaindex"
   },
   {
     "id": "langfuse",
@@ -463,7 +492,8 @@
       "可观测性",
       "追踪",
       "开源"
-    ]
+    ],
+    "wiki": "langfuse"
   },
   {
     "id": "litellm",
@@ -478,7 +508,8 @@
       "代理",
       "API",
       "开源"
-    ]
+    ],
+    "wiki": "litellm"
   },
   {
     "id": "promptfoo",
@@ -493,7 +524,8 @@
       "测试",
       "提示词",
       "开源"
-    ]
+    ],
+    "wiki": "promptfoo"
   },
   {
     "id": "dify",
@@ -508,7 +540,8 @@
       "平台",
       "低代码",
       "开源"
-    ]
+    ],
+    "wiki": "dify"
   },
   {
     "id": "flowise",
@@ -523,7 +556,8 @@
       "工作流",
       "可视化",
       "开源"
-    ]
+    ],
+    "wiki": "flowise"
   },
   {
     "id": "fastgpt",
@@ -538,7 +572,8 @@
       "RAG",
       "知识库",
       "开源"
-    ]
+    ],
+    "wiki": "fastgpt"
   },
   {
     "id": "awesome-chatgpt-prompts",
@@ -553,7 +588,8 @@
       "提示词",
       "合集",
       "开源"
-    ]
+    ],
+    "wiki": "awesome-chatgpt-prompts"
   },
   {
     "id": "openai-prompt-guide",
@@ -568,7 +604,8 @@
       "提示词",
       "官方文档",
       "OpenAI"
-    ]
+    ],
+    "wiki": "openai-prompt-guide"
   },
   {
     "id": "deeplearning-ai-prompts",
@@ -583,7 +620,8 @@
       "提示词",
       "课程",
       "免费"
-    ]
+    ],
+    "wiki": "deeplearning-ai-prompts"
   },
   {
     "id": "google-cloud",
@@ -598,7 +636,8 @@
       "云厂商",
       "免费层",
       "Google"
-    ]
+    ],
+    "wiki": "google-cloud"
   },
   {
     "id": "aws",
@@ -613,7 +652,8 @@
       "云厂商",
       "免费层",
       "AWS"
-    ]
+    ],
+    "wiki": "aws"
   },
   {
     "id": "azure",
@@ -628,7 +668,8 @@
       "云厂商",
       "免费层",
       "Azure"
-    ]
+    ],
+    "wiki": "azure"
   },
   {
     "id": "oracle-cloud",
@@ -644,7 +685,8 @@
       "免费层",
       "Oracle",
       "ARM"
-    ]
+    ],
+    "wiki": "oracle-cloud"
   },
   {
     "id": "cloudflare",
@@ -676,7 +718,8 @@
       "PaaS",
       "部署",
       "免费层"
-    ]
+    ],
+    "wiki": "render"
   },
   {
     "id": "railway",
@@ -691,7 +734,8 @@
       "PaaS",
       "部署",
       "免费层"
-    ]
+    ],
+    "wiki": "railway"
   },
   {
     "id": "fly-io",
@@ -706,7 +750,8 @@
       "PaaS",
       "部署",
       "免费层"
-    ]
+    ],
+    "wiki": "fly-io"
   },
   {
     "id": "koyeb",
@@ -721,7 +766,8 @@
       "PaaS",
       "部署",
       "免费层"
-    ]
+    ],
+    "wiki": "koyeb"
   },
   {
     "id": "supabase",
@@ -736,7 +782,8 @@
       "BaaS",
       "数据库",
       "Postgres"
-    ]
+    ],
+    "wiki": "supabase"
   },
   {
     "id": "neon",
@@ -751,7 +798,8 @@
       "数据库",
       "Postgres",
       "Serverless"
-    ]
+    ],
+    "wiki": "neon"
   },
   {
     "id": "vercel",
@@ -766,7 +814,8 @@
       "PaaS",
       "前端托管",
       "免费层"
-    ]
+    ],
+    "wiki": "vercel"
   },
   {
     "id": "netlify",
@@ -781,7 +830,8 @@
       "PaaS",
       "前端托管",
       "免费层"
-    ]
+    ],
+    "wiki": "netlify"
   },
   {
     "id": "is-a-dev",
@@ -796,7 +846,8 @@
       "域名",
       "子域名",
       "免费"
-    ]
+    ],
+    "wiki": "is-a-dev"
   },
   {
     "id": "js-org",
@@ -811,7 +862,8 @@
       "域名",
       "子域名",
       "免费"
-    ]
+    ],
+    "wiki": "js-org"
   },
   {
     "id": "eu-org",
@@ -825,7 +877,8 @@
     "tags": [
       "域名",
       "免费"
-    ]
+    ],
+    "wiki": "eu-org"
   },
   {
     "id": "pp-ua",
@@ -840,7 +893,8 @@
       "域名",
       "子域名",
       "免费"
-    ]
+    ],
+    "wiki": "pp-ua"
   },
   {
     "id": "cloudflare-dns",
@@ -855,7 +909,8 @@
       "DNS",
       "CDN",
       "免费"
-    ]
+    ],
+    "wiki": "cloudflare-dns"
   },
   {
     "id": "hurricane-electric",
@@ -869,7 +924,8 @@
     "tags": [
       "DNS",
       "免费"
-    ]
+    ],
+    "wiki": "hurricane-electric"
   },
   {
     "id": "nextdns",
@@ -884,7 +940,8 @@
       "DNS",
       "隐私",
       "过滤"
-    ]
+    ],
+    "wiki": "nextdns"
   },
   {
     "id": "bunnydns",
@@ -899,7 +956,8 @@
       "DNS",
       "CDN",
       "免费"
-    ]
+    ],
+    "wiki": "bunnydns"
   },
   {
     "id": "lets-encrypt",
@@ -914,7 +972,8 @@
       "SSL",
       "证书",
       "免费"
-    ]
+    ],
+    "wiki": "lets-encrypt"
   },
   {
     "id": "zerossl",
@@ -929,7 +988,8 @@
       "SSL",
       "证书",
       "免费"
-    ]
+    ],
+    "wiki": "zerossl"
   },
   {
     "id": "cloudflare-origin-ca",
@@ -944,7 +1004,8 @@
       "SSL",
       "证书",
       "Cloudflare"
-    ]
+    ],
+    "wiki": "cloudflare-origin-ca"
   },
   {
     "id": "buypass-go",
@@ -959,7 +1020,8 @@
       "SSL",
       "证书",
       "ACME"
-    ]
+    ],
+    "wiki": "buypass-go"
   },
   {
     "id": "uptimerobot",
@@ -974,7 +1036,8 @@
       "监控",
       "告警",
       "免费"
-    ]
+    ],
+    "wiki": "uptimerobot"
   },
   {
     "id": "better-stack",
@@ -989,7 +1052,8 @@
       "监控",
       "日志",
       "免费"
-    ]
+    ],
+    "wiki": "better-stack"
   },
   {
     "id": "logtail",
@@ -1004,7 +1068,8 @@
       "日志",
       "可观测性",
       "免费"
-    ]
+    ],
+    "wiki": "logtail"
   },
   {
     "id": "sentry",
@@ -1019,7 +1084,8 @@
       "错误追踪",
       "可观测性",
       "免费"
-    ]
+    ],
+    "wiki": "sentry"
   },
   {
     "id": "nextcloud",
@@ -1050,7 +1116,8 @@
       "网盘",
       "同步",
       "开源"
-    ]
+    ],
+    "wiki": "seafile"
   },
   {
     "id": "joplin",
@@ -1065,7 +1132,8 @@
       "笔记",
       "加密",
       "开源"
-    ]
+    ],
+    "wiki": "joplin"
   },
   {
     "id": "trilium",
@@ -1080,7 +1148,8 @@
       "笔记",
       "知识库",
       "开源"
-    ]
+    ],
+    "wiki": "trilium"
   },
   {
     "id": "memos",
@@ -1095,7 +1164,8 @@
       "笔记",
       "碎片记录",
       "开源"
-    ]
+    ],
+    "wiki": "memos"
   },
   {
     "id": "freshrss",
@@ -1110,7 +1180,8 @@
       "RSS",
       "阅读器",
       "开源"
-    ]
+    ],
+    "wiki": "freshrss"
   },
   {
     "id": "miniflux",
@@ -1125,7 +1196,8 @@
       "RSS",
       "阅读器",
       "开源"
-    ]
+    ],
+    "wiki": "miniflux"
   },
   {
     "id": "vaultwarden",
@@ -1156,7 +1228,8 @@
       "影音",
       "媒体库",
       "开源"
-    ]
+    ],
+    "wiki": "jellyfin"
   },
   {
     "id": "immich",
@@ -1187,7 +1260,8 @@
       "IM",
       "去中心化",
       "开源"
-    ]
+    ],
+    "wiki": "matrix-synapse"
   },
   {
     "id": "uptime-kuma",
@@ -1202,7 +1276,8 @@
       "监控",
       "告警",
       "开源"
-    ]
+    ],
+    "wiki": "uptime-kuma"
   },
   {
     "id": "shlink",
@@ -1216,7 +1291,8 @@
     "tags": [
       "短链",
       "开源"
-    ]
+    ],
+    "wiki": "shlink"
   },
   {
     "id": "qbittorrent",
@@ -1231,7 +1307,8 @@
       "下载",
       "BT",
       "开源"
-    ]
+    ],
+    "wiki": "qbittorrent"
   },
   {
     "id": "aria2",
@@ -1246,7 +1323,8 @@
       "下载",
       "CLI",
       "开源"
-    ]
+    ],
+    "wiki": "aria2"
   },
   {
     "id": "rustdesk",
@@ -1260,7 +1338,8 @@
     "tags": [
       "远程桌面",
       "开源"
-    ]
+    ],
+    "wiki": "rustdesk"
   },
   {
     "id": "gitea",
@@ -1275,7 +1354,8 @@
       "Git",
       "代码托管",
       "开源"
-    ]
+    ],
+    "wiki": "gitea"
   },
   {
     "id": "forgejo",
@@ -1290,7 +1370,8 @@
       "Git",
       "代码托管",
       "开源"
-    ]
+    ],
+    "wiki": "forgejo"
   },
   {
     "id": "woodpecker",
@@ -1304,7 +1385,8 @@
     "tags": [
       "CI/CD",
       "开源"
-    ]
+    ],
+    "wiki": "woodpecker"
   },
   {
     "id": "drone",
@@ -1318,7 +1400,8 @@
     "tags": [
       "CI/CD",
       "开源"
-    ]
+    ],
+    "wiki": "drone"
   },
   {
     "id": "nginx-proxy-manager",
@@ -1333,7 +1416,8 @@
       "反向代理",
       "Nginx",
       "开源"
-    ]
+    ],
+    "wiki": "nginx-proxy-manager"
   },
   {
     "id": "1panel",
@@ -1348,7 +1432,8 @@
       "面板",
       "运维",
       "开源"
-    ]
+    ],
+    "wiki": "1panel"
   },
   {
     "id": "casaos",
@@ -1363,7 +1448,8 @@
       "面板",
       "NAS",
       "开源"
-    ]
+    ],
+    "wiki": "casaos"
   },
   {
     "id": "ddns-go",
@@ -1378,7 +1464,8 @@
       "DDNS",
       "网络",
       "开源"
-    ]
+    ],
+    "wiki": "ddns-go"
   },
   {
     "id": "navidrome",
@@ -1393,7 +1480,8 @@
       "音乐",
       "流媒体",
       "开源"
-    ]
+    ],
+    "wiki": "navidrome"
   },
   {
     "id": "outline",
@@ -1408,7 +1496,8 @@
       "文档",
       "知识库",
       "开源"
-    ]
+    ],
+    "wiki": "outline"
   },
   {
     "id": "mattermost",
@@ -1423,7 +1512,8 @@
       "IM",
       "团队协作",
       "开源"
-    ]
+    ],
+    "wiki": "mattermost"
   },
   {
     "id": "kanboard",
@@ -1438,7 +1528,8 @@
       "看板",
       "任务管理",
       "开源"
-    ]
+    ],
+    "wiki": "kanboard"
   },
   {
     "id": "focalboard",
@@ -1453,7 +1544,8 @@
       "看板",
       "任务管理",
       "开源"
-    ]
+    ],
+    "wiki": "focalboard"
   },
   {
     "id": "passbolt",
@@ -1468,7 +1560,8 @@
       "密码管理",
       "团队",
       "开源"
-    ]
+    ],
+    "wiki": "passbolt"
   },
   {
     "id": "radicale",
@@ -1483,7 +1576,8 @@
       "通讯录",
       "日历",
       "开源"
-    ]
+    ],
+    "wiki": "radicale"
   },
   {
     "id": "ohmyform",
@@ -1497,7 +1591,8 @@
     "tags": [
       "表单",
       "开源"
-    ]
+    ],
+    "wiki": "ohmyform"
   },
   {
     "id": "linkding",
@@ -1511,7 +1606,8 @@
     "tags": [
       "书签",
       "开源"
-    ]
+    ],
+    "wiki": "linkding"
   },
   {
     "id": "searxng",
@@ -1526,7 +1622,8 @@
       "搜索",
       "隐私",
       "开源"
-    ]
+    ],
+    "wiki": "searxng"
   },
   {
     "id": "filebrowser",
@@ -1540,7 +1637,8 @@
     "tags": [
       "文件管理",
       "开源"
-    ]
+    ],
+    "wiki": "filebrowser"
   },
   {
     "id": "wetty",
@@ -1555,7 +1653,8 @@
       "终端",
       "WebSSH",
       "开源"
-    ]
+    ],
+    "wiki": "wetty"
   },
   {
     "id": "ttyd",
@@ -1570,7 +1669,8 @@
       "终端",
       "WebSSH",
       "开源"
-    ]
+    ],
+    "wiki": "ttyd"
   },
   {
     "id": "excalidraw",
@@ -1585,7 +1685,8 @@
       "白板",
       "绘图",
       "开源"
-    ]
+    ],
+    "wiki": "excalidraw"
   },
   {
     "id": "xray-reality",
@@ -1600,7 +1701,8 @@
       "代理",
       "Xray",
       "Reality"
-    ]
+    ],
+    "wiki": "xray-reality"
   },
   {
     "id": "sing-box",
@@ -1615,7 +1717,8 @@
       "代理",
       "内核",
       "开源"
-    ]
+    ],
+    "wiki": "sing-box"
   },
   {
     "id": "mihomo",
@@ -1630,7 +1733,8 @@
       "代理",
       "Clash",
       "开源"
-    ]
+    ],
+    "wiki": "mihomo"
   },
   {
     "id": "hysteria2",
@@ -1645,7 +1749,8 @@
       "代理",
       "QUIC",
       "开源"
-    ]
+    ],
+    "wiki": "hysteria2"
   },
   {
     "id": "trojan-go",
@@ -1660,7 +1765,8 @@
       "代理",
       "TLS",
       "开源"
-    ]
+    ],
+    "wiki": "trojan-go"
   },
   {
     "id": "snell",
@@ -1674,7 +1780,8 @@
     "tags": [
       "代理",
       "Surge"
-    ]
+    ],
+    "wiki": "snell"
   },
   {
     "id": "tuic",
@@ -1689,7 +1796,8 @@
       "代理",
       "QUIC",
       "开源"
-    ]
+    ],
+    "wiki": "tuic"
   },
   {
     "id": "tpot",
@@ -1704,7 +1812,8 @@
       "蜜罐",
       "安全",
       "开源"
-    ]
+    ],
+    "wiki": "tpot"
   },
   {
     "id": "cowrie",
@@ -1719,7 +1828,8 @@
       "蜜罐",
       "SSH",
       "开源"
-    ]
+    ],
+    "wiki": "cowrie"
   },
   {
     "id": "dionaea",
@@ -1734,7 +1844,8 @@
       "蜜罐",
       "恶意软件",
       "开源"
-    ]
+    ],
+    "wiki": "dionaea"
   },
   {
     "id": "hfish",
@@ -1749,7 +1860,8 @@
       "蜜罐",
       "安全",
       "开源"
-    ]
+    ],
+    "wiki": "hfish"
   },
   {
     "id": "openai-api",
@@ -1764,7 +1876,8 @@
       "API",
       "LLM",
       "OpenAI"
-    ]
+    ],
+    "wiki": "openai-api"
   },
   {
     "id": "anthropic-api",
@@ -1779,7 +1892,8 @@
       "API",
       "LLM",
       "Anthropic"
-    ]
+    ],
+    "wiki": "anthropic-api"
   },
   {
     "id": "google-ai-api",
@@ -1794,7 +1908,8 @@
       "API",
       "LLM",
       "Google"
-    ]
+    ],
+    "wiki": "google-ai-api"
   },
   {
     "id": "hf-inference-api",
@@ -1809,7 +1924,8 @@
       "API",
       "推理",
       "开源模型"
-    ]
+    ],
+    "wiki": "hf-inference-api"
   },
   {
     "id": "replicate",
@@ -1823,7 +1939,8 @@
     "tags": [
       "API",
       "模型托管"
-    ]
+    ],
+    "wiki": "replicate"
   },
   {
     "id": "openweathermap",
@@ -1838,7 +1955,8 @@
       "API",
       "天气",
       "免费"
-    ]
+    ],
+    "wiki": "openweathermap"
   },
   {
     "id": "ipinfo",
@@ -1853,7 +1971,8 @@
       "API",
       "IP",
       "地理"
-    ]
+    ],
+    "wiki": "ipinfo"
   },
   {
     "id": "mymemory",
@@ -1868,7 +1987,8 @@
       "API",
       "翻译",
       "免费"
-    ]
+    ],
+    "wiki": "mymemory"
   },
   {
     "id": "unsplash",
@@ -1883,7 +2003,8 @@
       "API",
       "图片",
       "免费"
-    ]
+    ],
+    "wiki": "unsplash"
   },
   {
     "id": "pexels",
@@ -1898,7 +2019,8 @@
       "API",
       "图片",
       "视频"
-    ]
+    ],
+    "wiki": "pexels"
   },
   {
     "id": "qrserver",
@@ -1913,7 +2035,8 @@
       "API",
       "二维码",
       "免费"
-    ]
+    ],
+    "wiki": "qrserver"
   },
   {
     "id": "disify",
@@ -1928,7 +2051,8 @@
       "API",
       "邮箱",
       "临时"
-    ]
+    ],
+    "wiki": "disify"
   },
   {
     "id": "textbelt",
@@ -1943,7 +2067,8 @@
       "API",
       "短信",
       "免费"
-    ]
+    ],
+    "wiki": "textbelt"
   },
   {
     "id": "proxyscrape",
@@ -1958,7 +2083,8 @@
       "API",
       "代理",
       "免费"
-    ]
+    ],
+    "wiki": "proxyscrape"
   },
   {
     "id": "is-gd",
@@ -1972,7 +2098,8 @@
     "tags": [
       "短链",
       "免费"
-    ]
+    ],
+    "wiki": "is-gd"
   },
   {
     "id": "tinyurl",
@@ -1986,7 +2113,8 @@
     "tags": [
       "短链",
       "免费"
-    ]
+    ],
+    "wiki": "tinyurl"
   },
   {
     "id": "hcaptcha",
@@ -2001,7 +2129,8 @@
       "验证码",
       "安全",
       "免费"
-    ]
+    ],
+    "wiki": "hcaptcha"
   },
   {
     "id": "nominatim",
@@ -2016,7 +2145,8 @@
       "API",
       "地图",
       "地理编码"
-    ]
+    ],
+    "wiki": "nominatim"
   },
   {
     "id": "awesome-hacking",
@@ -2031,7 +2161,8 @@
       "安全",
       "合集",
       "开源"
-    ]
+    ],
+    "wiki": "awesome-hacking"
   },
   {
     "id": "payloadsallthethings",
@@ -2046,7 +2177,8 @@
       "安全",
       "Payload",
       "开源"
-    ]
+    ],
+    "wiki": "payloadsallthethings"
   },
   {
     "id": "hacktricks",
@@ -2061,7 +2193,8 @@
       "安全",
       "渗透测试",
       "开源"
-    ]
+    ],
+    "wiki": "hacktricks"
   },
   {
     "id": "seclists",
@@ -2076,7 +2209,8 @@
       "安全",
       "字典",
       "开源"
-    ]
+    ],
+    "wiki": "seclists"
   },
   {
     "id": "nuclei-templates",
@@ -2091,7 +2225,8 @@
       "安全",
       "漏洞扫描",
       "开源"
-    ]
+    ],
+    "wiki": "nuclei-templates"
   },
   {
     "id": "gtfobins",
@@ -2106,7 +2241,8 @@
       "安全",
       "提权",
       "手册"
-    ]
+    ],
+    "wiki": "gtfobins"
   },
   {
     "id": "lolbas",
@@ -2121,7 +2257,8 @@
       "安全",
       "Windows",
       "手册"
-    ]
+    ],
+    "wiki": "lolbas"
   },
   {
     "id": "free-programming-books",
@@ -2136,7 +2273,8 @@
       "电子书",
       "编程",
       "合集"
-    ]
+    ],
+    "wiki": "free-programming-books"
   },
   {
     "id": "mfuu-freeproxies",
@@ -2151,7 +2289,8 @@
       "订阅",
       "节点",
       "开源"
-    ]
+    ],
+    "wiki": "mfuu-freeproxies"
   },
   {
     "id": "aiboboxx-v2rayfree",
@@ -2166,7 +2305,8 @@
       "订阅",
       "v2ray",
       "开源"
-    ]
+    ],
+    "wiki": "aiboboxx-v2rayfree"
   },
   {
     "id": "barry-far-v2ray-configs",
@@ -2181,7 +2321,8 @@
       "订阅",
       "v2ray",
       "开源"
-    ]
+    ],
+    "wiki": "barry-far-v2ray-configs"
   },
   {
     "id": "epodonators-v2ray-configs",
@@ -2196,7 +2337,8 @@
       "订阅",
       "v2ray",
       "开源"
-    ]
+    ],
+    "wiki": "epodonators-v2ray-configs"
   },
   {
     "id": "huggingface-spaces",
@@ -2211,7 +2353,8 @@
       "VPS",
       "容器",
       "AI 托管"
-    ]
+    ],
+    "wiki": "huggingface-spaces"
   },
   {
     "id": "replit",
@@ -2226,7 +2369,8 @@
       "VPS",
       "在线 IDE",
       "免费"
-    ]
+    ],
+    "wiki": "replit"
   },
   {
     "id": "kimi",
@@ -2241,7 +2385,8 @@
       "对话",
       "国内",
       "长文本"
-    ]
+    ],
+    "wiki": "kimi"
   },
   {
     "id": "tencent-hunyuan",
@@ -2256,7 +2401,8 @@
       "对话",
       "国内",
       "腾讯"
-    ]
+    ],
+    "wiki": "tencent-hunyuan"
   },
   {
     "id": "bigmodel-glm",
@@ -2271,7 +2417,8 @@
       "API",
       "国内",
       "GLM"
-    ]
+    ],
+    "wiki": "bigmodel-glm"
   },
   {
     "id": "deepseek-api",
@@ -2286,7 +2433,8 @@
       "API",
       "国内",
       "DeepSeek"
-    ]
+    ],
+    "wiki": "deepseek-api"
   },
   {
     "id": "siliconflow",
@@ -2301,7 +2449,8 @@
       "API",
       "聚合",
       "国内"
-    ]
+    ],
+    "wiki": "siliconflow"
   },
   {
     "id": "lingyiwanwu",
@@ -2316,7 +2465,8 @@
       "API",
       "国内",
       "Yi"
-    ]
+    ],
+    "wiki": "lingyiwanwu"
   },
   {
     "id": "minimax",
@@ -2331,7 +2481,8 @@
       "API",
       "国内",
       "多模态"
-    ]
+    ],
+    "wiki": "minimax"
   },
   {
     "id": "cloudflare-imgbed",
@@ -2346,7 +2497,8 @@
       "图床",
       "Cloudflare",
       "开源"
-    ]
+    ],
+    "wiki": "cloudflare-imgbed"
   },
   {
     "id": "cloudflare-tunnel",
@@ -2361,7 +2513,8 @@
       "内网穿透",
       "Cloudflare",
       "免费"
-    ]
+    ],
+    "wiki": "cloudflare-tunnel"
   },
   {
     "id": "subconverter",
@@ -2376,7 +2529,8 @@
       "订阅",
       "转换",
       "开源"
-    ]
+    ],
+    "wiki": "subconverter"
   },
   {
     "id": "localsend",
@@ -2391,7 +2545,8 @@
       "文件传输",
       "局域网",
       "开源"
-    ]
+    ],
+    "wiki": "localsend"
   },
   {
     "id": "stirling-pdf",
@@ -2406,7 +2561,8 @@
       "PDF",
       "工具集",
       "开源"
-    ]
+    ],
+    "wiki": "stirling-pdf"
   },
   {
     "id": "it-tools",
@@ -2421,7 +2577,8 @@
       "工具集",
       "开发",
       "开源"
-    ]
+    ],
+    "wiki": "it-tools"
   },
   {
     "id": "n8n",
@@ -2436,7 +2593,8 @@
       "自动化",
       "工作流",
       "开源"
-    ]
+    ],
+    "wiki": "n8n"
   },
   {
     "id": "activepieces",
@@ -2451,7 +2609,8 @@
       "自动化",
       "工作流",
       "开源"
-    ]
+    ],
+    "wiki": "activepieces"
   },
   {
     "id": "homarr",
@@ -2466,6 +2625,7 @@
       "导航",
       "面板",
       "开源"
-    ]
+    ],
+    "wiki": "homarr"
   }
 ]

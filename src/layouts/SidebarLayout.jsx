@@ -4,14 +4,19 @@ import WikiNavSidebar from '../components/WikiNavSidebar.jsx'
 
 const FOCUSABLE = 'a[href], button:not([disabled])'
 
+/* Height of the sticky top bar (`h-14` in Layout). The rail hangs below it so
+ * the bar never covers the first rows of the tree. */
+const HEADER = '3.5rem'
+
 /**
- * Three-column reading shell for wiki pages:
+ * App-like reading shell for wiki pages:
  *
- *   [ navigation tree 260px ] [ article ] [ metadata rail ]
+ *   [ navigation rail 280px ] [ article ] [ metadata rail ]
  *
- * Below `md` the tree collapses into a drawer opened from a "目录" button. The
- * metadata rail is rendered by WikiPage itself so it can stay `sticky` next to
- * the article.
+ * The rail is flush against the left viewport edge, pinned with `sticky`, and
+ * scrolls on its own. Below `md` it collapses into a drawer opened from a
+ * "目录" button. The metadata rail is rendered by WikiPage itself so it can
+ * stay `sticky` next to the article.
  */
 export default function SidebarLayout() {
   const { id } = useParams()
@@ -24,7 +29,7 @@ export default function SidebarLayout() {
   const openDrawer = () => setDrawerPath(location.pathname)
   const closeDrawer = () => setDrawerPath(null)
 
-  const railScrollRef = useRef(null)
+  const railRef = useRef(null)
   const drawerScrollRef = useRef(null)
   const panelRef = useRef(null)
   const triggerRef = useRef(null)
@@ -78,17 +83,18 @@ export default function SidebarLayout() {
   }, [drawerOpen])
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-1 gap-8 px-4 py-6 sm:px-6">
-      <aside className="hidden w-[260px] shrink-0 md:block">
-        <div
-          ref={railScrollRef}
-          className="sticky top-[4.5rem] max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain rounded-[6px] border border-[#23282a] bg-[#101314] p-2.5"
-        >
-          <p className="mono mb-2 px-2 pt-1 text-[10px] uppercase tracking-wider text-neutral-600">
-            工具目录
-          </p>
-          <WikiNavSidebar activeId={id} scrollRef={railScrollRef} />
-        </div>
+    <div className="flex w-full flex-1 items-start">
+      {/* Flush against the viewport edge: no container margin, no rounded card.
+          `sticky` + own overflow keeps the tree pinned while the page scrolls. */}
+      <aside
+        ref={railRef}
+        style={{ top: HEADER, height: `calc(100vh - ${HEADER})` }}
+        className="sticky hidden w-[280px] shrink-0 overflow-y-auto overscroll-contain border-r border-[#23282a] bg-[#0d1112] px-3 py-4 md:block"
+      >
+        <p className="mono mb-2 px-2 text-[10px] uppercase tracking-wider text-neutral-600">
+          工具目录
+        </p>
+        <WikiNavSidebar activeId={id} scrollRef={railRef} />
       </aside>
 
       <main className="min-w-0 flex-1">
@@ -98,7 +104,7 @@ export default function SidebarLayout() {
           onClick={openDrawer}
           aria-haspopup="dialog"
           aria-expanded={drawerOpen}
-          className="mb-4 inline-flex items-center gap-2 rounded-[6px] border border-[#23282a] bg-[#101314] px-3 py-2 text-xs text-neutral-300 transition-colors hover:border-[#f0b429]/50 hover:text-[#f0b429] md:hidden"
+          className="mono ml-4 mt-4 inline-flex items-center gap-2 rounded-[6px] border border-[#23282a] bg-[#101314] px-3 py-2 text-xs text-neutral-300 transition-colors hover:border-[#f0b429]/50 hover:text-[#f0b429] sm:ml-6 md:hidden"
         >
           <DrawerIcon />
           目录

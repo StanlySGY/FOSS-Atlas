@@ -9,7 +9,7 @@ import {
   resolveTarget,
   wikiSlugFor,
 } from '../lib/data.js'
-import { fetchWiki, parseFrontmatter, stripLeadingH1, transformWikilinks } from '../lib/wiki.js'
+import { fetchWiki, parseFrontmatter, stripLeadingChrome, transformWikilinks } from '../lib/wiki.js'
 
 function fallbackMarkdown(resource) {
   return [
@@ -68,7 +68,6 @@ export default function WikiPage() {
 
   const slug = wikiSlugFor(id)
   const [fetched, setFetched] = useState(null)
-  const [backlinkState, setBacklinkState] = useState(null)
 
   useEffect(() => {
     if (!slug) return undefined
@@ -88,20 +87,6 @@ export default function WikiPage() {
   }, [id, slug])
 
   useEffect(() => {
-    let cancelled = false
-    backlinksFor(id).then((sources) => {
-      if (cancelled) return
-      setBacklinkState({
-        id,
-        list: sources.map((s) => resourceById.get(s)).filter(Boolean),
-      })
-    })
-    return () => {
-      cancelled = true
-    }
-  }, [id])
-
-  useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [id])
 
@@ -111,10 +96,11 @@ export default function WikiPage() {
   const content = loading ? '' : hasWiki ? fetched.content : resource ? fallbackMarkdown(resource) : ''
   const isFallback = !loading && !hasWiki
 
-  // The body's own `# Title` is dropped: the header above already renders the
-  // title, so keeping it would duplicate it on screen.
+  // The body's own `# Title` and its one-line `> summary` are dropped: the
+  // header above already renders the title and the catalogue description, so
+  // keeping them would print both twice.
   const rendered = useMemo(
-    () => transformWikilinks(stripLeadingH1(content), resolveTarget),
+    () => transformWikilinks(stripLeadingChrome(content), resolveTarget),
     [content],
   )
 
@@ -130,7 +116,13 @@ export default function WikiPage() {
   const alternatives = useMemo(() => mergeAlternatives(id, data.alternatives ?? []), [id, data.alternatives])
 
   const tags = data.tags?.length ? data.tags : resource?.tags ?? []
-  const backlinks = backlinkState?.id === id ? backlinkState.list : []
+
+  // Cheap: the index is a build artifact shipped with the bundle, so there is
+  // nothing to fetch and no loading state to wait on.
+  const backlinks = useMemo(
+    () => backlinksFor(id).map((source) => resourceById.get(source)).filter(Boolean),
+    [id],
+  )
 
   if (!resource) {
     return (
@@ -146,8 +138,8 @@ export default function WikiPage() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_260px]">
-      <article className="min-w-0 space-y-6">
+    <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
+      <article className="min-w-0 space-y-6 px-4 pb-10 pt-2 sm:px-6">
         <nav className="mono flex items-center gap-2 text-xs text-neutral-500">
           <Link to="/" className="hover:text-neutral-300">
             导航
@@ -227,7 +219,8 @@ export default function WikiPage() {
         ) : null}
       </article>
 
-      <aside className="space-y-5 xl:sticky xl:top-[4.5rem] xl:self-start">
+      {/* Hugs the right viewport edge: no right gutter beyond a modest pad. */}
+      <aside className="space-y-5 px-4 pb-10 xl:sticky xl:top-[4.5rem] xl:self-start xl:pl-0 xl:pr-4">
         <Panel title="元数据">
           <dl className="space-y-2 text-xs">
             <Row label="分类" value={resource.category_name} />
@@ -281,8 +274,10 @@ export default function WikiPage() {
           </Panel>
         ) : null}
 
-        <Panel title="反向链接">
-          {backlinks.length ? (
+        {/* Only rendered when it would carry information — an empty panel is
+            pure visual noise on the majority of pages. */}
+        {backlinks.length ? (
+          <Panel title="反向链接">
             <div className="flex flex-wrap gap-1.5">
               {backlinks.map((r) => (
                 <Link
@@ -294,15 +289,11 @@ export default function WikiPage() {
                 </Link>
               ))}
             </div>
-          ) : (
-            <p className="text-[11px] leading-relaxed text-neutral-600">
-              暂无其它 Wiki 链接到这里。
-            </p>
-          )}
-        </Panel>
+          </Panel>
+        ) : null}
 
         <Link
-          to="/graph"
+          to={`/graph?focus=${encodeURIComponent(id)}`}
           className="block rounded-[6px] border border-[#23282a] bg-[#101314] px-3 py-2.5 text-center text-xs text-neutral-400 transition-colors hover:border-[#f0b429]/50 hover:text-[#f0b429]"
         >
           在知识图谱中查看 →
