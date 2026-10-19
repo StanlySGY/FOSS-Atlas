@@ -44,3 +44,14 @@
   这是 Pages 对 SPA 的固有限制，通过 `dist/404.html` 兜底解决可用性。
 - 无头浏览器内置字体仅覆盖部分 CJK 字形，截图会显示少量缺字；这是截图工具的限制，
   线上在真实浏览器（PingFang SC / Microsoft YaHei）下渲染正常。
+
+## 复验：外部服务节点可点击（commit d4c37bd）
+
+- 部署：`gh run list` 显示 `d4c37bd` "fix(graph): make external service nodes clickable" → success（29s）
+- 线上首页：165 张卡片（`codex-browser eval` 实测）
+- 线上 `/wiki/nextcloud`：`h1=Nextcloud`，外链含 `https://drive.google.com`（替代品条目）
+- 线上 `/graph`：canvas 渲染正常，图例含「26 个外部服务」「点击外部服务节点打开其官网」
+- 部署产物核验：`assets/index-XA2xlv-a.js`（1,031,845 B）内含 `window.open(t.url`、`drive.google.com`、`ollama.com`
+- 源码核验：`src/pages/GraphPage.jsx:31-33` 对 `node.type === 'external'` 走 `window.open(node.url, '_blank', 'noopener,noreferrer')`
+
+结论：图谱外部节点点击跳转官网的修复已上线并通过线上复验。
