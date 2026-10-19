@@ -143,7 +143,7 @@ export default function GraphPage() {
       </header>
 
       <div className="flex flex-wrap items-center gap-2">
-        <span className="mono text-[11px] text-neutral-500">关系过滤</span>
+        <span className="text-[11px] text-[var(--text-faint)]">关系过滤</span>
         {ALL_EDGES.map((type) => {
           const on = enabledEdges.includes(type)
           return (

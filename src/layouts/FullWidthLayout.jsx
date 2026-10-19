@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom'
  */
 export default function FullWidthLayout() {
   return (
-    <main className="w-full flex-1 px-4 py-8 sm:px-6">
+    <main id="main" className="w-full flex-1 px-4 py-8 sm:px-6">
       <Outlet />
     </main>
   )

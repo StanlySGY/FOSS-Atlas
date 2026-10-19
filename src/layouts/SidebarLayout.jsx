@@ -104,22 +104,22 @@ export default function SidebarLayout() {
       <aside
         ref={railRef}
         style={{ top: HEADER, height: `calc(100vh - ${HEADER})` }}
-        className="sticky hidden w-[280px] shrink-0 overflow-y-auto overscroll-contain border-r border-[#23282a] bg-[#0d1112] px-3 py-4 md:block"
+        className="sticky hidden w-[280px] shrink-0 overflow-y-auto overscroll-contain border-r border-[var(--line)] bg-[var(--ink-sunken)] px-3 py-4 md:block"
       >
-        <p className="mono mb-2 px-2 text-[10px] uppercase tracking-wider text-neutral-600">
+        <p className="mono mb-2 px-2 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
           工具目录
         </p>
         <WikiNavSidebar activeId={id} scrollRef={railRef} />
       </aside>
 
-      <main className="min-w-0 flex-1">
+      <main id="main" className="min-w-0 flex-1">
         <button
           ref={triggerRef}
           type="button"
           onClick={openDrawer}
           aria-haspopup="dialog"
           aria-expanded={drawerOpen}
-          className="mono ml-4 mt-4 inline-flex items-center gap-2 rounded-[6px] border border-[#23282a] bg-[#101314] px-3 py-2 text-xs text-neutral-300 transition-colors hover:border-[#f0b429]/50 hover:text-[#f0b429] sm:ml-6 md:hidden"
+          className="mono ml-4 mt-4 inline-flex items-center gap-2 rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2 text-xs text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/50 hover:text-[var(--accent)] sm:ml-6 md:hidden"
         >
           <DrawerIcon />
           目录

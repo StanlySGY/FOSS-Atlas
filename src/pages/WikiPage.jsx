@@ -4,6 +4,9 @@ import Markdown from '../components/Markdown.jsx'
 import { backlinksFor } from '../lib/backlinks.js'
 import {
   alternativesFor,
+  hostFor,
+  iconFor,
+  initialFor,
   resourceById,
   relatedResources,
   resolveTarget,
@@ -140,27 +143,30 @@ export default function WikiPage() {
   return (
     <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
       <article className="min-w-0 space-y-6 px-4 pb-10 pt-2 sm:px-6">
-        <nav className="mono flex items-center gap-2 text-xs text-neutral-500">
-          <Link to="/" className="hover:text-neutral-300">
+        <nav className="flex items-center gap-2 text-xs text-[var(--text-faint)]">
+          <Link to="/" className="transition-colors hover:text-[var(--text-strong)]">
             导航
           </Link>
           <span>/</span>
-          <span className="text-neutral-400">{resource.category_name}</span>
+          <span>{resource.category_name}</span>
           <span>/</span>
-          <span className="text-neutral-300">{resource.name}</span>
+          <span className="text-[var(--text-dim)]">{resource.name}</span>
         </nav>
 
-        <header className="space-y-3 border-b border-[#23282a] pb-5">
-          <h1 className="text-2xl font-semibold tracking-tight text-neutral-100">
-            {data.title ?? resource.name}
-          </h1>
-          <p className="text-sm leading-relaxed text-neutral-400">{resource.description}</p>
+        <header className="space-y-3 border-b border-[var(--line)] pb-5">
+          <div className="flex items-center gap-3">
+            <WikiIcon resource={resource} />
+            <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
+              {data.title ?? resource.name}
+            </h1>
+          </div>
+          <p className="text-sm leading-relaxed text-[var(--text-dim)]">{resource.description}</p>
           <div className="flex flex-wrap items-center gap-2 pt-1">
             <a
               href={resource.url}
               target="_blank"
               rel="noreferrer"
-              className="rounded-[4px] border border-[#f0b429]/50 px-2.5 py-1 text-xs text-[#f0b429] transition-colors hover:bg-[#f0b429]/10"
+              className="rounded-[var(--radius-sm)] border border-[var(--accent)]/50 px-2.5 py-1 text-xs text-[var(--accent)] transition-colors hover:bg-[var(--accent)]/10"
             >
               访问官网 ↗
             </a>
@@ -169,18 +175,18 @@ export default function WikiPage() {
                 href={data.repo}
                 target="_blank"
                 rel="noreferrer"
-                className="mono rounded-[4px] border border-[#23282a] px-2.5 py-1 text-xs text-neutral-300 transition-colors hover:border-[#3a4245]"
+                className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-dim)] transition-colors hover:border-[var(--line-strong)]"
               >
                 源码仓库
               </a>
             ) : null}
             {data.license ? (
-              <span className="mono rounded-[4px] border border-[#23282a] px-2.5 py-1 text-xs text-neutral-500">
+              <span className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-faint)]">
                 {data.license}
               </span>
             ) : null}
             {isFallback ? (
-              <span className="mono rounded-[4px] border border-[#23282a] px-2.5 py-1 text-xs text-neutral-500">
+              <span className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-faint)]">
                 暂无独立 Wiki
               </span>
             ) : null}
@@ -300,6 +306,32 @@ export default function WikiPage() {
         </Link>
       </aside>
     </div>
+  )
+}
+
+/**
+ * The resource's site icon, echoing the cards on the home page so a reader
+ * recognises the same tool across views. Falls back to a lettered tile.
+ */
+function WikiIcon({ resource }) {
+  const [failed, setFailed] = useState(false)
+  return (
+    <span
+      title={hostFor(resource)}
+      className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[8px] border border-[var(--line)] bg-[var(--ink-raised)] text-sm font-semibold text-[var(--text-faint)]"
+    >
+      <span aria-hidden="true">{initialFor(resource)}</span>
+      {failed ? null : (
+        <img
+          src={iconFor(resource, 128)}
+          alt=""
+          decoding="async"
+          referrerPolicy="no-referrer"
+          onError={() => setFailed(true)}
+          className="absolute inset-0 h-full w-full rounded-[7px] bg-[var(--ink-raised)] object-contain p-1.5"
+        />
+      )}
+    </span>
   )
 }
 

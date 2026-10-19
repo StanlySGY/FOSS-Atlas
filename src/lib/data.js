@@ -142,3 +142,35 @@ export function alternativesFor(id) {
 }
 
 export const graphStats = graph.stats
+
+/* ------------------------------------------------------------------ *
+ * Presentation helpers
+ * ------------------------------------------------------------------ */
+
+/** Bare hostname for a resource (strips a leading `www.`). */
+export function hostFor(resource) {
+  try {
+    return new URL(resource.url).hostname.replace(/^www\./, '')
+  } catch {
+    return resource.url
+  }
+}
+
+/**
+ * Site icon for a resource. There is no icon field in the catalogue and no
+ * build-time fetch (the whole point is a static, offline-friendly bundle), so
+ * we resolve it at render time from a favicon service keyed by hostname.
+ * `Google's s2` returns a real 128px bitmap for the overwhelming majority of
+ * hosts and a neutral globe for the rest, which keeps every card visually
+ * anchored without shipping 165 images.
+ */
+export function iconFor(resource, size = 64) {
+  const host = hostFor(resource)
+  return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=${size}`
+}
+
+/** First letter fallback shown behind the favicon while it loads / if it fails. */
+export function initialFor(resource) {
+  const ascii = resource.name.match(/[A-Za-z0-9]/)
+  return (ascii ? ascii[0] : resource.name[0] ?? '?').toUpperCase()
+}

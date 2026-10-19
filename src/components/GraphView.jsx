@@ -19,6 +19,26 @@ const FOCUS_FILL = '#f5f0e6'
 // Everything that is not adjacent to the hovered node fades to this.
 const BLUR_OPACITY = 0.2
 
+/*
+ * ECharts paints text onto a canvas, so it never inherits the page font stack —
+ * without this, Chinese node labels fall back to whatever the canvas default
+ * has and turn into tofu. Mirrors the body stack in index.css.
+ */
+const GRAPH_FONT = [
+  '"Noto Sans SC"',
+  '"Noto Sans CJK SC"',
+  '"Source Han Sans SC"',
+  '"PingFang SC"',
+  '"Hiragino Sans GB"',
+  '"Microsoft YaHei"',
+  '"WenQuanYi Micro Hei"',
+  'ui-sans-serif',
+  'system-ui',
+  '"Segoe UI"',
+  'Roboto',
+  'sans-serif',
+].join(', ')
+
 export default function GraphView({
   graph,
   enabledEdges,
@@ -83,7 +103,7 @@ export default function GraphView({
           shadowColor: 'rgba(240, 180, 41, 0.8)',
         },
         label: isFocused
-          ? { show: true, color: FOCUS_RING, fontSize: 12, fontWeight: 600 }
+          ? { show: true, color: FOCUS_RING, fontSize: 12, fontWeight: 600, fontFamily: GRAPH_FONT }
           : { show: n.type === 'category' || n.type === 'subcategory' || n.type === 'tag' },
         _raw: n,
       }
@@ -111,7 +131,7 @@ export default function GraphView({
         backgroundColor: '#101314',
         borderColor: '#23282a',
         borderWidth: 1,
-        textStyle: { color: '#cfd4d6', fontSize: 12 },
+        textStyle: { color: '#cfd4d6', fontSize: 12, fontFamily: GRAPH_FONT },
         formatter: (p) => {
           if (p.dataType === 'edge') return ''
           const raw = p.data._raw
@@ -123,7 +143,7 @@ export default function GraphView({
       legend: [
         {
           data: TYPE_ORDER.map((t) => TYPE_META[t].label),
-          textStyle: { color: '#7d8c93', fontSize: 11 },
+          textStyle: { color: '#7d8c93', fontSize: 11, fontFamily: GRAPH_FONT },
           icon: 'circle',
           itemWidth: 9,
           itemHeight: 9,
@@ -177,6 +197,7 @@ export default function GraphView({
             position: 'right',
             color: '#9aa2a5',
             fontSize: 10,
+            fontFamily: GRAPH_FONT,
             formatter: '{b}',
           },
           labelLayout: { hideOverlap: true },
