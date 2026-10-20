@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import FullWidthLayout from './layouts/FullWidthLayout.jsx'
 import SidebarLayout from './layouts/SidebarLayout.jsx'
+import Deployed from './pages/Deployed.jsx'
 import GraphPage from './pages/GraphPage.jsx'
 import Home from './pages/Home.jsx'
 import WikiPage from './pages/WikiPage.jsx'
@@ -14,6 +15,7 @@ export default function App() {
         <Route element={<FullWidthLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/graph" element={<GraphPage />} />
+          <Route path="/deployed" element={<Deployed />} />
         </Route>
 
         {/* `:id` sits on the layout route so the sidebar can highlight the

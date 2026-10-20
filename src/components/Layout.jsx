@@ -4,6 +4,7 @@ import { graphStats } from '../lib/data.js'
 const navItems = [
   { to: '/', label: '导航', end: true },
   { to: '/graph', label: '知识图谱' },
+  { to: '/deployed', label: '自部署服务' },
 ]
 
 export default function Layout() {

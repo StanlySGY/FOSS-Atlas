@@ -1,0 +1,267 @@
+{
+  "updated": "2026-10-20",
+  "host": "sgyyyds.qzz.io",
+  "groups": [
+    {
+      "id": "edge",
+      "name": "Cloudflare 无服务器",
+      "note": "跑在 Cloudflare 边缘(Workers / Pages / KV),不占本机资源,全局加速。",
+      "items": [
+        {
+          "id": "cloudflare-imgbed",
+          "name": "CloudFlare-ImgBed",
+          "url": "https://imgbed.sgyyyds.qzz.io",
+          "desc": "图床:Workers + KV 存储,拖拽上传,自带管理后台。",
+          "stack": "CF Workers · KV",
+          "status": "live"
+        },
+        {
+          "id": "foss-atlas-cf",
+          "name": "FOSS-Atlas(Cloudflare Pages)",
+          "url": "https://atlas.sgyyyds.qzz.io",
+          "desc": "本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。",
+          "stack": "CF Pages",
+          "status": "live"
+        },
+        {
+          "id": "hacktricks-cf",
+          "name": "HackTricks",
+          "url": "https://hacktricks.sgyyyds.qzz.io",
+          "desc": "渗透测试知识库完整镜像(mdBook 构建后静态托管,2200+ 页面)。",
+          "stack": "CF Workers Assets",
+          "status": "live"
+        },
+        {
+          "id": "patt-cf",
+          "name": "PayloadsAllTheThings",
+          "url": "https://patt.sgyyyds.qzz.io",
+          "desc": "Web 安全 Payload 速查库的站点化镜像(MkDocs Material)。",
+          "stack": "CF Workers Assets",
+          "status": "live"
+        },
+        {
+          "id": "shlink-web",
+          "name": "Shlink Web Client",
+          "url": "https://links.sgyyyds.qzz.io",
+          "desc": "自建短链服务的官方网页客户端,填后端地址即可用。",
+          "stack": "CF Workers Assets",
+          "status": "live"
+        }
+      ]
+    },
+    {
+      "id": "github",
+      "name": "GitHub Pages 静态镜像",
+      "note": "fork 上游仓库后由 GitHub Pages 直接托管,上游更新可一键同步。",
+      "items": [
+        {
+          "id": "gtfobins",
+          "name": "GTFOBins",
+          "url": "https://tanlysgy.github.io/GTFOBins.github.io/",
+          "desc": "Unix 二进制提权速查手册,自建镜像。",
+          "stack": "GH Pages(fork)",
+          "status": "live"
+        },
+        {
+          "id": "lolbas",
+          "name": "LOLBAS",
+          "url": "https://tanlysgy.github.io/LOLBAS/",
+          "desc": "Windows 原生可执行文件滥用清单,自建镜像。",
+          "stack": "GH Pages(fork)",
+          "status": "live"
+        },
+        {
+          "id": "free-programming-books",
+          "name": "free-programming-books",
+          "url": "https://tanlysgy.github.io/free-programming-books/",
+          "desc": "免费编程书单,自建镜像。",
+          "stack": "GH Pages(fork)",
+          "status": "live"
+        },
+        {
+          "id": "awesome-selfhosted",
+          "name": "awesome-selfhosted",
+          "url": "https://tanlysgy.github.io/awesome-selfhosted/",
+          "desc": "自托管服务大全,自建镜像(fork 自动同步)。",
+          "stack": "GH Pages(fork)",
+          "status": "live"
+        },
+        {
+          "id": "hacktricks-gh",
+          "name": "HackTricks(GH Pages)",
+          "url": "https://tanlysgy.github.io/hacktricks/",
+          "desc": "HackTricks 的 GitHub Pages 镜像,由 Actions 自动构建。",
+          "stack": "GH Pages · Actions",
+          "status": "building"
+        }
+      ]
+    },
+    {
+      "id": "docker",
+      "name": "本机 Docker + Cloudflare Tunnel",
+      "note": "容器跑在本机,通过 cloudflared 隧道以 HTTPS 域名对外,全部避开已占用端口。",
+      "items": [
+        {
+          "id": "it-tools",
+          "name": "IT-Tools",
+          "url": "https://it.sgyyyds.qzz.io",
+          "desc": "开发者在线小工具合集。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "memos",
+          "name": "Memos",
+          "url": "https://memos.sgyyyds.qzz.io",
+          "desc": "轻量碎片化笔记。",
+          "stack": "Docker · SQLite",
+          "status": "live"
+        },
+        {
+          "id": "uptime-kuma",
+          "name": "Uptime Kuma",
+          "url": "https://status.sgyyyds.qzz.io",
+          "desc": "自建监控告警。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "searxng",
+          "name": "SearXNG",
+          "url": "https://search.sgyyyds.qzz.io",
+          "desc": "元搜索引擎,聚合多引擎结果。",
+          "stack": "Docker · Valkey",
+          "status": "live"
+        },
+        {
+          "id": "filebrowser",
+          "name": "Filebrowser",
+          "url": "https://files.sgyyyds.qzz.io",
+          "desc": "网页文件管理器。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "freshrss",
+          "name": "FreshRSS",
+          "url": "https://rss.sgyyyds.qzz.io",
+          "desc": "自建 RSS 阅读器。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "miniflux",
+          "name": "Miniflux",
+          "url": "https://feed.sgyyyds.qzz.io",
+          "desc": "极简 RSS 阅读器,Go 编写。",
+          "stack": "Docker · Postgres",
+          "status": "live"
+        },
+        {
+          "id": "excalidraw",
+          "name": "Excalidraw",
+          "url": "https://board.sgyyyds.qzz.io",
+          "desc": "手绘风格白板与流程图。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "kanboard",
+          "name": "Kanboard",
+          "url": "https://board2.sgyyyds.qzz.io",
+          "desc": "轻量看板式项目管理。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "focalboard",
+          "name": "Focalboard",
+          "url": "https://kanban.sgyyyds.qzz.io",
+          "desc": "Notion/Trello 风格的开源项目管理面板。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "radicale",
+          "name": "Radicale",
+          "url": "https://cal.sgyyyds.qzz.io",
+          "desc": "CalDAV/CardDAV 日历与通讯录服务。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "trilium",
+          "name": "Trilium Notes",
+          "url": "https://notes.sgyyyds.qzz.io",
+          "desc": "层级化个人知识库。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "navidrome",
+          "name": "Navidrome",
+          "url": "https://music.sgyyyds.qzz.io",
+          "desc": "自建音乐流媒体服务。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "gitea",
+          "name": "Gitea",
+          "url": "https://git.sgyyyds.qzz.io",
+          "desc": "轻量自建 Git 服务。",
+          "stack": "Docker · SQLite",
+          "status": "live"
+        },
+        {
+          "id": "ttyd",
+          "name": "ttyd 网页终端",
+          "url": "https://term.sgyyyds.qzz.io",
+          "desc": "浏览器里的终端(密码保护)。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "n8n",
+          "name": "n8n",
+          "url": "https://flow.sgyyyds.qzz.io",
+          "desc": "可视化工作流自动化。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "stirling-pdf",
+          "name": "Stirling-PDF",
+          "url": "https://pdf.sgyyyds.qzz.io",
+          "desc": "本地化 PDF 工具箱(合并/转换/OCR)。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "subconverter",
+          "name": "subconverter",
+          "url": "https://sub.sgyyyds.qzz.io/sub",
+          "desc": "订阅转换服务,把节点订阅转成 Clash 等格式。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "shlink",
+          "name": "Shlink",
+          "url": "https://link.sgyyyds.qzz.io",
+          "desc": "自建短链接服务(带统计)。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "homarr",
+          "name": "Homarr",
+          "url": "https://dash.sgyyyds.qzz.io",
+          "desc": "自建服务导航面板。",
+          "stack": "Docker",
+          "status": "live"
+        }
+      ]
+    }
+  ]
+}
