@@ -123,3 +123,56 @@ GraphNodePopover、WikiNavSidebar 里还留着 ~45 处裸 hex，调色板处于�
   也改为读取它。
 - 无视觉变化：`getComputedStyle` 复核卡片边框 `#23282a`、底色 `#101314`、
   标题 `#f2f4f5`、强调 `#f0b429` 均与迁移前一致；无元素落到未设色。
+
+## 追加轮次：中文字体自托管子集
+
+用户明确要求：**自托管字体子集，接受仓库体积增大**。上一轮"评估过自托管、放弃"
+的结论被推翻——用户认可体积换稳定可达。
+
+- 新增 `scripts/build-fonts.mjs`：扫描 `resources.json`、`public/wiki/*.md`、
+  `src/**/*.{jsx,css}`、`index.html`，收集站点实际渲染的全部码位（**1121 个**），
+  用 `curl`（走本地代理）把完整 Noto Sans SC OTF 拉到 `.cache/fonts/`（gitignore），
+  再用 `subset-font`（harfbuzzjs，新增 devDependency）裁剪为 woff2。
+- 产物 `public/fonts/noto-sans-sc-{400,500,700}.woff2`：约 355–372KB/个，
+  合计 **~1.05MB**，随包发布；`fonts.css` 里 700 face 声明 `font-weight: 600 700`，
+  500 对应 `font-size: medium`。
+- `index.html` 移除 Google Fonts 的 `preconnect` + 异步加载 + `<noscript>`，
+  改为 `preload` 400/700 两个 face + `<link rel="stylesheet">` 本地 `fonts.css`。
+- `src/index.css` 字体栈保留 "Noto Sans SC" 置首 + 平台 CJK 回退，
+  子集外的生僻字与缺省权重仍可降级渲染，不会 tofu。
+- 验证（本地 preview + 线上）：`document.fonts.check('400/700 16px "Noto Sans SC"')`
+  均 true；`performance.getEntriesByType('resource')` 里对
+  `fonts.googleapis.com|fonts.gstatic.com` 的请求数为 **0**，
+  三个字体资源全部同源；首页 / Wiki / 图谱中文全部正常。
+
+## 追加轮次：图谱「按一级分类聚焦、收起其他节点」
+
+262 节点的力导向图是一团毛线，想看某一类工具只能靠肉眼挑。
+
+- GraphPage 在头部与关系过滤之间加一行「聚焦分类」chip：全部 + 10 个一级分类，
+  每个 `aria-pressed`，chip 上标该类工具数；`focusedCategory` 状态下传 GraphView。
+- GraphView 新增 `visibleIds`：保留 `cat:<id>` 节点 + `category === focusedCategory`
+  的工具与子类，标签 / 外部服务 / 其他分类整体收起。
+  **关键取舍**：不筛 `nodes` 数组（会改变 ECharts 的坐标 extent、破坏取景），
+  而是把不匹配节点标为 `symbolSize: 0` + `itemStyle.opacity: 0` + `label.show: false`。
+- `categoryFrame` 由 `frozenLayout` 算出全图与子图 extent，给出
+  `center` 与 `zoom = max(1, 0.72 * full.span / sub.span)`，把子图框满视口并留边。
+- `viewKey = focusId|focusedCategory` 进图表 **init** effect 依赖：ECharts 只在
+  series 创建那一刻认 `center`/`zoom`，后续 `notMerge` 重渲染会忽略它，
+  故取景身份变化时重建实例；关系过滤开关**刻意不在** key 里，保住用户的平移缩放。
+- 交互：再点该 chip 或按 `Esc` 回到全览；与 `?focus=<工具 id>` 深链共存。
+- 验证（真实浏览器，本地 + 线上）：免费 SaaS → 约 36 节点、自部署 → 约 53 节点，
+  均居中框好；取消聚焦回 262 节点；`Esc` 清空；深链与分类聚焦同时生效；
+  `oxlint` 0 warning、`npm run build` 通过。
+
+## 部署
+
+字体与图谱聚焦两次提交推送 `main`，GitHub Actions `Build & Deploy to GitHub Pages`
+成功；线上复核 `fonts/noto-sans-sc-400.woff2` 200、`index.html` 引用为
+`/FOSS-Atlas/fonts/...`、浏览器中 0 个 Google 请求、分类聚焦可用。
+
+## 附带修复
+
+`codex-browser run` 的 `screenshot` / `pdf` 步骤此前用 JSON 的 `path` 字段，
+但处理函数读的是 CLI 的 `out`，直接 `AttributeError` 崩溃。已在
+`/home/sgy/Chromix/tools/codex_browser.py#run_steps` 里把 `path` 桥接到 `out`。
