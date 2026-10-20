@@ -7,13 +7,14 @@
 把散落在收藏夹、群聊和截图里的免费额度、开源自部署方案与公开 API，
 收进一张**可搜索、可漫游、可追溯**的图里。
 
-[![Deploy](https://github.com/StanlySGY/FOSS-Atlas/actions/workflows/deploy.yml/badge.svg)](https://github.com/StanlySGY/FOSS-Atlas/actions/workflows/deploy.yml)
+[![GitHub Pages](https://github.com/StanlySGY/FOSS-Atlas/actions/workflows/deploy.yml/badge.svg)](https://github.com/StanlySGY/FOSS-Atlas/actions/workflows/deploy.yml)
+[![Cloudflare Pages](https://github.com/StanlySGY/FOSS-Atlas/actions/workflows/cloudflare-pages.yml/badge.svg)](https://github.com/StanlySGY/FOSS-Atlas/actions/workflows/cloudflare-pages.yml)
 [![Vite](https://img.shields.io/badge/vite-8-646CFF?logo=vite&logoColor=white)](https://vite.dev)
 [![React](https://img.shields.io/badge/react-19-61DAFB?logo=react&logoColor=black)](https://react.dev)
 [![ECharts](https://img.shields.io/badge/echarts-6-AA344D)](https://echarts.apache.org)
 [![License](https://img.shields.io/badge/license-MIT-3DA639)](LICENSE)
 
-[在线访问](https://stanlysgy.github.io/FOSS-Atlas/) · [提交资源](https://github.com/StanlySGY/FOSS-Atlas/issues) · [贡献 Wiki](https://github.com/StanlySGY/FOSS-Atlas/pulls)
+[在线访问](https://stanlysgy.github.io/FOSS-Atlas/) · [Cloudflare 镜像](https://atlas.sgyyyds.qzz.io/) · [提交资源](https://github.com/StanlySGY/FOSS-Atlas/issues) · [贡献 Wiki](https://github.com/StanlySGY/FOSS-Atlas/pulls)
 
 </div>
 
@@ -87,7 +88,7 @@ ECharts 力导向图，可**拖拽节点、滚轮缩放、拖拽画布平移**�
 | 路由 | React Router 7（`basename` 适配 Pages 子路径） |
 | 图谱 | ECharts 6（`echarts/core` 按需引入） |
 | Markdown | react-markdown + remark-gfm |
-| 部署 | GitHub Actions → GitHub Pages |
+| 部署 | GitHub Actions → GitHub Pages + Cloudflare Pages(双平台自动同步) |
 
 ## 🚀 本地开发
 
@@ -267,8 +268,33 @@ generated: true   # 生成器写下的标记：这些页面每次运行都会被
 
 ## 🚢 部署
 
-推送到 `main` 即触发构建与发布（见 `.github/workflows/deploy.yml`）。
-首次部署前需要在仓库 **Settings → Pages** 把 Source 设为 **GitHub Actions**。
+推送到 `main` 会同时触发两个工作流,两个站点内容一致、互不影响:
+
+| 平台 | 地址 | 工作流 | 站点根路径 |
+| --- | --- | --- | --- |
+| GitHub Pages | <https://stanlysgy.github.io/FOSS-Atlas/> | `.github/workflows/deploy.yml` | `/<repo>/` |
+| Cloudflare Pages | <https://atlas.sgyyyds.qzz.io/> | `.github/workflows/cloudflare-pages.yml` | `/` |
+
+两个站点都在**构建期**通过 `VITE_BASE` 决定基路径,源码无需改动:
+
+```bash
+VITE_BASE=/ npm run build             # Cloudflare Pages(根域名)
+VITE_BASE=/FOSS-Atlas/ npm run build  # GitHub Pages(项目子路径)
+```
+
+GitHub Pages 首次部署前需要在仓库 **Settings → Pages** 把 Source 设为 **GitHub Actions**。
+
+Cloudflare Pages 侧需要两个仓库 Secret(`Settings → Secrets and variables → Actions`):
+
+| Secret | 值 |
+| --- | --- |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API Token,权限含 **Account → Cloudflare Pages → Edit** |
+| `CLOUDFLARE_ACCOUNT_ID` | `c177a8c5e2795e2d227ca07078ddedb6` |
+
+缺少 `CLOUDFLARE_API_TOKEN` 时,该工作流会跳过部署并输出告警,GitHub Pages 不受影响。
+
+Cloudflare Pages 项目名固定为 `foss-atlas`;自定义域名 `atlas.sgyyyds.qzz.io`
+已在 Cloudflare Pages 项目的 *Custom domains* 中绑定,DNS 由 Cloudflare 托管。
 
 ## 📄 License
 
