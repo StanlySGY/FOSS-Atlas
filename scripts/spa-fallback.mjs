@@ -3,10 +3,19 @@
  * GitHub Pages serves 404.html for any unknown path. Copying the built
  * index.html there lets client-side routes (/wiki/:id, /graph) deep-link
  * correctly instead of 404ing.
+ *
+ * Cloudflare Pages needs the opposite: when a 404.html is present it serves it
+ * with a 404 status, but with no 404.html it answers unknown paths from
+ * index.html with a 200. Set SKIP_SPA_FALLBACK=1 for that target.
  */
 import { copyFileSync, existsSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+if (process.env.SKIP_SPA_FALLBACK) {
+  console.log('SPA fallback skipped: SKIP_SPA_FALLBACK is set (host falls back itself).')
+  process.exit(0)
+}
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const index = resolve(root, 'dist/index.html')

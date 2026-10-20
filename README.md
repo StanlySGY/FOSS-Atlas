@@ -109,6 +109,9 @@ npm run lint       # oxlint
 > GitHub Pages 对未知路径返回 404，把 `index.html` 复制过去才能让
 > `/wiki/ollama` 这类深链接正确交给前端路由。
 
+> Cloudflare Pages 自带同类兜底,打包时用
+> `SKIP_SPA_FALLBACK=1 npm run build` 跳过这一步(见下方「深链接(SPA 兜底)」)。
+
 ## 📁 项目结构
 
 ```
@@ -119,7 +122,7 @@ FOSS-Atlas/
 │  ├─ build-fonts.mjs       # 站点用到的字形 → public/fonts/*.woff2（中文子集自托管）
 │  ├─ build-wikis.mjs       # wiki-content + 目录 → public/wiki/*.md + backlinks.json
 │  ├─ wiki-content/         # 每篇 Wiki 的散文（一句话总结 / 功能 / 场景），分组存放
-│  └─ spa-fallback.mjs      # dist/index.html → dist/404.html
+│  └─ spa-fallback.mjs      # dist/index.html → dist/404.html(SKIP_SPA_FALLBACK=1 跳过)
 ├─ public/
 │  ├─ .nojekyll             # 让 Pages 原样发布（不跑 Jekyll）
 │  ├─ icons/                # 106 个 host 的站点图标（构建期抓取，随包发布）
@@ -295,6 +298,19 @@ Cloudflare Pages 侧需要两个仓库 Secret(`Settings → Secrets and variable
 
 Cloudflare Pages 项目名固定为 `foss-atlas`;自定义域名 `atlas.sgyyyds.qzz.io`
 已在 Cloudflare Pages 项目的 *Custom domains* 中绑定,DNS 由 Cloudflare 托管。
+
+### 深链接(SPA 兜底)
+
+两个平台处理未知路径的方式相反,所以构建时按目标切换:
+
+| 目标 | 未知路径行为 | 做法 |
+| --- | --- | --- |
+| GitHub Pages | 返回 404 | 构建生成 `dist/404.html`(`scripts/spa-fallback.mjs`) |
+| Cloudflare Pages | 自带兜底,返回 200 | 用 `SKIP_SPA_FALLBACK=1` 跳过 404.html |
+
+> ⚠️ Cloudflare Pages 只有在**没有** `404.html` 时才把未知路径交给 `index.html`
+> 并返回 200;一旦上传里带 `404.html`,它就用 404 状态码返回这个文件
+> (页面照样能渲染,但爬虫与链接检查器会当成 404)。所以两个目标不能共用同一份产物。
 
 ## 📄 License
 
