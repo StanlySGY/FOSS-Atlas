@@ -43,7 +43,7 @@
           "id": "shlink-web",
           "name": "Shlink Web Client",
           "url": "https://links.sgyyyds.qzz.io",
-          "desc": "自建短链服务的官方网页客户端,填后端地址即可用。",
+          "desc": "Shlink 官方 Web 客户端,填上后端地址与 API Key 即可管理短链。",
           "stack": "CF Workers Assets",
           "status": "live"
         }
@@ -92,7 +92,7 @@
           "url": "https://tanlysgy.github.io/hacktricks/",
           "desc": "HackTricks 的 GitHub Pages 镜像,由 Actions 自动构建。",
           "stack": "GH Pages · Actions",
-          "status": "building"
+          "status": "live"
         }
       ]
     },
@@ -240,16 +240,16 @@
         {
           "id": "subconverter",
           "name": "subconverter",
-          "url": "https://sub.sgyyyds.qzz.io/sub",
-          "desc": "订阅转换服务,把节点订阅转成 Clash 等格式。",
+          "url": "https://sub.sgyyyds.qzz.io/version",
+          "desc": "订阅转换服务:把节点订阅转成 Clash / V2Ray 等格式(/sub?target=...&url=...),此处链接为健康检查端点。",
           "stack": "Docker",
           "status": "live"
         },
         {
           "id": "shlink",
           "name": "Shlink",
-          "url": "https://link.sgyyyds.qzz.io",
-          "desc": "自建短链接服务(带统计)。",
+          "url": "https://link.sgyyyds.qzz.io/rest/health",
+          "desc": "自建短链接服务(带访问统计),链接指向 REST 健康检查端点。",
           "stack": "Docker",
           "status": "live"
         },
