@@ -31,3 +31,6 @@ Thumbs.db
 
 # Local CodeGraph index
 .codegraph/
+
+# Font build cache (full source OTFs, fetched on demand)
+.cache/

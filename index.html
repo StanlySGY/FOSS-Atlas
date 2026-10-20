@@ -12,34 +12,17 @@
     />
 
     <!--
-      Chinese webfont, loaded *asynchronously*.
+      Self-hosted, subsetted Chinese webfont (scripts/build-fonts.mjs).
 
-      The site is Chinese-first, but fonts.googleapis.com is unreachable from
-      mainland China. A plain render-blocking `<link rel="stylesheet">` would
-      stall first paint there until the request times out. The `media="print"`
-
-      `onload` swap (a long-standing, well-supported pattern) fetches it off the
-      critical path instead: the page paints immediately with the system CJK
-      fallback in index.css, and the webfont upgrades the typography once — if —
-      it arrives. A <noscript> keeps it working with JS disabled.
-
-      unicode-range subsetting means only the glyph ranges actually used are
-      downloaded; font-display:swap avoids invisible-text flashes.
+      The bytes live in public/fonts/ and ship with the site, so there is no
+      runtime dependency on fonts.googleapis.com — which is unreachable from
+      mainland China, this catalogue's main audience. Preloading the three faces
+      starts the fetch in parallel with the bundle; font-display:swap means text
+      paints immediately in the platform CJK fallback either way.
     -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+Mono:wght@400;500&display=swap"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+Mono:wght@400;500&display=swap"
-      />
-    </noscript>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/noto-sans-sc-400.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/noto-sans-sc-700.woff2" crossorigin />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
   </head>
   <body>
     <div id="root"></div>

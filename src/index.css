@@ -53,10 +53,14 @@ body {
   background: var(--ink);
   color: var(--text);
   /*
-   * System CJK fonts first (instant, zero bytes), then the webfont loaded in
-   * index.html. Linux coverage (Noto Sans CJK SC / Source Han Sans SC /
-   * WenQuanYi) is listed explicitly: without it, a bare `system-ui` on a
-   * minimal Linux box renders 中文 as tofu.
+   * "Noto Sans SC" is the self-hosted subset from public/fonts/ (see
+   * scripts/build-fonts.mjs) — it covers the characters the site renders and is
+   * fetched locally, so no third-party font host is involved.
+   *
+   * Everything after it is the platform fallback: characters outside the
+   * subset, and any weight the subset omits, fall through to these. The Linux
+   * CJK families are listed explicitly — a bare `system-ui` on a minimal Linux
+   * box has no CJK coverage and would render 中文 as tofu.
    */
   font-family: "Noto Sans SC", ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
