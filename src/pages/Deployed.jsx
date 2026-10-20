@@ -122,6 +122,7 @@ export default function Deployed() {
           <li>· Cloudflare 侧的静态站与知识库镜像用 <span className="mono">wrangler</span> 部署到 Workers/Pages,自定义域直接绑在同一个 zone 上。</li>
           <li>· 本页数据源 <span className="mono">src/data/deployed.json</span>;改完推送到 main,GitHub Pages 与 Cloudflare Pages 会各自自动重新发布。</li>
           <li>· 网页终端 <span className="mono">term</span> 走 HTTP Basic 密码保护;如需更强鉴权可挂 Cloudflare Access。</li>
+          <li>· 边缘小工具 <span className="mono">short</span> / <span className="mono">paste</span> 是同一个 Worker(<span className="mono">atlas-edge-kit</span>)的两个自定义域,数据存 Cloudflare KV。</li>
           <li>· 端口统一避开本机已占用的 3000/3001/3002/8222/9090 等,新增服务前先查占用。</li>
         </ul>
       </section>

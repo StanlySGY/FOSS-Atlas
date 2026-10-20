@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-20",
+  "updated": "2026-10-21",
   "host": "sgyyyds.qzz.io",
   "groups": [
     {
@@ -46,6 +46,22 @@
           "desc": "Shlink 官方 Web 客户端,填上后端地址与 API Key 即可管理短链。",
           "stack": "CF Workers Assets",
           "status": "live"
+        },
+        {
+          "id": "short",
+          "name": "Atlas Short",
+          "url": "https://short.sgyyyds.qzz.io",
+          "desc": "自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。",
+          "stack": "CF Workers · KV",
+          "status": "live"
+        },
+        {
+          "id": "paste",
+          "name": "Atlas Paste",
+          "url": "https://paste.sgyyyds.qzz.io",
+          "desc": "临时文本分享:粘贴即生成链接,附 /raw 纯文本端点(上限 60KB)。",
+          "stack": "CF Workers · KV",
+          "status": "live"
         }
       ]
     },
@@ -91,6 +107,14 @@
           "name": "HackTricks(GH Pages)",
           "url": "https://tanlysgy.github.io/hacktricks/",
           "desc": "HackTricks 的 GitHub Pages 镜像,由 Actions 自动构建。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "patt-gh",
+          "name": "PayloadsAllTheThings(GH Pages)",
+          "url": "https://tanlysgy.github.io/PayloadsAllTheThings/",
+          "desc": "Web 安全 Payload 速查库的 MkDocs 镜像,由 Actions 自动构建发布。",
           "stack": "GH Pages · Actions",
           "status": "live"
         }
@@ -258,6 +282,54 @@
           "name": "Homarr",
           "url": "https://dash.sgyyyds.qzz.io",
           "desc": "自建服务导航面板。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "ddns-go",
+          "name": "DDNS-GO",
+          "url": "https://ddns.sgyyyds.qzz.io",
+          "desc": "动态 DNS 客户端:把本机公网 IP 自动同步到 Cloudflare / 阿里云等解析。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "aria2",
+          "name": "Aria2 + AriaNg",
+          "url": "https://aria.sgyyyds.qzz.io",
+          "desc": "离线下载器,自带 AriaNg 网页前端,支持 HTTP/BT/磁力。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "qbittorrent",
+          "name": "qBittorrent",
+          "url": "https://bt.sgyyyds.qzz.io",
+          "desc": "BT/PT 下载客户端 WebUI,首次登录默认 admin / adminadmin,请尽快改密。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "syncthing",
+          "name": "Syncthing",
+          "url": "https://sync.sgyyyds.qzz.io",
+          "desc": "点对点文件同步,Web UI 管理设备与共享目录,端到端加密。",
+          "stack": "Docker",
+          "status": "live"
+        },
+        {
+          "id": "vikunja",
+          "name": "Vikunja",
+          "url": "https://todo.sgyyyds.qzz.io",
+          "desc": "开源待办与项目管理(SQLite 单文件后端)。",
+          "stack": "Docker · SQLite",
+          "status": "live"
+        },
+        {
+          "id": "jellyfin",
+          "name": "Jellyfin",
+          "url": "https://media.sgyyyds.qzz.io",
+          "desc": "自建影音库,网页/客户端播放,媒体目录挂载在 data/media。",
           "stack": "Docker",
           "status": "live"
         }
