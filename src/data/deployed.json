@@ -332,6 +332,46 @@
           "desc": "自建影音库,网页/客户端播放,媒体目录挂载在 data/media。",
           "stack": "Docker",
           "status": "live"
+        },
+        {
+          "id": "vaultwarden",
+          "name": "Vaultwarden",
+          "url": "https://vault.sgyyyds.qzz.io",
+          "desc": "Bitwarden 兼容的密码管理器服务端,自建保险库,支持浏览器扩展与移动端同步。",
+          "stack": "Docker · 独立隧道",
+          "status": "live"
+        },
+        {
+          "id": "linkding",
+          "name": "Linkding",
+          "url": "https://book.sgyyyds.qzz.io",
+          "desc": "轻量书签管理器,自动抓取标题与描述,支持标签、全文检索与浏览器插件。",
+          "stack": "Docker · 独立隧道",
+          "status": "live"
+        },
+        {
+          "id": "new-api",
+          "name": "New API",
+          "url": "https://sgyyyds.qzz.io",
+          "desc": "多模型聚合网关,统一 OpenAI 兼容接口,支持额度、渠道与令牌管理。",
+          "stack": "Docker · 独立隧道",
+          "status": "live"
+        },
+        {
+          "id": "axonhub",
+          "name": "AxonHub",
+          "url": "https://hub.sgyyyds.qzz.io",
+          "desc": "AI 网关,聚合 OpenAI / Anthropic / Gemini 等上游,提供统一 API 与密钥管理。",
+          "stack": "Docker · 独立隧道",
+          "status": "live"
+        },
+        {
+          "id": "neo-chat",
+          "name": "Neo Chat",
+          "url": "https://chat.sgyyyds.qzz.io",
+          "desc": "自建 AI 对话前端,接入自有多模型网关,保留完整会话记录。",
+          "stack": "Docker · 独立隧道",
+          "status": "live"
         }
       ]
     }
