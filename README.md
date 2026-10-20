@@ -68,8 +68,12 @@ ECharts 力导向图，可**拖拽节点、滚轮缩放、拖拽画布平移**�
 - 点击**标签**节点 → 跳转全站搜索
 - 点击**分类 / 子类**节点 → 右侧列出其包含的全部工具
 - 顶部可按关系类型（属于 / 归类 / 标签 / 相关 / 替代）逐层过滤
+- **按一级分类聚焦**：顶部「聚焦分类」一行选一个分类，只保留它的子图
+  （分类节点 + 子类 + 工具），标签、外部服务与其他分类整体收起，并自动框选居中；
+  再点一次该分类或按 `Esc` 回到全览
 - 支持 `?focus=<工具 id>` 深链：从 Wiki 页点「在知识图谱中查看 →」后会带参跳转，
   图谱渲染完成后自动把该节点**平移居中、放大并高亮**——在 500+ 条边的图里一眼定位。
+  可与分类聚焦共存
   未知 id 会被忽略（正常全览）。
 - 力导向布局**只计算一次**并把坐标固定下来：切换关系过滤只改变连线，不会重新抖散全图，
   因此深链聚焦的节点不会在过滤后跑偏。
@@ -93,6 +97,7 @@ npm install
 npm run dev        # 启动开发服务器
 npm run data       # 数据源 → src/data/*.json（改完数据源后执行）
 npm run icons      # 抓取每个 host 的站点图标 → public/icons/ + src/data/icons.json
+npm run fonts      # 抽取站点用到的字形 → public/fonts/*.woff2（中文子集，自托管）
 node scripts/build-wikis.mjs   # 生成 160 篇 Wiki + src/data/backlinks.json
 npm run build      # 先刷新 Wiki 与 backlinks.json，再打包到 dist/ 并生成 SPA 兜底 404.html
 npm run preview    # 本地预览构建产物
@@ -110,12 +115,14 @@ FOSS-Atlas/
 ├─ scripts/
 │  ├─ build-data.mjs        # 数据源 → resources.json + graph.json
 │  ├─ build-icons.mjs       # 每个 host → public/icons/* + src/data/icons.json
+│  ├─ build-fonts.mjs       # 站点用到的字形 → public/fonts/*.woff2（中文子集自托管）
 │  ├─ build-wikis.mjs       # wiki-content + 目录 → public/wiki/*.md + backlinks.json
 │  ├─ wiki-content/         # 每篇 Wiki 的散文（一句话总结 / 功能 / 场景），分组存放
 │  └─ spa-fallback.mjs      # dist/index.html → dist/404.html
 ├─ public/
 │  ├─ .nojekyll             # 让 Pages 原样发布（不跑 Jekyll）
 │  ├─ icons/                # 106 个 host 的站点图标（构建期抓取，随包发布）
+│  ├─ fonts/                # Noto Sans SC 中文字体子集（构建期生成，随包发布）
 │  └─ wiki/                 # 165 篇 Wiki（Markdown + Frontmatter）
 │     ├─ ollama.md          # 5 篇手写深度页……
 │     ├─ cloudflare-workers.md
@@ -153,11 +160,22 @@ wiki-content/*.mjs ──► scripts/build-wikis.mjs ──► public/wiki/*.md
 
 resources.json ──► scripts/build-icons.mjs ──► public/icons/* + src/data/icons.json
                     └── 每个 host 抓一张图标；幂等，已存在的不重复下载
+
+站点文案+代码 ──► scripts/build-fonts.mjs ──► public/fonts/*.woff2 + fonts.css
+                    └── 抽取全部字形 → 下载完整 Noto Sans SC → 子集化为 woff2
 ```
 
 > 图标在**构建期**抓取并随包发布，而不是在浏览器里请求 favicon 服务：
 > `google.com` / `icons.duckduckgo.com` 在中国大陆不可达，运行时请求会让
 > 全部卡片图标退化成字母占位。`iconFor()` 仅在该 host 没有本地图标时才回落到远端。
+> 字体同理在**构建期**子集化并自托管：站点只渲染约 1100 个汉字，却要从
+> `fonts.googleapis.com` 拉取完整 CJK 字库（数 MB），且该域名在中国大陆不可达。
+> `build-fonts.mjs` 收集 `resources.json`、`public/wiki/*.md`、`src/**` 与 `index.html`
+> 里出现的全部字符，用 `subset-font`（harfbuzzjs）裁剪成三个权重各约 360KB 的
+> woff2（合计约 1MB）。改完站点文案后重跑 `npm run fonts` 即可。
+>
+> **维护提醒**：新增文案若用了子集之外的生僻字，会回落到 `index.css` 里声明的
+> 平台中文字体；要覆盖它们，重跑一次 `npm run fonts` 把新字形并进子集。
 
 ### `resources.json` 字段
 

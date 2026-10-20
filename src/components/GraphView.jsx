@@ -2,12 +2,15 @@ import { GraphChart } from 'echarts/charts'
 import { LegendComponent, TooltipComponent } from 'echarts/components'
 import * as echarts from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { CANVAS, EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 
 echarts.use([GraphChart, TooltipComponent, LegendComponent, CanvasRenderer])
 
 const FOCUS_ZOOM = 2.2
+// A focused subgraph is scaled to fill this fraction of the full-graph frame,
+// leaving a margin so edge nodes are not flush against the viewport.
+const CATEGORY_FIT = 0.72
 /*
  * The focus ring is the app accent, but the *fill* is deliberately a colour the
  * rest of the graph never uses — category nodes are already solid #f0b429, so an
@@ -44,6 +47,7 @@ export default function GraphView({
   enabledEdges,
   selectedId,
   focusId,
+  focusedCategory,
   onNodeClick,
   onNodeDoubleClick,
   onDismiss,
@@ -64,23 +68,118 @@ export default function GraphView({
   const frozenRef = useRef(null)
   const [frozenLayout, setFrozenLayout] = useState(null)
 
-  // The series is fed `graph.nodes` in order, so a node's `dataIndex` is simply
-  // its position in that array — no name lookup needed.
-  const focusIndex = useMemo(() => {
-    if (!focusId) return -1
-    return graph.nodes.findIndex((n) => n.id === focusId)
-  }, [graph, focusId])
+  /*
+   * Node id -> index into `graph.nodes`. The frozen layout is an array indexed by
+   * that position, so positions must be looked up by id rather than by the
+   * *display* array index — category focus filters the display array, which would
+   * otherwise shift every position.
+   */
+  const nodeIndex = useMemo(() => {
+    const m = new Map()
+    graph.nodes.forEach((n, i) => m.set(n.id, i))
+    return m
+  }, [graph])
+
+  const posOf = useCallback(
+    (id) => {
+      const i = nodeIndex.get(id)
+      return i == null ? undefined : frozenLayout?.[i]
+    },
+    [nodeIndex, frozenLayout],
+  )
 
   // Where the simulation put the focused node, once it has been captured. Until
   // then the node is only marked, not framed, since its position is unknown.
-  const focusPos = focusIndex >= 0 ? frozenLayout?.[focusIndex] : null
+  const focusPos = focusId ? posOf(focusId) : null
+
+  /*
+   * Identity of the current framing. Changing it rebuilds the ECharts instance
+   * so the series is created with `center`/`zoom` already in place — the only
+   * path ECharts honours them on (see the init effect). Relation-filter toggles
+   * are deliberately *not* part of this key: they must keep the current roam.
+   */
+  const viewKey = `${focusId ?? ''}|${focusedCategory ?? ''}`
+
+  /*
+   * Category focus. When a 一级分类 is picked, only its own node, its sub-category
+   * nodes and its tool nodes stay on the canvas; tags, external services and the
+   * other categories drop out entirely (not just dim) so the hairball collapses
+   * to one legible cluster. The category node id is `cat:<id>`.
+   */
+  const visibleIds = useMemo(() => {
+    if (!focusedCategory) return null
+    const catNodeId = `cat:${focusedCategory}`
+    const keep = new Set()
+    for (const n of graph.nodes) {
+      if (n.id === catNodeId) keep.add(n.id)
+      else if (n.category === focusedCategory) keep.add(n.id)
+    }
+    return keep
+  }, [graph, focusedCategory])
+
+  /*
+   * Framing transform for category focus. ECharts renders a graph series so that
+   * the *full* node cloud fits the viewport at zoom 1, so a subgraph that spans
+   * `s` of the full extent's `S` needs `zoom ≈ S / s` to fill the same viewport.
+   * Both extents come from the frozen layout, so the transform is stable across
+   * re-renders (and identical on every relation-filter toggle). Null until the
+   * simulation has been captured, at which point the graph simply shows unframed
+   * rather than jumping.
+   */
+  const categoryFrame = useMemo(() => {
+    if (!frozenLayout) return null
+
+    const extent = (predicate) => {
+      let minX = Infinity
+      let minY = Infinity
+      let maxX = -Infinity
+      let maxY = -Infinity
+      let n = 0
+      for (const node of graph.nodes) {
+        if (predicate && !predicate(node)) continue
+        const p = posOf(node.id)
+        if (!p) continue
+        n++
+        if (p[0] < minX) minX = p[0]
+        if (p[1] < minY) minY = p[1]
+        if (p[0] > maxX) maxX = p[0]
+        if (p[1] > maxY) maxY = p[1]
+      }
+      return n ? { minX, minY, maxX, maxY, span: Math.max(maxX - minX, maxY - minY) } : null
+    }
+
+    const full = extent(null)
+    if (!full) return null
+    if (!visibleIds) return null
+    const sub = extent((node) => visibleIds.has(node.id))
+    if (!sub) return null
+
+    return {
+      center: [(sub.minX + sub.maxX) / 2, (sub.minY + sub.maxY) / 2],
+      // At zoom 1 ECharts fits the full graph extent to the canvas, so the zoom
+      // that fits just the subgraph is full/sub — scaled by CATEGORY_FIT to
+      // leave a margin, and never below 1 (a subgraph that already spans the
+      // whole graph should not shrink).
+      zoom: Math.max(1, (CATEGORY_FIT * full.span) / sub.span),
+    }
+  }, [graph, visibleIds, frozenLayout, posOf])
 
   const option = useMemo(() => {
-    const nodes = graph.nodes.map((n, i) => {
+    /*
+     * Category focus keeps the *full* node array and collapses the non-matching
+     * nodes to zero rather than filtering them out. ECharts derives a graph
+     * series' coordinate extent from the data it is given, so removing nodes
+     * would silently re-scale the space the `center`/`zoom` framing is expressed
+     * in — the subgraph would land off-frame. Zero-sized nodes keep the extent
+     * (and therefore the framing) stable, and they draw nothing and take no
+     * pointer events.
+     */
+    const nodes = graph.nodes.map((n) => {
       const meta = TYPE_META[n.type] ?? TYPE_META.tool
+      const hidden = visibleIds ? !visibleIds.has(n.id) : false
       const isSelected = n.id === selectedId
       const isFocused = n.id === focusId
-      const pos = frozenLayout?.[i]
+      const pos = posOf(n.id)
       return {
         id: n.id,
         name: n.name,
@@ -89,7 +188,7 @@ export default function GraphView({
         x: pos?.[0],
         y: pos?.[1],
         category: TYPE_ORDER.indexOf(n.type),
-        symbolSize: isFocused ? meta.size * 2 : isSelected ? meta.size * 1.5 : meta.size,
+        symbolSize: hidden ? 0 : isFocused ? meta.size * 2 : isSelected ? meta.size * 1.5 : meta.size,
         itemStyle: {
           color: isFocused
             ? FOCUS_FILL
@@ -101,16 +200,23 @@ export default function GraphView({
           // A halo so the focused node reads as "you are here" even at a glance.
           shadowBlur: isFocused ? 18 : 0,
           shadowColor: 'rgba(240, 180, 41, 0.8)',
+          // Category focus: ECharts clamps symbolSize to a minimum, so a
+          // zero-sized node still draws a dot — opacity 0 is what actually
+          // removes it, while keeping the series' coordinate extent intact.
+          opacity: hidden ? 0 : 1,
         },
-        label: isFocused
-          ? { show: true, color: FOCUS_RING, fontSize: 12, fontWeight: 600, fontFamily: GRAPH_FONT }
-          : { show: n.type === 'category' || n.type === 'subcategory' || n.type === 'tag' },
+        label: hidden
+          ? { show: false }
+          : isFocused
+            ? { show: true, color: FOCUS_RING, fontSize: 12, fontWeight: 600, fontFamily: GRAPH_FONT }
+            : { show: n.type === 'category' || n.type === 'subcategory' || n.type === 'tag' },
         _raw: n,
       }
     })
 
     const edges = graph.edges
       .filter((e) => enabledEdges.includes(e.type))
+      .filter((e) => !visibleIds || (visibleIds.has(e.source) && visibleIds.has(e.target)))
       .map((e) => {
         const meta = EDGE_META[e.type] ?? EDGE_META.belongs_to
         return {
@@ -159,7 +265,15 @@ export default function GraphView({
           // Framing for the `?focus=` deep link. Declared rather than dispatched:
           // `notMerge` re-creates the view on every `setOption`, so anything
           // written imperatively is lost (and re-applied on top of itself).
-          ...(focusPos ? { center: [focusPos[0], focusPos[1]], zoom: FOCUS_ZOOM } : {}),
+          // Category focus frames the whole subgraph to fit the viewport; the
+          // ?focus= deep link centres a single node. Both are *declared* (never
+          // dispatched) so they survive the notMerge rebuild. Until the canvas
+          // has been measured the framing is omitted rather than guessed.
+          ...(categoryFrame
+            ? { center: categoryFrame.center, zoom: categoryFrame.zoom }
+            : focusPos
+              ? { center: [focusPos[0], focusPos[1]], zoom: FOCUS_ZOOM }
+              : {}),
           roam: true,
           draggable: true,
           emphasis: {
@@ -211,7 +325,7 @@ export default function GraphView({
         },
       ],
     }
-  }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout])
+  }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout, visibleIds, categoryFrame, posOf])
 
   /*
    * The handlers are read through a ref so that the chart is initialised exactly
@@ -294,12 +408,24 @@ export default function GraphView({
       chart.dispose()
       chartRef.current = null
     }
-  }, [])
+    // The chart is torn down and rebuilt when the framing *identity* changes
+    // (a category focus or a ?focus= deep link), because a graph series only
+    // honours `center`/`zoom` when it is created — a later notMerge render
+    // ignores them. Rebuilding is cheap here and keeps framing declarative.
+  }, [viewKey])
 
   useEffect(() => {
     const chart = chartRef.current
     if (!chart) return undefined
     chart.setOption(option, { notMerge: true })
+    /*
+     * `notMerge` re-creates the series, which resets the roam transform and
+     * ignores a `center`/`zoom` that arrives with it on a *later* render (only
+     * the series' first creation honours them — which is why the ?focus= deep
+     * link, present on first mount, works). Re-apply the framing with a
+     * follow-up merge once the data is in, so picking a category after load also
+     * frames correctly.
+     */
 
     // The first pass runs the force simulation. Capture where it settled and
     // re-apply the same coordinates so later `setOption` calls (relation-filter

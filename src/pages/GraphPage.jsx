@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import GraphNodePopover from '../components/GraphNodePopover.jsx'
 import GraphView from '../components/GraphView.jsx'
-import { graph, graphStats, resourceById } from '../lib/data.js'
+import { categories, graph, graphStats, resourceById } from '../lib/data.js'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 
 const ALL_EDGES = Object.keys(EDGE_META)
@@ -35,6 +35,8 @@ export default function GraphPage() {
   const [searchParams] = useSearchParams()
   const [enabledEdges, setEnabledEdges] = useState(ALL_EDGES)
   const [selected, setSelected] = useState(null)
+  // 一级分类聚焦：null = 全览；否则只显示该分类的子图。
+  const [focusedCategory, setFocusedCategory] = useState(null)
   // `{ node, point }` for the single-click peek bubble. Kept out of the ECharts
   // option on purpose: `setOption` with `notMerge` rebuilds the view and would
   // throw away the reader's pan/zoom on every click.
@@ -104,6 +106,17 @@ export default function GraphPage() {
     return () => window.removeEventListener('keydown', onKey)
   }, [popover])
 
+  // Escape also clears a category focus — but that listener lives for as long as
+  // a focus is active, independent of any popover.
+  useEffect(() => {
+    if (!focusedCategory) return undefined
+    const onKey = (event) => {
+      if (event.key === 'Escape') setFocusedCategory(null)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [focusedCategory])
+
   const popoverModel = useMemo(() => {
     if (!popover) return null
     const { node, point } = popover
@@ -155,6 +168,47 @@ export default function GraphPage() {
         </p>
       </header>
 
+      {/* 一级分类聚焦：选一个分类，只留下它的子图（分类节点 + 子类 + 工具），
+          其余节点整体收起，并自动框选居中。 */}
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-[11px] text-[var(--text-faint)]">聚焦分类</span>
+        <button
+          type="button"
+          onClick={() => setFocusedCategory(null)}
+          aria-pressed={focusedCategory === null}
+          className={[
+            'rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors',
+            focusedCategory === null
+              ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent)]'
+              : 'border-[var(--line)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
+          ].join(' ')}
+        >
+          全部 <span className="mono text-[10px] opacity-60">{NODE_COUNT.category}</span>
+        </button>
+        {categories.map((cat) => {
+          const on = focusedCategory === cat.id
+          return (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => setFocusedCategory(on ? null : cat.id)}
+              aria-pressed={on}
+              className={[
+                'rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors',
+                on
+                  ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent)]'
+                  : 'border-[var(--line)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
+              ].join(' ')}
+            >
+              {cat.icon} {cat.name}
+              <span className="mono ml-1.5 text-[10px] opacity-60">
+                {graph.nodes.filter((n) => n.category === cat.id && n.type === 'tool').length}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-[11px] text-[var(--text-faint)]">关系过滤</span>
         {ALL_EDGES.map((type) => {
@@ -193,6 +247,7 @@ export default function GraphPage() {
             onDismiss={closePopover}
             selectedId={selected?.id ?? null}
             focusId={focusId}
+            focusedCategory={focusedCategory}
           >
             {popoverModel && (
               <GraphNodePopover
