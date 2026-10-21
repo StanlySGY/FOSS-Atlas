@@ -102,6 +102,30 @@
           "desc": "邮箱/域名校验 API:一次性邮箱黑名单(9,900+ 域名)+ MX 记录查询,替代 disify 等第三方。",
           "stack": "CF Workers · KV",
           "status": "live"
+        },
+        {
+          "id": "atlas-geo",
+          "name": "Atlas Geo",
+          "url": "https://geo.sgyyyds.qzz.io",
+          "desc": "地理编码 / 逆地理编码:地名↔坐标,自建 KV 缓存,替代 Nominatim 公共实例。",
+          "stack": "CF Workers · KV",
+          "status": "live"
+        },
+        {
+          "id": "atlas-meta",
+          "name": "Atlas Meta",
+          "url": "https://meta.sgyyyds.qzz.io",
+          "desc": "链接元数据 / OpenGraph 解析:抓标题、摘要、缩略图,自建不发第三方。",
+          "stack": "CF Workers · KV",
+          "status": "live"
+        },
+        {
+          "id": "atlas-tools",
+          "name": "Atlas Tools",
+          "url": "https://tools.sgyyyds.qzz.io",
+          "desc": "哈希(SHA 系列)/ UUID v4 / Base64·URL·Hex 编解码 API。",
+          "stack": "CF Workers",
+          "status": "live"
         }
       ]
     },
@@ -156,6 +180,54 @@
           "url": "https://tanlysgy.github.io/PayloadsAllTheThings/",
           "desc": "Web 安全 Payload 速查库的 MkDocs 镜像,由 Actions 自动构建发布。",
           "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "awesome-hacking",
+          "name": "Awesome Hacking",
+          "url": "https://tanlysgy.github.io/Awesome-Hacking/",
+          "desc": "渗透测试 / 安全资源合集,自建 GitHub Pages 镜像。",
+          "stack": "GH Pages(fork)",
+          "status": "live"
+        },
+        {
+          "id": "hfish",
+          "name": "HFish 蜜罐文档",
+          "url": "https://tanlysgy.github.io/HFish/",
+          "desc": "国产蜜罐 HFish 官方文档镜像,含快速部署与节点管理。",
+          "stack": "GH Pages(fork)",
+          "status": "live"
+        },
+        {
+          "id": "wetty",
+          "name": "Wetty 文档",
+          "url": "https://tanlysgy.github.io/wetty/",
+          "desc": "浏览器版终端 Wetty 的文档镜像,含 Nginx / systemd / 单点登录配置。",
+          "stack": "GH Pages(fork)",
+          "status": "live"
+        },
+        {
+          "id": "ttyd",
+          "name": "ttyd 文档",
+          "url": "https://tanlysgy.github.io/ttyd/",
+          "desc": "把终端共享到网页的 ttyd 官方文档镜像。",
+          "stack": "GH Pages(fork)",
+          "status": "live"
+        },
+        {
+          "id": "searxng-docs",
+          "name": "SearXNG 文档",
+          "url": "https://tanlysgy.github.io/searxng/",
+          "desc": "元搜索引擎 SearXNG 的文档镜像(自建实例已在本机运行)。",
+          "stack": "GH Pages(fork)",
+          "status": "live"
+        },
+        {
+          "id": "trojan-go",
+          "name": "Trojan-Go 文档",
+          "url": "https://tanlysgy.github.io/trojan-go/",
+          "desc": "Trojan-Go 代理的文档镜像,含多路复用与 CDN 中转说明。",
+          "stack": "GH Pages(fork)",
           "status": "live"
         }
       ]
