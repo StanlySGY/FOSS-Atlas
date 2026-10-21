@@ -62,6 +62,14 @@
           "desc": "临时文本分享:粘贴即生成链接,附 /raw 纯文本端点(上限 60KB)。",
           "stack": "CF Workers · KV",
           "status": "live"
+        },
+        {
+          "id": "nodes",
+          "name": "Atlas Nodes",
+          "url": "https://nodes.sgyyyds.qzz.io",
+          "desc": "免费节点聚合订阅:合并 8 个上游源按协议去重,提供 /sub(Base64 订阅)、/txt 与来源面板,30 分钟边缘缓存。当前约 5800 个节点。",
+          "stack": "CF Workers · KV",
+          "status": "live"
         }
       ]
     },
