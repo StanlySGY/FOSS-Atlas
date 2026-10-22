@@ -126,6 +126,14 @@
           "desc": "哈希(SHA 系列)/ UUID v4 / Base64·URL·Hex 编解码 API。",
           "stack": "CF Workers",
           "status": "live"
+        },
+        {
+          "id": "edgessh",
+          "name": "EdgeSSH",
+          "url": "https://ssh.sgyyyds.qzz.io",
+          "desc": "浏览器里的 SSH 客户端:Workers + Durable Objects + D1,由 Cloudflare Access 邮箱验证码保护。",
+          "stack": "CF Workers · Durable Objects · D1 · Access",
+          "status": "live"
         }
       ]
     },
