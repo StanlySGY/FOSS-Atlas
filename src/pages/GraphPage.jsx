@@ -59,7 +59,13 @@ export default function GraphPage() {
    * Mutually exclusive with a category focus: GraphView's visibleIds gives one
    * filter precedence, so both being on would silently ignore whichever it did
    * not honour — a control that appears to do nothing is worse than one that
-   * clears the other. The setter below clears the other side.
+   * clears the other. That rule only held in *one* direction: this setter
+   * cleared the category focus, while picking a category left `?deployed=1`
+   * sitting in the address, where visibleIds never looks at the category at
+   * all. The chip lit up as pressed and the canvas stayed byte-for-byte
+   * identical — which is what "clicking a 分类 does nothing" looks like from the
+   * other side of the screen. Both setters now clear the other side, so neither
+   * filter can ride on top of the other.
    */
   const deployedOnly = searchParams.get('deployed') === '1'
 
@@ -79,6 +85,29 @@ export default function GraphPage() {
         { replace: true },
       )
       if (next) setFocusedCategory(null)
+    },
+    [setSearchParams],
+  )
+
+  /*
+   * The half that was missing. Picking (or clearing) a category drops
+   * `?deployed=1` out of the address: the two filters cannot both be honoured,
+   * so the choice has to change the canvas rather than only change the chip's
+   * own colour. Going back through 全部 clears it too — 全部 means the whole
+   * graph, which is not what was on screen while the deployed filter held it
+   * down.
+   */
+  const setCategoryFocus = useCallback(
+    (next) => {
+      setFocusedCategory(next)
+      setSearchParams(
+        (prev) => {
+          const p = new URLSearchParams(prev)
+          p.delete('deployed')
+          return p
+        },
+        { replace: true },
+      )
     },
     [setSearchParams],
   )
@@ -244,8 +273,8 @@ export default function GraphPage() {
         <span className="text-[11px] text-[var(--text-faint)]">聚焦分类</span>
         <button
           type="button"
-          onClick={() => setFocusedCategory(null)}
-          aria-pressed={focusedCategory === null}
+          onClick={() => setCategoryFocus(null)}
+          aria-pressed={focusedCategory === null && !deployedOnly}
           className={[
             'rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors',
             focusedCategory === null
@@ -261,7 +290,7 @@ export default function GraphPage() {
             <button
               key={cat.id}
               type="button"
-              onClick={() => setFocusedCategory(on ? null : cat.id)}
+              onClick={() => setCategoryFocus(on ? null : cat.id)}
               aria-pressed={on}
               className={[
                 'rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors',
@@ -279,6 +308,11 @@ export default function GraphPage() {
             </button>
           )
         })}
+        {deployedOnly ? (
+          <span className="text-[11px] text-[var(--text-faint)]">
+            （选一个分类会先退出「只看我部署了的」）
+          </span>
+        ) : null}
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
