@@ -357,6 +357,38 @@
           "desc": "低交互蜜罐 Dionaea 的官方文档(Sphinx),含模块与日志说明。",
           "stack": "GH Pages · Actions",
           "status": "live"
+        },
+        {
+          "id": "synapse",
+          "name": "Matrix Synapse 文档",
+          "url": "https://tanlysgy.github.io/synapse/",
+          "desc": "Matrix 家庭服务器 Synapse 的官方文档(mkdocs),含安装、联邦与配置。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "rustdesk",
+          "name": "RustDesk 文档",
+          "url": "https://tanlysgy.github.io/rustdesk/",
+          "desc": "远程桌面 RustDesk 的文档镜像,含自建中继服务器与客户端配置。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "1Panel",
+          "name": "1Panel 文档",
+          "url": "https://tanlysgy.github.io/1Panel/",
+          "desc": "Linux 运维面板 1Panel 的文档镜像,含应用商店、备份与安全设置。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "outline",
+          "name": "Outline 文档",
+          "url": "https://tanlysgy.github.io/outline/",
+          "desc": "团队知识库 Outline 的开发文档镜像,含架构、部署与二次开发。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
         }
       ]
     },
