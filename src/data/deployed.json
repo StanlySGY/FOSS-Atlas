@@ -309,6 +309,54 @@
           "desc": "应用启动页 Heimdall 的文档镜像,直接同步上游 gh-pages。",
           "stack": "GH Pages · Actions",
           "status": "live"
+        },
+        {
+          "id": "nginx-proxy-manager",
+          "name": "Nginx Proxy Manager 文档",
+          "url": "https://tanlysgy.github.io/nginx-proxy-manager/",
+          "desc": "Nginx 反代与证书管理面板的官方文档(VitePress 构建),含安装、SSL 与高级配置。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "woodpecker",
+          "name": "Woodpecker CI 文档",
+          "url": "https://tanlysgy.github.io/woodpecker/",
+          "desc": "轻量 CI/CD 引擎 Woodpecker 的文档站,含 pipeline 语法、插件与部署。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "authentik",
+          "name": "authentik 文档",
+          "url": "https://tanlysgy.github.io/authentik/",
+          "desc": "开源身份提供商 authentik 的文档镜像,含 SSO、MFA、流程编排与集成。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "cowrie",
+          "name": "Cowrie 蜜罐文档",
+          "url": "https://tanlysgy.github.io/cowrie/",
+          "desc": "SSH/Telnet 蜜罐 Cowrie 的文档(Sphinx 源,reStructuredText 渲染),含日志与后端配置。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "tpotce",
+          "name": "T-Pot 蜜罐平台文档",
+          "url": "https://tanlysgy.github.io/tpotce/",
+          "desc": "一体化蜜罐平台 T-Pot 的文档站,含部署架构、传感器与可视化。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "dionaea",
+          "name": "Dionaea 蜜罐文档",
+          "url": "https://tanlysgy.github.io/dionaea/",
+          "desc": "低交互蜜罐 Dionaea 的官方文档(Sphinx),含模块与日志说明。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
         }
       ]
     },
