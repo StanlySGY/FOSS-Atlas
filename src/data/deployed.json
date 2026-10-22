@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "host": "sgyyyds.qzz.io",
   "groups": [
     {
@@ -132,7 +132,7 @@
     {
       "id": "github",
       "name": "GitHub Pages 静态镜像",
-      "note": "fork 上游仓库后由 GitHub Pages 直接托管,上游更新可一键同步。",
+      "note": "上游仓库内容由 GitHub Actions 构建并以 GitHub Pages 托管,upstream 更新通过定时任务自动同步。",
       "items": [
         {
           "id": "gtfobins",
@@ -228,6 +228,86 @@
           "url": "https://tanlysgy.github.io/trojan-go/",
           "desc": "Trojan-Go 代理的文档镜像,含多路复用与 CDN 中转说明。",
           "stack": "GH Pages(fork)",
+          "status": "live"
+        },
+        {
+          "id": "sing-box",
+          "name": "sing-box 文档",
+          "url": "https://tanlysgy.github.io/sing-box/",
+          "desc": "代理内核 sing-box 的官方文档站(mkdocs 构建),含配置、入站出站与协议说明。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "dify",
+          "name": "Dify 文档",
+          "url": "https://tanlysgy.github.io/dify/",
+          "desc": "LLM 应用开发平台 Dify 的文档站,含工作流、Agent、RAG 与部署指南。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "promptfoo",
+          "name": "promptfoo 文档",
+          "url": "https://tanlysgy.github.io/promptfoo/",
+          "desc": "LLM 提示词/模型评测工具 promptfoo 文档,含断言、红队测试与 CI 集成。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "n8n",
+          "name": "n8n 文档",
+          "url": "https://tanlysgy.github.io/n8n/",
+          "desc": "工作流自动化平台 n8n 的文档站,含节点参考、表达式与自托管说明。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "immich",
+          "name": "Immich 文档",
+          "url": "https://tanlysgy.github.io/immich/",
+          "desc": "自托管照片视频备份 Immich 的文档站,含安装、备份与移动端配置。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "llama_index",
+          "name": "LlamaIndex 文档",
+          "url": "https://tanlysgy.github.io/llama_index/",
+          "desc": "LlamaIndex 数据框架文档,含索引、检索器与 Agent 用法。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "homarr",
+          "name": "Homarr 介绍页",
+          "url": "https://tanlysgy.github.io/homarr/",
+          "desc": "自托管服务仪表盘 Homarr 的镜像落地页(仓库无可渲染文档,按目录生成导航)。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "langflow",
+          "name": "Langflow 文档",
+          "url": "https://tanlysgy.github.io/langflow/",
+          "desc": "可视化 LLM 流程编排工具 Langflow 的文档站。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "focalboard",
+          "name": "FocalBoard 文档",
+          "url": "https://tanlysgy.github.io/focalboard/",
+          "desc": "开源项目管理工具 FocalBoard 的文档镜像(上游 gh-pages 仅为占位页,改用 docs 渲染)。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "Heimdall",
+          "name": "Heimdall 文档",
+          "url": "https://tanlysgy.github.io/Heimdall/",
+          "desc": "应用启动页 Heimdall 的文档镜像,直接同步上游 gh-pages。",
+          "stack": "GH Pages · Actions",
           "status": "live"
         }
       ]
