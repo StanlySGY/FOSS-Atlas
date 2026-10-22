@@ -90,8 +90,9 @@ export default function Deployed() {
           <span className="text-[var(--text-strong)]"> Cloudflare 边缘</span>,
           上游仓库镜像交给 <span className="text-[var(--text-strong)]">GitHub Pages</span>,
           其余经 <span className="text-[var(--text-strong)]">cloudflared 隧道</span> 从本机 Docker
-          暴露成 HTTPS 域名。所有地址都在 <span className="mono">{deployed.host}</span> 之下,
-          更新于 {deployed.updated}。
+          暴露成 HTTPS 域名。Cloudflare 与 Docker 服务在{' '}
+          <span className="mono">{deployed.host}</span> 之下,GitHub Pages 镜像在{' '}
+          <span className="mono">tanlysgy.github.io</span> 下,更新于 {deployed.updated}。
         </p>
       </section>
 
