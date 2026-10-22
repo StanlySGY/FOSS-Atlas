@@ -122,6 +122,7 @@ export default function Deployed() {
           <li>· 隧道由用户级 systemd 服务 <span className="mono">foss-labs-tunnel.service</span> 常驻,开机自启;新增域名用 <span className="mono">cloudflared tunnel route dns</span> 注册。</li>
           <li>· Cloudflare 侧的静态站与知识库镜像用 <span className="mono">wrangler</span> 部署到 Workers/Pages,自定义域直接绑在同一个 zone 上。</li>
           <li>· 本页数据源 <span className="mono">src/data/deployed.json</span>;改完推送到 main,GitHub Pages 与 Cloudflare Pages 会各自自动重新发布。</li>
+          <li>· GitHub Pages 的 34 个镜像都是 fork,GitHub 默认不运行 fork 内的 <span className="mono">schedule</span>;由非 fork 的 <a href="https://github.com/tanlysgy/atlas-scheduler" target="_blank" rel="noreferrer" className="text-[var(--accent)] hover:underline">atlas-scheduler</a> 每天 05:17 UTC 统一 dispatch,逐个同步上游或重建文档站。</li>
           <li>· 网页终端 <span className="mono">term</span> 走 HTTP Basic 密码保护;如需更强鉴权可挂 Cloudflare Access。</li>
           <li>· 边缘小工具 <span className="mono">short</span> / <span className="mono">paste</span> 是同一个 Worker(<span className="mono">atlas-edge-kit</span>)的两个自定义域,数据存 Cloudflare KV。</li>
           <li>· <span className="mono">vault</span> / <span className="mono">book</span> / <span className="mono">sgyyyds</span> / <span className="mono">hub</span> / <span className="mono">chat</span> 五项由另一条隧道 <span className="mono">cloudflared.service</span>(<span className="mono">/etc/cloudflared/config.yml</span>)承载,与 foss-labs 相互独立,改动互不影响。</li>
