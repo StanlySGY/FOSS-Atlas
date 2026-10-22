@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import DeployedBadge from '../components/DeployedBadge.jsx'
 import Markdown from '../components/Markdown.jsx'
 import { backlinksFor } from '../lib/backlinks.js'
 import {
+  DEPLOY_GROUP_LABEL,
   alternativesFor,
   hostFor,
   iconFor,
   initialFor,
+  instancesFor,
   resourceById,
   relatedResources,
   resolveTarget,
@@ -127,6 +130,10 @@ export default function WikiPage() {
     [id],
   )
 
+  // Stamped onto the catalogue record by the generator's join, so this never
+  // disagrees with the 自部署服务 page or with the graph node.
+  const instances = instancesFor(id)
+
   if (!resource) {
     return (
       <div className="space-y-4">
@@ -185,6 +192,7 @@ export default function WikiPage() {
                 {data.license}
               </span>
             ) : null}
+            {instances.length ? <DeployedBadge resource={resource} showGroups /> : null}
             {isFallback ? (
               <span className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-faint)]">
                 暂无独立 Wiki
@@ -249,6 +257,40 @@ export default function WikiPage() {
                 </Link>
               ))}
             </div>
+          </Panel>
+        ) : null}
+
+        {/* "我的实例" mirrors the graph bubble's instance list from the other
+            side: a node in the canvas and a page in the wiki are the same
+            running service, and both now say so with the same group names.
+            Only rendered when there is a deployment — the majority of entries
+            are things being catalogued, not run. */}
+        {instances.length ? (
+          <Panel title="我的实例">
+            <ul className="space-y-2 text-xs">
+              {instances.map((i) => (
+                <li key={i.id} className="min-w-0">
+                  <a
+                    href={i.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block truncate text-neutral-200 underline decoration-[var(--line-strong)] underline-offset-2 transition-colors hover:text-[var(--accent)]"
+                  >
+                    {i.url.replace(/^https?:\/\//, '')}
+                  </a>
+                  <p className="mono mt-0.5 flex flex-wrap items-center gap-x-2 text-[10px] text-[var(--text-faint)]">
+                    <span className="text-[var(--own-text)]">{DEPLOY_GROUP_LABEL[i.group] ?? i.group}</span>
+                    <span>{i.stack}</span>
+                    {i.id !== id ? <span className="truncate">{i.id}</span> : null}
+                  </p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2.5 border-t border-[var(--line-soft)] pt-2 text-[10px] text-[var(--text-faint)]">
+              <Link to="/deployed" className="text-[var(--own-text)] hover:underline">
+                全部自部署服务 →
+              </Link>
+            </p>
           </Panel>
         ) : null}
 

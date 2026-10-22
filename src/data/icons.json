@@ -104,5 +104,21 @@
   "platform.deepseek.com": "/icons/platform.deepseek.com.ico",
   "siliconflow.cn": "/icons/siliconflow.cn.ico",
   "platform.lingyiwanwu.com": "/icons/platform.lingyiwanwu.com.ico",
-  "minimax.io": "/icons/minimax.io.ico"
+  "minimax.io": "/icons/minimax.io.ico",
+  "syncthing.net": "/icons/syncthing.net.ico",
+  "vikunja.io": "/icons/vikunja.io.ico",
+  "goauthentik.io": "/icons/goauthentik.io.ico",
+  "awesome-selfhosted.net": "/icons/awesome-selfhosted.net.ico",
+  "atlas.sgyyyds.qzz.io": "/icons/atlas.sgyyyds.qzz.io.ico",
+  "short.sgyyyds.qzz.io": "/icons/short.sgyyyds.qzz.io.ico",
+  "paste.sgyyyds.qzz.io": "/icons/paste.sgyyyds.qzz.io.ico",
+  "nodes.sgyyyds.qzz.io": "/icons/nodes.sgyyyds.qzz.io.ico",
+  "qr.sgyyyds.qzz.io": "/icons/qr.sgyyyds.qzz.io.ico",
+  "px.sgyyyds.qzz.io": "/icons/px.sgyyyds.qzz.io.ico",
+  "ip.sgyyyds.qzz.io": null,
+  "check.sgyyyds.qzz.io": "/icons/check.sgyyyds.qzz.io.ico",
+  "geo.sgyyyds.qzz.io": "/icons/geo.sgyyyds.qzz.io.ico",
+  "meta.sgyyyds.qzz.io": "/icons/meta.sgyyyds.qzz.io.ico",
+  "tools.sgyyyds.qzz.io": "/icons/tools.sgyyyds.qzz.io.ico",
+  "ssh.sgyyyds.qzz.io": "/icons/ssh.sgyyyds.qzz.io.ico"
 }

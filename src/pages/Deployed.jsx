@@ -2,6 +2,18 @@ import { Link } from 'react-router-dom'
 import deployed from '../data/deployed.json'
 import { resourceById } from '../lib/data.js'
 
+/*
+ * A row's catalogue entry, resolved through the `resource` field the generator
+ * insists on (see scripts/build-data.mjs). It is not always the row's own id: 13
+ * GitHub docs mirrors carry a `-docs` id and point back at the tool they mirror,
+ * five rows are second deployments under their own names (`shlink-web`,
+ * `hacktricks-gh`, …), and the Atlas-owned rows carry no `resource` at all because
+ * the minted record uses their id. Going through this instead of `item.id` is what
+ * keeps the Wiki link and the graph focus from being dead ends on those 18 rows.
+ */
+const resourceIdFor = (item) => item.resource ?? item.id
+const graphUrlFor = (item) => `/graph?deployed=1&focus=${encodeURIComponent(resourceIdFor(item))}`
+
 const STATUS_LABEL = {
   live: '已上线',
   pending: '部署中',
@@ -24,7 +36,8 @@ function StatusChip({ status }) {
 }
 
 function ServiceRow({ item }) {
-  const resource = resourceById.get(item.id)
+  const resourceId = resourceIdFor(item)
+  const resource = resourceById.get(resourceId)
   return (
     <li className="group flex flex-col gap-2 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5 transition-colors duration-150 hover:border-[var(--line-strong)] hover:bg-[var(--ink-card-hover)] sm:flex-row sm:items-center sm:gap-4">
       <div className="min-w-0 flex-1">
@@ -46,15 +59,25 @@ function ServiceRow({ item }) {
         </div>
       </div>
 
+      {/* Two ways out of a row: the catalogue entry it belongs to, and the graph
+          opened on that entry with the running-services subgraph already on.
+          Both exist even for the 自建 rows, which the generator minted into the
+          catalogue precisely so they would have a Wiki page and a node. */}
       <div className="flex shrink-0 items-center gap-3">
         {resource ? (
           <Link
-            to={`/wiki/${item.id}`}
+            to={`/wiki/${resourceId}`}
             className="text-[11px] text-[var(--text-faint)] transition-colors hover:text-[var(--text-strong)]"
           >
             Wiki
           </Link>
         ) : null}
+        <Link
+          to={graphUrlFor(item)}
+          className="text-[11px] text-[var(--own-text)] transition-colors hover:text-[var(--text-strong)]"
+        >
+          在图谱中查看
+        </Link>
         <a
           href={item.url}
           target="_blank"
@@ -74,6 +97,17 @@ export default function Deployed() {
     (n, g) => n + g.items.filter((i) => i.status === 'live').length,
     0,
   )
+  /*
+   * The fork-mirror count, computed from the data instead of written down.
+   * Scoped to the github group on purpose: the 运维 note below is about GitHub's
+   * rule that fork workflows do not self-schedule, and the two mirrors that live
+   * on the edge group (hacktricks-cf, patt-cf) are not forks of anything. A
+   * global mirror count would be 36 and would misdescribe which services the
+   * scheduler has to wake up.
+   */
+  const forkMirrors = deployed.groups
+    .flatMap((g) => g.items)
+    .filter((i) => i.group === 'github' && i.kind === 'mirror').length
 
   return (
     <div className="space-y-8">
@@ -122,7 +156,7 @@ export default function Deployed() {
           <li>· 隧道由用户级 systemd 服务 <span className="mono">foss-labs-tunnel.service</span> 常驻,开机自启;新增域名用 <span className="mono">cloudflared tunnel route dns</span> 注册。</li>
           <li>· Cloudflare 侧的静态站与知识库镜像用 <span className="mono">wrangler</span> 部署到 Workers/Pages,自定义域直接绑在同一个 zone 上。</li>
           <li>· 本页数据源 <span className="mono">src/data/deployed.json</span>;改完推送到 main,GitHub Pages 与 Cloudflare Pages 会各自自动重新发布。</li>
-          <li>· GitHub Pages 的 34 个镜像都是 fork,GitHub 默认不运行 fork 内的 <span className="mono">schedule</span>;由非 fork 的 <a href="https://github.com/tanlysgy/atlas-scheduler" target="_blank" rel="noreferrer" className="text-[var(--accent)] hover:underline">atlas-scheduler</a> 每天 05:17 UTC 统一 dispatch,逐个同步上游或重建文档站。</li>
+          <li>· GitHub Pages 的 <span className="mono">{forkMirrors}</span> 个镜像都是 fork,GitHub 默认不运行 fork 内的 <span className="mono">schedule</span>;由非 fork 的 <a href="https://github.com/tanlysgy/atlas-scheduler" target="_blank" rel="noreferrer" className="text-[var(--accent)] hover:underline">atlas-scheduler</a> 每天 05:17 UTC 统一 dispatch,逐个同步上游或重建文档站。</li>
           <li>· 网页终端 <span className="mono">term</span> 走 HTTP Basic 密码保护;如需更强鉴权可挂 Cloudflare Access。</li>
           <li>· 边缘小工具 <span className="mono">short</span> / <span className="mono">paste</span> 是同一个 Worker(<span className="mono">atlas-edge-kit</span>)的两个自定义域,数据存 Cloudflare KV。</li>
           <li>· <span className="mono">vault</span> / <span className="mono">book</span> / <span className="mono">sgyyyds</span> / <span className="mono">hub</span> / <span className="mono">chat</span> 五项由另一条隧道 <span className="mono">cloudflared.service</span>(<span className="mono">/etc/cloudflared/config.yml</span>)承载,与 foss-labs 相互独立,改动互不影响。</li>

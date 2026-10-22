@@ -1,0 +1,36 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Atlas Proxy</title>
+<style>
+:root{color-scheme:dark}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0a0c0d;color:#e7ecef;
+font:14px/1.6 ui-sans-serif,system-ui,"Noto Sans SC",sans-serif}
+main{width:min(680px,92vw);padding:28px;border:1px solid #1e2427;border-radius:10px;background:#101416}
+h1{font-size:18px;margin:0 0 4px}
+p.sub{margin:0 0 20px;color:#8b979d;font-size:12px}
+label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8b979d;margin:14px 0 6px}
+input,textarea{width:100%;box-sizing:border-box;background:#0a0c0d;border:1px solid #1e2427;border-radius:6px;
+color:#e7ecef;padding:9px 11px;font:13px/1.5 ui-monospace,monospace}
+textarea{min-height:150px;resize:vertical}
+button{margin-top:16px;background:#35d07f;color:#04140c;border:0;border-radius:6px;padding:9px 18px;
+font-weight:600;font-size:13px;cursor:pointer}
+button:hover{opacity:.88}
+.out{margin-top:16px;padding:11px;border:1px dashed #2b3438;border-radius:6px;font:12px/1.6 ui-monospace,monospace;
+word-break:break-all;color:#35d07f}
+a{color:#35d07f}
+code{color:#9fe8c4}
+</style></head><body><main>
+<h1>Atlas Proxy</h1>
+<p class="sub">公开代理聚合 API · 跑在 Cloudflare 边缘 · 10 分钟缓存</p>
+<p class="sub" style="color:#e0a862">仅供研究与连通性测试:这些代理来自公开抓取,不保证可用性与安全性,请勿用于敏感流量。</p>
+<label>HTTP 代理列表</label>
+<input value="https://px.sgyyyds.qzz.io/http" readonly onclick="this.select()">
+<label>SOCKS4</label>
+<input value="https://px.sgyyyds.qzz.io/socks4" readonly onclick="this.select()">
+<label>SOCKS5</label>
+<input value="https://px.sgyyyds.qzz.io/socks5" readonly onclick="this.select()">
+<label>JSON(含国家)</label>
+<input value="https://px.sgyyyds.qzz.io/json" readonly onclick="this.select()">
+<div class="out">http <code>2913</code> · socks4 <code>2110</code> · socks5 <code>4077</code> · 缓存于 0s 前(本次刷新)</div>
+<label>上游来源</label>
+<table style="width:100%;border-collapse:collapse;font-size:12px"><tbody><tr><td>TheSpeedX/PROXY-List · http</td><td style="color:#35d07f">2612</td><td><a href="https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt" target="_blank">源</a></td></tr><tr><td>TheSpeedX/PROXY-List · socks4</td><td style="color:#35d07f">2044</td><td><a href="https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt" target="_blank">源</a></td></tr><tr><td>TheSpeedX/PROXY-List · socks5</td><td style="color:#35d07f">3399</td><td><a href="https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt" target="_blank">源</a></td></tr><tr><td>monosans/proxy-list · http</td><td style="color:#35d07f">358</td><td><a href="https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/http.txt" target="_blank">源</a></td></tr><tr><td>monosans/proxy-list · socks4</td><td style="color:#35d07f">108</td><td><a href="https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks4.txt" target="_blank">源</a></td></tr><tr><td>monosans/proxy-list · socks5</td><td style="color:#35d07f">1036</td><td><a href="https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt" target="_blank">源</a></td></tr><tr><td>ShiftyTR/Proxy-List · http</td><td style="color:#35d07f">40</td><td><a href="https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/http.txt" target="_blank">源</a></td></tr><tr><td>ShiftyTR/Proxy-List · socks4</td><td style="color:#35d07f">661</td><td><a href="https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks4.txt" target="_blank">源</a></td></tr><tr><td>ShiftyTR/Proxy-List · socks5</td><td style="color:#35d07f">279</td><td><a href="https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks5.txt" target="_blank">源</a></td></tr><tr><td>monosans/proxy-list · json(带国家/ASN)</td><td style="color:#35d07f">1504</td><td><a href="https://raw.githubusercontent.com/monosans/proxy-list/main/proxies.json" target="_blank">源</a></td></tr></tbody></table>
+<style>td{padding:5px 8px;border-bottom:1px solid #1e2427;color:#b8c2c7}</style></main></body></html>

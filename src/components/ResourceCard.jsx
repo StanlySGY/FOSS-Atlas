@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import DeployedBadge from './DeployedBadge.jsx'
 import { hostFor, iconFor, initialFor } from '../lib/data.js'
 
 /**
@@ -62,7 +63,10 @@ export default function ResourceCard({ resource }) {
       ) : null}
 
       <div className="mt-auto flex items-center justify-between gap-2 border-t border-[var(--line-soft)] pt-3">
-        <span className="truncate text-[10px] text-[var(--text-faint)]">{sub_category_name}</span>
+        <span className="flex min-w-0 items-center gap-2">
+          <span className="truncate text-[10px] text-[var(--text-faint)]">{sub_category_name}</span>
+          <DeployedBadge resource={resource} />
+        </span>
         <a
           href={url}
           target="_blank"

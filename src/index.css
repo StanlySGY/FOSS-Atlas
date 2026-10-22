@@ -36,6 +36,18 @@
   --text-mute: #5a6366;
   /* Warm white reserved for the focused graph node (see GraphView). */
   --focus-fill: #f5f0e6;
+  /* "跑在我自己的基础设施上": the graph's 自建 node colour, mirrored here so a
+     已自部署 badge on a card is the same hue as the node it points at. Kept in
+     sync with OWN_COLOR in src/lib/graphStyle.js.
+
+     --own-text is the same purple stepped up in lightness. OWN_COLOR clears the
+     3:1 floor for a *mark* (4.08:1 against --ink-card) but a badge is 10–11px
+     *text*, where the bar is 4.5:1 — against --own-soft (the chip's own
+     background) it only reaches 2.74:1. Stepped to #b3a7df: 8.45:1 on the card,
+     5.68:1 on the chip. Marks wear --own, words wear --own-text. */
+  --own: #7f63cf;
+  --own-soft: rgba(127, 99, 207, 0.16);
+  --own-text: #b3a7df;
 
   --radius: 6px;
   --radius-sm: 4px;

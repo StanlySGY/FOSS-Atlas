@@ -5,6 +5,7 @@ import {
   categories,
   countByCategory,
   countBySubCategory,
+  deployedStats,
   graphStats,
   resources,
   subCategoriesByCategory,
@@ -26,6 +27,20 @@ export default function Home() {
   const [query, setQuery] = useState(searchParams.get('q') ?? '')
   const [activeCategory, setActiveCategory] = useState('all')
   const [activeSub, setActiveSub] = useState('all')
+  /*
+   * 只看我部署了的 — in the URL, for the same reason the graph keeps it there:
+   * the 自部署服务 page and a deployed row need to be able to hand the reader a
+   * link that says "the catalogue, narrowed to what runs". `deployed=1` is the
+   * same parameter name on /graph and here, so the two views agree on the address.
+   */
+  const deployedOnly = searchParams.get('deployed') === '1'
+
+  const setDeployedOnly = (next) => {
+    const p = new URLSearchParams(searchParams)
+    if (next) p.set('deployed', '1')
+    else p.delete('deployed')
+    setSearchParams(p, { replace: true })
+  }
 
   // Keep the input in sync when arriving via a /?q=... link.
   useEffect(() => {
@@ -47,6 +62,7 @@ export default function Home() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     return resources.filter((r) => {
+      if (deployedOnly && !r.deployed) return false
       if (activeCategory !== 'all' && r.category !== activeCategory) return false
       if (activeSub !== 'all' && r.sub_category !== activeSub) return false
       if (!q) return true
@@ -57,7 +73,7 @@ export default function Home() {
         r.tags.some((t) => t.toLowerCase().includes(q))
       )
     })
-  }, [query, activeCategory, activeSub])
+  }, [query, activeCategory, activeSub, deployedOnly])
 
   const pickCategory = (id) => {
     setActiveCategory(id)
@@ -88,17 +104,64 @@ export default function Home() {
           </p>
         </div>
 
-        <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {/*
+         * Five tiles, one grid. This row used to be a <dl> of dt/dd pairs; it is
+         * a div grid now because the fifth tile is a button and a button is not a
+         * permitted child of <dl>. The label sits under its number the same way.
+         *
+         * `sm:grid-cols-5` instead of the old `sm:grid-cols-4`: five tiles in a
+         * four-column grid leaves a hole. On phones the 自建 tile spans both
+         * columns, so the row still reads as a row.
+         */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           {STATS.map((s) => (
             <div
               key={s.key}
               className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] px-4 py-3"
             >
-              <dd className="mono text-xl font-semibold text-[var(--text-strong)]">{s.value}</dd>
-              <dt className="mt-0.5 text-[11px] text-[var(--text-faint)]">{s.label}</dt>
+              <span className="mono block text-xl font-semibold text-[var(--text-strong)]">{s.value}</span>
+              <span className="mt-0.5 block text-[11px] text-[var(--text-faint)]">{s.label}</span>
             </div>
           ))}
-        </dl>
+
+          {/*
+           * The fifth number is not a catalogue fact — it is how much of the
+           * catalogue I actually run, and it is a control: pressing it narrows the
+           * card grid below to those entries. It wears the 自建 hue rather than
+           * the accent so it reads as "mine", not as a fifth count of the same
+           * kind as the four beside it.
+           */}
+          <button
+            type="button"
+            onClick={() => setDeployedOnly(!deployedOnly)}
+            aria-pressed={deployedOnly}
+            title={`${deployedStats.instances} 个实例 · ${deployedStats.own} 个 Atlas 自建`}
+            className={[
+              'col-span-2 rounded-[var(--radius)] border px-4 py-3 text-left transition-colors sm:col-span-1',
+              deployedOnly
+                ? 'border-[var(--own)] bg-[var(--own-soft)]'
+                : 'border-[var(--line)] bg-[var(--ink-card)] hover:border-[var(--own)]/60',
+            ].join(' ')}
+          >
+            <span className="mono block text-xl font-semibold text-[var(--text-strong)]">
+              {deployedStats.resources}
+            </span>
+            <span className="mt-0.5 block text-[11px] text-[var(--own-text)]">
+              已自部署{deployedOnly ? ' · 只看这些' : ''}
+            </span>
+          </button>
+        </div>
+
+        {deployedOnly ? (
+          <p className="text-[11px] text-[var(--text-faint)]">
+            卡片已收窄到我在跑的条目（<span className="mono text-[var(--own-text)]">{filtered.length}</span> 条）。
+            再点一次上面那格退回全部，或者
+            <Link to="/graph?deployed=1" className="ml-1 text-[var(--own-text)] hover:underline">
+              在图谱里看这一部分 →
+            </Link>
+          </p>
+        ) : null}
+
       </section>
 
       {/* Toolbar: search + live result count, then the category rail. */}

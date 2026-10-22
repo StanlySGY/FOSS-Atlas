@@ -1,0 +1,41 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Atlas Check</title>
+<style>
+:root{color-scheme:dark}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0a0c0d;color:#e7ecef;
+font:14px/1.6 ui-sans-serif,system-ui,"Noto Sans SC",sans-serif}
+main{width:min(680px,92vw);padding:28px;border:1px solid #1e2427;border-radius:10px;background:#101416}
+h1{font-size:18px;margin:0 0 4px}
+p.sub{margin:0 0 20px;color:#8b979d;font-size:12px}
+label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8b979d;margin:14px 0 6px}
+input,textarea{width:100%;box-sizing:border-box;background:#0a0c0d;border:1px solid #1e2427;border-radius:6px;
+color:#e7ecef;padding:9px 11px;font:13px/1.5 ui-monospace,monospace}
+textarea{min-height:150px;resize:vertical}
+button{margin-top:16px;background:#35d07f;color:#04140c;border:0;border-radius:6px;padding:9px 18px;
+font-weight:600;font-size:13px;cursor:pointer}
+button:hover{opacity:.88}
+.out{margin-top:16px;padding:11px;border:1px dashed #2b3438;border-radius:6px;font:12px/1.6 ui-monospace,monospace;
+word-break:break-all;color:#35d07f}
+a{color:#35d07f}
+code{color:#9fe8c4}
+</style></head><body><main>
+<h1>Atlas Check</h1>
+<p class="sub">邮箱 / 域名校验 · 一次性邮箱检测 + MX 查询 · 跑在 Cloudflare 边缘 · 替代 disify 等第三方</p>
+<label>邮箱或域名</label>
+<input id="e" placeholder="someone@example.com">
+<button onclick="go()">检查</button>
+<div class="out" id="o" hidden></div>
+<label>API</label>
+<input value="https://check.sgyyyds.qzz.io/api/email?email=someone@example.com" readonly onclick="this.select()">
+<script>
+async function go(){
+  const v=document.getElementById('e').value.trim(); if(!v) return
+  const p = v.includes('@') ? '/api/email?email='+encodeURIComponent(v) : '/api/domain?domain='+encodeURIComponent(v)
+  const j = await (await fetch(p)).json()
+  const o=document.getElementById('o'); o.hidden=false
+  if (j.error) { o.textContent='错误: '+j.error; return }
+  o.innerHTML = '一次性邮箱: <b style="color:'+(j.disposable?'#e06c75':'#35d07f')+'">'+(j.disposable?'是':'否')+'</b>'+
+    '<br>格式有效: '+(j.format_valid?'是':'否')+'<br>MX 记录: '+(j.has_mx ? j.mx.join(', ') : '无')+
+    '<br>黑名单规模: '+j.blocklist_size
+}
+</script></main></body></html>

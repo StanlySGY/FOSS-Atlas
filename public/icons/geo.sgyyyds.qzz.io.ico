@@ -1,0 +1,48 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Atlas Geo</title>
+<style>
+:root{color-scheme:dark}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0a0c0d;color:#e7ecef;
+font:14px/1.6 ui-sans-serif,system-ui,"Noto Sans SC",sans-serif}
+main{width:min(680px,92vw);padding:28px;border:1px solid #1e2427;border-radius:10px;background:#101416}
+h1{font-size:18px;margin:0 0 4px}
+p.sub{margin:0 0 20px;color:#8b979d;font-size:12px}
+label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8b979d;margin:14px 0 6px}
+input,textarea{width:100%;box-sizing:border-box;background:#0a0c0d;border:1px solid #1e2427;border-radius:6px;
+color:#e7ecef;padding:9px 11px;font:13px/1.5 ui-monospace,monospace}
+textarea{min-height:150px;resize:vertical}
+button{margin-top:16px;background:#35d07f;color:#04140c;border:0;border-radius:6px;padding:9px 18px;
+font-weight:600;font-size:13px;cursor:pointer}
+button:hover{opacity:.88}
+.out{margin-top:16px;padding:11px;border:1px dashed #2b3438;border-radius:6px;font:12px/1.6 ui-monospace,monospace;
+word-break:break-all;color:#35d07f}
+a{color:#35d07f}
+code{color:#9fe8c4}
+</style></head><body><main>
+<h1>Atlas Geo</h1>
+<p class="sub">地理编码 / 逆地理编码 · 跑在 Cloudflare 边缘 + KV 缓存 · 替代 nominatim 公共实例</p>
+<label>地名 → 坐标</label>
+<input id="q" placeholder="上海外滩">
+<button onclick="fwd()">正向查询</button>
+<label>坐标 → 地名</label>
+<input id="c" placeholder="31.2397,121.4900">
+<button onclick="rev()">反向查询</button>
+<div class="out" id="o" hidden></div>
+<label>API</label>
+<input value="https://geo.sgyyyds.qzz.io/json?q=Shanghai&limit=5" readonly onclick="this.select()">
+<script>
+async function fwd(){
+  const q=document.getElementById('q').value.trim(); if(!q) return
+  show(await (await fetch('/json?q='+encodeURIComponent(q))).json())
+}
+async function rev(){
+  const c=document.getElementById('c').value.split(','); if(c.length<2) return
+  show(await (await fetch('/reverse?lat='+encodeURIComponent(c[0].trim())+'&lon='+encodeURIComponent(c[1].trim()))).json())
+}
+function show(j){
+  const o=document.getElementById('o'); o.hidden=false
+  if(j.error){o.textContent='错误: '+j.error; return}
+  const rows = j.results || (j.result ? [j.result] : [])
+  o.innerHTML = rows.map(r=>'<b>'+r.display_name+'</b><br><code>'+r.lat+','+r.lon+'</code>'+(r.type?(' · '+r.type):'')).join('<hr style="border:0;border-top:1px solid #1e2427;margin:8px 0">') || '无结果'
+}
+</script></main></body></html>

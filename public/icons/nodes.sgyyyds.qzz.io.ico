@@ -1,0 +1,33 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Atlas Nodes</title>
+<style>
+:root{color-scheme:dark}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0a0c0d;color:#e7ecef;
+font:14px/1.6 ui-sans-serif,system-ui,"Noto Sans SC",sans-serif}
+main{width:min(680px,92vw);padding:28px;border:1px solid #1e2427;border-radius:10px;background:#101416}
+h1{font-size:18px;margin:0 0 4px}
+p.sub{margin:0 0 20px;color:#8b979d;font-size:12px}
+label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8b979d;margin:14px 0 6px}
+input,textarea{width:100%;box-sizing:border-box;background:#0a0c0d;border:1px solid #1e2427;border-radius:6px;
+color:#e7ecef;padding:9px 11px;font:13px/1.5 ui-monospace,monospace}
+textarea{min-height:150px;resize:vertical}
+button{margin-top:16px;background:#35d07f;color:#04140c;border:0;border-radius:6px;padding:9px 18px;
+font-weight:600;font-size:13px;cursor:pointer}
+button:hover{opacity:.88}
+.out{margin-top:16px;padding:11px;border:1px dashed #2b3438;border-radius:6px;font:12px/1.6 ui-monospace,monospace;
+word-break:break-all;color:#35d07f}
+a{color:#35d07f}
+code{color:#9fe8c4}
+</style></head><body><main>
+<h1>Atlas Nodes</h1>
+<p class="sub">免费节点聚合订阅 · 跑在 Cloudflare 边缘 · 30 分钟自动刷新缓存</p>
+<label>合并订阅(基础 Base64)</label>
+<input value="https://nodes.sgyyyds.qzz.io/sub" readonly onclick="this.select()">
+<label>明文节点列表</label>
+<input value="https://nodes.sgyyyds.qzz.io/txt" readonly onclick="this.select()">
+<div class="out">共 <code>13362</code> 个去重节点 · 缓存于 193s 前(命中缓存)</div>
+<label>上游来源</label>
+<table style="width:100%;border-collapse:collapse;font-size:12px"><tbody>
+<tr><td>Epodonios/v2ray-configs · vless</td><td style="color:#35d07f">5787</td><td><a href="https://raw.githubusercontent.com/Epodonios/v2ray-configs/main/Splitted-By-Protocol/vless.txt" target="_blank">源</a></td></tr><tr><td>Epodonios/v2ray-configs · vmess</td><td style="color:#35d07f">304</td><td><a href="https://raw.githubusercontent.com/Epodonios/v2ray-configs/main/Splitted-By-Protocol/vmess.txt" target="_blank">源</a></td></tr><tr><td>Epodonios/v2ray-configs · trojan</td><td style="color:#35d07f">557</td><td><a href="https://raw.githubusercontent.com/Epodonios/v2ray-configs/main/Splitted-By-Protocol/trojan.txt" target="_blank">源</a></td></tr><tr><td>Epodonios/v2ray-configs · ss</td><td style="color:#35d07f">915</td><td><a href="https://raw.githubusercontent.com/Epodonios/v2ray-configs/main/Splitted-By-Protocol/ss.txt" target="_blank">源</a></td></tr><tr><td>mahdibland/V2RayAggregator</td><td style="color:#35d07f">200</td><td><a href="https://raw.githubusercontent.com/mahdibland/V2RayAggregator/master/Eternity.txt" target="_blank">源</a></td></tr><tr><td>peasoft/NoMoreWalls</td><td style="color:#35d07f">433</td><td><a href="https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.txt" target="_blank">源</a></td></tr><tr><td>ermaozi/get_subscribe</td><td style="color:#35d07f">74</td><td><a href="https://raw.githubusercontent.com/ermaozi/get_subscribe/main/subscribe/v2ray.txt" target="_blank">源</a></td></tr><tr><td>freefq/free</td><td style="color:#35d07f">15</td><td><a href="https://raw.githubusercontent.com/freefq/free/master/v2" target="_blank">源</a></td></tr><tr><td>barry-far/V2ray-Config</td><td style="color:#35d07f">7494</td><td><a href="https://raw.githubusercontent.com/barry-far/V2ray-Config/main/All_Configs_Sub.txt" target="_blank">源</a></td></tr><tr><td>aiboboxx/v2rayfree</td><td style="color:#35d07f">85</td><td><a href="https://raw.githubusercontent.com/free-nodes/v2rayfree/main/v20261020" target="_blank">源</a></td></tr><tr><td>Pawdroid/Free-servers</td><td style="color:#35d07f">20</td><td><a href="https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub" target="_blank">源</a></td></tr>
+</tbody></table>
+<style>td{padding:5px 8px;border-bottom:1px solid #1e2427;color:#b8c2c7}</style></main></body></html>

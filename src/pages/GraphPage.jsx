@@ -2,7 +2,15 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import GraphNodePopover from '../components/GraphNodePopover.jsx'
 import GraphView from '../components/GraphView.jsx'
-import { categories, graph, graphStats, resourceById } from '../lib/data.js'
+import {
+  DEPLOY_GROUP_LABEL,
+  categories,
+  deployedStats,
+  graph,
+  graphStats,
+  instancesFor,
+  resourceById,
+} from '../lib/data.js'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 
 const ALL_EDGES = Object.keys(EDGE_META)
@@ -28,15 +36,52 @@ const TYPE_BLURB = {
   subcategory: '二级分类，挂在某个工具分类之下。',
   tag: '标签节点，用来跨分类串联功能相近的工具。',
   external: '被表中开源工具替代的商业服务，可访问其官网。',
+  // Atlas-owned services come from src/data/deployed.json and are minted as
+  // catalogue records by the generator, so a bubble on one still reads as a
+  // real service rather than a graph-only marker.
+  own: '我自己部署并运行的服务，不是表里的第三方工具。',
 }
 
 export default function GraphPage() {
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const [enabledEdges, setEnabledEdges] = useState(ALL_EDGES)
   const [selected, setSelected] = useState(null)
-  // 一级分类聚焦：null = 全览；否则只显示该分类的子图。
+  // 一级分类聚焦：null = 全览；否则只显示该分类的子图. Held in state, not in the
+  // URL: it is a wayfinding aid inside one sitting, not a view worth linking to.
   const [focusedCategory, setFocusedCategory] = useState(null)
+  /*
+   * 只看我部署了的 — in the URL, unlike the category focus. The 自部署服务 page
+   * and the 已自部署 badges link here, and a link has to be able to say "show me
+   * the running-services subgraph"; a filter that only exists as component state
+   * cannot be linked to.
+   *
+   * Mutually exclusive with a category focus: GraphView's visibleIds gives one
+   * filter precedence, so both being on would silently ignore whichever it did
+   * not honour — a control that appears to do nothing is worse than one that
+   * clears the other. The setter below clears the other side.
+   */
+  const deployedOnly = searchParams.get('deployed') === '1'
+
+  const setDeployedOnly = useCallback(
+    (next) => {
+      setSearchParams(
+        (prev) => {
+          const p = new URLSearchParams(prev)
+          if (next) {
+            p.set('deployed', '1')
+            p.delete('cat') // not read anywhere; kept so a stale one never lingers
+          } else {
+            p.delete('deployed')
+          }
+          return p
+        },
+        { replace: true },
+      )
+      if (next) setFocusedCategory(null)
+    },
+    [setSearchParams],
+  )
   // `{ node, point }` for the single-click peek bubble. Kept out of the ECharts
   // option on purpose: `setOption` with `notMerge` rebuilds the view and would
   // throw away the reader's pan/zoom on every click.
@@ -56,12 +101,14 @@ export default function GraphPage() {
 
   /*
    * The only way out of the graph. A single click just opens the bubble, so
-   * every exit is an explicit press of this button — mis-clicks in a 578-edge
+   * every exit is an explicit press of this button — mis-clicks in a 643-edge
    * hairball are far more common than deliberate ones.
    */
   const primaryAction = useCallback(
     (node) => {
-      if (node.type === 'tool') {
+      // An own node is a catalogue record too (the generator mints it from
+      // deployed.json), so it has a wiki page just like a third-party tool.
+      if (node.type === 'tool' || node.type === 'own') {
         return { label: '查看详情 →', run: () => navigate(`/wiki/${node.id}`) }
       }
       if (node.type === 'tag') {
@@ -106,21 +153,25 @@ export default function GraphPage() {
     return () => window.removeEventListener('keydown', onKey)
   }, [popover])
 
-  // Escape also clears a category focus — but that listener lives for as long as
-  // a focus is active, independent of any popover.
+  // Escape clears whichever subgraph is narrowed — a category focus or the
+  // deployed-only view — and the listener lives as long as either is active.
   useEffect(() => {
-    if (!focusedCategory) return undefined
+    if (!focusedCategory && !deployedOnly) return undefined
     const onKey = (event) => {
-      if (event.key === 'Escape') setFocusedCategory(null)
+      if (event.key !== 'Escape') return
+      setFocusedCategory(null)
+      setDeployedOnly(false)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [focusedCategory])
+  }, [focusedCategory, deployedOnly, setDeployedOnly])
 
   const popoverModel = useMemo(() => {
     if (!popover) return null
     const { node, point } = popover
-    const resource = node.type === 'tool' ? resourceById.get(node.id) : null
+    // `own` resolves like `tool`: both are catalogue records, one of them only
+    // because the reader runs it.
+    const resource = node.type === 'tool' || node.type === 'own' ? resourceById.get(node.id) : null
     const action = primaryAction(node)
     const tags = resource?.tags ?? []
     return {
@@ -128,6 +179,13 @@ export default function GraphPage() {
       point,
       description: resource?.description || TYPE_BLURB[node.type] || '',
       tags: tags.length > 0 ? tags : [TYPE_META[node.type]?.label ?? node.type],
+      // Only a deployment the reader owns gets the instance list; a third-party
+      // tool with no deployment of ours stays at three lines.
+      instances: instancesFor(node.id).map((i) => ({
+        id: i.id,
+        group: DEPLOY_GROUP_LABEL[i.group] ?? i.group,
+        url: i.url,
+      })),
       actionLabel: action.label,
       onAction: () => {
         setPopover(null)
@@ -138,16 +196,24 @@ export default function GraphPage() {
 
   const contained = useMemo(() => {
     if (!selected) return []
+    /*
+     * Both predicates accept 自建 alongside 工具. The generator puts Atlas-owned
+     * services under their own 分类 (Atlas 自建), and a count that only matched
+     * `tool` would read 0 for that category and hide 12 running services from
+     * every sub-category list they belong to.
+     */
     if (selected.type === 'category') {
       return graph.nodes
-        .filter((n) => n.type === 'tool' && n.category === selected.id.replace('cat:', ''))
+        .filter(
+          (n) => (n.type === 'tool' || n.type === 'own') && n.category === selected.id.replace('cat:', ''),
+        )
         .map((n) => resourceById.get(n.id))
         .filter(Boolean)
     }
     if (selected.type === 'subcategory') {
       const subId = selected.id.replace('sub:', '')
       return graph.nodes
-        .filter((n) => n.type === 'tool' && n.sub_category === subId)
+        .filter((n) => (n.type === 'tool' || n.type === 'own') && n.sub_category === subId)
         .map((n) => resourceById.get(n.id))
         .filter(Boolean)
     }
@@ -163,7 +229,11 @@ export default function GraphPage() {
           <span className="mono text-[var(--text-strong)]"> {graphStats.categories} </span> 个分类 ·
           <span className="mono text-[var(--text-strong)]"> {graphStats.tags} </span> 个标签 ·
           <span className="mono text-[var(--text-strong)]"> {graphStats.externals} </span> 个外部服务，
-          共 <span className="mono text-[var(--text-strong)]">{graphStats.edges}</span> 条关系。
+          <span className="mono text-[var(--text-strong)]">{graphStats.edges}</span> 条关系。
+          其中
+          <span className="mono text-[var(--own)]"> {deployedStats.resources} </span> 个工具我已经在跑
+          （<span className="mono">{deployedStats.instances}</span> 个实例，含
+          <span className="mono"> {deployedStats.own} </span> 个 Atlas 自建），下面可以只看这一部分。
           可拖拽节点、滚轮缩放、拖动空白平移。
         </p>
       </header>
@@ -202,13 +272,42 @@ export default function GraphPage() {
             >
               {cat.icon} {cat.name}
               <span className="mono ml-1.5 text-[10px] opacity-60">
-                {graph.nodes.filter((n) => n.category === cat.id && n.type === 'tool').length}
+                {graph.nodes.filter(
+                  (n) => n.category === cat.id && (n.type === 'tool' || n.type === 'own'),
+                ).length}
               </span>
             </button>
           )
         })}
       </div>
 
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-[11px] text-[var(--text-faint)]">我的基础设施</span>
+        <button
+          type="button"
+          onClick={() => setDeployedOnly(!deployedOnly)}
+          aria-pressed={deployedOnly}
+          className={[
+            'flex items-center gap-1.5 rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors',
+            deployedOnly
+              ? 'border-[var(--own)] bg-[var(--own-soft)] text-[var(--text-strong)]'
+              : 'border-[var(--line)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
+          ].join(' ')}
+        >
+          <span
+            className="inline-block h-2.5 w-2.5 rounded-full"
+            style={{ background: 'var(--own)' }}
+            aria-hidden="true"
+          />
+          只看我部署了的
+          <span className="mono text-[10px] opacity-60">{deployedStats.resources}</span>
+        </button>
+        {deployedOnly && (
+          <span className="text-[11px] text-[var(--text-faint)]">
+            只留下跑着的服务，以及它们所属的子类 / 分类和把它们串起来的标签。按 Esc 退回全图。
+          </span>
+        )}
+      </div>
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-[11px] text-[var(--text-faint)]">关系过滤</span>
         {ALL_EDGES.map((type) => {
@@ -248,6 +347,7 @@ export default function GraphPage() {
             selectedId={selected?.id ?? null}
             focusId={focusId}
             focusedCategory={focusedCategory}
+            deployedOnly={deployedOnly}
           >
             {popoverModel && (
               <GraphNodePopover
@@ -255,6 +355,7 @@ export default function GraphPage() {
                 point={popoverModel.point}
                 description={popoverModel.description}
                 tags={popoverModel.tags}
+                instances={popoverModel.instances}
                 actionLabel={popoverModel.actionLabel}
                 onAction={popoverModel.onAction}
                 onDismiss={closePopover}
@@ -273,9 +374,18 @@ export default function GraphPage() {
                 const meta = TYPE_META[type]
                 return (
                   <li key={type} className="flex items-center gap-2">
+                    {/*
+                      * The swatch copies how the node is actually drawn: tools and
+                      * external services are hollow rings, 自建 nodes carry a solid
+                      * fill (see GraphView's itemStyle). A legend that encoded it the
+                      * other way round would teach the wrong reading.
+                      */}
                     <span
                       className="inline-block h-2.5 w-2.5 rounded-full border"
-                      style={{ borderColor: meta.color, background: 'var(--ink-card)' }}
+                      style={{
+                        borderColor: meta.color,
+                        background: type === 'tool' || type === 'external' ? 'var(--ink-card)' : meta.color,
+                      }}
                     />
                     <span className="text-[var(--text-dim)]">{meta.label}</span>
                     <span className="mono ml-auto text-[10px] text-[var(--text-faint)]">
@@ -324,6 +434,9 @@ export default function GraphPage() {
                 </li>
                 <li>
                   顶部<b className="text-[var(--text-strong)]">关系过滤</b>可按关系类型收窄连线
+                </li>
+                <li>
+                  <b className="text-[var(--own)]">只看我部署了的</b>把图收成我真正在跑的那部分
                 </li>
               </ul>
             </section>

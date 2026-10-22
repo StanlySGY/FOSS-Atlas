@@ -48,6 +48,7 @@ export default function GraphView({
   selectedId,
   focusId,
   focusedCategory,
+  deployedOnly,
   onNodeClick,
   onNodeDoubleClick,
   onDismiss,
@@ -98,7 +99,7 @@ export default function GraphView({
    * path ECharts honours them on (see the init effect). Relation-filter toggles
    * are deliberately *not* part of this key: they must keep the current roam.
    */
-  const viewKey = `${focusId ?? ''}|${focusedCategory ?? ''}`
+  const viewKey = `${focusId ?? ''}|${focusedCategory ?? ''}|${deployedOnly ? 1 : 0}`
 
   /*
    * Category focus. When a 一级分类 is picked, only its own node, its sub-category
@@ -106,7 +107,56 @@ export default function GraphView({
    * other categories drop out entirely (not just dim) so the hairball collapses
    * to one legible cluster. The category node id is `cat:<id>`.
    */
+  /*
+   * What stays on the canvas. Both filters work the same way — they name the ids
+   * to keep, and everything else is hidden by the node mapper below (opacity 0,
+   * never removed) so the coordinate space the framing is expressed in never
+   * changes. See the note in `option`.
+   *
+   * - A 一级分类 keeps its own node, its sub-categories and its tools.
+   * - 只看我部署了的 keeps every running service, plus only the structure those
+   *   services need to be read: the sub-category and category each one hangs
+   *   off, and a tag only when it joins *two or more* of them. A tag touching a
+   *   single running tool links it to nothing the filter kept, so it would add
+   *   visual weight and no information; with that rule 15 of the 40 tags and
+   *   116 of the 338 标签 edges survive, over ~100 visible nodes instead of all
+   *   283. 标签:开源 survives with 58 of those edges — kept deliberately: it is
+   *   a real node with real coordinates in the frozen layout, not a hub minted
+   *   for this view, and dropping it would make the subgraph read as if the
+   *   services running here were not open source.
+   */
   const visibleIds = useMemo(() => {
+    if (deployedOnly) {
+      const running = new Set(graph.nodes.filter((n) => n.deployed).map((n) => n.id))
+      if (running.size === 0) return null
+      const keep = new Set(running)
+      const subcategories = new Set()
+      // How many running services each tag touches. A tagged edge always has a
+      // tag at one end and a tool at the other, so "both ends run" can never be
+      // true — the test is the number of running ends, not an edge predicate.
+      const tagWeight = new Map()
+      for (const e of graph.edges) {
+        if (e.type === 'belongs_to') {
+          if (running.has(e.source)) subcategories.add(e.target)
+          continue
+        }
+        if (e.type !== 'tagged') continue
+        for (const end of [e.source, e.target]) {
+          if (running.has(end)) continue
+          tagWeight.set(end, (tagWeight.get(end) ?? 0) + 1)
+        }
+      }
+      for (const [id, weight] of tagWeight) {
+        if (weight >= 2) keep.add(id)
+      }
+      // Sub-category nodes know their category; keeping it anchors each cluster
+      // instead of leaving it floating unlabelled.
+      for (const n of graph.nodes) {
+        if (subcategories.has(n.id) && n.category) keep.add(`cat:${n.category}`)
+      }
+      for (const id of subcategories) keep.add(id)
+      return keep
+    }
     if (!focusedCategory) return null
     const catNodeId = `cat:${focusedCategory}`
     const keep = new Set()
@@ -115,7 +165,7 @@ export default function GraphView({
       else if (n.category === focusedCategory) keep.add(n.id)
     }
     return keep
-  }, [graph, focusedCategory])
+  }, [graph, focusedCategory, deployedOnly])
 
   /*
    * Framing transform for category focus. ECharts renders a graph series so that
@@ -190,6 +240,13 @@ export default function GraphView({
         category: TYPE_ORDER.indexOf(n.type),
         symbolSize: hidden ? 0 : isFocused ? meta.size * 2 : isSelected ? meta.size * 1.5 : meta.size,
         itemStyle: {
+          /*
+           * Tools and external services are hollow — they are entries in a
+           * catalogue. A 自建 node is a service that is actually running, so it
+           * carries its colour as a solid fill: the type then reads from the
+           * shape as well as the hue, which matters because this palette's
+           * tool/subcategory pair is already hard to separate by colour alone.
+           */
           color: isFocused
             ? FOCUS_FILL
             : n.type === 'tool' || n.type === 'external'

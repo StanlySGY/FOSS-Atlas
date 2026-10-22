@@ -1,0 +1,36 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Atlas Edge Kit</title>
+<style>
+:root{color-scheme:dark}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0a0c0d;color:#e7ecef;
+font:14px/1.6 ui-sans-serif,system-ui,"Noto Sans SC",sans-serif}
+main{width:min(680px,92vw);padding:28px;border:1px solid #1e2427;border-radius:10px;background:#101416}
+h1{font-size:18px;margin:0 0 4px}
+p.sub{margin:0 0 20px;color:#8b979d;font-size:12px}
+label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8b979d;margin:14px 0 6px}
+input,textarea{width:100%;box-sizing:border-box;background:#0a0c0d;border:1px solid #1e2427;border-radius:6px;
+color:#e7ecef;padding:9px 11px;font:13px/1.5 ui-monospace,monospace}
+textarea{min-height:150px;resize:vertical}
+button{margin-top:16px;background:#35d07f;color:#04140c;border:0;border-radius:6px;padding:9px 18px;
+font-weight:600;font-size:13px;cursor:pointer}
+button:hover{opacity:.88}
+.out{margin-top:16px;padding:11px;border:1px dashed #2b3438;border-radius:6px;font:12px/1.6 ui-monospace,monospace;
+word-break:break-all;color:#35d07f}
+a{color:#35d07f}
+code{color:#9fe8c4}
+</style></head><body><main>
+<h1>Atlas Edge Kit</h1>
+<p class="sub">跑在 Cloudflare 边缘的小工具 · KV 存储 · 无需服务器</p>
+<label>短链目标 URL</label>
+<input id="u" placeholder="https://example.com/some/long/path">
+<button onclick="mk()">生成短链</button>
+<div class="out" id="o" hidden></div>
+<script>
+async function mk(){
+  const u=document.getElementById('u').value.trim(); if(!u) return
+  const r=await fetch('/api/shorten',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({url:u})})
+  const j=await r.json(); const o=document.getElementById('o')
+  o.hidden=false; o.innerHTML = j.error ? ('错误: '+j.error) :
+    ('短链: <a href="'+j.short+'" target="_blank">'+j.short+'</a><br>原始: '+j.url+'<br>统计: <a href="'+j.stats+'" target="_blank">'+j.stats+'</a>')
+}
+</script></main></body></html>

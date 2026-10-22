@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0c0d" />
+    <title>FOSS-Atlas · 开源白嫖资源图鉴</title>
+    <meta
+      name="description"
+      content="FOSS-Atlas —— 导航 + Wiki + 知识图谱三合一的免费/开源资源库，收录 AI、SaaS、自部署、公开 API、安全工具等 165 个条目。"
+    />
+
+    <!--
+      Self-hosted, subsetted Chinese webfont (scripts/build-fonts.mjs).
+
+      The bytes live in public/fonts/ and ship with the site, so there is no
+      runtime dependency on fonts.googleapis.com — which is unreachable from
+      mainland China, this catalogue's main audience. Preloading the three faces
+      starts the fetch in parallel with the bundle; font-display:swap means text
+      paints immediately in the platform CJK fallback either way.
+    -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/noto-sans-sc-400.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/noto-sans-sc-700.woff2" crossorigin />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
+    <script type="module" crossorigin src="/assets/index-BSHDn-d2.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DLkb5q6P.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

@@ -12,8 +12,13 @@ const MARGIN = 8
  * alone would let a bubble near the bottom edge push its button out of the
  * clipped card. The real height is measured in a layout effect (i.e. before
  * paint, so the correction is never visible).
+ *
+ * The estimate only has to be safe for the first frame, and the bubble flips
+ * when it would overflow — so it errs long. A deployed tool adds an instances
+ * block, and that block can hold two rows (a tool deployed on both the edge and
+ * Docker), so the estimate carries room for them rather than flipping twice.
  */
-const ESTIMATED_HEIGHT = 172
+const ESTIMATED_HEIGHT = 232
 
 /**
  * The single-click "peek" bubble. It is a plain DOM element rather than an
@@ -25,6 +30,7 @@ export default function GraphNodePopover({
   point,
   description,
   tags,
+  instances = [],
   actionLabel,
   onAction,
   onDismiss,
@@ -38,7 +44,7 @@ export default function GraphNodePopover({
     if (!el) return
     const next = el.getBoundingClientRect().height
     setBubbleHeight((prev) => (Math.abs(prev - next) > 0.5 ? next : prev))
-  }, [node, description, tags, actionLabel])
+  }, [node, description, tags, instances, actionLabel])
 
   /*
    * A non-modal dialog still owes the reader somewhere for focus to land, and
@@ -115,6 +121,38 @@ export default function GraphNodePopover({
           </ul>
         )}
 
+        {instances.length > 0 && (
+          /*
+           * "我运行着的实例" — the line that makes the graph and the 自部署服务
+           * page one thing: the node you are looking at has services behind it,
+           * named, with the group they belong to and a link to each.
+           */
+          <div className="mt-2.5">
+            <h4 className="mono text-[10px] uppercase tracking-wider text-[var(--own)]">
+              我运行着的实例 · {instances.length}
+            </h4>
+            <ul className="mt-1 space-y-1">
+              {instances.map((i) => (
+                <li key={i.id} className="flex items-baseline gap-1.5 text-[11px] leading-snug">
+                  <span
+                    className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full"
+                    style={{ background: 'var(--own)' }}
+                    aria-hidden="true"
+                  />
+                  <a
+                    href={i.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="min-w-0 flex-1 truncate text-neutral-300 underline decoration-[var(--line-strong)] underline-offset-2 hover:text-[var(--accent)]"
+                  >
+                    {i.id}
+                  </a>
+                  <span className="shrink-0 text-[10px] text-neutral-500">{i.group}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <button
           type="button"
           onClick={onAction}
