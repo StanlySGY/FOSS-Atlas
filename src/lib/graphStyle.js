@@ -1,8 +1,26 @@
 /** Visual + semantic metadata for knowledge-graph nodes and edges. */
+/*
+ * The hue for "跑在我自己的基础设施上", used for one meaning in two places: as
+ * the graph's 自建 node type, and as the swatch on every 已自部署 mark in the
+ * DOM. A deployment should read the same way in the canvas as it does on a card.
+ *
+ * Chosen with the dataviz validator against the dark canvas surface: of the
+ * candidates tried it is the only one that lands inside the lightness band,
+ * clears the chroma floor, and still separates from the tool grey (ΔE 14.9
+ * deutan, 16.1 normal vision) — so it adds no new failure to the palette it
+ * joins. That palette's worst pair is pre-existing: tool ↔ subcategory at
+ * ΔE 11.0 normal vision, which is a hard fail and predates this type.
+ */
+export const OWN_COLOR = '#7f63cf'
+
 export const TYPE_META = {
   category: { label: '分类', color: '#f0b429', size: 46 },
   subcategory: { label: '子类', color: '#4fb3a5', size: 26 },
   tool: { label: '工具', color: '#7d8c93', size: 15 },
+  // One step larger than a tool: it is a service that actually exists somewhere,
+  // not just an entry in the catalogue — and unlike a tool it is drawn *filled*,
+  // so the type survives even where the hue is the only thing you can compare.
+  own: { label: '自建', color: OWN_COLOR, size: 17 },
   tag: { label: '标签', color: '#5a6b74', size: 11 },
   external: { label: '外部服务', color: '#c2643f', size: 12 },
 }
@@ -38,4 +56,5 @@ export const CANVAS = {
   // A warm white no other node uses, so a focused category node (solid accent)
   // stays legible. See the note in GraphView.
   focusFill: '#f5f0e6',
+  own: OWN_COLOR, // 自建 nodes, and the swatch on 已自部署 marks
 }

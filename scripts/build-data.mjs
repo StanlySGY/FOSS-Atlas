@@ -10,8 +10,15 @@
  *   1. Every `url` is an absolute https:// URL.
  *   2. Entries are de-duplicated by normalized URL.
  *   3. Every entry gets a stable, ascii `id`.
+ *   4. src/data/deployed.json is joined onto the catalogue through each item's
+ *      `resource` field, and the join is validated: an item whose resource is
+ *      missing, stale or duplicated fails the build. Deployment drift is a build
+ *      error, not a Wiki link that quietly disappears on the deployed page.
+ *      Atlas-owned services carry no `resource` and are minted as real
+ *      catalogue records under the `atlas` category, so they get a card, a Wiki
+ *      page and a graph node like any third-party tool.
  */
-import { writeFileSync, mkdirSync } from 'node:fs'
+import { writeFileSync, mkdirSync, readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -71,6 +78,7 @@ const CATEGORIES = [
           ['text-generation-webui', 'Text Generation WebUI', 'https://github.com/oobabooga/textgen', '功能齐全的本地模型 WebUI', ['本地推理', 'WebUI', '开源']],
           ['jan', 'Jan', 'https://jan.ai', '开源本地模型桌面客户端', ['本地推理', '桌面端', '开源']],
           ['gpt4all', 'GPT4All', 'https://gpt4all.io', '可离线运行的本地 LLM 套件', ['本地推理', '离线', '开源']],
+          ['neo-chat', 'Neo Chat', 'https://github.com/u14app/neo-chat', '本地优先的 AI 对话工作台，支持 RAG 与插件', ['AI 对话', '本地优先', '开源']],
         ],
       },
       {
@@ -85,6 +93,9 @@ const CATEGORIES = [
           ['dify', 'Dify', 'https://github.com/langgenius/dify', '开源 LLM 应用开发平台', ['平台', '低代码', '开源']],
           ['flowise', 'Flowise', 'https://github.com/FlowiseAI/Flowise', '可视化拖拽编排 LLM 工作流', ['工作流', '可视化', '开源']],
           ['fastgpt', 'FastGPT', 'https://github.com/labring/FastGPT', '知识库 + RAG 问答平台', ['RAG', '知识库', '开源']],
+          ['langflow', 'LangFlow', 'https://github.com/langflow-ai/langflow', '可视化拖拽构建 LLM 工作流与 Agent', ['工作流', '低代码', '开源']],
+          ['new-api', 'New API', 'https://github.com/QuantumNous/new-api', '多模型网关：聚合各家 LLM API 再分发', ['LLM 网关', 'API', '开源']],
+          ['axonhub', 'AxonHub', 'https://github.com/looplj/axonhub', '开源 AI 网关，内置故障转移与成本控制', ['LLM 网关', 'API', '开源']],
         ],
       },
       {
@@ -217,6 +228,11 @@ const CATEGORIES = [
           ['wetty', 'Wetty', 'https://github.com/butlerx/wetty', '浏览器里的终端（基于 xterm.js）', ['终端', 'WebSSH', '开源']],
           ['ttyd', 'ttyd', 'https://github.com/tsl0922/ttyd', '把命令行共享到浏览器', ['终端', 'WebSSH', '开源']],
           ['excalidraw', 'Excalidraw', 'https://excalidraw.com', '手绘风格白板与流程图', ['白板', '绘图', '开源']],
+          ['syncthing', 'Syncthing', 'https://syncthing.net', 'P2P 文件同步，多设备互传不上云', ['同步', 'P2P', '开源']],
+          ['vikunja', 'Vikunja', 'https://vikunja.io', '自建看板与待办任务管理', ['任务管理', '看板', '开源']],
+          ['authentik', 'Authentik', 'https://goauthentik.io', '自建身份认证与单点登录（IdP）', ['身份认证', 'SSO', '开源']],
+          ['heimdall', 'Heimdall', 'https://github.com/linuxserver/Heimdall', '自建服务导航与应用仪表盘', ['导航', '面板', '开源']],
+          ['awesome-selfhosted', 'awesome-selfhosted', 'https://awesome-selfhosted.net', '自托管服务大全，按类目收录的上游清单', ['自托管', '资源列表', '开源']],
         ],
       },
       {
@@ -362,6 +378,12 @@ const CATEGORIES = [
     ],
   },
   {
+    id: 'atlas',
+    name: 'Atlas 自建',
+    icon: '🛠',
+    subs: [{ id: 'atlas-edge', name: 'Cloudflare 边缘服务', items: [] }],
+  },
+  {
     id: 'gear',
     name: '佬友神器',
     icon: '⭐',
@@ -438,8 +460,8 @@ const ALTERNATIVES = [
   ['n8n', 'Zapier'],
   ['activepieces', 'Zapier'],
   ['stirling-pdf', 'Adobe Acrobat'],
-  ['homarr', 'Heimdall'],
-  ['dify', 'LangFlow'],
+  ['homarr', 'heimdall'],
+  ['dify', 'langflow'],
 ]
 
 // curated "related" pairs (undirected, stored once)
@@ -491,9 +513,36 @@ const EXTERNALS = {
   'Miro': 'https://miro.com',
   'Zapier': 'https://zapier.com',
   'Adobe Acrobat': 'https://www.adobe.com/acrobat.html',
-  'Heimdall': 'https://github.com/linuxserver/Heimdall',
-  'LangFlow': 'https://github.com/langflow-ai/langflow',
 }
+
+/* ------------------------------------------------------------------ *
+ * Deployed services -> catalogue
+ * ------------------------------------------------------------------ *
+ * src/data/deployed.json is the record of what is actually running. Each item
+ * carries its own `kind` and, unless it is an Atlas-owned service, a `resource`
+ * naming the catalogue entry the deployment *is*:
+ *
+ *   instance  runs the tool itself            (docker/searxng -> searxng)
+ *   companion the tool's official front end   (edge/shlink-web -> shlink)
+ *   mirror    a mirrored docs site or repo    (github/searxng-docs -> searxng)
+ *   own       ours; the item *is* the entry   (edge/atlas-geo)
+ *
+ * One tool can be deployed more than once — SearXNG runs in Docker and has its
+ * docs mirrored on GitHub Pages — so instances accumulate per group rather than
+ * being deduplicated away.
+ *
+ * Everything here is validated against the catalogue at build time: an item with
+ * no `resource`, one pointing at a tool that is no longer in the catalogue, a
+ * group with no items, or a duplicate id (in one group or across two) fails the build.
+ * Deployment drift used
+ * to surface as a Wiki link that quietly vanished from the deployed page.
+ */
+const DEPLOYED_KINDS = new Set(['instance', 'companion', 'mirror', 'own'])
+
+// Where an Atlas-owned service hangs off the navigation tree. A Docker-owned
+// service is a self-hosted tool like any other; the edge ones get their own
+// sub-category because they run on Cloudflare, not on the home server.
+const OWN_SUB = { edge: 'atlas-edge', docker: 'selfhost-core', github: 'selfhost-core' }
 
 /* ------------------------------------------------------------------ *
  * Build
@@ -542,6 +591,118 @@ for (const cat of CATEGORIES) {
 
 const byId = new Map(resources.map((r) => [r.id, r]))
 
+/* --- deployments: attach instances, mint the Atlas-owned entries --- *
+ * Runs before the graph stage so a deployment is visible to the graph and to
+ * the catalogue, not only to the /deployed page.
+ */
+const deployed = JSON.parse(readFileSync(resolve(__dirname, '../src/data/deployed.json'), 'utf8'))
+const deploymentErrors = []
+const ownRecords = []
+
+/*
+ * Row ids are unique across the whole file, not merely within one group: the page
+ * keys each row by item id, and the Wiki rail / graph bubble / popover all key an
+ * instance by it too. A Docker `ttyd` and a GitHub docs `ttyd` therefore collide
+ * in all three views even though each group is internally consistent — which is
+ * what `ttyd` and `n8n` did until their docs rows were renamed `-docs`.
+ */
+const rowIdGroup = new Map()
+for (const group of deployed.groups) {
+  for (const item of group.items ?? []) {
+    const prev = rowIdGroup.get(item.id)
+    if (prev === undefined) rowIdGroup.set(item.id, group.id)
+    else if (prev === group.id) deploymentErrors.push(`"${item.id}" appears twice in group "${group.id}"`)
+    else deploymentErrors.push(`"${item.id}" is used by both group "${prev}" and group "${group.id}"`)
+  }
+}
+
+for (const group of deployed.groups) {
+  const subId = OWN_SUB[group.id]
+  const subName = (subCategories.find((x) => x.id === subId) ?? {}).name
+  if (subName === undefined) deploymentErrors.push(`group "${group.id}" has no valid OWN_SUB target: ${subId}`)
+  if (!group.items?.length) deploymentErrors.push(`group "${group.id}" has no items`)
+
+  for (const item of group.items) {
+    const label = `${group.id}/${item.id}`
+    if (!item.id || !item.url || !item.name) {
+      deploymentErrors.push(`${label}: needs id, name and url`)
+      continue
+    }
+    if (!DEPLOYED_KINDS.has(item.kind)) {
+      deploymentErrors.push(`${label}: kind must be one of ${[...DEPLOYED_KINDS].join(', ')}, got ${JSON.stringify(item.kind)}`)
+      continue
+    }
+    if (!/^https:\/\//.test(item.url)) deploymentErrors.push(`${label}: url must be https, got ${item.url}`)
+
+    if (item.kind === 'own') {
+      if (item.resource) deploymentErrors.push(`${label}: kind "own" must not name a resource`)
+      if (byId.has(item.id)) deploymentErrors.push(`${label}: own service collides with catalogue tool "${item.id}"`)
+      if (ownRecords.some((r) => normalizeUrl(r.url) === normalizeUrl(item.url))) {
+        deploymentErrors.push(`${label}: duplicate URL among owned services`)
+      }
+      for (const target of item.replaces ?? []) {
+        if (!byId.has(target)) deploymentErrors.push(`${label}: replaces "${target}" is not a catalogue tool`)
+      }
+      ownRecords.push({
+        id: item.id,
+        name: item.name,
+        url: item.url,
+        category: 'atlas',
+        category_name: 'Atlas 自建',
+        sub_category: subId,
+        sub_category_name: subName,
+        description: item.desc,
+        tags: item.tags ?? ['自建'],
+        wiki: wikiSlugFor(item.id),
+        own: true,
+        stack: item.stack,
+        group: group.id,
+        replaces: item.replaces ?? [],
+        deployed: true,
+        deployed_kinds: ['own'],
+        instances: [{ id: item.id, url: item.url, stack: item.stack, group: group.id, kind: 'own' }],
+      })
+      continue
+    }
+
+    if (!item.resource) {
+      deploymentErrors.push(`${label}: kind "${item.kind}" needs a \`resource\` (add it to deployed.json)`)
+      continue
+    }
+    const resource = byId.get(item.resource)
+    if (!resource) {
+      deploymentErrors.push(`${label}: resource "${item.resource}" is not in the catalogue (the tool was renamed or dropped)`)
+      continue
+    }
+    const instances = (resource.instances ??= [])
+    if (instances.some((x) => x.group === group.id)) {
+      deploymentErrors.push(`${label}: "${item.resource}" already has an instance in group "${group.id}"`)
+      continue
+    }
+    instances.push({ id: item.id, url: item.url, stack: item.stack, group: group.id, kind: item.kind })
+    ;(resource.deployed_kinds ??= new Set()).add(item.kind)
+  }
+}
+
+if (deploymentErrors.length) {
+  const itemIds = deployed.groups.flatMap((g) => (g.items ?? []).map((i) => i.id))
+  const orphanRows = resources.filter((r) => r.deployed && !itemIds.includes(r.id))
+  if (orphanRows.length) deploymentErrors.push(`resources marked deployed with no deployed.json item: ${orphanRows.map((r) => r.id).join(', ')}`)
+  throw new Error(
+    `deployment / catalogue mismatch (${deploymentErrors.length}) — fix src/data/deployed.json:\n` +
+      deploymentErrors.map((e) => `  - ${e}`).join('\n'),
+  )
+}
+
+resources.push(...ownRecords)
+for (const r of resources) {
+  if (!r.instances) continue
+  r.deployed = true
+  r.deployed_kinds = [...r.deployed_kinds].sort()
+}
+byId.clear()
+for (const r of resources) byId.set(r.id, r)
+
 /* --- graph --- */
 const nodes = []
 const edges = []
@@ -568,10 +729,15 @@ for (const r of resources) {
   addNode({
     id: r.id,
     name: r.name,
-    type: 'tool',
+    type: r.own ? 'own' : 'tool',
     category: r.category,
+    // The graph needs it to answer "which tools sit in this sub-category" —
+    // a belongs_to edge is the same information, but reading it back means
+    // walking the edge list at render time. See GraphPage.contained.
+    sub_category: r.sub_category,
     url: r.url,
     ...(r.wiki ? { wiki: r.wiki } : {}),
+    ...(r.deployed ? { deployed: true, deployed_kinds: r.deployed_kinds, instances: r.instances } : {}),
   })
   addEdge(r.id, `sub:${r.sub_category}`, 'belongs_to')
 }
@@ -595,6 +761,11 @@ for (const [from, to] of ALTERNATIVES) {
   addEdge(from, targetId, 'alternative_to')
 }
 
+// An Atlas-owned service exists because some third-party service does the same job.
+for (const own of ownRecords) {
+  for (const target of own.replaces) addEdge(own.id, target, 'alternative_to')
+}
+
 for (const [a, b] of RELATED) {
   if (!byId.has(a) || !byId.has(b)) continue
   addEdge(a, b, 'related')
@@ -613,6 +784,9 @@ const graph = {
     sub_categories: subCategories.length,
     tags: TAGS.length,
     externals: nodes.filter((n) => n.type === 'external').length,
+    own: ownRecords.length,
+    deployed: resources.filter((r) => r.deployed).length,
+    instances: resources.reduce((n, r) => n + (r.instances?.length ?? 0), 0),
     edges: edges.length,
   },
   categories,
@@ -628,6 +802,9 @@ writeFileSync(resolve(OUT_DIR, 'graph.json'), JSON.stringify(graph, null, 2) + '
 console.log(`resources: ${resources.length}`)
 console.log(`categories: ${categories.length}, sub_categories: ${subCategories.length}`)
 console.log(`graph nodes: ${nodes.length}, edges: ${edges.length}`)
+console.log(
+  `deployed: ${graph.stats.deployed} tool(s) across ${graph.stats.instances} instance(s), of which ${graph.stats.own} Atlas-owned`,
+)
 if (duplicateLog.length) {
   console.log(`\ndeduplicated ${duplicateLog.length} duplicate URL(s):`)
   for (const d of duplicateLog) console.log(`  - ${d.skipped} (kept ${d.kept}) ${d.url}`)

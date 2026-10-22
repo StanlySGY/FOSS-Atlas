@@ -448,6 +448,35 @@
     "wiki": "gpt4all"
   },
   {
+    "id": "neo-chat",
+    "name": "Neo Chat",
+    "url": "https://github.com/u14app/neo-chat",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-local",
+    "sub_category_name": "本地跑大模型",
+    "description": "本地优先的 AI 对话工作台，支持 RAG 与插件",
+    "tags": [
+      "AI 对话",
+      "本地优先",
+      "开源"
+    ],
+    "wiki": "neo-chat",
+    "instances": [
+      {
+        "id": "neo-chat",
+        "url": "https://chat.sgyyyds.qzz.io",
+        "stack": "Docker · 独立隧道",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
+  },
+  {
     "id": "langchain",
     "name": "LangChain",
     "url": "https://github.com/langchain-ai/langchain",
@@ -477,7 +506,20 @@
       "RAG",
       "开源"
     ],
-    "wiki": "llamaindex"
+    "wiki": "llamaindex",
+    "instances": [
+      {
+        "id": "llamaindex-docs",
+        "url": "https://tanlysgy.github.io/llama_index/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "langfuse",
@@ -525,7 +567,20 @@
       "提示词",
       "开源"
     ],
-    "wiki": "promptfoo"
+    "wiki": "promptfoo",
+    "instances": [
+      {
+        "id": "promptfoo",
+        "url": "https://tanlysgy.github.io/promptfoo/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "dify",
@@ -541,7 +596,20 @@
       "低代码",
       "开源"
     ],
-    "wiki": "dify"
+    "wiki": "dify",
+    "instances": [
+      {
+        "id": "dify",
+        "url": "https://tanlysgy.github.io/dify/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "flowise",
@@ -574,6 +642,93 @@
       "开源"
     ],
     "wiki": "fastgpt"
+  },
+  {
+    "id": "langflow",
+    "name": "LangFlow",
+    "url": "https://github.com/langflow-ai/langflow",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "可视化拖拽构建 LLM 工作流与 Agent",
+    "tags": [
+      "工作流",
+      "低代码",
+      "开源"
+    ],
+    "wiki": "langflow",
+    "instances": [
+      {
+        "id": "langflow-docs",
+        "url": "https://tanlysgy.github.io/langflow/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
+  },
+  {
+    "id": "new-api",
+    "name": "New API",
+    "url": "https://github.com/QuantumNous/new-api",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "多模型网关：聚合各家 LLM API 再分发",
+    "tags": [
+      "LLM 网关",
+      "API",
+      "开源"
+    ],
+    "wiki": "new-api",
+    "instances": [
+      {
+        "id": "new-api",
+        "url": "https://sgyyyds.qzz.io",
+        "stack": "Docker · 独立隧道",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
+  },
+  {
+    "id": "axonhub",
+    "name": "AxonHub",
+    "url": "https://github.com/looplj/axonhub",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-framework",
+    "sub_category_name": "LLM 开发框架",
+    "description": "开源 AI 网关，内置故障转移与成本控制",
+    "tags": [
+      "LLM 网关",
+      "API",
+      "开源"
+    ],
+    "wiki": "axonhub",
+    "instances": [
+      {
+        "id": "axonhub",
+        "url": "https://hub.sgyyyds.qzz.io",
+        "stack": "Docker · 独立隧道",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "awesome-chatgpt-prompts",
@@ -1101,7 +1256,20 @@
       "协作",
       "开源"
     ],
-    "wiki": "nextcloud"
+    "wiki": "nextcloud",
+    "instances": [
+      {
+        "id": "nextcloud-docs",
+        "url": "https://tanlysgy.github.io/nextcloud-docs/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "seafile",
@@ -1149,7 +1317,20 @@
       "知识库",
       "开源"
     ],
-    "wiki": "trilium"
+    "wiki": "trilium",
+    "instances": [
+      {
+        "id": "trilium",
+        "url": "https://notes.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "memos",
@@ -1165,7 +1346,20 @@
       "碎片记录",
       "开源"
     ],
-    "wiki": "memos"
+    "wiki": "memos",
+    "instances": [
+      {
+        "id": "memos",
+        "url": "https://memos.sgyyyds.qzz.io",
+        "stack": "Docker · SQLite",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "freshrss",
@@ -1181,7 +1375,20 @@
       "阅读器",
       "开源"
     ],
-    "wiki": "freshrss"
+    "wiki": "freshrss",
+    "instances": [
+      {
+        "id": "freshrss",
+        "url": "https://rss.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "miniflux",
@@ -1197,7 +1404,20 @@
       "阅读器",
       "开源"
     ],
-    "wiki": "miniflux"
+    "wiki": "miniflux",
+    "instances": [
+      {
+        "id": "miniflux",
+        "url": "https://feed.sgyyyds.qzz.io",
+        "stack": "Docker · Postgres",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "vaultwarden",
@@ -1213,7 +1433,20 @@
       "Bitwarden",
       "开源"
     ],
-    "wiki": "vaultwarden"
+    "wiki": "vaultwarden",
+    "instances": [
+      {
+        "id": "vaultwarden",
+        "url": "https://vault.sgyyyds.qzz.io",
+        "stack": "Docker · 独立隧道",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "jellyfin",
@@ -1229,7 +1462,20 @@
       "媒体库",
       "开源"
     ],
-    "wiki": "jellyfin"
+    "wiki": "jellyfin",
+    "instances": [
+      {
+        "id": "jellyfin",
+        "url": "https://media.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "immich",
@@ -1245,7 +1491,20 @@
       "备份",
       "开源"
     ],
-    "wiki": "immich"
+    "wiki": "immich",
+    "instances": [
+      {
+        "id": "immich",
+        "url": "https://tanlysgy.github.io/immich/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "matrix-synapse",
@@ -1261,7 +1520,20 @@
       "去中心化",
       "开源"
     ],
-    "wiki": "matrix-synapse"
+    "wiki": "matrix-synapse",
+    "instances": [
+      {
+        "id": "synapse-docs",
+        "url": "https://tanlysgy.github.io/synapse/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "uptime-kuma",
@@ -1277,7 +1549,20 @@
       "告警",
       "开源"
     ],
-    "wiki": "uptime-kuma"
+    "wiki": "uptime-kuma",
+    "instances": [
+      {
+        "id": "uptime-kuma",
+        "url": "https://status.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "shlink",
@@ -1292,7 +1577,28 @@
       "短链",
       "开源"
     ],
-    "wiki": "shlink"
+    "wiki": "shlink",
+    "instances": [
+      {
+        "id": "shlink-web",
+        "url": "https://links.sgyyyds.qzz.io",
+        "stack": "CF Workers Assets",
+        "group": "edge",
+        "kind": "companion"
+      },
+      {
+        "id": "shlink",
+        "url": "https://link.sgyyyds.qzz.io/rest/health",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "companion",
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "qbittorrent",
@@ -1308,7 +1614,20 @@
       "BT",
       "开源"
     ],
-    "wiki": "qbittorrent"
+    "wiki": "qbittorrent",
+    "instances": [
+      {
+        "id": "qbittorrent",
+        "url": "https://bt.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "aria2",
@@ -1324,7 +1643,20 @@
       "CLI",
       "开源"
     ],
-    "wiki": "aria2"
+    "wiki": "aria2",
+    "instances": [
+      {
+        "id": "aria2",
+        "url": "https://aria.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "rustdesk",
@@ -1339,7 +1671,20 @@
       "远程桌面",
       "开源"
     ],
-    "wiki": "rustdesk"
+    "wiki": "rustdesk",
+    "instances": [
+      {
+        "id": "rustdesk",
+        "url": "https://tanlysgy.github.io/rustdesk/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "gitea",
@@ -1355,7 +1700,20 @@
       "代码托管",
       "开源"
     ],
-    "wiki": "gitea"
+    "wiki": "gitea",
+    "instances": [
+      {
+        "id": "gitea",
+        "url": "https://git.sgyyyds.qzz.io",
+        "stack": "Docker · SQLite",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "forgejo",
@@ -1386,7 +1744,20 @@
       "CI/CD",
       "开源"
     ],
-    "wiki": "woodpecker"
+    "wiki": "woodpecker",
+    "instances": [
+      {
+        "id": "woodpecker",
+        "url": "https://tanlysgy.github.io/woodpecker/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "drone",
@@ -1417,7 +1788,20 @@
       "Nginx",
       "开源"
     ],
-    "wiki": "nginx-proxy-manager"
+    "wiki": "nginx-proxy-manager",
+    "instances": [
+      {
+        "id": "nginx-proxy-manager",
+        "url": "https://tanlysgy.github.io/nginx-proxy-manager/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "1panel",
@@ -1433,7 +1817,20 @@
       "运维",
       "开源"
     ],
-    "wiki": "1panel"
+    "wiki": "1panel",
+    "instances": [
+      {
+        "id": "1panel-docs",
+        "url": "https://tanlysgy.github.io/1Panel/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "casaos",
@@ -1465,7 +1862,20 @@
       "网络",
       "开源"
     ],
-    "wiki": "ddns-go"
+    "wiki": "ddns-go",
+    "instances": [
+      {
+        "id": "ddns-go",
+        "url": "https://ddns.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "navidrome",
@@ -1481,7 +1891,20 @@
       "流媒体",
       "开源"
     ],
-    "wiki": "navidrome"
+    "wiki": "navidrome",
+    "instances": [
+      {
+        "id": "navidrome",
+        "url": "https://music.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "outline",
@@ -1497,7 +1920,20 @@
       "知识库",
       "开源"
     ],
-    "wiki": "outline"
+    "wiki": "outline",
+    "instances": [
+      {
+        "id": "outline",
+        "url": "https://tanlysgy.github.io/outline/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "mattermost",
@@ -1513,7 +1949,20 @@
       "团队协作",
       "开源"
     ],
-    "wiki": "mattermost"
+    "wiki": "mattermost",
+    "instances": [
+      {
+        "id": "mattermost-docs",
+        "url": "https://tanlysgy.github.io/mattermost-docs/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "kanboard",
@@ -1529,7 +1978,20 @@
       "任务管理",
       "开源"
     ],
-    "wiki": "kanboard"
+    "wiki": "kanboard",
+    "instances": [
+      {
+        "id": "kanboard",
+        "url": "https://board2.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "focalboard",
@@ -1545,7 +2007,28 @@
       "任务管理",
       "开源"
     ],
-    "wiki": "focalboard"
+    "wiki": "focalboard",
+    "instances": [
+      {
+        "id": "focalboard-docs",
+        "url": "https://tanlysgy.github.io/focalboard/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      },
+      {
+        "id": "focalboard",
+        "url": "https://kanban.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance",
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "passbolt",
@@ -1577,7 +2060,20 @@
       "日历",
       "开源"
     ],
-    "wiki": "radicale"
+    "wiki": "radicale",
+    "instances": [
+      {
+        "id": "radicale",
+        "url": "https://cal.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "ohmyform",
@@ -1607,7 +2103,20 @@
       "书签",
       "开源"
     ],
-    "wiki": "linkding"
+    "wiki": "linkding",
+    "instances": [
+      {
+        "id": "linkding",
+        "url": "https://book.sgyyyds.qzz.io",
+        "stack": "Docker · 独立隧道",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "searxng",
@@ -1623,7 +2132,28 @@
       "隐私",
       "开源"
     ],
-    "wiki": "searxng"
+    "wiki": "searxng",
+    "instances": [
+      {
+        "id": "searxng-docs",
+        "url": "https://tanlysgy.github.io/searxng/",
+        "stack": "GH Pages(fork)",
+        "group": "github",
+        "kind": "mirror"
+      },
+      {
+        "id": "searxng",
+        "url": "https://search.sgyyyds.qzz.io",
+        "stack": "Docker · Valkey",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance",
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "filebrowser",
@@ -1638,7 +2168,20 @@
       "文件管理",
       "开源"
     ],
-    "wiki": "filebrowser"
+    "wiki": "filebrowser",
+    "instances": [
+      {
+        "id": "filebrowser",
+        "url": "https://files.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "wetty",
@@ -1654,7 +2197,20 @@
       "WebSSH",
       "开源"
     ],
-    "wiki": "wetty"
+    "wiki": "wetty",
+    "instances": [
+      {
+        "id": "wetty",
+        "url": "https://tanlysgy.github.io/wetty/",
+        "stack": "GH Pages(fork)",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "ttyd",
@@ -1670,7 +2226,28 @@
       "WebSSH",
       "开源"
     ],
-    "wiki": "ttyd"
+    "wiki": "ttyd",
+    "instances": [
+      {
+        "id": "ttyd-docs",
+        "url": "https://tanlysgy.github.io/ttyd/",
+        "stack": "GH Pages(fork)",
+        "group": "github",
+        "kind": "mirror"
+      },
+      {
+        "id": "ttyd",
+        "url": "https://term.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance",
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "excalidraw",
@@ -1686,7 +2263,165 @@
       "绘图",
       "开源"
     ],
-    "wiki": "excalidraw"
+    "wiki": "excalidraw",
+    "instances": [
+      {
+        "id": "excalidraw",
+        "url": "https://board.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
+  },
+  {
+    "id": "syncthing",
+    "name": "Syncthing",
+    "url": "https://syncthing.net",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "P2P 文件同步，多设备互传不上云",
+    "tags": [
+      "同步",
+      "P2P",
+      "开源"
+    ],
+    "wiki": "syncthing",
+    "instances": [
+      {
+        "id": "syncthing",
+        "url": "https://sync.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
+  },
+  {
+    "id": "vikunja",
+    "name": "Vikunja",
+    "url": "https://vikunja.io",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建看板与待办任务管理",
+    "tags": [
+      "任务管理",
+      "看板",
+      "开源"
+    ],
+    "wiki": "vikunja",
+    "instances": [
+      {
+        "id": "vikunja",
+        "url": "https://todo.sgyyyds.qzz.io",
+        "stack": "Docker · SQLite",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
+  },
+  {
+    "id": "authentik",
+    "name": "Authentik",
+    "url": "https://goauthentik.io",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建身份认证与单点登录（IdP）",
+    "tags": [
+      "身份认证",
+      "SSO",
+      "开源"
+    ],
+    "wiki": "authentik",
+    "instances": [
+      {
+        "id": "authentik",
+        "url": "https://tanlysgy.github.io/authentik/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
+  },
+  {
+    "id": "heimdall",
+    "name": "Heimdall",
+    "url": "https://github.com/linuxserver/Heimdall",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自建服务导航与应用仪表盘",
+    "tags": [
+      "导航",
+      "面板",
+      "开源"
+    ],
+    "wiki": "heimdall",
+    "instances": [
+      {
+        "id": "heimdall-docs",
+        "url": "https://tanlysgy.github.io/Heimdall/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
+  },
+  {
+    "id": "awesome-selfhosted",
+    "name": "awesome-selfhosted",
+    "url": "https://awesome-selfhosted.net",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-core",
+    "sub_category_name": "佬友首选自部署",
+    "description": "自托管服务大全，按类目收录的上游清单",
+    "tags": [
+      "自托管",
+      "资源列表",
+      "开源"
+    ],
+    "wiki": "awesome-selfhosted",
+    "instances": [
+      {
+        "id": "awesome-selfhosted",
+        "url": "https://tanlysgy.github.io/awesome-selfhosted/",
+        "stack": "GH Pages(fork)",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "xray-reality",
@@ -1718,7 +2453,20 @@
       "内核",
       "开源"
     ],
-    "wiki": "sing-box"
+    "wiki": "sing-box",
+    "instances": [
+      {
+        "id": "sing-box",
+        "url": "https://tanlysgy.github.io/sing-box/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "mihomo",
@@ -1766,7 +2514,20 @@
       "TLS",
       "开源"
     ],
-    "wiki": "trojan-go"
+    "wiki": "trojan-go",
+    "instances": [
+      {
+        "id": "trojan-go",
+        "url": "https://tanlysgy.github.io/trojan-go/",
+        "stack": "GH Pages(fork)",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "snell",
@@ -1813,7 +2574,20 @@
       "安全",
       "开源"
     ],
-    "wiki": "tpot"
+    "wiki": "tpot",
+    "instances": [
+      {
+        "id": "tpot-docs",
+        "url": "https://tanlysgy.github.io/tpotce/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "cowrie",
@@ -1829,7 +2603,20 @@
       "SSH",
       "开源"
     ],
-    "wiki": "cowrie"
+    "wiki": "cowrie",
+    "instances": [
+      {
+        "id": "cowrie",
+        "url": "https://tanlysgy.github.io/cowrie/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "dionaea",
@@ -1845,7 +2632,20 @@
       "恶意软件",
       "开源"
     ],
-    "wiki": "dionaea"
+    "wiki": "dionaea",
+    "instances": [
+      {
+        "id": "dionaea",
+        "url": "https://tanlysgy.github.io/dionaea/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "hfish",
@@ -1861,7 +2661,20 @@
       "安全",
       "开源"
     ],
-    "wiki": "hfish"
+    "wiki": "hfish",
+    "instances": [
+      {
+        "id": "hfish",
+        "url": "https://tanlysgy.github.io/HFish/",
+        "stack": "GH Pages(fork)",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "openai-api",
@@ -2162,7 +2975,20 @@
       "合集",
       "开源"
     ],
-    "wiki": "awesome-hacking"
+    "wiki": "awesome-hacking",
+    "instances": [
+      {
+        "id": "awesome-hacking",
+        "url": "https://tanlysgy.github.io/Awesome-Hacking/",
+        "stack": "GH Pages(fork)",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "payloadsallthethings",
@@ -2178,7 +3004,27 @@
       "Payload",
       "开源"
     ],
-    "wiki": "payloadsallthethings"
+    "wiki": "payloadsallthethings",
+    "instances": [
+      {
+        "id": "patt-cf",
+        "url": "https://patt.sgyyyds.qzz.io",
+        "stack": "CF Workers Assets",
+        "group": "edge",
+        "kind": "mirror"
+      },
+      {
+        "id": "patt-gh",
+        "url": "https://tanlysgy.github.io/PayloadsAllTheThings/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "hacktricks",
@@ -2194,7 +3040,27 @@
       "渗透测试",
       "开源"
     ],
-    "wiki": "hacktricks"
+    "wiki": "hacktricks",
+    "instances": [
+      {
+        "id": "hacktricks-cf",
+        "url": "https://hacktricks.sgyyyds.qzz.io",
+        "stack": "CF Workers Assets",
+        "group": "edge",
+        "kind": "mirror"
+      },
+      {
+        "id": "hacktricks-gh",
+        "url": "https://tanlysgy.github.io/hacktricks/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "seclists",
@@ -2242,7 +3108,20 @@
       "提权",
       "手册"
     ],
-    "wiki": "gtfobins"
+    "wiki": "gtfobins",
+    "instances": [
+      {
+        "id": "gtfobins",
+        "url": "https://tanlysgy.github.io/GTFOBins.github.io/",
+        "stack": "GH Pages(fork)",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "lolbas",
@@ -2258,7 +3137,20 @@
       "Windows",
       "手册"
     ],
-    "wiki": "lolbas"
+    "wiki": "lolbas",
+    "instances": [
+      {
+        "id": "lolbas",
+        "url": "https://tanlysgy.github.io/LOLBAS/",
+        "stack": "GH Pages(fork)",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "free-programming-books",
@@ -2274,7 +3166,20 @@
       "编程",
       "合集"
     ],
-    "wiki": "free-programming-books"
+    "wiki": "free-programming-books",
+    "instances": [
+      {
+        "id": "free-programming-books",
+        "url": "https://tanlysgy.github.io/free-programming-books/",
+        "stack": "GH Pages(fork)",
+        "group": "github",
+        "kind": "mirror"
+      }
+    ],
+    "deployed_kinds": [
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "mfuu-freeproxies",
@@ -2498,7 +3403,20 @@
       "Cloudflare",
       "开源"
     ],
-    "wiki": "cloudflare-imgbed"
+    "wiki": "cloudflare-imgbed",
+    "instances": [
+      {
+        "id": "cloudflare-imgbed",
+        "url": "https://imgbed.sgyyyds.qzz.io",
+        "stack": "CF Workers · KV",
+        "group": "edge",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "cloudflare-tunnel",
@@ -2530,7 +3448,20 @@
       "转换",
       "开源"
     ],
-    "wiki": "subconverter"
+    "wiki": "subconverter",
+    "instances": [
+      {
+        "id": "subconverter",
+        "url": "https://sub.sgyyyds.qzz.io/version",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "localsend",
@@ -2562,7 +3493,20 @@
       "工具集",
       "开源"
     ],
-    "wiki": "stirling-pdf"
+    "wiki": "stirling-pdf",
+    "instances": [
+      {
+        "id": "stirling-pdf",
+        "url": "https://pdf.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "it-tools",
@@ -2578,7 +3522,20 @@
       "开发",
       "开源"
     ],
-    "wiki": "it-tools"
+    "wiki": "it-tools",
+    "instances": [
+      {
+        "id": "it-tools",
+        "url": "https://it.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "n8n",
@@ -2594,7 +3551,28 @@
       "工作流",
       "开源"
     ],
-    "wiki": "n8n"
+    "wiki": "n8n",
+    "instances": [
+      {
+        "id": "n8n-docs",
+        "url": "https://tanlysgy.github.io/n8n/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      },
+      {
+        "id": "n8n",
+        "url": "https://flow.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance",
+      "mirror"
+    ],
+    "deployed": true
   },
   {
     "id": "activepieces",
@@ -2626,6 +3604,436 @@
       "面板",
       "开源"
     ],
-    "wiki": "homarr"
+    "wiki": "homarr",
+    "instances": [
+      {
+        "id": "homarr-docs",
+        "url": "https://tanlysgy.github.io/homarr/",
+        "stack": "GH Pages · Actions",
+        "group": "github",
+        "kind": "mirror"
+      },
+      {
+        "id": "homarr",
+        "url": "https://dash.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance",
+      "mirror"
+    ],
+    "deployed": true
+  },
+  {
+    "id": "foss-atlas-cf",
+    "name": "FOSS-Atlas(Cloudflare Pages)",
+    "url": "https://atlas.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。",
+    "tags": [
+      "本站",
+      "静态托管",
+      "自建"
+    ],
+    "wiki": "foss-atlas-cf",
+    "own": true,
+    "stack": "CF Pages",
+    "group": "edge",
+    "replaces": [],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "foss-atlas-cf",
+        "url": "https://atlas.sgyyyds.qzz.io",
+        "stack": "CF Pages",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "short",
+    "name": "Atlas Short",
+    "url": "https://short.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。",
+    "tags": [
+      "短链",
+      "API",
+      "自建"
+    ],
+    "wiki": "short",
+    "own": true,
+    "stack": "CF Workers · KV",
+    "group": "edge",
+    "replaces": [
+      "is-gd",
+      "tinyurl"
+    ],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "short",
+        "url": "https://short.sgyyyds.qzz.io",
+        "stack": "CF Workers · KV",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "paste",
+    "name": "Atlas Paste",
+    "url": "https://paste.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "临时文本分享:粘贴即生成链接,附 /raw 纯文本端点(上限 60KB)。",
+    "tags": [
+      "粘贴分享",
+      "临时分享",
+      "自建"
+    ],
+    "wiki": "paste",
+    "own": true,
+    "stack": "CF Workers · KV",
+    "group": "edge",
+    "replaces": [],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "paste",
+        "url": "https://paste.sgyyyds.qzz.io",
+        "stack": "CF Workers · KV",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "nodes",
+    "name": "Atlas Nodes",
+    "url": "https://nodes.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "免费节点聚合订阅:11 个上游源合并去重 13,000+ 节点,输出 Base64/明文订阅,30 分钟自动刷新。",
+    "tags": [
+      "代理订阅",
+      "聚合",
+      "自建"
+    ],
+    "wiki": "nodes",
+    "own": true,
+    "stack": "CF Workers · KV",
+    "group": "edge",
+    "replaces": [],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "nodes",
+        "url": "https://nodes.sgyyyds.qzz.io",
+        "stack": "CF Workers · KV",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "qr",
+    "name": "Atlas QR",
+    "url": "https://qr.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "二维码生成 API(/api/qr?data=),SVG 输出,替代 qrserver 等第三方接口。",
+    "tags": [
+      "API",
+      "二维码",
+      "自建"
+    ],
+    "wiki": "qr",
+    "own": true,
+    "stack": "CF Workers",
+    "group": "edge",
+    "replaces": [
+      "qrserver"
+    ],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "qr",
+        "url": "https://qr.sgyyyds.qzz.io",
+        "stack": "CF Workers",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "px",
+    "name": "Atlas Proxy",
+    "url": "https://px.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "公开代理聚合 API:HTTP/SOCKS4/SOCKS5 共 8,000+ 条,支持 /json 带国家与 ASN。",
+    "tags": [
+      "API",
+      "代理",
+      "自建"
+    ],
+    "wiki": "px",
+    "own": true,
+    "stack": "CF Workers · KV",
+    "group": "edge",
+    "replaces": [
+      "proxyscrape"
+    ],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "px",
+        "url": "https://px.sgyyyds.qzz.io",
+        "stack": "CF Workers · KV",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "ip",
+    "name": "Atlas IP",
+    "url": "https://ip.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "客户端 IP 与地理位置/ASN 查询 API(/json),替代 ipinfo 等第三方接口。",
+    "tags": [
+      "API",
+      "IP 查询",
+      "自建"
+    ],
+    "wiki": "ip",
+    "own": true,
+    "stack": "CF Workers",
+    "group": "edge",
+    "replaces": [
+      "ipinfo"
+    ],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "ip",
+        "url": "https://ip.sgyyyds.qzz.io",
+        "stack": "CF Workers",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "check",
+    "name": "Atlas Check",
+    "url": "https://check.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "邮箱/域名校验 API:一次性邮箱黑名单(9,900+ 域名)+ MX 记录查询,替代 disify 等第三方。",
+    "tags": [
+      "API",
+      "邮箱校验",
+      "自建"
+    ],
+    "wiki": "check",
+    "own": true,
+    "stack": "CF Workers · KV",
+    "group": "edge",
+    "replaces": [
+      "disify"
+    ],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "check",
+        "url": "https://check.sgyyyds.qzz.io",
+        "stack": "CF Workers · KV",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "atlas-geo",
+    "name": "Atlas Geo",
+    "url": "https://geo.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "地理编码 / 逆地理编码:地名↔坐标,自建 KV 缓存,替代 Nominatim 公共实例。",
+    "tags": [
+      "API",
+      "地理编码",
+      "自建"
+    ],
+    "wiki": "atlas-geo",
+    "own": true,
+    "stack": "CF Workers · KV",
+    "group": "edge",
+    "replaces": [
+      "nominatim"
+    ],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "atlas-geo",
+        "url": "https://geo.sgyyyds.qzz.io",
+        "stack": "CF Workers · KV",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "atlas-meta",
+    "name": "Atlas Meta",
+    "url": "https://meta.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "链接元数据 / OpenGraph 解析:抓标题、摘要、缩略图,自建不发第三方。",
+    "tags": [
+      "API",
+      "元数据",
+      "自建"
+    ],
+    "wiki": "atlas-meta",
+    "own": true,
+    "stack": "CF Workers · KV",
+    "group": "edge",
+    "replaces": [],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "atlas-meta",
+        "url": "https://meta.sgyyyds.qzz.io",
+        "stack": "CF Workers · KV",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "atlas-tools",
+    "name": "Atlas Tools",
+    "url": "https://tools.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "哈希(SHA 系列)/ UUID v4 / Base64·URL·Hex 编解码 API。",
+    "tags": [
+      "API",
+      "编码解码",
+      "自建"
+    ],
+    "wiki": "atlas-tools",
+    "own": true,
+    "stack": "CF Workers",
+    "group": "edge",
+    "replaces": [],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "atlas-tools",
+        "url": "https://tools.sgyyyds.qzz.io",
+        "stack": "CF Workers",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
+  },
+  {
+    "id": "edgessh",
+    "name": "EdgeSSH",
+    "url": "https://ssh.sgyyyds.qzz.io",
+    "category": "atlas",
+    "category_name": "Atlas 自建",
+    "sub_category": "atlas-edge",
+    "sub_category_name": "Cloudflare 边缘服务",
+    "description": "浏览器里的 SSH 客户端:Workers + Durable Objects + D1,由 Cloudflare Access 邮箱验证码保护。",
+    "tags": [
+      "SSH",
+      "终端",
+      "自建"
+    ],
+    "wiki": "edgessh",
+    "own": true,
+    "stack": "CF Workers · Durable Objects · D1 · Access",
+    "group": "edge",
+    "replaces": [],
+    "deployed": true,
+    "deployed_kinds": [
+      "own"
+    ],
+    "instances": [
+      {
+        "id": "edgessh",
+        "url": "https://ssh.sgyyyds.qzz.io",
+        "stack": "CF Workers · Durable Objects · D1 · Access",
+        "group": "edge",
+        "kind": "own"
+      }
+    ]
   }
 ]

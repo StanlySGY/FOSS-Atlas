@@ -142,6 +142,47 @@ export function alternativesFor(id) {
   })
 }
 
+/* ------------------------------------------------------------------ *
+ * Deployment helpers
+ *
+ * `deployed` is an attribute of a catalogue record, stamped onto it by
+ * scripts/build-data.mjs when it joins src/data/deployed.json. The join is
+ * validated at build time, so anything these helpers return is guaranteed to
+ * have a running service behind it — the Wiki link on a deployed row is never
+ * a dead end.
+ * ------------------------------------------------------------------ */
+
+/**
+ * Deployment groups in the words the 自部署服务 page uses for them. Lives here
+ * because three views name the same group (the graph bubble, the Wiki rail, the
+ * service rows) and they must not drift into three different names.
+ */
+export const DEPLOY_GROUP_LABEL = {
+  edge: 'Cloudflare 边缘',
+  docker: '本地 Docker',
+  github: 'GitHub Pages',
+}
+
+/** Catalogue resources the reader actually runs, in catalogue order. */
+export const deployedResources = resources.filter((r) => r.deployed)
+
+/** How many catalogue entries are running somewhere, across how many instances. */
+export const deployedStats = {
+  resources: deployedResources.length,
+  instances: deployedResources.reduce((n, r) => n + (r.instances?.length ?? 0), 0),
+  own: resources.filter((r) => r.own).length,
+}
+
+/** Instances of `id`, each with the group it is deployed under (edge/docker/github). */
+export function instancesFor(id) {
+  return resourceById.get(id)?.instances ?? []
+}
+
+/** True when the reader has a running deployment of `id`. */
+export function isDeployed(id) {
+  return Boolean(resourceById.get(id)?.deployed)
+}
+
 export const graphStats = graph.stats
 
 /* ------------------------------------------------------------------ *

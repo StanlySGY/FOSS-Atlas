@@ -13,7 +13,9 @@
           "url": "https://imgbed.sgyyyds.qzz.io",
           "desc": "图床:Workers + KV 存储,拖拽上传,自带管理后台。",
           "stack": "CF Workers · KV",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "cloudflare-imgbed"
         },
         {
           "id": "foss-atlas-cf",
@@ -21,7 +23,13 @@
           "url": "https://atlas.sgyyyds.qzz.io",
           "desc": "本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。",
           "stack": "CF Pages",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "tags": [
+            "本站",
+            "静态托管",
+            "自建"
+          ]
         },
         {
           "id": "hacktricks-cf",
@@ -29,7 +37,9 @@
           "url": "https://hacktricks.sgyyyds.qzz.io",
           "desc": "渗透测试知识库完整镜像(mdBook 构建后静态托管,2200+ 页面)。",
           "stack": "CF Workers Assets",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "hacktricks"
         },
         {
           "id": "patt-cf",
@@ -37,7 +47,9 @@
           "url": "https://patt.sgyyyds.qzz.io",
           "desc": "Web 安全 Payload 速查库的站点化镜像(MkDocs Material)。",
           "stack": "CF Workers Assets",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "payloadsallthethings"
         },
         {
           "id": "shlink-web",
@@ -45,7 +57,9 @@
           "url": "https://links.sgyyyds.qzz.io",
           "desc": "Shlink 官方 Web 客户端,填上后端地址与 API Key 即可管理短链。",
           "stack": "CF Workers Assets",
-          "status": "live"
+          "kind": "companion",
+          "status": "live",
+          "resource": "shlink"
         },
         {
           "id": "short",
@@ -53,7 +67,17 @@
           "url": "https://short.sgyyyds.qzz.io",
           "desc": "自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。",
           "stack": "CF Workers · KV",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "replaces": [
+            "is-gd",
+            "tinyurl"
+          ],
+          "tags": [
+            "短链",
+            "API",
+            "自建"
+          ]
         },
         {
           "id": "paste",
@@ -61,7 +85,13 @@
           "url": "https://paste.sgyyyds.qzz.io",
           "desc": "临时文本分享:粘贴即生成链接,附 /raw 纯文本端点(上限 60KB)。",
           "stack": "CF Workers · KV",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "tags": [
+            "粘贴分享",
+            "临时分享",
+            "自建"
+          ]
         },
         {
           "id": "nodes",
@@ -69,7 +99,13 @@
           "url": "https://nodes.sgyyyds.qzz.io",
           "desc": "免费节点聚合订阅:11 个上游源合并去重 13,000+ 节点,输出 Base64/明文订阅,30 分钟自动刷新。",
           "stack": "CF Workers · KV",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "tags": [
+            "代理订阅",
+            "聚合",
+            "自建"
+          ]
         },
         {
           "id": "qr",
@@ -77,7 +113,16 @@
           "url": "https://qr.sgyyyds.qzz.io",
           "desc": "二维码生成 API(/api/qr?data=),SVG 输出,替代 qrserver 等第三方接口。",
           "stack": "CF Workers",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "replaces": [
+            "qrserver"
+          ],
+          "tags": [
+            "API",
+            "二维码",
+            "自建"
+          ]
         },
         {
           "id": "px",
@@ -85,7 +130,16 @@
           "url": "https://px.sgyyyds.qzz.io",
           "desc": "公开代理聚合 API:HTTP/SOCKS4/SOCKS5 共 8,000+ 条,支持 /json 带国家与 ASN。",
           "stack": "CF Workers · KV",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "replaces": [
+            "proxyscrape"
+          ],
+          "tags": [
+            "API",
+            "代理",
+            "自建"
+          ]
         },
         {
           "id": "ip",
@@ -93,7 +147,16 @@
           "url": "https://ip.sgyyyds.qzz.io",
           "desc": "客户端 IP 与地理位置/ASN 查询 API(/json),替代 ipinfo 等第三方接口。",
           "stack": "CF Workers",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "replaces": [
+            "ipinfo"
+          ],
+          "tags": [
+            "API",
+            "IP 查询",
+            "自建"
+          ]
         },
         {
           "id": "check",
@@ -101,7 +164,16 @@
           "url": "https://check.sgyyyds.qzz.io",
           "desc": "邮箱/域名校验 API:一次性邮箱黑名单(9,900+ 域名)+ MX 记录查询,替代 disify 等第三方。",
           "stack": "CF Workers · KV",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "replaces": [
+            "disify"
+          ],
+          "tags": [
+            "API",
+            "邮箱校验",
+            "自建"
+          ]
         },
         {
           "id": "atlas-geo",
@@ -109,7 +181,16 @@
           "url": "https://geo.sgyyyds.qzz.io",
           "desc": "地理编码 / 逆地理编码:地名↔坐标,自建 KV 缓存,替代 Nominatim 公共实例。",
           "stack": "CF Workers · KV",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "replaces": [
+            "nominatim"
+          ],
+          "tags": [
+            "API",
+            "地理编码",
+            "自建"
+          ]
         },
         {
           "id": "atlas-meta",
@@ -117,7 +198,13 @@
           "url": "https://meta.sgyyyds.qzz.io",
           "desc": "链接元数据 / OpenGraph 解析:抓标题、摘要、缩略图,自建不发第三方。",
           "stack": "CF Workers · KV",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "tags": [
+            "API",
+            "元数据",
+            "自建"
+          ]
         },
         {
           "id": "atlas-tools",
@@ -125,7 +212,13 @@
           "url": "https://tools.sgyyyds.qzz.io",
           "desc": "哈希(SHA 系列)/ UUID v4 / Base64·URL·Hex 编解码 API。",
           "stack": "CF Workers",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "tags": [
+            "API",
+            "编码解码",
+            "自建"
+          ]
         },
         {
           "id": "edgessh",
@@ -133,7 +226,13 @@
           "url": "https://ssh.sgyyyds.qzz.io",
           "desc": "浏览器里的 SSH 客户端:Workers + Durable Objects + D1,由 Cloudflare Access 邮箱验证码保护。",
           "stack": "CF Workers · Durable Objects · D1 · Access",
-          "status": "live"
+          "kind": "own",
+          "status": "live",
+          "tags": [
+            "SSH",
+            "终端",
+            "自建"
+          ]
         }
       ]
     },
@@ -148,7 +247,9 @@
           "url": "https://tanlysgy.github.io/GTFOBins.github.io/",
           "desc": "Unix 二进制提权速查手册,自建镜像。",
           "stack": "GH Pages(fork)",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "gtfobins"
         },
         {
           "id": "lolbas",
@@ -156,7 +257,9 @@
           "url": "https://tanlysgy.github.io/LOLBAS/",
           "desc": "Windows 原生可执行文件滥用清单,自建镜像。",
           "stack": "GH Pages(fork)",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "lolbas"
         },
         {
           "id": "free-programming-books",
@@ -164,7 +267,9 @@
           "url": "https://tanlysgy.github.io/free-programming-books/",
           "desc": "免费编程书单,自建镜像。",
           "stack": "GH Pages(fork)",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "free-programming-books"
         },
         {
           "id": "awesome-selfhosted",
@@ -172,7 +277,9 @@
           "url": "https://tanlysgy.github.io/awesome-selfhosted/",
           "desc": "自托管服务大全,自建镜像(fork 自动同步)。",
           "stack": "GH Pages(fork)",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "awesome-selfhosted"
         },
         {
           "id": "hacktricks-gh",
@@ -180,7 +287,9 @@
           "url": "https://tanlysgy.github.io/hacktricks/",
           "desc": "HackTricks 的 GitHub Pages 镜像,由 Actions 自动构建。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "hacktricks"
         },
         {
           "id": "patt-gh",
@@ -188,7 +297,9 @@
           "url": "https://tanlysgy.github.io/PayloadsAllTheThings/",
           "desc": "Web 安全 Payload 速查库的 MkDocs 镜像,由 Actions 自动构建发布。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "payloadsallthethings"
         },
         {
           "id": "awesome-hacking",
@@ -196,7 +307,9 @@
           "url": "https://tanlysgy.github.io/Awesome-Hacking/",
           "desc": "渗透测试 / 安全资源合集,自建 GitHub Pages 镜像。",
           "stack": "GH Pages(fork)",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "awesome-hacking"
         },
         {
           "id": "hfish",
@@ -204,7 +317,9 @@
           "url": "https://tanlysgy.github.io/HFish/",
           "desc": "国产蜜罐 HFish 官方文档镜像,含快速部署与节点管理。",
           "stack": "GH Pages(fork)",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "hfish"
         },
         {
           "id": "wetty",
@@ -212,15 +327,19 @@
           "url": "https://tanlysgy.github.io/wetty/",
           "desc": "浏览器版终端 Wetty 的文档镜像,含 Nginx / systemd / 单点登录配置。",
           "stack": "GH Pages(fork)",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "wetty"
         },
         {
-          "id": "ttyd",
+          "id": "ttyd-docs",
           "name": "ttyd 文档",
           "url": "https://tanlysgy.github.io/ttyd/",
           "desc": "把终端共享到网页的 ttyd 官方文档镜像。",
           "stack": "GH Pages(fork)",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "ttyd"
         },
         {
           "id": "searxng-docs",
@@ -228,7 +347,9 @@
           "url": "https://tanlysgy.github.io/searxng/",
           "desc": "元搜索引擎 SearXNG 的文档镜像(自建实例已在本机运行)。",
           "stack": "GH Pages(fork)",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "searxng"
         },
         {
           "id": "trojan-go",
@@ -236,7 +357,9 @@
           "url": "https://tanlysgy.github.io/trojan-go/",
           "desc": "Trojan-Go 代理的文档镜像,含多路复用与 CDN 中转说明。",
           "stack": "GH Pages(fork)",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "trojan-go"
         },
         {
           "id": "sing-box",
@@ -244,7 +367,9 @@
           "url": "https://tanlysgy.github.io/sing-box/",
           "desc": "代理内核 sing-box 的官方文档站(mkdocs 构建),含配置、入站出站与协议说明。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "sing-box"
         },
         {
           "id": "dify",
@@ -252,7 +377,9 @@
           "url": "https://tanlysgy.github.io/dify/",
           "desc": "LLM 应用开发平台 Dify 的文档站,含工作流、Agent、RAG 与部署指南。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "dify"
         },
         {
           "id": "promptfoo",
@@ -260,15 +387,19 @@
           "url": "https://tanlysgy.github.io/promptfoo/",
           "desc": "LLM 提示词/模型评测工具 promptfoo 文档,含断言、红队测试与 CI 集成。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "promptfoo"
         },
         {
-          "id": "n8n",
+          "id": "n8n-docs",
           "name": "n8n 文档",
           "url": "https://tanlysgy.github.io/n8n/",
           "desc": "工作流自动化平台 n8n 的文档站,含节点参考、表达式与自托管说明。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "n8n"
         },
         {
           "id": "immich",
@@ -276,47 +407,59 @@
           "url": "https://tanlysgy.github.io/immich/",
           "desc": "自托管照片视频备份 Immich 的文档站,含安装、备份与移动端配置。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "immich"
         },
         {
-          "id": "llama_index",
+          "id": "llamaindex-docs",
           "name": "LlamaIndex 文档",
           "url": "https://tanlysgy.github.io/llama_index/",
           "desc": "LlamaIndex 数据框架文档,含索引、检索器与 Agent 用法。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "llamaindex"
         },
         {
-          "id": "homarr",
+          "id": "homarr-docs",
           "name": "Homarr 介绍页",
           "url": "https://tanlysgy.github.io/homarr/",
           "desc": "自托管服务仪表盘 Homarr 的镜像落地页(仓库无可渲染文档,按目录生成导航)。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "homarr"
         },
         {
-          "id": "langflow",
+          "id": "langflow-docs",
           "name": "Langflow 文档",
           "url": "https://tanlysgy.github.io/langflow/",
           "desc": "可视化 LLM 流程编排工具 Langflow 的文档站。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "langflow"
         },
         {
-          "id": "focalboard",
+          "id": "focalboard-docs",
           "name": "FocalBoard 文档",
           "url": "https://tanlysgy.github.io/focalboard/",
           "desc": "开源项目管理工具 FocalBoard 的文档镜像(上游 gh-pages 仅为占位页,改用 docs 渲染)。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "focalboard"
         },
         {
-          "id": "Heimdall",
+          "id": "heimdall-docs",
           "name": "Heimdall 文档",
           "url": "https://tanlysgy.github.io/Heimdall/",
           "desc": "应用启动页 Heimdall 的文档镜像,直接同步上游 gh-pages。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "heimdall"
         },
         {
           "id": "nginx-proxy-manager",
@@ -324,7 +467,9 @@
           "url": "https://tanlysgy.github.io/nginx-proxy-manager/",
           "desc": "Nginx 反代与证书管理面板的官方文档(VitePress 构建),含安装、SSL 与高级配置。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "nginx-proxy-manager"
         },
         {
           "id": "woodpecker",
@@ -332,7 +477,9 @@
           "url": "https://tanlysgy.github.io/woodpecker/",
           "desc": "轻量 CI/CD 引擎 Woodpecker 的文档站,含 pipeline 语法、插件与部署。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "woodpecker"
         },
         {
           "id": "authentik",
@@ -340,7 +487,9 @@
           "url": "https://tanlysgy.github.io/authentik/",
           "desc": "开源身份提供商 authentik 的文档镜像,含 SSO、MFA、流程编排与集成。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "authentik"
         },
         {
           "id": "cowrie",
@@ -348,15 +497,19 @@
           "url": "https://tanlysgy.github.io/cowrie/",
           "desc": "SSH/Telnet 蜜罐 Cowrie 的文档(Sphinx 源,reStructuredText 渲染),含日志与后端配置。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "cowrie"
         },
         {
-          "id": "tpotce",
+          "id": "tpot-docs",
           "name": "T-Pot 蜜罐平台文档",
           "url": "https://tanlysgy.github.io/tpotce/",
           "desc": "一体化蜜罐平台 T-Pot 的文档站,含部署架构、传感器与可视化。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "tpot"
         },
         {
           "id": "dionaea",
@@ -364,15 +517,19 @@
           "url": "https://tanlysgy.github.io/dionaea/",
           "desc": "低交互蜜罐 Dionaea 的官方文档(Sphinx),含模块与日志说明。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "dionaea"
         },
         {
-          "id": "synapse",
+          "id": "synapse-docs",
           "name": "Matrix Synapse 文档",
           "url": "https://tanlysgy.github.io/synapse/",
           "desc": "Matrix 家庭服务器 Synapse 的官方文档(mkdocs),含安装、联邦与配置。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "matrix-synapse"
         },
         {
           "id": "rustdesk",
@@ -380,15 +537,19 @@
           "url": "https://tanlysgy.github.io/rustdesk/",
           "desc": "远程桌面 RustDesk 的文档镜像,含自建中继服务器与客户端配置。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "rustdesk"
         },
         {
-          "id": "1Panel",
+          "id": "1panel-docs",
           "name": "1Panel 文档",
           "url": "https://tanlysgy.github.io/1Panel/",
           "desc": "Linux 运维面板 1Panel 的文档镜像,含应用商店、备份与安全设置。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "1panel"
         },
         {
           "id": "outline",
@@ -396,7 +557,9 @@
           "url": "https://tanlysgy.github.io/outline/",
           "desc": "团队知识库 Outline 的开发文档镜像,含架构、部署与二次开发。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "outline"
         },
         {
           "id": "nextcloud-docs",
@@ -404,7 +567,9 @@
           "url": "https://tanlysgy.github.io/nextcloud-docs/",
           "desc": "Nextcloud 官方文档镜像,含管理手册、用户手册与开发者文档。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "nextcloud"
         },
         {
           "id": "mattermost-docs",
@@ -412,7 +577,9 @@
           "url": "https://tanlysgy.github.io/mattermost-docs/",
           "desc": "团队协作平台 Mattermost 的文档镜像,含部署、API 与集成说明。",
           "stack": "GH Pages · Actions",
-          "status": "live"
+          "kind": "mirror",
+          "status": "live",
+          "resource": "mattermost"
         }
       ]
     },
@@ -427,7 +594,9 @@
           "url": "https://it.sgyyyds.qzz.io",
           "desc": "开发者在线小工具合集。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "it-tools"
         },
         {
           "id": "memos",
@@ -435,7 +604,9 @@
           "url": "https://memos.sgyyyds.qzz.io",
           "desc": "轻量碎片化笔记。",
           "stack": "Docker · SQLite",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "memos"
         },
         {
           "id": "uptime-kuma",
@@ -443,7 +614,9 @@
           "url": "https://status.sgyyyds.qzz.io",
           "desc": "自建监控告警。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "uptime-kuma"
         },
         {
           "id": "searxng",
@@ -451,7 +624,9 @@
           "url": "https://search.sgyyyds.qzz.io",
           "desc": "元搜索引擎,聚合多引擎结果。",
           "stack": "Docker · Valkey",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "searxng"
         },
         {
           "id": "filebrowser",
@@ -459,7 +634,9 @@
           "url": "https://files.sgyyyds.qzz.io",
           "desc": "网页文件管理器。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "filebrowser"
         },
         {
           "id": "freshrss",
@@ -467,7 +644,9 @@
           "url": "https://rss.sgyyyds.qzz.io",
           "desc": "自建 RSS 阅读器。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "freshrss"
         },
         {
           "id": "miniflux",
@@ -475,7 +654,9 @@
           "url": "https://feed.sgyyyds.qzz.io",
           "desc": "极简 RSS 阅读器,Go 编写。",
           "stack": "Docker · Postgres",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "miniflux"
         },
         {
           "id": "excalidraw",
@@ -483,7 +664,9 @@
           "url": "https://board.sgyyyds.qzz.io",
           "desc": "手绘风格白板与流程图。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "excalidraw"
         },
         {
           "id": "kanboard",
@@ -491,7 +674,9 @@
           "url": "https://board2.sgyyyds.qzz.io",
           "desc": "轻量看板式项目管理。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "kanboard"
         },
         {
           "id": "focalboard",
@@ -499,7 +684,9 @@
           "url": "https://kanban.sgyyyds.qzz.io",
           "desc": "Notion/Trello 风格的开源项目管理面板。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "focalboard"
         },
         {
           "id": "radicale",
@@ -507,7 +694,9 @@
           "url": "https://cal.sgyyyds.qzz.io",
           "desc": "CalDAV/CardDAV 日历与通讯录服务。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "radicale"
         },
         {
           "id": "trilium",
@@ -515,7 +704,9 @@
           "url": "https://notes.sgyyyds.qzz.io",
           "desc": "层级化个人知识库。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "trilium"
         },
         {
           "id": "navidrome",
@@ -523,7 +714,9 @@
           "url": "https://music.sgyyyds.qzz.io",
           "desc": "自建音乐流媒体服务。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "navidrome"
         },
         {
           "id": "gitea",
@@ -531,7 +724,9 @@
           "url": "https://git.sgyyyds.qzz.io",
           "desc": "轻量自建 Git 服务。",
           "stack": "Docker · SQLite",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "gitea"
         },
         {
           "id": "ttyd",
@@ -539,7 +734,9 @@
           "url": "https://term.sgyyyds.qzz.io",
           "desc": "浏览器里的终端(密码保护)。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "ttyd"
         },
         {
           "id": "n8n",
@@ -547,7 +744,9 @@
           "url": "https://flow.sgyyyds.qzz.io",
           "desc": "可视化工作流自动化。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "n8n"
         },
         {
           "id": "stirling-pdf",
@@ -555,7 +754,9 @@
           "url": "https://pdf.sgyyyds.qzz.io",
           "desc": "本地化 PDF 工具箱(合并/转换/OCR)。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "stirling-pdf"
         },
         {
           "id": "subconverter",
@@ -563,7 +764,9 @@
           "url": "https://sub.sgyyyds.qzz.io/version",
           "desc": "订阅转换服务:把节点订阅转成 Clash / V2Ray 等格式(/sub?target=...&url=...),此处链接为健康检查端点。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "subconverter"
         },
         {
           "id": "shlink",
@@ -571,7 +774,9 @@
           "url": "https://link.sgyyyds.qzz.io/rest/health",
           "desc": "自建短链接服务(带访问统计),链接指向 REST 健康检查端点。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "shlink"
         },
         {
           "id": "homarr",
@@ -579,7 +784,9 @@
           "url": "https://dash.sgyyyds.qzz.io",
           "desc": "自建服务导航面板。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "homarr"
         },
         {
           "id": "ddns-go",
@@ -587,7 +794,9 @@
           "url": "https://ddns.sgyyyds.qzz.io",
           "desc": "动态 DNS 客户端:把本机公网 IP 自动同步到 Cloudflare / 阿里云等解析。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "ddns-go"
         },
         {
           "id": "aria2",
@@ -595,7 +804,9 @@
           "url": "https://aria.sgyyyds.qzz.io",
           "desc": "离线下载器,自带 AriaNg 网页前端,支持 HTTP/BT/磁力。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "aria2"
         },
         {
           "id": "qbittorrent",
@@ -603,7 +814,9 @@
           "url": "https://bt.sgyyyds.qzz.io",
           "desc": "BT/PT 下载客户端 WebUI,首次登录默认 admin / adminadmin,请尽快改密。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "qbittorrent"
         },
         {
           "id": "syncthing",
@@ -611,7 +824,9 @@
           "url": "https://sync.sgyyyds.qzz.io",
           "desc": "点对点文件同步,Web UI 管理设备与共享目录,端到端加密。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "syncthing"
         },
         {
           "id": "vikunja",
@@ -619,7 +834,9 @@
           "url": "https://todo.sgyyyds.qzz.io",
           "desc": "开源待办与项目管理(SQLite 单文件后端)。",
           "stack": "Docker · SQLite",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "vikunja"
         },
         {
           "id": "jellyfin",
@@ -627,7 +844,9 @@
           "url": "https://media.sgyyyds.qzz.io",
           "desc": "自建影音库,网页/客户端播放,媒体目录挂载在 data/media。",
           "stack": "Docker",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "jellyfin"
         },
         {
           "id": "vaultwarden",
@@ -635,7 +854,9 @@
           "url": "https://vault.sgyyyds.qzz.io",
           "desc": "Bitwarden 兼容的密码管理器服务端,自建保险库,支持浏览器扩展与移动端同步。",
           "stack": "Docker · 独立隧道",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "vaultwarden"
         },
         {
           "id": "linkding",
@@ -643,7 +864,9 @@
           "url": "https://book.sgyyyds.qzz.io",
           "desc": "轻量书签管理器,自动抓取标题与描述,支持标签、全文检索与浏览器插件。",
           "stack": "Docker · 独立隧道",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "linkding"
         },
         {
           "id": "new-api",
@@ -651,7 +874,9 @@
           "url": "https://sgyyyds.qzz.io",
           "desc": "多模型聚合网关,统一 OpenAI 兼容接口,支持额度、渠道与令牌管理。",
           "stack": "Docker · 独立隧道",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "new-api"
         },
         {
           "id": "axonhub",
@@ -659,7 +884,9 @@
           "url": "https://hub.sgyyyds.qzz.io",
           "desc": "AI 网关,聚合 OpenAI / Anthropic / Gemini 等上游,提供统一 API 与密钥管理。",
           "stack": "Docker · 独立隧道",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "axonhub"
         },
         {
           "id": "neo-chat",
@@ -667,7 +894,9 @@
           "url": "https://chat.sgyyyds.qzz.io",
           "desc": "自建 AI 对话前端,接入自有多模型网关,保留完整会话记录。",
           "stack": "Docker · 独立隧道",
-          "status": "live"
+          "kind": "instance",
+          "status": "live",
+          "resource": "neo-chat"
         }
       ]
     }

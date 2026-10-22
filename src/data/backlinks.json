@@ -171,6 +171,12 @@
     "Text Generation WebUI",
     "Jan"
   ],
+  "neo-chat": [
+    "Ollama",
+    "LM Studio",
+    "Text Generation WebUI",
+    "Jan"
+  ],
   "langchain": [
     "LlamaIndex",
     "Langfuse",
@@ -214,6 +220,24 @@
     "LiteLLM"
   ],
   "fastgpt": [
+    "LangChain",
+    "LlamaIndex",
+    "Langfuse",
+    "LiteLLM"
+  ],
+  "langflow": [
+    "LangChain",
+    "LlamaIndex",
+    "Langfuse",
+    "LiteLLM"
+  ],
+  "new-api": [
+    "LangChain",
+    "LlamaIndex",
+    "Langfuse",
+    "LiteLLM"
+  ],
+  "axonhub": [
     "LangChain",
     "LlamaIndex",
     "Langfuse",
@@ -638,6 +662,36 @@
     "Joplin",
     "Trilium"
   ],
+  "syncthing": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "vikunja": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "authentik": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "heimdall": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "awesome-selfhosted": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
   "xray-reality": [
     "sing-box",
     "mihomo / Clash Meta",
@@ -975,5 +1029,77 @@
     "Cloudflare Tunnel",
     "subconverter",
     "LocalSend"
+  ],
+  "foss-atlas-cf": [
+    "Atlas Short",
+    "Atlas Paste",
+    "Atlas Nodes",
+    "Atlas QR"
+  ],
+  "short": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Paste",
+    "Atlas Nodes",
+    "Atlas QR"
+  ],
+  "paste": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Short",
+    "Atlas Nodes",
+    "Atlas QR"
+  ],
+  "nodes": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Short",
+    "Atlas Paste",
+    "Atlas QR"
+  ],
+  "qr": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Short",
+    "Atlas Paste",
+    "Atlas Nodes"
+  ],
+  "px": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Short",
+    "Atlas Paste",
+    "Atlas Nodes"
+  ],
+  "ip": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Short",
+    "Atlas Paste",
+    "Atlas Nodes"
+  ],
+  "check": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Short",
+    "Atlas Paste",
+    "Atlas Nodes"
+  ],
+  "atlas-geo": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Short",
+    "Atlas Paste",
+    "Atlas Nodes"
+  ],
+  "atlas-meta": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Short",
+    "Atlas Paste",
+    "Atlas Nodes"
+  ],
+  "atlas-tools": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Short",
+    "Atlas Paste",
+    "Atlas Nodes"
+  ],
+  "edgessh": [
+    "FOSS-Atlas(Cloudflare Pages)",
+    "Atlas Short",
+    "Atlas Paste",
+    "Atlas Nodes"
   ]
 }

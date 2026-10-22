@@ -1,12 +1,15 @@
 {
-  "generated_at": "2026-10-19T09:48:13.003Z",
+  "generated_at": "2026-10-22T09:32:05.750Z",
   "stats": {
-    "tools": 165,
-    "categories": 10,
-    "sub_categories": 21,
+    "tools": 186,
+    "categories": 11,
+    "sub_categories": 22,
     "tags": 40,
-    "externals": 26,
-    "edges": 578
+    "externals": 24,
+    "own": 12,
+    "deployed": 73,
+    "instances": 81,
+    "edges": 643
   },
   "categories": [
     {
@@ -53,6 +56,11 @@
       "id": "cn-ai",
       "name": "国内免费 AI 工具",
       "icon": "🇨🇳"
+    },
+    {
+      "id": "atlas",
+      "name": "Atlas 自建",
+      "icon": "🛠"
     },
     {
       "id": "gear",
@@ -162,6 +170,11 @@
       "category": "cn-ai"
     },
     {
+      "id": "atlas-edge",
+      "name": "Cloudflare 边缘服务",
+      "category": "atlas"
+    },
+    {
       "id": "gear-tools",
       "name": "高频实用工具",
       "category": "gear"
@@ -221,6 +234,12 @@
       "name": "国内免费 AI 工具",
       "type": "category",
       "icon": "🇨🇳"
+    },
+    {
+      "id": "cat:atlas",
+      "name": "Atlas 自建",
+      "type": "category",
+      "icon": "🛠"
     },
     {
       "id": "cat:gear",
@@ -349,6 +368,12 @@
       "category": "cn-ai"
     },
     {
+      "id": "sub:atlas-edge",
+      "name": "Cloudflare 边缘服务",
+      "type": "subcategory",
+      "category": "atlas"
+    },
+    {
       "id": "sub:gear-tools",
       "name": "高频实用工具",
       "type": "subcategory",
@@ -359,6 +384,7 @@
       "name": "Poe",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://poe.com",
       "wiki": "poe"
     },
@@ -367,6 +393,7 @@
       "name": "HuggingChat",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://huggingface.co/chat",
       "wiki": "huggingchat"
     },
@@ -375,6 +402,7 @@
       "name": "DuckDuckGo AI Chat",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://duck.ai",
       "wiki": "duckduckgo-ai-chat"
     },
@@ -383,6 +411,7 @@
       "name": "LMSYS Chatbot Arena",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://chat.lmsys.org",
       "wiki": "lmsys-chat"
     },
@@ -391,6 +420,7 @@
       "name": "Microsoft Copilot",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://copilot.microsoft.com",
       "wiki": "microsoft-copilot"
     },
@@ -399,6 +429,7 @@
       "name": "Meta AI",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://www.meta.ai",
       "wiki": "meta-ai"
     },
@@ -407,6 +438,7 @@
       "name": "Google Gemini",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://gemini.google.com",
       "wiki": "google-gemini"
     },
@@ -415,6 +447,7 @@
       "name": "Anthropic Claude",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://claude.ai",
       "wiki": "anthropic-claude"
     },
@@ -423,6 +456,7 @@
       "name": "百度文心一言",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://yiyan.baidu.com",
       "wiki": "baidu-yiyan"
     },
@@ -431,6 +465,7 @@
       "name": "阿里通义千问",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://tongyi.aliyun.com",
       "wiki": "aliyun-tongyi"
     },
@@ -439,6 +474,7 @@
       "name": "讯飞星火",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://xinghuo.xfyun.cn",
       "wiki": "xfyun-xinghuo"
     },
@@ -447,6 +483,7 @@
       "name": "豆包",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://www.doubao.com",
       "wiki": "doubao"
     },
@@ -455,6 +492,7 @@
       "name": "智谱清言",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://chatglm.cn",
       "wiki": "chatglm"
     },
@@ -463,6 +501,7 @@
       "name": "DeepSeek",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://www.deepseek.com",
       "wiki": "deepseek-chat"
     },
@@ -471,6 +510,7 @@
       "name": "天工 AI",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://www.tiangong.cn",
       "wiki": "tiangong"
     },
@@ -479,6 +519,7 @@
       "name": "Pi",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-chat",
       "url": "https://pi.ai",
       "wiki": "pi"
     },
@@ -487,6 +528,7 @@
       "name": "Cursor",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-coding",
       "url": "https://cursor.com",
       "wiki": "cursor"
     },
@@ -495,6 +537,7 @@
       "name": "Cline",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-coding",
       "url": "https://cline.bot",
       "wiki": "cline"
     },
@@ -503,6 +546,7 @@
       "name": "Continue",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-coding",
       "url": "https://continue.dev",
       "wiki": "continue"
     },
@@ -511,6 +555,7 @@
       "name": "Cody",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-coding",
       "url": "https://sourcegraph.com/cody",
       "wiki": "cody"
     },
@@ -519,6 +564,7 @@
       "name": "Tabby",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-coding",
       "url": "https://tabby.tabbyml.com",
       "wiki": "tabby"
     },
@@ -527,6 +573,7 @@
       "name": "Codeium",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-coding",
       "url": "https://codeium.com",
       "wiki": "codeium"
     },
@@ -535,6 +582,7 @@
       "name": "Aider",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-coding",
       "url": "https://github.com/Aider-AI/aider",
       "wiki": "aider"
     },
@@ -543,6 +591,7 @@
       "name": "Ollama",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-local",
       "url": "https://ollama.com",
       "wiki": "ollama"
     },
@@ -551,6 +600,7 @@
       "name": "LM Studio",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-local",
       "url": "https://lmstudio.ai",
       "wiki": "lm-studio"
     },
@@ -559,6 +609,7 @@
       "name": "Text Generation WebUI",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-local",
       "url": "https://github.com/oobabooga/textgen",
       "wiki": "text-generation-webui"
     },
@@ -567,6 +618,7 @@
       "name": "Jan",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-local",
       "url": "https://jan.ai",
       "wiki": "jan"
     },
@@ -575,14 +627,38 @@
       "name": "GPT4All",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-local",
       "url": "https://gpt4all.io",
       "wiki": "gpt4all"
+    },
+    {
+      "id": "neo-chat",
+      "name": "Neo Chat",
+      "type": "tool",
+      "category": "ai",
+      "sub_category": "ai-local",
+      "url": "https://github.com/u14app/neo-chat",
+      "wiki": "neo-chat",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "neo-chat",
+          "url": "https://chat.sgyyyds.qzz.io",
+          "stack": "Docker · 独立隧道",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "langchain",
       "name": "LangChain",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-framework",
       "url": "https://github.com/langchain-ai/langchain",
       "wiki": "langchain"
     },
@@ -591,14 +667,29 @@
       "name": "LlamaIndex",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-framework",
       "url": "https://github.com/run-llama/llama_index",
-      "wiki": "llamaindex"
+      "wiki": "llamaindex",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "llamaindex-docs",
+          "url": "https://tanlysgy.github.io/llama_index/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "langfuse",
       "name": "Langfuse",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-framework",
       "url": "https://github.com/langfuse/langfuse",
       "wiki": "langfuse"
     },
@@ -607,6 +698,7 @@
       "name": "LiteLLM",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-framework",
       "url": "https://github.com/BerriAI/litellm",
       "wiki": "litellm"
     },
@@ -615,22 +707,51 @@
       "name": "promptfoo",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-framework",
       "url": "https://github.com/promptfoo/promptfoo",
-      "wiki": "promptfoo"
+      "wiki": "promptfoo",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "promptfoo",
+          "url": "https://tanlysgy.github.io/promptfoo/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "dify",
       "name": "Dify",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-framework",
       "url": "https://github.com/langgenius/dify",
-      "wiki": "dify"
+      "wiki": "dify",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "dify",
+          "url": "https://tanlysgy.github.io/dify/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "flowise",
       "name": "Flowise",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-framework",
       "url": "https://github.com/FlowiseAI/Flowise",
       "wiki": "flowise"
     },
@@ -639,14 +760,82 @@
       "name": "FastGPT",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-framework",
       "url": "https://github.com/labring/FastGPT",
       "wiki": "fastgpt"
+    },
+    {
+      "id": "langflow",
+      "name": "LangFlow",
+      "type": "tool",
+      "category": "ai",
+      "sub_category": "ai-framework",
+      "url": "https://github.com/langflow-ai/langflow",
+      "wiki": "langflow",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "langflow-docs",
+          "url": "https://tanlysgy.github.io/langflow/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
+    },
+    {
+      "id": "new-api",
+      "name": "New API",
+      "type": "tool",
+      "category": "ai",
+      "sub_category": "ai-framework",
+      "url": "https://github.com/QuantumNous/new-api",
+      "wiki": "new-api",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "new-api",
+          "url": "https://sgyyyds.qzz.io",
+          "stack": "Docker · 独立隧道",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
+    },
+    {
+      "id": "axonhub",
+      "name": "AxonHub",
+      "type": "tool",
+      "category": "ai",
+      "sub_category": "ai-framework",
+      "url": "https://github.com/looplj/axonhub",
+      "wiki": "axonhub",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "axonhub",
+          "url": "https://hub.sgyyyds.qzz.io",
+          "stack": "Docker · 独立隧道",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "awesome-chatgpt-prompts",
       "name": "awesome-chatgpt-prompts (prompts.chat)",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-prompt",
       "url": "https://github.com/f/prompts.chat",
       "wiki": "awesome-chatgpt-prompts"
     },
@@ -655,6 +844,7 @@
       "name": "Prompt 工程指南（OpenAI）",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-prompt",
       "url": "https://platform.openai.com/docs/guides/prompt-engineering",
       "wiki": "openai-prompt-guide"
     },
@@ -663,6 +853,7 @@
       "name": "DeepLearning.AI 提示词课",
       "type": "tool",
       "category": "ai",
+      "sub_category": "ai-prompt",
       "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
       "wiki": "deeplearning-ai-prompts"
     },
@@ -671,6 +862,7 @@
       "name": "Google Cloud",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-cloud",
       "url": "https://cloud.google.com/free",
       "wiki": "google-cloud"
     },
@@ -679,6 +871,7 @@
       "name": "AWS",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-cloud",
       "url": "https://aws.amazon.com/free",
       "wiki": "aws"
     },
@@ -687,6 +880,7 @@
       "name": "Microsoft Azure",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-cloud",
       "url": "https://azure.microsoft.com/free",
       "wiki": "azure"
     },
@@ -695,6 +889,7 @@
       "name": "Oracle Cloud",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-cloud",
       "url": "https://www.oracle.com/cloud/free/",
       "wiki": "oracle-cloud"
     },
@@ -703,6 +898,7 @@
       "name": "Cloudflare",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-cloud",
       "url": "https://www.cloudflare.com/plans/free/",
       "wiki": "cloudflare-workers"
     },
@@ -711,6 +907,7 @@
       "name": "Render",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-paas",
       "url": "https://render.com",
       "wiki": "render"
     },
@@ -719,6 +916,7 @@
       "name": "Railway",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-paas",
       "url": "https://railway.com",
       "wiki": "railway"
     },
@@ -727,6 +925,7 @@
       "name": "Fly.io",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-paas",
       "url": "https://fly.io",
       "wiki": "fly-io"
     },
@@ -735,6 +934,7 @@
       "name": "Koyeb",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-paas",
       "url": "https://www.koyeb.com",
       "wiki": "koyeb"
     },
@@ -743,6 +943,7 @@
       "name": "Supabase",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-paas",
       "url": "https://supabase.com",
       "wiki": "supabase"
     },
@@ -751,6 +952,7 @@
       "name": "Neon Postgres",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-paas",
       "url": "https://neon.tech",
       "wiki": "neon"
     },
@@ -759,6 +961,7 @@
       "name": "Vercel",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-paas",
       "url": "https://vercel.com",
       "wiki": "vercel"
     },
@@ -767,6 +970,7 @@
       "name": "Netlify",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-paas",
       "url": "https://www.netlify.com",
       "wiki": "netlify"
     },
@@ -775,6 +979,7 @@
       "name": "is-a.dev",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-domain",
       "url": "https://www.is-a.dev",
       "wiki": "is-a-dev"
     },
@@ -783,6 +988,7 @@
       "name": "js.org",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-domain",
       "url": "https://js.org",
       "wiki": "js-org"
     },
@@ -791,6 +997,7 @@
       "name": "eu.org",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-domain",
       "url": "https://nic.eu.org",
       "wiki": "eu-org"
     },
@@ -799,6 +1006,7 @@
       "name": "pp.ua",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-domain",
       "url": "https://nic.ua/en/domains/.pp.ua",
       "wiki": "pp-ua"
     },
@@ -807,6 +1015,7 @@
       "name": "Cloudflare DNS",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-dns",
       "url": "https://www.cloudflare.com/dns/",
       "wiki": "cloudflare-dns"
     },
@@ -815,6 +1024,7 @@
       "name": "Hurricane Electric",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-dns",
       "url": "https://dns.he.net",
       "wiki": "hurricane-electric"
     },
@@ -823,6 +1033,7 @@
       "name": "NextDNS",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-dns",
       "url": "https://nextdns.io",
       "wiki": "nextdns"
     },
@@ -831,6 +1042,7 @@
       "name": "Bunny DNS",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-dns",
       "url": "https://bunny.net/dns/",
       "wiki": "bunnydns"
     },
@@ -839,6 +1051,7 @@
       "name": "Let's Encrypt",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-ssl",
       "url": "https://letsencrypt.org",
       "wiki": "lets-encrypt"
     },
@@ -847,6 +1060,7 @@
       "name": "ZeroSSL",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-ssl",
       "url": "https://zerossl.com",
       "wiki": "zerossl"
     },
@@ -855,6 +1069,7 @@
       "name": "Cloudflare Origin CA",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-ssl",
       "url": "https://developers.cloudflare.com/ssl/origin-configuration/origin-ca/",
       "wiki": "cloudflare-origin-ca"
     },
@@ -863,6 +1078,7 @@
       "name": "Buypass Go SSL",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-ssl",
       "url": "https://www.buypass.com/ssl/products/acme",
       "wiki": "buypass-go"
     },
@@ -871,6 +1087,7 @@
       "name": "UptimeRobot",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-monitor",
       "url": "https://uptimerobot.com",
       "wiki": "uptimerobot"
     },
@@ -879,6 +1096,7 @@
       "name": "Better Stack",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-monitor",
       "url": "https://betterstack.com",
       "wiki": "better-stack"
     },
@@ -887,6 +1105,7 @@
       "name": "Logtail",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-monitor",
       "url": "https://betterstack.com/logs",
       "wiki": "logtail"
     },
@@ -895,6 +1114,7 @@
       "name": "Sentry",
       "type": "tool",
       "category": "saas",
+      "sub_category": "saas-monitor",
       "url": "https://sentry.io",
       "wiki": "sentry"
     },
@@ -903,14 +1123,29 @@
       "name": "Nextcloud",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://nextcloud.com",
-      "wiki": "nextcloud"
+      "wiki": "nextcloud",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "nextcloud-docs",
+          "url": "https://tanlysgy.github.io/nextcloud-docs/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "seafile",
       "name": "Seafile",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://www.seafile.com",
       "wiki": "seafile"
     },
@@ -919,6 +1154,7 @@
       "name": "Joplin",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://joplinapp.org",
       "wiki": "joplin"
     },
@@ -927,118 +1163,323 @@
       "name": "Trilium",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/TriliumNext/Trilium",
-      "wiki": "trilium"
+      "wiki": "trilium",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "trilium",
+          "url": "https://notes.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "memos",
       "name": "Memos",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/usememos/memos",
-      "wiki": "memos"
+      "wiki": "memos",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "memos",
+          "url": "https://memos.sgyyyds.qzz.io",
+          "stack": "Docker · SQLite",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "freshrss",
       "name": "FreshRSS",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://freshrss.org",
-      "wiki": "freshrss"
+      "wiki": "freshrss",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "freshrss",
+          "url": "https://rss.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "miniflux",
       "name": "Miniflux",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://miniflux.app",
-      "wiki": "miniflux"
+      "wiki": "miniflux",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "miniflux",
+          "url": "https://feed.sgyyyds.qzz.io",
+          "stack": "Docker · Postgres",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "vaultwarden",
       "name": "Vaultwarden",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/dani-garcia/vaultwarden",
-      "wiki": "vaultwarden"
+      "wiki": "vaultwarden",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "vaultwarden",
+          "url": "https://vault.sgyyyds.qzz.io",
+          "stack": "Docker · 独立隧道",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "jellyfin",
       "name": "Jellyfin",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://jellyfin.org",
-      "wiki": "jellyfin"
+      "wiki": "jellyfin",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "jellyfin",
+          "url": "https://media.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "immich",
       "name": "Immich",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/immich-app/immich",
-      "wiki": "immich"
+      "wiki": "immich",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "immich",
+          "url": "https://tanlysgy.github.io/immich/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "matrix-synapse",
       "name": "Matrix / Synapse",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://matrix.org",
-      "wiki": "matrix-synapse"
+      "wiki": "matrix-synapse",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "synapse-docs",
+          "url": "https://tanlysgy.github.io/synapse/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "uptime-kuma",
       "name": "Uptime Kuma",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/louislam/uptime-kuma",
-      "wiki": "uptime-kuma"
+      "wiki": "uptime-kuma",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "uptime-kuma",
+          "url": "https://status.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "shlink",
       "name": "Shlink",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://shlink.io",
-      "wiki": "shlink"
+      "wiki": "shlink",
+      "deployed": true,
+      "deployed_kinds": [
+        "companion",
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "shlink-web",
+          "url": "https://links.sgyyyds.qzz.io",
+          "stack": "CF Workers Assets",
+          "group": "edge",
+          "kind": "companion"
+        },
+        {
+          "id": "shlink",
+          "url": "https://link.sgyyyds.qzz.io/rest/health",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "qbittorrent",
       "name": "qBittorrent",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://www.qbittorrent.org",
-      "wiki": "qbittorrent"
+      "wiki": "qbittorrent",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "qbittorrent",
+          "url": "https://bt.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "aria2",
       "name": "Aria2",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://aria2.github.io",
-      "wiki": "aria2"
+      "wiki": "aria2",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "aria2",
+          "url": "https://aria.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "rustdesk",
       "name": "RustDesk",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/rustdesk/rustdesk",
-      "wiki": "rustdesk"
+      "wiki": "rustdesk",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "rustdesk",
+          "url": "https://tanlysgy.github.io/rustdesk/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "gitea",
       "name": "Gitea",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://about.gitea.com",
-      "wiki": "gitea"
+      "wiki": "gitea",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "gitea",
+          "url": "https://git.sgyyyds.qzz.io",
+          "stack": "Docker · SQLite",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "forgejo",
       "name": "Forgejo",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://forgejo.org",
       "wiki": "forgejo"
     },
@@ -1047,14 +1488,29 @@
       "name": "Woodpecker CI",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://woodpecker-ci.org",
-      "wiki": "woodpecker"
+      "wiki": "woodpecker",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "woodpecker",
+          "url": "https://tanlysgy.github.io/woodpecker/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "drone",
       "name": "Drone CI",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://www.drone.io",
       "wiki": "drone"
     },
@@ -1063,22 +1519,51 @@
       "name": "Nginx Proxy Manager",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/NginxProxyManager/nginx-proxy-manager",
-      "wiki": "nginx-proxy-manager"
+      "wiki": "nginx-proxy-manager",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "nginx-proxy-manager",
+          "url": "https://tanlysgy.github.io/nginx-proxy-manager/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "1panel",
       "name": "1Panel",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/1Panel-dev/1Panel",
-      "wiki": "1panel"
+      "wiki": "1panel",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "1panel-docs",
+          "url": "https://tanlysgy.github.io/1Panel/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "casaos",
       "name": "CasaOS",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://casaos.io",
       "wiki": "casaos"
     },
@@ -1087,54 +1572,147 @@
       "name": "ddns-go",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/jeessy2/ddns-go",
-      "wiki": "ddns-go"
+      "wiki": "ddns-go",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "ddns-go",
+          "url": "https://ddns.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "navidrome",
       "name": "Navidrome",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://www.navidrome.org",
-      "wiki": "navidrome"
+      "wiki": "navidrome",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "navidrome",
+          "url": "https://music.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "outline",
       "name": "Outline",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://www.getoutline.com",
-      "wiki": "outline"
+      "wiki": "outline",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "outline",
+          "url": "https://tanlysgy.github.io/outline/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "mattermost",
       "name": "Mattermost",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://mattermost.com",
-      "wiki": "mattermost"
+      "wiki": "mattermost",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "mattermost-docs",
+          "url": "https://tanlysgy.github.io/mattermost-docs/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "kanboard",
       "name": "Kanboard",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://kanboard.org",
-      "wiki": "kanboard"
+      "wiki": "kanboard",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "kanboard",
+          "url": "https://board2.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "focalboard",
       "name": "Focalboard",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/mattermost-community/focalboard",
-      "wiki": "focalboard"
+      "wiki": "focalboard",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance",
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "focalboard-docs",
+          "url": "https://tanlysgy.github.io/focalboard/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        },
+        {
+          "id": "focalboard",
+          "url": "https://kanban.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "passbolt",
       "name": "Passbolt",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://www.passbolt.com",
       "wiki": "passbolt"
     },
@@ -1143,14 +1721,29 @@
       "name": "Radicale",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://radicale.org",
-      "wiki": "radicale"
+      "wiki": "radicale",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "radicale",
+          "url": "https://cal.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "ohmyform",
       "name": "OhMyForm",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://ohmyform.com",
       "wiki": "ohmyform"
     },
@@ -1159,54 +1752,265 @@
       "name": "Linkding",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/sissbruecker/linkding",
-      "wiki": "linkding"
+      "wiki": "linkding",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "linkding",
+          "url": "https://book.sgyyyds.qzz.io",
+          "stack": "Docker · 独立隧道",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "searxng",
       "name": "SearXNG",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/searxng/searxng",
-      "wiki": "searxng"
+      "wiki": "searxng",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance",
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "searxng-docs",
+          "url": "https://tanlysgy.github.io/searxng/",
+          "stack": "GH Pages(fork)",
+          "group": "github",
+          "kind": "mirror"
+        },
+        {
+          "id": "searxng",
+          "url": "https://search.sgyyyds.qzz.io",
+          "stack": "Docker · Valkey",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "filebrowser",
       "name": "Filebrowser",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/filebrowser/filebrowser",
-      "wiki": "filebrowser"
+      "wiki": "filebrowser",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "filebrowser",
+          "url": "https://files.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "wetty",
       "name": "Wetty",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/butlerx/wetty",
-      "wiki": "wetty"
+      "wiki": "wetty",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "wetty",
+          "url": "https://tanlysgy.github.io/wetty/",
+          "stack": "GH Pages(fork)",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "ttyd",
       "name": "ttyd",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://github.com/tsl0922/ttyd",
-      "wiki": "ttyd"
+      "wiki": "ttyd",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance",
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "ttyd-docs",
+          "url": "https://tanlysgy.github.io/ttyd/",
+          "stack": "GH Pages(fork)",
+          "group": "github",
+          "kind": "mirror"
+        },
+        {
+          "id": "ttyd",
+          "url": "https://term.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "excalidraw",
       "name": "Excalidraw",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-core",
       "url": "https://excalidraw.com",
-      "wiki": "excalidraw"
+      "wiki": "excalidraw",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "excalidraw",
+          "url": "https://board.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
+    },
+    {
+      "id": "syncthing",
+      "name": "Syncthing",
+      "type": "tool",
+      "category": "selfhost",
+      "sub_category": "selfhost-core",
+      "url": "https://syncthing.net",
+      "wiki": "syncthing",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "syncthing",
+          "url": "https://sync.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
+    },
+    {
+      "id": "vikunja",
+      "name": "Vikunja",
+      "type": "tool",
+      "category": "selfhost",
+      "sub_category": "selfhost-core",
+      "url": "https://vikunja.io",
+      "wiki": "vikunja",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "vikunja",
+          "url": "https://todo.sgyyyds.qzz.io",
+          "stack": "Docker · SQLite",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
+    },
+    {
+      "id": "authentik",
+      "name": "Authentik",
+      "type": "tool",
+      "category": "selfhost",
+      "sub_category": "selfhost-core",
+      "url": "https://goauthentik.io",
+      "wiki": "authentik",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "authentik",
+          "url": "https://tanlysgy.github.io/authentik/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
+    },
+    {
+      "id": "heimdall",
+      "name": "Heimdall",
+      "type": "tool",
+      "category": "selfhost",
+      "sub_category": "selfhost-core",
+      "url": "https://github.com/linuxserver/Heimdall",
+      "wiki": "heimdall",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "heimdall-docs",
+          "url": "https://tanlysgy.github.io/Heimdall/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
+    },
+    {
+      "id": "awesome-selfhosted",
+      "name": "awesome-selfhosted",
+      "type": "tool",
+      "category": "selfhost",
+      "sub_category": "selfhost-core",
+      "url": "https://awesome-selfhosted.net",
+      "wiki": "awesome-selfhosted",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "awesome-selfhosted",
+          "url": "https://tanlysgy.github.io/awesome-selfhosted/",
+          "stack": "GH Pages(fork)",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "xray-reality",
       "name": "Xray + Reality",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-proxy",
       "url": "https://github.com/XTLS/Xray-core",
       "wiki": "xray-reality"
     },
@@ -1215,14 +2019,29 @@
       "name": "sing-box",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-proxy",
       "url": "https://github.com/SagerNet/sing-box",
-      "wiki": "sing-box"
+      "wiki": "sing-box",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "sing-box",
+          "url": "https://tanlysgy.github.io/sing-box/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "mihomo",
       "name": "mihomo / Clash Meta",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-proxy",
       "url": "https://github.com/MetaCubeX/mihomo",
       "wiki": "mihomo"
     },
@@ -1231,6 +2050,7 @@
       "name": "Hysteria2",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-proxy",
       "url": "https://github.com/HyNetworks/hysteria",
       "wiki": "hysteria2"
     },
@@ -1239,14 +2059,29 @@
       "name": "Trojan-Go",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-proxy",
       "url": "https://github.com/p4gefau1t/trojan-go",
-      "wiki": "trojan-go"
+      "wiki": "trojan-go",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "trojan-go",
+          "url": "https://tanlysgy.github.io/trojan-go/",
+          "stack": "GH Pages(fork)",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "snell",
       "name": "Snell",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-proxy",
       "url": "https://manual.nssurge.com/policies/snell.html",
       "wiki": "snell"
     },
@@ -1255,6 +2090,7 @@
       "name": "TUIC",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-proxy",
       "url": "https://github.com/tuic-protocol/tuic",
       "wiki": "tuic"
     },
@@ -1263,38 +2099,95 @@
       "name": "T-Pot",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-honeypot",
       "url": "https://github.com/telekom-security/tpotce",
-      "wiki": "tpot"
+      "wiki": "tpot",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "tpot-docs",
+          "url": "https://tanlysgy.github.io/tpotce/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "cowrie",
       "name": "Cowrie",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-honeypot",
       "url": "https://github.com/cowrie/cowrie",
-      "wiki": "cowrie"
+      "wiki": "cowrie",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "cowrie",
+          "url": "https://tanlysgy.github.io/cowrie/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "dionaea",
       "name": "Dionaea",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-honeypot",
       "url": "https://github.com/DinoTools/dionaea",
-      "wiki": "dionaea"
+      "wiki": "dionaea",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "dionaea",
+          "url": "https://tanlysgy.github.io/dionaea/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "hfish",
       "name": "HFish",
       "type": "tool",
       "category": "selfhost",
+      "sub_category": "selfhost-honeypot",
       "url": "https://github.com/hacklcx/HFish",
-      "wiki": "hfish"
+      "wiki": "hfish",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "hfish",
+          "url": "https://tanlysgy.github.io/HFish/",
+          "stack": "GH Pages(fork)",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "openai-api",
       "name": "OpenAI API",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://platform.openai.com",
       "wiki": "openai-api"
     },
@@ -1303,6 +2196,7 @@
       "name": "Anthropic API",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://docs.anthropic.com",
       "wiki": "anthropic-api"
     },
@@ -1311,6 +2205,7 @@
       "name": "Google AI (Gemini) API",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://ai.google.dev",
       "wiki": "google-ai-api"
     },
@@ -1319,6 +2214,7 @@
       "name": "Hugging Face Inference API",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://huggingface.co/docs/api-inference",
       "wiki": "hf-inference-api"
     },
@@ -1327,6 +2223,7 @@
       "name": "Replicate",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://replicate.com",
       "wiki": "replicate"
     },
@@ -1335,6 +2232,7 @@
       "name": "OpenWeatherMap",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://openweathermap.org/api",
       "wiki": "openweathermap"
     },
@@ -1343,6 +2241,7 @@
       "name": "IPinfo",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://ipinfo.io",
       "wiki": "ipinfo"
     },
@@ -1351,6 +2250,7 @@
       "name": "MyMemory",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://mymemory.translated.net",
       "wiki": "mymemory"
     },
@@ -1359,6 +2259,7 @@
       "name": "Unsplash",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://unsplash.com/developers",
       "wiki": "unsplash"
     },
@@ -1367,6 +2268,7 @@
       "name": "Pexels",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://www.pexels.com/api/",
       "wiki": "pexels"
     },
@@ -1375,6 +2277,7 @@
       "name": "QRServer",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://goqr.me/api/",
       "wiki": "qrserver"
     },
@@ -1383,6 +2286,7 @@
       "name": "Disify",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://www.disify.com",
       "wiki": "disify"
     },
@@ -1391,6 +2295,7 @@
       "name": "Textbelt",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://textbelt.com",
       "wiki": "textbelt"
     },
@@ -1399,6 +2304,7 @@
       "name": "ProxyScrape",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://proxyscrape.com",
       "wiki": "proxyscrape"
     },
@@ -1407,6 +2313,7 @@
       "name": "is.gd",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://is.gd",
       "wiki": "is-gd"
     },
@@ -1415,6 +2322,7 @@
       "name": "TinyURL",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://tinyurl.com",
       "wiki": "tinyurl"
     },
@@ -1423,6 +2331,7 @@
       "name": "hCaptcha",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://www.hcaptcha.com",
       "wiki": "hcaptcha"
     },
@@ -1431,6 +2340,7 @@
       "name": "OpenStreetMap Nominatim",
       "type": "tool",
       "category": "api",
+      "sub_category": "api-free",
       "url": "https://nominatim.org",
       "wiki": "nominatim"
     },
@@ -1439,30 +2349,87 @@
       "name": "Awesome Hacking",
       "type": "tool",
       "category": "security",
+      "sub_category": "security-pentest",
       "url": "https://github.com/Hack-with-Github/Awesome-Hacking",
-      "wiki": "awesome-hacking"
+      "wiki": "awesome-hacking",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "awesome-hacking",
+          "url": "https://tanlysgy.github.io/Awesome-Hacking/",
+          "stack": "GH Pages(fork)",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "payloadsallthethings",
       "name": "PayloadsAllTheThings",
       "type": "tool",
       "category": "security",
+      "sub_category": "security-pentest",
       "url": "https://github.com/swisskyrepo/PayloadsAllTheThings",
-      "wiki": "payloadsallthethings"
+      "wiki": "payloadsallthethings",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "patt-cf",
+          "url": "https://patt.sgyyyds.qzz.io",
+          "stack": "CF Workers Assets",
+          "group": "edge",
+          "kind": "mirror"
+        },
+        {
+          "id": "patt-gh",
+          "url": "https://tanlysgy.github.io/PayloadsAllTheThings/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "hacktricks",
       "name": "HackTricks",
       "type": "tool",
       "category": "security",
+      "sub_category": "security-pentest",
       "url": "https://github.com/HackTricks-wiki/hacktricks",
-      "wiki": "hacktricks"
+      "wiki": "hacktricks",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "hacktricks-cf",
+          "url": "https://hacktricks.sgyyyds.qzz.io",
+          "stack": "CF Workers Assets",
+          "group": "edge",
+          "kind": "mirror"
+        },
+        {
+          "id": "hacktricks-gh",
+          "url": "https://tanlysgy.github.io/hacktricks/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "seclists",
       "name": "SecLists",
       "type": "tool",
       "category": "security",
+      "sub_category": "security-pentest",
       "url": "https://github.com/danielmiessler/SecLists",
       "wiki": "seclists"
     },
@@ -1471,6 +2438,7 @@
       "name": "nuclei-templates",
       "type": "tool",
       "category": "security",
+      "sub_category": "security-pentest",
       "url": "https://github.com/projectdiscovery/nuclei-templates",
       "wiki": "nuclei-templates"
     },
@@ -1479,30 +2447,73 @@
       "name": "GTFOBins",
       "type": "tool",
       "category": "security",
+      "sub_category": "security-pentest",
       "url": "https://gtfobins.github.io",
-      "wiki": "gtfobins"
+      "wiki": "gtfobins",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "gtfobins",
+          "url": "https://tanlysgy.github.io/GTFOBins.github.io/",
+          "stack": "GH Pages(fork)",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "lolbas",
       "name": "LOLBAS",
       "type": "tool",
       "category": "security",
+      "sub_category": "security-pentest",
       "url": "https://lolbas-project.github.io",
-      "wiki": "lolbas"
+      "wiki": "lolbas",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "lolbas",
+          "url": "https://tanlysgy.github.io/LOLBAS/",
+          "stack": "GH Pages(fork)",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "free-programming-books",
       "name": "free-programming-books",
       "type": "tool",
       "category": "ebook",
+      "sub_category": "ebook-free",
       "url": "https://github.com/EbookFoundation/free-programming-books",
-      "wiki": "free-programming-books"
+      "wiki": "free-programming-books",
+      "deployed": true,
+      "deployed_kinds": [
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "free-programming-books",
+          "url": "https://tanlysgy.github.io/free-programming-books/",
+          "stack": "GH Pages(fork)",
+          "group": "github",
+          "kind": "mirror"
+        }
+      ]
     },
     {
       "id": "mfuu-freeproxies",
       "name": "mfuu/FreeProxies",
       "type": "tool",
       "category": "proxy",
+      "sub_category": "proxy-sub",
       "url": "https://github.com/mfuu/FreeProxies",
       "wiki": "mfuu-freeproxies"
     },
@@ -1511,6 +2522,7 @@
       "name": "aiboboxx/v2rayfree",
       "type": "tool",
       "category": "proxy",
+      "sub_category": "proxy-sub",
       "url": "https://github.com/free-nodes/v2rayfree",
       "wiki": "aiboboxx-v2rayfree"
     },
@@ -1519,6 +2531,7 @@
       "name": "barry-far/V2ray-Configs",
       "type": "tool",
       "category": "proxy",
+      "sub_category": "proxy-sub",
       "url": "https://github.com/barry-far/V2ray-Config",
       "wiki": "barry-far-v2ray-configs"
     },
@@ -1527,6 +2540,7 @@
       "name": "Epodonators/v2ray-configs",
       "type": "tool",
       "category": "proxy",
+      "sub_category": "proxy-sub",
       "url": "https://github.com/Epodonios/v2ray-configs",
       "wiki": "epodonators-v2ray-configs"
     },
@@ -1535,6 +2549,7 @@
       "name": "HuggingFace Spaces",
       "type": "tool",
       "category": "vps",
+      "sub_category": "vps-free",
       "url": "https://huggingface.co/spaces",
       "wiki": "huggingface-spaces"
     },
@@ -1543,6 +2558,7 @@
       "name": "Replit",
       "type": "tool",
       "category": "vps",
+      "sub_category": "vps-free",
       "url": "https://replit.com",
       "wiki": "replit"
     },
@@ -1551,6 +2567,7 @@
       "name": "Kimi",
       "type": "tool",
       "category": "cn-ai",
+      "sub_category": "cn-ai-dev",
       "url": "https://www.kimi.com",
       "wiki": "kimi"
     },
@@ -1559,6 +2576,7 @@
       "name": "腾讯混元",
       "type": "tool",
       "category": "cn-ai",
+      "sub_category": "cn-ai-dev",
       "url": "https://hunyuan.tencent.com",
       "wiki": "tencent-hunyuan"
     },
@@ -1567,6 +2585,7 @@
       "name": "智谱 GLM-4 API",
       "type": "tool",
       "category": "cn-ai",
+      "sub_category": "cn-ai-dev",
       "url": "https://open.bigmodel.cn",
       "wiki": "bigmodel-glm"
     },
@@ -1575,6 +2594,7 @@
       "name": "DeepSeek API",
       "type": "tool",
       "category": "cn-ai",
+      "sub_category": "cn-ai-dev",
       "url": "https://platform.deepseek.com",
       "wiki": "deepseek-api"
     },
@@ -1583,6 +2603,7 @@
       "name": "硅基流动",
       "type": "tool",
       "category": "cn-ai",
+      "sub_category": "cn-ai-dev",
       "url": "https://siliconflow.cn",
       "wiki": "siliconflow"
     },
@@ -1591,6 +2612,7 @@
       "name": "零一万物",
       "type": "tool",
       "category": "cn-ai",
+      "sub_category": "cn-ai-dev",
       "url": "https://platform.lingyiwanwu.com",
       "wiki": "lingyiwanwu"
     },
@@ -1599,6 +2621,7 @@
       "name": "MiniMax",
       "type": "tool",
       "category": "cn-ai",
+      "sub_category": "cn-ai-dev",
       "url": "https://www.minimax.io",
       "wiki": "minimax"
     },
@@ -1607,14 +2630,29 @@
       "name": "CloudFlare-ImgBed",
       "type": "tool",
       "category": "gear",
+      "sub_category": "gear-tools",
       "url": "https://github.com/MarSeventh/CloudFlare-ImgBed",
-      "wiki": "cloudflare-imgbed"
+      "wiki": "cloudflare-imgbed",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "cloudflare-imgbed",
+          "url": "https://imgbed.sgyyyds.qzz.io",
+          "stack": "CF Workers · KV",
+          "group": "edge",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "cloudflare-tunnel",
       "name": "Cloudflare Tunnel",
       "type": "tool",
       "category": "gear",
+      "sub_category": "gear-tools",
       "url": "https://developers.cloudflare.com/cloudflare-one/",
       "wiki": "cloudflare-tunnel"
     },
@@ -1623,14 +2661,29 @@
       "name": "subconverter",
       "type": "tool",
       "category": "gear",
+      "sub_category": "gear-tools",
       "url": "https://github.com/tindy2013/subconverter",
-      "wiki": "subconverter"
+      "wiki": "subconverter",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "subconverter",
+          "url": "https://sub.sgyyyds.qzz.io/version",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "localsend",
       "name": "LocalSend",
       "type": "tool",
       "category": "gear",
+      "sub_category": "gear-tools",
       "url": "https://github.com/localsend/localsend",
       "wiki": "localsend"
     },
@@ -1639,30 +2692,81 @@
       "name": "Stirling-PDF",
       "type": "tool",
       "category": "gear",
+      "sub_category": "gear-tools",
       "url": "https://github.com/Stirling-Tools/Stirling-PDF",
-      "wiki": "stirling-pdf"
+      "wiki": "stirling-pdf",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "stirling-pdf",
+          "url": "https://pdf.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "it-tools",
       "name": "IT-Tools",
       "type": "tool",
       "category": "gear",
+      "sub_category": "gear-tools",
       "url": "https://github.com/CorentinTh/it-tools",
-      "wiki": "it-tools"
+      "wiki": "it-tools",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "it-tools",
+          "url": "https://it.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "n8n",
       "name": "n8n",
       "type": "tool",
       "category": "gear",
+      "sub_category": "gear-tools",
       "url": "https://github.com/n8n-io/n8n",
-      "wiki": "n8n"
+      "wiki": "n8n",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance",
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "n8n-docs",
+          "url": "https://tanlysgy.github.io/n8n/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        },
+        {
+          "id": "n8n",
+          "url": "https://flow.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "activepieces",
       "name": "Activepieces",
       "type": "tool",
       "category": "gear",
+      "sub_category": "gear-tools",
       "url": "https://github.com/activepieces/activepieces",
       "wiki": "activepieces"
     },
@@ -1671,8 +2775,294 @@
       "name": "Homarr",
       "type": "tool",
       "category": "gear",
+      "sub_category": "gear-tools",
       "url": "https://github.com/ajnart/homarr",
-      "wiki": "homarr"
+      "wiki": "homarr",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance",
+        "mirror"
+      ],
+      "instances": [
+        {
+          "id": "homarr-docs",
+          "url": "https://tanlysgy.github.io/homarr/",
+          "stack": "GH Pages · Actions",
+          "group": "github",
+          "kind": "mirror"
+        },
+        {
+          "id": "homarr",
+          "url": "https://dash.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
+    },
+    {
+      "id": "foss-atlas-cf",
+      "name": "FOSS-Atlas(Cloudflare Pages)",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://atlas.sgyyyds.qzz.io",
+      "wiki": "foss-atlas-cf",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "foss-atlas-cf",
+          "url": "https://atlas.sgyyyds.qzz.io",
+          "stack": "CF Pages",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "short",
+      "name": "Atlas Short",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://short.sgyyyds.qzz.io",
+      "wiki": "short",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "short",
+          "url": "https://short.sgyyyds.qzz.io",
+          "stack": "CF Workers · KV",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "paste",
+      "name": "Atlas Paste",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://paste.sgyyyds.qzz.io",
+      "wiki": "paste",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "paste",
+          "url": "https://paste.sgyyyds.qzz.io",
+          "stack": "CF Workers · KV",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "nodes",
+      "name": "Atlas Nodes",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://nodes.sgyyyds.qzz.io",
+      "wiki": "nodes",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "nodes",
+          "url": "https://nodes.sgyyyds.qzz.io",
+          "stack": "CF Workers · KV",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "qr",
+      "name": "Atlas QR",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://qr.sgyyyds.qzz.io",
+      "wiki": "qr",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "qr",
+          "url": "https://qr.sgyyyds.qzz.io",
+          "stack": "CF Workers",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "px",
+      "name": "Atlas Proxy",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://px.sgyyyds.qzz.io",
+      "wiki": "px",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "px",
+          "url": "https://px.sgyyyds.qzz.io",
+          "stack": "CF Workers · KV",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "ip",
+      "name": "Atlas IP",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://ip.sgyyyds.qzz.io",
+      "wiki": "ip",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "ip",
+          "url": "https://ip.sgyyyds.qzz.io",
+          "stack": "CF Workers",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "name": "Atlas Check",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://check.sgyyyds.qzz.io",
+      "wiki": "check",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "check",
+          "url": "https://check.sgyyyds.qzz.io",
+          "stack": "CF Workers · KV",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "atlas-geo",
+      "name": "Atlas Geo",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://geo.sgyyyds.qzz.io",
+      "wiki": "atlas-geo",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "atlas-geo",
+          "url": "https://geo.sgyyyds.qzz.io",
+          "stack": "CF Workers · KV",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "atlas-meta",
+      "name": "Atlas Meta",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://meta.sgyyyds.qzz.io",
+      "wiki": "atlas-meta",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "atlas-meta",
+          "url": "https://meta.sgyyyds.qzz.io",
+          "stack": "CF Workers · KV",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "atlas-tools",
+      "name": "Atlas Tools",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://tools.sgyyyds.qzz.io",
+      "wiki": "atlas-tools",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "atlas-tools",
+          "url": "https://tools.sgyyyds.qzz.io",
+          "stack": "CF Workers",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
+    },
+    {
+      "id": "edgessh",
+      "name": "EdgeSSH",
+      "type": "own",
+      "category": "atlas",
+      "sub_category": "atlas-edge",
+      "url": "https://ssh.sgyyyds.qzz.io",
+      "wiki": "edgessh",
+      "deployed": true,
+      "deployed_kinds": [
+        "own"
+      ],
+      "instances": [
+        {
+          "id": "edgessh",
+          "url": "https://ssh.sgyyyds.qzz.io",
+          "stack": "CF Workers · Durable Objects · D1 · Access",
+          "group": "edge",
+          "kind": "own"
+        }
+      ]
     },
     {
       "id": "tag:开源",
@@ -1680,13 +3070,13 @@
       "type": "tag"
     },
     {
-      "id": "tag:免费",
-      "name": "免费",
+      "id": "tag:API",
+      "name": "API",
       "type": "tag"
     },
     {
-      "id": "tag:API",
-      "name": "API",
+      "id": "tag:免费",
+      "name": "免费",
       "type": "tag"
     },
     {
@@ -1700,18 +3090,23 @@
       "type": "tag"
     },
     {
+      "id": "tag:自建",
+      "name": "自建",
+      "type": "tag"
+    },
+    {
       "id": "tag:免费层",
       "name": "免费层",
       "type": "tag"
     },
     {
-      "id": "tag:安全",
-      "name": "安全",
+      "id": "tag:代理",
+      "name": "代理",
       "type": "tag"
     },
     {
-      "id": "tag:代理",
-      "name": "代理",
+      "id": "tag:安全",
+      "name": "安全",
       "type": "tag"
     },
     {
@@ -1750,6 +3145,11 @@
       "type": "tag"
     },
     {
+      "id": "tag:工作流",
+      "name": "工作流",
+      "type": "tag"
+    },
+    {
       "id": "tag:部署",
       "name": "部署",
       "type": "tag"
@@ -1775,8 +3175,23 @@
       "type": "tag"
     },
     {
+      "id": "tag:短链",
+      "name": "短链",
+      "type": "tag"
+    },
+    {
+      "id": "tag:面板",
+      "name": "面板",
+      "type": "tag"
+    },
+    {
       "id": "tag:蜜罐",
       "name": "蜜罐",
+      "type": "tag"
+    },
+    {
+      "id": "tag:聚合",
+      "name": "聚合",
       "type": "tag"
     },
     {
@@ -1797,11 +3212,6 @@
     {
       "id": "tag:可观测性",
       "name": "可观测性",
-      "type": "tag"
-    },
-    {
-      "id": "tag:工作流",
-      "name": "工作流",
       "type": "tag"
     },
     {
@@ -1840,38 +3250,18 @@
       "type": "tag"
     },
     {
-      "id": "tag:短链",
-      "name": "短链",
+      "id": "tag:看板",
+      "name": "看板",
       "type": "tag"
     },
     {
-      "id": "tag:面板",
-      "name": "面板",
+      "id": "tag:任务管理",
+      "name": "任务管理",
       "type": "tag"
     },
     {
-      "id": "tag:v2ray",
-      "name": "v2ray",
-      "type": "tag"
-    },
-    {
-      "id": "tag:聚合",
-      "name": "聚合",
-      "type": "tag"
-    },
-    {
-      "id": "tag:开源模型",
-      "name": "开源模型",
-      "type": "tag"
-    },
-    {
-      "id": "tag:多模态",
-      "name": "多模态",
-      "type": "tag"
-    },
-    {
-      "id": "tag:Anthropic",
-      "name": "Anthropic",
+      "id": "tag:终端",
+      "name": "终端",
       "type": "tag"
     },
     {
@@ -2017,18 +3407,6 @@
       "name": "Adobe Acrobat",
       "type": "external",
       "url": "https://www.adobe.com/acrobat.html"
-    },
-    {
-      "id": "ext:Heimdall",
-      "name": "Heimdall",
-      "type": "external",
-      "url": "https://github.com/linuxserver/Heimdall"
-    },
-    {
-      "id": "ext:LangFlow",
-      "name": "LangFlow",
-      "type": "external",
-      "url": "https://github.com/langflow-ai/langflow"
     }
   ],
   "edges": [
@@ -2130,6 +3508,11 @@
     {
       "source": "sub:cn-ai-dev",
       "target": "cat:cn-ai",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:atlas-edge",
+      "target": "cat:atlas",
       "type": "in_category"
     },
     {
@@ -2278,6 +3661,11 @@
       "type": "belongs_to"
     },
     {
+      "source": "neo-chat",
+      "target": "sub:ai-local",
+      "type": "belongs_to"
+    },
+    {
       "source": "langchain",
       "target": "sub:ai-framework",
       "type": "belongs_to"
@@ -2314,6 +3702,21 @@
     },
     {
       "source": "fastgpt",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "langflow",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "new-api",
+      "target": "sub:ai-framework",
+      "type": "belongs_to"
+    },
+    {
+      "source": "axonhub",
       "target": "sub:ai-framework",
       "type": "belongs_to"
     },
@@ -2668,6 +4071,31 @@
       "type": "belongs_to"
     },
     {
+      "source": "syncthing",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "vikunja",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "authentik",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "heimdall",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "awesome-selfhosted",
+      "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
       "source": "xray-reality",
       "target": "sub:selfhost-proxy",
       "type": "belongs_to"
@@ -2963,6 +4391,66 @@
       "type": "belongs_to"
     },
     {
+      "source": "foss-atlas-cf",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "short",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "paste",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "nodes",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "qr",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "px",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "ip",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "check",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "atlas-geo",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "atlas-meta",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "atlas-tools",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
+      "source": "edgessh",
+      "target": "sub:atlas-edge",
+      "type": "belongs_to"
+    },
+    {
       "source": "poe",
       "target": "tag:对话",
       "type": "tagged"
@@ -2975,11 +4463,6 @@
     {
       "source": "huggingchat",
       "target": "tag:对话",
-      "type": "tagged"
-    },
-    {
-      "source": "huggingchat",
-      "target": "tag:开源模型",
       "type": "tagged"
     },
     {
@@ -3018,18 +4501,8 @@
       "type": "tagged"
     },
     {
-      "source": "google-gemini",
-      "target": "tag:多模态",
-      "type": "tagged"
-    },
-    {
       "source": "anthropic-claude",
       "target": "tag:对话",
-      "type": "tagged"
-    },
-    {
-      "source": "anthropic-claude",
-      "target": "tag:Anthropic",
       "type": "tagged"
     },
     {
@@ -3218,6 +4691,11 @@
       "type": "tagged"
     },
     {
+      "source": "neo-chat",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
       "source": "langchain",
       "target": "tag:开源",
       "type": "tagged"
@@ -3284,6 +4762,36 @@
     },
     {
       "source": "fastgpt",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "langflow",
+      "target": "tag:工作流",
+      "type": "tagged"
+    },
+    {
+      "source": "langflow",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "new-api",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "new-api",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "axonhub",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "axonhub",
       "target": "tag:开源",
       "type": "tagged"
     },
@@ -3844,7 +5352,27 @@
     },
     {
       "source": "kanboard",
+      "target": "tag:看板",
+      "type": "tagged"
+    },
+    {
+      "source": "kanboard",
+      "target": "tag:任务管理",
+      "type": "tagged"
+    },
+    {
+      "source": "kanboard",
       "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "focalboard",
+      "target": "tag:看板",
+      "type": "tagged"
+    },
+    {
+      "source": "focalboard",
+      "target": "tag:任务管理",
       "type": "tagged"
     },
     {
@@ -3889,7 +5417,17 @@
     },
     {
       "source": "wetty",
+      "target": "tag:终端",
+      "type": "tagged"
+    },
+    {
+      "source": "wetty",
       "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "ttyd",
+      "target": "tag:终端",
       "type": "tagged"
     },
     {
@@ -3899,6 +5437,46 @@
     },
     {
       "source": "excalidraw",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "syncthing",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "vikunja",
+      "target": "tag:任务管理",
+      "type": "tagged"
+    },
+    {
+      "source": "vikunja",
+      "target": "tag:看板",
+      "type": "tagged"
+    },
+    {
+      "source": "vikunja",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "authentik",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "heimdall",
+      "target": "tag:面板",
+      "type": "tagged"
+    },
+    {
+      "source": "heimdall",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "awesome-selfhosted",
       "target": "tag:开源",
       "type": "tagged"
     },
@@ -4033,11 +5611,6 @@
       "type": "tagged"
     },
     {
-      "source": "anthropic-api",
-      "target": "tag:Anthropic",
-      "type": "tagged"
-    },
-    {
       "source": "google-ai-api",
       "target": "tag:API",
       "type": "tagged"
@@ -4055,11 +5628,6 @@
     {
       "source": "hf-inference-api",
       "target": "tag:API",
-      "type": "tagged"
-    },
-    {
-      "source": "hf-inference-api",
-      "target": "tag:开源模型",
       "type": "tagged"
     },
     {
@@ -4274,11 +5842,6 @@
     },
     {
       "source": "aiboboxx-v2rayfree",
-      "target": "tag:v2ray",
-      "type": "tagged"
-    },
-    {
-      "source": "aiboboxx-v2rayfree",
       "target": "tag:开源",
       "type": "tagged"
     },
@@ -4289,22 +5852,12 @@
     },
     {
       "source": "barry-far-v2ray-configs",
-      "target": "tag:v2ray",
-      "type": "tagged"
-    },
-    {
-      "source": "barry-far-v2ray-configs",
       "target": "tag:开源",
       "type": "tagged"
     },
     {
       "source": "epodonators-v2ray-configs",
       "target": "tag:订阅",
-      "type": "tagged"
-    },
-    {
-      "source": "epodonators-v2ray-configs",
-      "target": "tag:v2ray",
       "type": "tagged"
     },
     {
@@ -4393,11 +5946,6 @@
       "type": "tagged"
     },
     {
-      "source": "minimax",
-      "target": "tag:多模态",
-      "type": "tagged"
-    },
-    {
       "source": "cloudflare-imgbed",
       "target": "tag:Cloudflare",
       "type": "tagged"
@@ -4470,6 +6018,126 @@
     {
       "source": "homarr",
       "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "foss-atlas-cf",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "short",
+      "target": "tag:短链",
+      "type": "tagged"
+    },
+    {
+      "source": "short",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "short",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "paste",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "nodes",
+      "target": "tag:聚合",
+      "type": "tagged"
+    },
+    {
+      "source": "nodes",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "qr",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "qr",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "px",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "px",
+      "target": "tag:代理",
+      "type": "tagged"
+    },
+    {
+      "source": "px",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "ip",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "ip",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "check",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "check",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "atlas-geo",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "atlas-geo",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "atlas-meta",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "atlas-meta",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "atlas-tools",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "atlas-tools",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "edgessh",
+      "target": "tag:终端",
+      "type": "tagged"
+    },
+    {
+      "source": "edgessh",
+      "target": "tag:自建",
       "type": "tagged"
     },
     {
@@ -4634,12 +6302,47 @@
     },
     {
       "source": "homarr",
-      "target": "ext:Heimdall",
+      "target": "heimdall",
       "type": "alternative_to"
     },
     {
       "source": "dify",
-      "target": "ext:LangFlow",
+      "target": "langflow",
+      "type": "alternative_to"
+    },
+    {
+      "source": "short",
+      "target": "is-gd",
+      "type": "alternative_to"
+    },
+    {
+      "source": "short",
+      "target": "tinyurl",
+      "type": "alternative_to"
+    },
+    {
+      "source": "qr",
+      "target": "qrserver",
+      "type": "alternative_to"
+    },
+    {
+      "source": "px",
+      "target": "proxyscrape",
+      "type": "alternative_to"
+    },
+    {
+      "source": "ip",
+      "target": "ipinfo",
+      "type": "alternative_to"
+    },
+    {
+      "source": "check",
+      "target": "disify",
+      "type": "alternative_to"
+    },
+    {
+      "source": "atlas-geo",
+      "target": "nominatim",
       "type": "alternative_to"
     },
     {
