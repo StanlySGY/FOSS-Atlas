@@ -389,6 +389,22 @@
           "desc": "团队知识库 Outline 的开发文档镜像,含架构、部署与二次开发。",
           "stack": "GH Pages · Actions",
           "status": "live"
+        },
+        {
+          "id": "nextcloud-docs",
+          "name": "Nextcloud 文档",
+          "url": "https://tanlysgy.github.io/nextcloud-docs/",
+          "desc": "Nextcloud 官方文档镜像,含管理手册、用户手册与开发者文档。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
+        },
+        {
+          "id": "mattermost-docs",
+          "name": "Mattermost 文档",
+          "url": "https://tanlysgy.github.io/mattermost-docs/",
+          "desc": "团队协作平台 Mattermost 的文档镜像,含部署、API 与集成说明。",
+          "stack": "GH Pages · Actions",
+          "status": "live"
         }
       ]
     },
