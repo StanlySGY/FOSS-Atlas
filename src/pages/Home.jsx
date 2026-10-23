@@ -156,7 +156,7 @@ export default function Home() {
           <p className="text-[11px] text-[var(--text-faint)]">
             卡片已收窄到我在跑的条目（<span className="mono text-[var(--own-text)]">{filtered.length}</span> 条）。
             再点一次上面那格退回全部，或者
-            <Link to="/graph?deployed=1" className="ml-1 text-[var(--own-text)] hover:underline">
+            <Link to="/graph/?deployed=1" className="ml-1 text-[var(--own-text)] hover:underline">
               在图谱里看这一部分 →
             </Link>
           </p>
@@ -264,7 +264,7 @@ export default function Home() {
 
       <p className="text-center text-[11px] text-[var(--text-faint)]">
         想要更立体地浏览？试试{' '}
-        <Link to="/graph" className="text-[var(--accent)] hover:underline">
+        <Link to="/graph/" className="text-[var(--accent)] hover:underline">
           知识图谱 →
         </Link>
       </p>

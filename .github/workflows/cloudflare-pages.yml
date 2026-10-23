@@ -36,6 +36,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Same gate as the GitHub Pages workflow: it is a different deploy of the
+      # same commit, so it must not publish a JSON snapshot that the generator
+      # would disagree with.
+      - name: Check committed data is in sync
+        run: |
+          npm run data
+          drift=$(git diff -U0 src/data | grep -E '^[+-][^+-]' | grep -v generated_at)
+          if [ -n "$drift" ]; then
+            echo "::error file=src/data::src/data is out of sync with the generators. Run \`npm run data\` and commit the regenerated JSON."
+            echo "$drift"
+            exit 1
+          fi
+
       - name: Build
         # Cloudflare Pages answers unknown paths from index.html with a 200, but
         # only when there is no 404.html in the upload — so skip the GitHub

@@ -1,0 +1,19 @@
+{
+  "design": 1,
+  "stats": {
+    "tools": 186,
+    "edges": 643,
+    "deployed": 73,
+    "instances": 81
+  },
+  "copyHash": "c28ec7d355580938c67349ce2d6661d392c0b9d1ac98922fec0bf8c613b74223",
+  "glyphHash": "c6ab7429e7ab6bad87df06f0180513e8576a9e90323f41b6ebc580b3aa3693ee",
+  "fonts": {
+    "noto-sans-sc-400.woff2": "c446ef74a7f13abe9e920a4006a1b052c651a752fc1ce25aa4def0fc080c585e",
+    "noto-sans-sc-500.woff2": "cdb3fd37bae35ad5b9fa698115a2d7580641cd3867d0699d9afb996a29263df8",
+    "noto-sans-sc-700.woff2": "9ba953b7e795e59d562717d08b085489a0e8988fd66345c7ff27f6cccbf62b9e"
+  },
+  "chrome": {
+    "version": "Google Chrome 156.0.8078.47"
+  }
+}

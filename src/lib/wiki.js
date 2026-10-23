@@ -134,7 +134,7 @@ export function transformWikilinks(markdown, resolve) {
       return part.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_m, target, label) => {
         const text = (label || target).trim()
         const id = resolve(target)
-        if (id) return `[${text}](/wiki/${id})`
+        if (id) return `[${text}](/wiki/${id}/)`
         return `[${text}](/?q=${encodeURIComponent(text.trim())})`
       })
     })

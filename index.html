@@ -5,10 +5,20 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0a0c0d" />
+
+    <!--
+      No `rel=canonical`, no `og:*`, no `twitter:*` here on purpose: every route
+      gets its own set from scripts/prerender.mjs (the copy lives in
+      src/prerender/site.js), and a second set authored here would be a second
+      canonical per document, which is worse than none. The build strips anything
+      like this from the head before re-emitting it, so adding them here would be
+      silently overwritten rather than duplicated — but the title and description
+      directly below *are* checked against site.js, so keep those in step.
+    -->
     <title>FOSS-Atlas · 开源白嫖资源图鉴</title>
     <meta
       name="description"
-      content="FOSS-Atlas —— 导航 + Wiki + 知识图谱三合一的免费/开源资源库，收录 AI、SaaS、自部署、公开 API、安全工具等 165 个条目。"
+      content="免费额度、自部署方案、公开 API 收进一张可搜索、可漫游的图：186 个开源条目，导航、Wiki、知识图谱三合一。"
     />
 
     <!--

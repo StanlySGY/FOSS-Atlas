@@ -32,6 +32,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # The catalogue JSON is committed, so a PR that edits the hand-written
+      # sources without re-running the generator would ship stale JSON. Regenerate
+      # and fail if the working tree moved — except for `generated_at`, which the
+      # generator stamps on every run and is therefore never a real change.
+      - name: Check committed data is in sync
+        run: |
+          npm run data
+          drift=$(git diff -U0 src/data | grep -E '^[+-][^+-]' | grep -v generated_at)
+          if [ -n "$drift" ]; then
+            echo "::error file=src/data::src/data is out of sync with the generators. Run \`npm run data\` and commit the regenerated JSON."
+            echo "$drift"
+            exit 1
+          fi
+
       - name: Build
         env:
           # Project site → served from /<repo>/. Set to "/" for a custom domain

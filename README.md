@@ -139,8 +139,10 @@ npm run dev        # 启动开发服务器
 npm run data       # 数据源 → src/data/*.json：join 校验 deployed.json，改完数据源后执行
 npm run icons      # 抓取每个 host 的站点图标 → public/icons/ + src/data/icons.json
 npm run fonts      # 抽取站点用到的字形 → public/fonts/*.woff2（中文子集，自托管）
+npm run og         # 无头 Chrome 重画 public/og/*.png 社交卡片，并记录卡片画自哪份数据
+npm run og:check   # 不渲染：只检查已提交的卡片是否还对得上当前数据（CI 跑这个）
 node scripts/build-wikis.mjs   # 生成 181 篇 Wiki + src/data/backlinks.json
-npm run build      # 先刷新 Wiki 与 backlinks.json，再打包到 dist/ 并生成 SPA 兜底 404.html
+npm run build      # 刷新 Wiki → vite build → 校验社交卡片 → 预渲染 189 个页面 → 404.html
 npm run preview    # 本地预览构建产物
 npm run lint       # oxlint
 ```
@@ -152,6 +154,10 @@ npm run lint       # oxlint
 > Cloudflare Pages 自带同类兜底,打包时用
 > `SKIP_SPA_FALLBACK=1 npm run build` 跳过这一步(见下方「深链接(SPA 兜底)」)。
 
+> `npm run build` 同时把 189 个路由渲染成真正的 HTML（含 186 篇 Wiki）、生成
+> `sitemap.xml` / `robots.txt`，并为每个页面写好 canonical / og / JSON-LD。
+> 详见下方「搜索与分享卡片产物」。
+
 ## 📁 项目结构
 
 ```
@@ -161,12 +167,18 @@ FOSS-Atlas/
 │  ├─ build-icons.mjs       # 每个 host → public/icons/* + src/data/icons.json
 │  ├─ build-fonts.mjs       # 站点用到的字形 → public/fonts/*.woff2（中文子集自托管）
 │  ├─ build-wikis.mjs       # wiki-content + 目录 → public/wiki/*.md + backlinks.json
+│  ├─ build-og.mjs          # 无头 Chrome 画 public/og/*.png；--check 只校验（无需浏览器）
+│  ├─ ogManifest.mjs        # 卡片“画自哪份数据”的记录：src/data/og.json 的读写与比对
+│  ├─ prerender.mjs         # 189 个路由 → dist 下的真实 HTML + sitemap.xml + robots.txt
+│  ├─ glyphSet.mjs          # 扫描站点文案 → 需要留在字体子集里的字形集合
+│  ├─ fontCoverage.mjs      # 直接读 woff2 的 cmap：子集实际覆盖了哪些字形
 │  ├─ wiki-content/         # 每篇 Wiki 的散文（一句话总结 / 功能 / 场景），分组存放
 │  └─ spa-fallback.mjs      # dist/index.html → dist/404.html(SKIP_SPA_FALLBACK=1 跳过)
 ├─ public/
 │  ├─ .nojekyll             # 让 Pages 原样发布（不跑 Jekyll）
 │  ├─ icons/                # 121 个 host 的站点图标（构建期抓取，随包发布）
 │  ├─ fonts/                # Noto Sans SC 中文字体子集（构建期生成，随包发布）
+│  ├─ og/                   # 4 张社交卡片（1200×630，本地绘制后提交的二进制文件）
 │  └─ wiki/                 # 186 篇 Wiki（Markdown + Frontmatter）
 │     ├─ ollama.md          # 5 篇手写深度页……
 │     ├─ cloudflare-workers.md
@@ -179,18 +191,29 @@ FOSS-Atlas/
 │  │  ├─ resources.json     # 186 条资源（生成物，勿手改）
 │  │  ├─ graph.json         # 知识图谱 nodes + edges（生成物）
 │  │  ├─ deployed.json      # 我在跑的服务：唯一需要手维护的部署清单
-│  │  └─ backlinks.json     # 反向链接索引（生成物）
+│  │  ├─ backlinks.json     # 反向链接索引（生成物）
+│  │  └─ og.json            # 社交卡片的构建记录（生成物，不被 dist/ 引用）
 │  ├─ lib/
 │  │  ├─ data.js            # 索引、别名解析、图谱查询、侧边栏导航树
+│  │  ├─ deployGroups.js    # edge/github/docker 三组的中文名：UI 与爬虫文案共用一张表
 │  │  ├─ wiki.js            # Frontmatter 解析 + [[双链]] 转换 + 头部去重
 │  │  ├─ backlinks.js       # 读 backlinks.json，同步查询反向链接
 │  │  └─ graphStyle.js      # 节点/边样式与语义常量
+│  ├─ prerender/            # 构建期用的文案与模板（不被浏览器加载）
+│  │  ├─ site.js            # 每个路由的 title / description / canonical
+│  │  ├─ cards.js           # 卡片上要画的文案（含 186 这类计数，来自 graph.stats）
+│  │  ├─ ogCard.js          # 卡片排版：Chrome 能截成 PNG 的 markup
+│  │  ├─ schema.js          # schema.org JSON-LD（WebSite / Article / Breadcrumb）
+│  │  ├─ shell.js         # dist/index.html 的 head 拆解与替换
+│  │  └─ entry.jsx          # StaticRouter 入口，产出每个路由的 HTML
 │  ├─ layouts/
 │  │  ├─ FullWidthLayout.jsx # 首页 / 图谱：全宽单列
 │  │  └─ SidebarLayout.jsx   # Wiki：左导航树 + 内容 + 移动端抽屉
 │  ├─ components/           # Layout / WikiNavSidebar / ResourceCard / DeployedBadge / Markdown / GraphView / GraphNodePopover
 │  └─ pages/                # Home / WikiPage / GraphPage / Deployed
-└─ .github/workflows/deploy.yml
+└─ .github/workflows/
+   ├─ deploy.yml             # → GitHub Pages（VITE_BASE=/FOSS-Atlas/）
+   └─ cloudflare-pages.yml   # → Cloudflare Pages（VITE_BASE=/，SKIP_SPA_FALLBACK=1）
 ```
 
 ## 🗂 数据流
@@ -210,6 +233,16 @@ resources.json ──► scripts/build-icons.mjs ──► public/icons/* + src/
 
 站点文案+代码 ──► scripts/build-fonts.mjs ──► public/fonts/*.woff2 + fonts.css
                     └── 抽取全部字形 → 下载完整 Noto Sans SC → 子集化为 woff2
+
+src/prerender/* + graph.json ──► scripts/build-og.mjs ──► public/og/*.png
+                    │                                       src/data/og.json
+                    │   （npm run og：本地 Chrome 绘制；npm run build 只 --check）
+                    └── 校验：卡片文案的字形必须在字体子集里，文案必须在卡片内不溢出
+
+dist/index.html + 数据 ──► scripts/prerender.mjs ──► dist/wiki/<id>/index.html ×186
+                                                  └► dist/graph|deployed/index.html
+                                                  └► dist/sitemap.xml + robots.txt
+                    └── 校验：卡片记录与当前 stats 不一致 → 构建失败
 ```
 
 > 图标在**构建期**抓取并随包发布，而不是在浏览器里请求 favicon 服务：
@@ -223,6 +256,10 @@ resources.json ──► scripts/build-icons.mjs ──► public/icons/* + src/
 >
 > **维护提醒**：新增文案若用了子集之外的生僻字，会回落到 `index.css` 里声明的
 > 平台中文字体；要覆盖它们，重跑一次 `npm run fonts` 把新字形并进子集。
+>
+> 同一件事在社交卡片上更严重：卡片上的字是**已经画进 PNG 的像素**，页面上看不见
+> 缺字。所以 `npm run og` 在渲染前先把卡片文案逐字比对 woff2 的 cmap（不只看
+> 「字体有没有这个字」，还先看「字体流水线有没有读到这段文案」），缺一个就拒绝出图。
 
 ### `resources.json` 字段
 
@@ -345,6 +382,57 @@ generated: true   # 生成器写下的标记：这些页面每次运行都会被
 > 页面头部已用原生 `<h1>` + 描述渲染了同样的内容，保留会在页面上重复出现。
 > 只识别 ATX 形式（`# 标题`）；写成 Setext 形式（标题下面加一行 `===`）不会被去掉——请统一用 `#`。
 
+## 🔎 搜索与分享卡片产物
+
+站点的 186 篇 Wiki 正文是客户端在 effect 里 `fetch` `public/wiki/*.md` 渲染的，
+所以爬虫请求 `/wiki/syncthing/` 拿到的是空的 SPA 外壳：**正文和工具名在这份 HTML 里一个字符都没有**。
+Googlebot 会执行脚本，但只在 bundle 加载完、且有时间预算之后；直接读 HTML 的二手爬虫与 AI 爬虫
+看到的就是一份 189 个 URL 里 186 个为空的站点。`scripts/prerender.mjs` 因此在构建期把每个路由渲染成真正的文件：
+
+| 产物 | 内容 |
+| --- | --- |
+| `dist/index.html` / `dist/graph/index.html` / `dist/deployed/index.html` | 3 个静态路由，head 换成该路由自己的元数据 |
+| `dist/wiki/<id>/index.html` ×186 | 正文已在 HTML 里，另带 `<script id="wiki-payload">` 供前端 hydrate |
+| `dist/sitemap.xml` | 189 个 URL，全部写在主域名上 |
+| `dist/robots.txt` | `Allow: /`、`Allow: /wiki/`、`Sitemap:` 行 |
+| 每个页面的 head | `<title>` / description / `rel=canonical` / `og:*` / `twitter:*` / schema.org JSON-LD |
+
+**URL 一律带结尾斜杠**，因为这个形状是**实测**出来的、不是照文档写的：
+`wrangler pages dev` 跑与产物同形状的目录，`/wiki/syncthing/` 200、`/wiki/syncthing` 308→带斜杠、
+`/wiki/syncthing/index.html` 308→带斜杠、`/wiki/syncthing.md` 200（前端自己取 markdown 的那条路径）；
+GitHub Pages 侧对已有镜像实测：目录索引正常服务，但**嵌套目录的无扩展名 HTML 不解析**
+（`/FOSS-Atlas/wiki/syncthing` 404）。目录索引是唯一两个平台都服务的形状，
+结尾斜杠是唯一两边都不重定向的形状——这让 `rel=canonical` 指向读者真正落地的 URL，
+而不是 Search Console 会标记的「被重定向的 canonical」。
+
+**两个平台只有一份 canonical。** `sitemap.xml` 与所有 canonical 只写主域名
+`https://atlas.sgyyyds.qzz.io`；GitHub Pages 镜像发布的是同一份字节，它**不配自己的 sitemap**，
+而是靠每个页面上的 `rel=canonical` 参与合并——两份内容相同、URL 不同的 sitemap 只会产生两组重复提交。
+同理 `og:image` 写成绝对地址且固定在主域名上：根相对的 og:image 会在镜像域名上解析出第二份相同字节。
+
+### 社交卡片（`og:image`）
+
+四张卡片，按**页面种类**而不是按条目：`/og/site.png`、`graph.png`、`deployed.png`、`wiki.png`。
+186 张条目卡片要么变成 186 个提交的二进制（≈12 MB，对照本仓库现有的 121 个图标），
+要么变成每次 push 都在 CI 里跑一遍的字体栅格化——两条都不值；条目自己的名字已经通过
+`og:title` 到达爬虫，那是文本。
+
+卡片是**本地绘制、提交进仓库的二进制**（`npm run og`，需要 Chrome），CI 只**校验**不绘制。
+之所以需要校验：卡片上的「186 条目」是**画进 PNG 的像素**，是整站唯一一处 diff 看不出来的断言——
+加一条资源会改变 head 里的数字，却不会改变那张图，分享卡片于是宣称一个页面自己否认的计数。
+所以三段守卫都在管「过期」而不是管「好不好看」：
+
+| 守卫 | 检查 | 失败时机 |
+| --- | --- | --- |
+| 文案 → 字形 | 卡片要画的每个字都在 woff2 的 cmap 里（`fontCoverage.mjs` 直接解表），且这段文案确实被字体流水线读到过 | `npm run og` 拒绝出图 |
+| 文案 → 排版 | 从 Chrome 截的那一页里量出行数/宽度/与页脚的距离（标题 1 行、描述 2 行、chip 不超行宽、间距 ≥24px） | 同上；PNG 上的溢出爬虫看不见 |
+| 已提交卡片 → 当前数据 | `src/data/og.json` 记录卡片画自哪份 `graph.stats`（含文案 hash、字形 hash、三个字体文件 sha256、Chrome 版本） | `npm run build` 里的 `build-og.mjs --check` 与 `prerender.mjs` 各自 exit 1 |
+
+改完文案或数据后重画卡片：`npm run og`（本地 Chrome，几秒），然后把 `public/og/*.png` **和**
+`src/data/og.json` 一起提交；两者不同步提交的话，下一次 `npm run build` 会在链上失败并把缺哪一项写出来。
+`og.json` 放在 `src/data/` 而不是 `public/og/`：它是构建元数据，不是站点内容，放进 `public/` 会让它
+变成爬虫可以 fetch 的 `/og/manifest.json`，而它描述的是这次构建、对读者没有意义。
+
 ## 🚢 部署
 
 推送到 `main` 会同时触发两个工作流,两个站点内容一致、互不影响:
@@ -387,6 +475,11 @@ Cloudflare Pages 项目名固定为 `foss-atlas`;自定义域名 `atlas.sgyyyds.
 > ⚠️ Cloudflare Pages 只有在**没有** `404.html` 时才把未知路径交给 `index.html`
 > 并返回 200;一旦上传里带 `404.html`,它就用 404 状态码返回这个文件
 > (页面照样能渲染,但爬虫与链接检查器会当成 404)。所以两个目标不能共用同一份产物。
+
+> 兜底文档自己也被打了标识：`scripts/spa-fallback.mjs` 给 `dist/404.html` 加上
+> `rel=canonical`（指向主域名首页——`App.jsx` 把每个未知路径 `<Navigate to="/" replace />`）
+> 和 `noindex,follow`。200 状态返回的兜底页是教科书式的 soft 404：URL 独一份、内容却是通用外壳。
+> 这两者是**断言**出来的而非默认继承的：脚本检查复制来的文档里有没有这两个标签，缺了就自己插入。
 
 ## 📄 License
 

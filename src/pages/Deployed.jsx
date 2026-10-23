@@ -12,7 +12,7 @@ import { resourceById } from '../lib/data.js'
  * keeps the Wiki link and the graph focus from being dead ends on those 18 rows.
  */
 const resourceIdFor = (item) => item.resource ?? item.id
-const graphUrlFor = (item) => `/graph?deployed=1&focus=${encodeURIComponent(resourceIdFor(item))}`
+const graphUrlFor = (item) => `/graph/?deployed=1&focus=${encodeURIComponent(resourceIdFor(item))}`
 
 const STATUS_LABEL = {
   live: '已上线',
@@ -66,7 +66,7 @@ function ServiceRow({ item }) {
       <div className="flex shrink-0 items-center gap-3">
         {resource ? (
           <Link
-            to={`/wiki/${resourceId}`}
+            to={`/wiki/${resourceId}/`}
             className="text-[11px] text-[var(--text-faint)] transition-colors hover:text-[var(--text-strong)]"
           >
             Wiki
@@ -98,16 +98,20 @@ export default function Deployed() {
     0,
   )
   /*
-   * The fork-mirror count, computed from the data instead of written down.
-   * Scoped to the github group on purpose: the 运维 note below is about GitHub's
-   * rule that fork workflows do not self-schedule, and the two mirrors that live
-   * on the edge group (hacktricks-cf, patt-cf) are not forks of anything. A
-   * global mirror count would be 36 and would misdescribe which services the
-   * scheduler has to wake up.
+   * The GitHub Pages mirror count, computed from the data instead of written
+   * down. Scoped to the github group on purpose: the 运维 note below describes
+   * the per-repo Actions schedules, and the two mirrors on the edge group
+   * (hacktricks-cf, patt-cf) are Cloudflare Workers, so they are not part of
+   * that story. A global mirror count would be 36.
+   *
+   * A deployed.json row has no `group` field of its own — the group is the section it
+   * sits under, and `build-data.mjs` is what stamps it onto the catalogue instance.
+   * So the count is taken per section, not by filtering a flat list on a field that
+   * is not there (which yields 0, and 0 is the kind of wrong number that reads fine).
    */
-  const forkMirrors = deployed.groups
-    .flatMap((g) => g.items)
-    .filter((i) => i.group === 'github' && i.kind === 'mirror').length
+  const githubMirrors = deployed.groups
+    .filter((g) => g.id === 'github')
+    .reduce((n, g) => n + g.items.filter((i) => i.kind === 'mirror').length, 0)
 
   return (
     <div className="space-y-8">
@@ -125,8 +129,8 @@ export default function Deployed() {
           上游仓库镜像交给 <span className="text-[var(--text-strong)]">GitHub Pages</span>,
           其余经 <span className="text-[var(--text-strong)]">cloudflared 隧道</span> 从本机 Docker
           暴露成 HTTPS 域名。Cloudflare 与 Docker 服务在{' '}
-          <span className="mono">{deployed.host}</span> 之下,GitHub Pages 镜像在{' '}
-          <span className="mono">tanlysgy.github.io</span> 下,更新于 {deployed.updated}。
+          <span className="mono">{deployed.host}</span> 之下,GitHub Pages 镜像在各自的{' '}
+          <span className="mono">tanlysgy.github.io/仓库名/</span> 路径下,更新于 {deployed.updated}。
         </p>
       </section>
 
@@ -156,7 +160,7 @@ export default function Deployed() {
           <li>· 隧道由用户级 systemd 服务 <span className="mono">foss-labs-tunnel.service</span> 常驻,开机自启;新增域名用 <span className="mono">cloudflared tunnel route dns</span> 注册。</li>
           <li>· Cloudflare 侧的静态站与知识库镜像用 <span className="mono">wrangler</span> 部署到 Workers/Pages,自定义域直接绑在同一个 zone 上。</li>
           <li>· 本页数据源 <span className="mono">src/data/deployed.json</span>;改完推送到 main,GitHub Pages 与 Cloudflare Pages 会各自自动重新发布。</li>
-          <li>· GitHub Pages 的 <span className="mono">{forkMirrors}</span> 个镜像都是 fork,GitHub 默认不运行 fork 内的 <span className="mono">schedule</span>;由非 fork 的 <a href="https://github.com/tanlysgy/atlas-scheduler" target="_blank" rel="noreferrer" className="text-[var(--accent)] hover:underline">atlas-scheduler</a> 每天 05:17 UTC 统一 dispatch,逐个同步上游或重建文档站。</li>
+          <li>· GitHub Pages 的 <span className="mono">{githubMirrors}</span> 个镜像仓库各自带自己的 <span className="mono">Atlas · …</span> workflow 和 <span className="mono">schedule</span>,不存在集中的调度仓库:<span className="mono">Atlas · sync upstream</span> 每天 03:23 UTC 拉上游,<span className="mono">Atlas · sync mirror</span> 每天 04:17 UTC 重建镜像内容,<span className="mono">Atlas · docs site</span> 每周一 04:37 UTC 重建文档站。</li>
           <li>· 网页终端 <span className="mono">term</span> 走 HTTP Basic 密码保护;如需更强鉴权可挂 Cloudflare Access。</li>
           <li>· 边缘小工具 <span className="mono">short</span> / <span className="mono">paste</span> 是同一个 Worker(<span className="mono">atlas-edge-kit</span>)的两个自定义域,数据存 Cloudflare KV。</li>
           <li>· <span className="mono">vault</span> / <span className="mono">book</span> / <span className="mono">sgyyyds</span> / <span className="mono">hub</span> / <span className="mono">chat</span> 五项由另一条隧道 <span className="mono">cloudflared.service</span>(<span className="mono">/etc/cloudflared/config.yml</span>)承载,与 foss-labs 相互独立,改动互不影响。</li>

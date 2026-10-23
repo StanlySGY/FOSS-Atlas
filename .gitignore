@@ -34,3 +34,14 @@ Thumbs.db
 
 # Font build cache (full source OTFs, fetched on demand)
 .cache/
+
+# Local working scratch (probes, one-off fixtures) — never a source of build output
+.scratch/
+
+# wrangler's local state (`wrangler pages dev`, login cache)
+.wrangler/
+
+# build-og.mjs writes the page it screenshots under .cache/og-render/ (not under
+# public/, because `public/` is copied verbatim into `dist/`). The cards themselves
+# are committed binaries: a count painted into a PNG is not diffable, so
+# src/data/og.json records what they were drawn from.

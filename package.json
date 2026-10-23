@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-wikis.mjs && vite build && node scripts/spa-fallback.mjs",
+    "build": "node scripts/build-wikis.mjs && vite build && node scripts/build-og.mjs --check && node scripts/prerender.mjs && node scripts/spa-fallback.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "icons": "node scripts/build-icons.mjs",
     "fonts": "node scripts/build-fonts.mjs",
-    "data": "node scripts/build-data.mjs"
+    "data": "node scripts/build-data.mjs",
+    "og": "node scripts/build-og.mjs",
+    "og:check": "node scripts/build-og.mjs --check"
   },
   "dependencies": {
     "echarts": "^6.1.0",

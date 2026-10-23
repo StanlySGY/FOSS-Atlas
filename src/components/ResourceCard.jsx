@@ -38,7 +38,7 @@ export default function ResourceCard({ resource }) {
         <SiteIcon resource={resource} />
 
         <div className="min-w-0 flex-1">
-          <Link to={`/wiki/${id}`} className="block">
+          <Link to={`/wiki/${id}/`} className="block">
             <h3 className="truncate text-sm font-semibold text-[var(--text-strong)] transition-colors group-hover:text-[var(--accent)]">
               {name}
             </h3>

@@ -127,7 +127,7 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                             return (
                               <li key={tool.id}>
                                 <Link
-                                  to={`/wiki/${tool.id}`}
+                                  to={`/wiki/${tool.id}/`}
                                   ref={isActive ? activeRef : null}
                                   onClick={onNavigate}
                                   aria-current={isActive ? 'page' : undefined}

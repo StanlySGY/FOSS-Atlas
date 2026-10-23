@@ -16,6 +16,7 @@ import {
   wikiSlugFor,
 } from '../lib/data.js'
 import { fetchWiki, parseFrontmatter, stripLeadingChrome, transformWikilinks } from '../lib/wiki.js'
+import { readWikiPrefill } from '../lib/wikiPrefill.js'
 
 function fallbackMarkdown(resource) {
   return [
@@ -73,10 +74,16 @@ export default function WikiPage() {
   const resource = resourceById.get(id)
 
   const slug = wikiSlugFor(id)
-  const [fetched, setFetched] = useState(null)
+  /*
+   * Seeded from the build when this page was prerendered (`readWikiPrefill`),
+   * so the first client render reproduces the markup the reader is already
+   * looking at instead of flashing `loading…`. Unseeded pages — any render
+   * that did not come from a prerendered file — start empty and fetch.
+   */
+  const [fetched, setFetched] = useState(() => readWikiPrefill(id))
 
   useEffect(() => {
-    if (!slug) return undefined
+    if (!slug || readWikiPrefill(id)) return undefined
     let cancelled = false
     fetchWiki(slug).then((raw) => {
       if (cancelled) return
@@ -214,7 +221,7 @@ export default function WikiPage() {
               {related.map((r) => (
                 <Link
                   key={r.id}
-                  to={`/wiki/${r.id}`}
+                  to={`/wiki/${r.id}/`}
                   className="flex items-center justify-between gap-3 rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 transition-colors hover:border-[var(--line-strong)]"
                 >
                   <span className="min-w-0">
@@ -287,7 +294,7 @@ export default function WikiPage() {
               ))}
             </ul>
             <p className="mt-2.5 border-t border-[var(--line-soft)] pt-2 text-[10px] text-[var(--text-faint)]">
-              <Link to="/deployed" className="text-[var(--own-text)] hover:underline">
+              <Link to="/deployed/" className="text-[var(--own-text)] hover:underline">
                 全部自部署服务 →
               </Link>
             </p>
@@ -301,7 +308,7 @@ export default function WikiPage() {
                 <li key={a.id} className="flex items-center gap-2">
                   <span className="text-neutral-500">替代</span>
                   {a.linkId ? (
-                    <Link to={`/wiki/${a.linkId}`} className="text-neutral-300 hover:text-[var(--accent)]">
+                    <Link to={`/wiki/${a.linkId}/`} className="text-neutral-300 hover:text-[var(--accent)]">
                       {a.name}
                     </Link>
                   ) : a.url ? (
@@ -330,7 +337,7 @@ export default function WikiPage() {
               {backlinks.map((r) => (
                 <Link
                   key={r.id}
-                  to={`/wiki/${r.id}`}
+                  to={`/wiki/${r.id}/`}
                   className="rounded-[3px] border border-[var(--line)] px-1.5 py-0.5 text-[10px] text-neutral-400 hover:border-[var(--accent)]/50 hover:text-[var(--accent)]"
                 >
                   {r.name}
@@ -341,7 +348,7 @@ export default function WikiPage() {
         ) : null}
 
         <Link
-          to={`/graph?focus=${encodeURIComponent(id)}`}
+          to={`/graph/?focus=${encodeURIComponent(id)}`}
           className="block rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 text-center text-xs text-neutral-400 transition-colors hover:border-[var(--accent)]/50 hover:text-[var(--accent)]"
         >
           在知识图谱中查看 →

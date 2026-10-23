@@ -24,10 +24,12 @@
  * in index.css still matters.
  */
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import subsetFont from 'subset-font'
+
+import { collectGlyphs } from './glyphSet.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
@@ -50,34 +52,12 @@ const SOURCE_URL = (f) =>
 
 /* ---------------------------------------------------------------- *
  * 1. Collect every character the site can render.
- * ---------------------------------------------------------------- */
-function collectGlyphs() {
-  const parts = []
-
-  const resources = JSON.parse(readFileSync(resolve(ROOT, 'src/data/resources.json'), 'utf8'))
-  for (const r of resources) {
-    parts.push(r.name, r.description, r.category_name, r.sub_category_name, ...r.tags)
-  }
-
-  for (const f of readdirSync(resolve(ROOT, 'public/wiki'))) {
-    if (f.endsWith('.md')) parts.push(readFileSync(resolve(ROOT, 'public/wiki', f), 'utf8'))
-  }
-
-  const walk = (dir) =>
-    readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
-      e.isDirectory() ? walk(resolve(dir, e.name)) : [resolve(dir, e.name)],
-    )
-  for (const f of walk(resolve(ROOT, 'src'))) {
-    if (/\.(jsx?|css)$/.test(f)) parts.push(readFileSync(f, 'utf8'))
-  }
-  parts.push(readFileSync(resolve(ROOT, 'index.html'), 'utf8'))
-
-  // Always include the printable ASCII range so numbers/latin never tofu.
-  for (let c = 0x20; c <= 0x7e; c++) parts.push(String.fromCharCode(c))
-
-  const set = new Set(parts.join(''))
-  return [...set].join('')
-}
+ * ---------------------------------------------------------------- *
+ * The walk itself lives in scripts/glyphSet.mjs so that scripts/build-og.mjs can
+ * check the copy it paints onto the social cards against the same set — see the
+ * header there for why sharing it matters.
+ */
+const glyphs = collectGlyphs()
 
 /* ---------------------------------------------------------------- *
  * 2. Fetch a full source weight into the cache (once).
@@ -95,7 +75,6 @@ function ensureSource(file) {
 /* ---------------------------------------------------------------- *
  * 3. Subset → woff2, write the faces + a hand-written CSS file.
  * ---------------------------------------------------------------- */
-const glyphs = collectGlyphs()
 mkdirSync(OUT_DIR, { recursive: true })
 
 const faces = []

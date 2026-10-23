@@ -44,6 +44,28 @@ export const navTree = categories.map((cat) => ({
 }))
 
 /* ------------------------------------------------------------------ *
+ * Deployed instance ids -> catalogue resource id.
+ *
+ * A deployment row carries its own id, which only matches the catalogue id
+ * when there is exactly one instance of that tool. `heimdall-docs` is a
+ * GitHub Pages mirror *of* the resource `heimdall`; `syncthing` is both the
+ * catalogue entry and the running service. Resolving through this map is what
+ * lets the generator, the graph and the sitemap agree on which entry a running
+ * service belongs to.
+ * ------------------------------------------------------------------ */
+export const instanceIdToResource = new Map()
+for (const r of resources) {
+  for (const instance of r.instances ?? []) {
+    instanceIdToResource.set(instance.id, r.id)
+  }
+}
+
+/** Catalogue id for a deployed instance id, or null when it matches no entry. */
+export function resourceIdForInstance(instanceId) {
+  return instanceIdToResource.get(instanceId) ?? null
+}
+
+/* ------------------------------------------------------------------ *
  * Name -> resource id resolution, used by [[wikilinks]] and by the
  * "related" panel.
  * ------------------------------------------------------------------ */
@@ -153,15 +175,13 @@ export function alternativesFor(id) {
  * ------------------------------------------------------------------ */
 
 /**
- * Deployment groups in the words the 自部署服务 page uses for them. Lives here
- * because three views name the same group (the graph bubble, the Wiki rail, the
- * service rows) and they must not drift into three different names.
+ * Deployment group names, re-exported from `deployGroups.js` so the app's import
+ * paths stay short. That file is the single table: the crawler copy
+ * (`src/prerender/site.js`, `cards.js`) reads the same three names, and the two
+ * sides had drifted into `本地 Docker` / `GitHub Pages` vs `Docker 隧道` /
+ * `GitHub Pages 镜像` before it existed.
  */
-export const DEPLOY_GROUP_LABEL = {
-  edge: 'Cloudflare 边缘',
-  docker: '本地 Docker',
-  github: 'GitHub Pages',
-}
+export { DEPLOY_GROUP_LABEL, deployGroupPhrase } from './deployGroups.js'
 
 /** Catalogue resources the reader actually runs, in catalogue order. */
 export const deployedResources = resources.filter((r) => r.deployed)

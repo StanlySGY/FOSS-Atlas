@@ -138,7 +138,7 @@ export default function GraphPage() {
       // An own node is a catalogue record too (the generator mints it from
       // deployed.json), so it has a wiki page just like a third-party tool.
       if (node.type === 'tool' || node.type === 'own') {
-        return { label: '查看详情 →', run: () => navigate(`/wiki/${node.id}`) }
+        return { label: '查看详情 →', run: () => navigate(`/wiki/${node.id}/`) }
       }
       if (node.type === 'tag') {
         return {
@@ -441,7 +441,7 @@ export default function GraphPage() {
                 {contained.map((r) => (
                   <li key={r.id}>
                     <Link
-                      to={`/wiki/${r.id}`}
+                      to={`/wiki/${r.id}/`}
                       className="block truncate rounded-[3px] px-1.5 py-1 text-xs text-[var(--text-dim)] hover:bg-[var(--ink-tint)] hover:text-[var(--accent)]"
                     >
                       {r.name}
