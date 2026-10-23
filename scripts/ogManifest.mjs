@@ -27,6 +27,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { cardSet, cardStats } from '../src/prerender/cards.js'
+import { SHIPPED_WEIGHTS } from './shippedFonts.mjs'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -34,7 +35,7 @@ export const MANIFEST_PATH = resolve(ROOT, 'src/data/og.json')
 const GRAPH_JSON = resolve(ROOT, 'src/data/graph.json')
 
 /** The subsetted faces the build reads; the card itself only draws 400 and 700. */
-export const CARD_FONT_WEIGHTS = [400, 500, 700]
+export const CARD_FONT_WEIGHTS = SHIPPED_WEIGHTS
 
 /**
  * Bump when the card *layout* changes, so "these PNGs are from an older design"

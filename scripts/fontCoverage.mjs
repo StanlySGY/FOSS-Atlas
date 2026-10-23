@@ -26,11 +26,13 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import wawoff2 from 'wawoff2'
 
+import { SHIPPED_WEIGHTS } from './shippedFonts.mjs'
+
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const FONT_DIR = resolve(ROOT, 'public/fonts')
 
-/** The shipped faces. Must match the WEIGHTS list in scripts/build-fonts.mjs. */
-export const SHIPPED_FACES = [400, 500, 700].map((weight) => ({
+/** The shipped faces — the same list scripts/build-fonts.mjs writes. */
+export const SHIPPED_FACES = SHIPPED_WEIGHTS.map((weight) => ({
   weight,
   file: resolve(FONT_DIR, `noto-sans-sc-${weight}.woff2`),
 }))

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import deployed from '../data/deployed.json'
 import { resourceById } from '../lib/data.js'
@@ -19,23 +20,57 @@ const STATUS_LABEL = {
   pending: '部署中',
 }
 
-function StatusChip({ status }) {
-  const live = status === 'live'
+/*
+ * What the probe's own classification means for a row. 3xx and 4xx are not
+ * failures: the tunnel carried the request and something answered it (Access, a
+ * redirect to its own app, a 404 page). Only the edge-side and origin-side
+ * connect failures name a link that did not carry.
+ */
+const unreachable = (cls) =>
+  cls === '530/1033' || cls === '502' || cls === '504' || cls === 'transport' || String(cls).startsWith('5xx')
+
+/** The snapshot `npm run probe -- --out dist/probe.json` shipped with this build. */
+function useProbe() {
+  const [probe, setProbe] = useState(null)
+  useEffect(() => {
+    let alive = true
+    fetch(`${import.meta.env.BASE_URL}probe.json`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (alive) setProbe(d ?? null)
+      })
+      .catch(() => {})
+    return () => {
+      alive = false
+    }
+  }, [])
+  return probe
+}
+
+const utcStamp = (iso) => String(iso ?? '').slice(0, 16).replace('T', ' ')
+
+function StatusChip({ status, result }) {
+  const pending = status === 'pending'
+  const down = !pending && result ? unreachable(result.cls) : false
+  const neutral = pending || (!result && status !== 'live')
   return (
     <span
       className={[
         'mono shrink-0 rounded-[3px] px-1.5 py-0.5 text-[10px]',
-        live
-          ? 'bg-[var(--accent)]/15 text-[var(--accent)]'
-          : 'bg-[var(--ink-tint)] text-[var(--text-faint)]',
+        down
+          ? 'bg-[var(--down-soft)] text-[var(--down-text)]'
+          : neutral
+            ? 'bg-[var(--ink-tint)] text-[var(--text-faint)]'
+            : 'bg-[var(--accent)]/15 text-[var(--accent)]',
       ].join(' ')}
+      title={result ? `${result.cls}: ${result.note}` : undefined}
     >
-      {STATUS_LABEL[status] ?? status}
+      {down ? `不可达 ${result.code ?? result.cls}` : (STATUS_LABEL[status] ?? status)}
     </span>
   )
 }
 
-function ServiceRow({ item }) {
+function ServiceRow({ item, result }) {
   const resourceId = resourceIdFor(item)
   const resource = resourceById.get(resourceId)
   return (
@@ -50,7 +85,7 @@ function ServiceRow({ item }) {
           >
             {item.name}
           </a>
-          <StatusChip status={item.status} />
+          <StatusChip status={item.status} result={result} />
         </div>
         <p className="mt-1 text-xs leading-relaxed text-[var(--text-dim)]">{item.desc}</p>
         <div className="mono mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-[var(--text-faint)]">
@@ -92,6 +127,9 @@ function ServiceRow({ item }) {
 }
 
 export default function Deployed() {
+  const probe = useProbe()
+  const probeRows = probe?.rows ?? []
+  const probeDown = probeRows.filter((r) => unreachable(r.cls))
   const total = deployed.groups.reduce((n, g) => n + g.items.length, 0)
   const live = deployed.groups.reduce(
     (n, g) => n + g.items.filter((i) => i.status === 'live').length,
@@ -116,9 +154,8 @@ export default function Deployed() {
   return (
     <div className="space-y-8">
       <section className="max-w-3xl space-y-3 pt-2">
-        <span className="mono inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--ink-raised)] px-2.5 py-1 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-          Self-hosted · {live}/{total} live
+        <span className="mono inline-flex items-center rounded-full border border-[var(--line)] bg-[var(--ink-raised)] px-2.5 py-1 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
+          Self-hosted · {live}/{total} 记录为 live
         </span>
         <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-[2rem]">
           自部署服务
@@ -132,6 +169,23 @@ export default function Deployed() {
           <span className="mono">{deployed.host}</span> 之下,GitHub Pages 镜像在各自的{' '}
           <span className="mono">tanlysgy.github.io/仓库名/</span> 路径下,更新于 {deployed.updated}。
         </p>
+        {/*
+         * 已上线 is a claim about the deployment list, not an observation. The
+         * build-time probe is the observation: the same {total} URLs fetched from
+         * the public internet when this build was published, one row per result
+         * below. No snapshot, no line — a dev server has nothing to show.
+         */}
+        {probe ? (
+          <p className="mono text-[11px] leading-relaxed text-[var(--text-faint)]">
+            发布时探测 {utcStamp(probe.ranAt)} UTC ·{' '}
+            <span className="text-[var(--text-strong)]">{probeRows.length - probeDown.length}</span> /{' '}
+            {probeRows.length} 可达
+            {probeDown.length ? (
+              <span className="text-[var(--down-text)]"> · {probeDown.length} 不可达</span>
+            ) : null}
+            <span className="text-[var(--text-mute)]"> · 逐行结果见各条目状态</span>
+          </p>
+        ) : null}
       </section>
 
       {deployed.groups.map((group) => (
@@ -147,7 +201,11 @@ export default function Deployed() {
           </div>
           <ul className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
             {group.items.map((item) => (
-              <ServiceRow key={item.id} item={item} />
+              <ServiceRow
+                key={item.id}
+                item={item}
+                result={probeRows.find((r) => r.group === group.id && r.id === item.id)}
+              />
             ))}
           </ul>
         </section>
@@ -160,6 +218,7 @@ export default function Deployed() {
           <li>· 隧道由用户级 systemd 服务 <span className="mono">foss-labs-tunnel.service</span> 常驻,开机自启;新增域名用 <span className="mono">cloudflared tunnel route dns</span> 注册。</li>
           <li>· Cloudflare 侧的静态站与知识库镜像用 <span className="mono">wrangler</span> 部署到 Workers/Pages,自定义域直接绑在同一个 zone 上。</li>
           <li>· 本页数据源 <span className="mono">src/data/deployed.json</span>;改完推送到 main,GitHub Pages 与 Cloudflare Pages 会各自自动重新发布。</li>
+          <li>· 每条的状态 chip 来自发布时跑的只读探测(<span className="mono">npm run probe -- --out dist/probe.json</span>),它说的是上一次发布那一刻从公网看到的结果,<b className="text-[var(--text-strong)]">不是实时监控</b>;530/1033 指隧道没接上云,502 指云接上了但源站没应答。</li>
           <li>· GitHub Pages 的 <span className="mono">{githubMirrors}</span> 个镜像仓库各自带自己的 <span className="mono">Atlas · …</span> workflow 和 <span className="mono">schedule</span>,不存在集中的调度仓库:<span className="mono">Atlas · sync upstream</span> 每天 03:23 UTC 拉上游,<span className="mono">Atlas · sync mirror</span> 每天 04:17 UTC 重建镜像内容,<span className="mono">Atlas · docs site</span> 每周一 04:37 UTC 重建文档站。</li>
           <li>· 网页终端 <span className="mono">term</span> 走 HTTP Basic 密码保护;如需更强鉴权可挂 Cloudflare Access。</li>
           <li>· 边缘小工具 <span className="mono">short</span> / <span className="mono">paste</span> 是同一个 Worker(<span className="mono">atlas-edge-kit</span>)的两个自定义域,数据存 Cloudflare KV。</li>

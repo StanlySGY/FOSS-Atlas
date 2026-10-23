@@ -15,7 +15,7 @@ import {
   resolveTarget,
   wikiSlugFor,
 } from '../lib/data.js'
-import { fetchWiki, parseFrontmatter, stripLeadingChrome, transformWikilinks } from '../lib/wiki.js'
+import { fetchWiki, headingsFromMarkdown, parseFrontmatter, stripLeadingChrome, transformWikilinks } from '../lib/wiki.js'
 import { readWikiPrefill } from '../lib/wikiPrefill.js'
 
 function fallbackMarkdown(resource) {
@@ -117,6 +117,10 @@ export default function WikiPage() {
     [content],
   )
 
+  // The article's own sections. On a phone the drawer lists tools, not sections,
+  // so without this the only way to a late heading is one long scroll.
+  const toc = useMemo(() => (isFallback ? [] : headingsFromMarkdown(rendered)), [rendered, isFallback])
+
   const related = useMemo(() => {
     const fromGraph = relatedResources(id)
     const seen = new Set(fromGraph.map((r) => r.id))
@@ -155,7 +159,7 @@ export default function WikiPage() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_260px] xl:grid-cols-[minmax(0,1fr)_300px]">
       <article className="min-w-0 space-y-6 px-4 pb-10 pt-2 sm:px-6">
         <nav className="flex items-center gap-2 text-xs text-[var(--text-faint)]">
           <Link to="/" className="transition-colors hover:text-[var(--text-strong)]">
@@ -208,6 +212,29 @@ export default function WikiPage() {
           </div>
         </header>
 
+        {toc.length >= 3 ? (
+          <nav
+            aria-label="本页目录"
+            className="flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-[var(--line-soft)] py-2.5"
+          >
+            <span className="mono text-[10px] text-[var(--text-mute)]">本页目录</span>
+            {toc.map((h) => (
+              <button
+                key={h.slug}
+                type="button"
+                onClick={() => document.getElementById(h.slug)?.scrollIntoView({ block: 'start' })}
+                className={
+                  h.level === 3
+                    ? 'text-[11px] text-[var(--text-faint)] transition-colors hover:text-[var(--accent)]'
+                    : 'text-[11px] text-[var(--text-dim)] transition-colors hover:text-[var(--accent)]'
+                }
+              >
+                {h.level === 3 ? `› ${h.text}` : h.text}
+              </button>
+            ))}
+          </nav>
+        ) : null}
+
         {loading ? (
           <p className="mono text-xs text-neutral-500">loading…</p>
         ) : (
@@ -225,7 +252,7 @@ export default function WikiPage() {
                   className="flex items-center justify-between gap-3 rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 transition-colors hover:border-[var(--line-strong)]"
                 >
                   <span className="min-w-0">
-                    <span className="block truncate text-xs font-medium text-neutral-200">
+                    <span className="block truncate text-xs font-semibold text-neutral-200">
                       {r.name}
                     </span>
                     <span className="block truncate text-[11px] text-neutral-500">
@@ -241,7 +268,7 @@ export default function WikiPage() {
       </article>
 
       {/* Hugs the right viewport edge: no right gutter beyond a modest pad. */}
-      <aside className="space-y-5 px-4 pb-10 xl:sticky xl:top-[4.5rem] xl:self-start xl:pl-0 xl:pr-4">
+      <aside className="space-y-5 px-4 pb-10 lg:sticky lg:top-[4.5rem] lg:self-start lg:pl-0 lg:pr-4">
         <Panel title="元数据">
           <dl className="space-y-2 text-xs">
             <Row label="分类" value={resource.category_name} />
@@ -364,15 +391,16 @@ export default function WikiPage() {
  */
 function WikiIcon({ resource }) {
   const [failed, setFailed] = useState(false)
+  const src = iconFor(resource)
   return (
     <span
       title={hostFor(resource)}
       className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[8px] border border-[var(--line)] bg-[var(--ink-raised)] text-sm font-semibold text-[var(--text-faint)]"
     >
       <span aria-hidden="true">{initialFor(resource)}</span>
-      {failed ? null : (
+      {!src || failed ? null : (
         <img
-          src={iconFor(resource, 128)}
+          src={src}
           alt=""
           decoding="async"
           referrerPolicy="no-referrer"

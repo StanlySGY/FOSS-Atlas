@@ -90,17 +90,12 @@ export default function Home() {
       {/* Hero: title + one-line pitch + hard numbers. */}
       <section className="space-y-5 pt-2">
         <div className="max-w-3xl space-y-3">
-          <span className="mono inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--ink-raised)] px-2.5 py-1 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-            Navigation · Wiki · Knowledge Graph
-          </span>
           <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-[2rem]">
             开源白嫖资源图鉴
           </h1>
           <p className="text-sm leading-relaxed text-[var(--text-dim)]">
-            把散落在收藏夹里的免费额度、开源自部署方案和公开 API，收进一张
-            <span className="text-[var(--text-strong)]"> 可搜索、可漫游、可追溯</span>
-            的图里。点卡片看 Wiki，点「知识图谱」看全局。
+            把散落在收藏夹里的免费额度、开源自部署方案和公开 API，收进一张可搜索、可漫游、可追溯的图里。点卡片看
+            Wiki，点「知识图谱」看全局。
           </p>
         </div>
 
@@ -195,7 +190,12 @@ export default function Home() {
               </button>
             ) : null}
           </div>
-          <span className="mono shrink-0 text-xs text-[var(--text-faint)] sm:min-w-[7rem] sm:text-right">
+          <span
+            className="mono shrink-0 text-xs text-[var(--text-faint)] sm:min-w-[7rem] sm:text-right"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
             <span className="text-[var(--text-strong)]">{filtered.length}</span> / {resources.length} 条
           </span>
         </div>

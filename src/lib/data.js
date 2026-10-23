@@ -227,14 +227,16 @@ export function hostFor(resource) {
  * service at runtime) keeps the site working behind a firewall — both services
  * are unreachable from mainland China, which is this catalogue's main audience.
  *
- * `size` only affects the remote fallback, used solely when the manifest has no
- * entry for the host (e.g. a resource added without re-running the icon build).
+ * `null` when the manifest has no entry (a resource added without re-running
+ * `npm run icons`): callers already draw a lettered tile, and falling back to a
+ * third-party favicon service would reintroduce the blocked request the build
+ * step exists to remove — on the audience that cannot reach it, the tile would
+ * appear anyway, after a timeout.
  */
-export function iconFor(resource, size = 64) {
+export function iconFor(resource) {
   const host = hostFor(resource)
   const local = iconManifest[host]
-  if (local) return `${import.meta.env.BASE_URL}${local.replace(/^\//, '')}`
-  return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=${size}`
+  return local ? `${import.meta.env.BASE_URL}${local.replace(/^\//, '')}` : null
 }
 
 /** First letter fallback shown behind the favicon while it loads / if it fails. */

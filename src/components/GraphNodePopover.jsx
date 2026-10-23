@@ -156,7 +156,7 @@ export default function GraphNodePopover({
         <button
           type="button"
           onClick={onAction}
-          className="mt-3 flex w-full items-center justify-center rounded-[4px] border border-[var(--line-strong)] bg-[var(--ink-tint)] px-2.5 py-1.5 text-xs font-medium text-[var(--accent)] transition-colors hover:border-[var(--line-hover)] hover:bg-[var(--ink-tint-hover)]"
+          className="mt-3 flex w-full items-center justify-center rounded-[4px] border border-[var(--line-strong)] bg-[var(--ink-tint)] px-2.5 py-1.5 text-xs font-semibold text-[var(--accent)] transition-colors hover:border-[var(--line-hover)] hover:bg-[var(--ink-tint-hover)]"
         >
           {actionLabel}
         </button>

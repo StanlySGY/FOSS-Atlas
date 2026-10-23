@@ -1,21 +1,33 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import GraphNodePopover from '../components/GraphNodePopover.jsx'
-import GraphView from '../components/GraphView.jsx'
+/*
+ * The one route-level split in the app: ECharts is about a third of the shipped
+ * bundle and is dead weight for a reader who only came to read a Wiki page. Kept
+ * here rather than around <GraphPage> in App so the page's own copy — title,
+ * counts, chips, legend — is still what `scripts/prerender.mjs` writes into the
+ * static HTML for /graph.
+ */
+const GraphView = lazy(() => import('../components/GraphView.jsx'))
 import {
   DEPLOY_GROUP_LABEL,
   categories,
+  deployedResources,
   deployedStats,
   graph,
   graphStats,
   instancesFor,
   resourceById,
 } from '../lib/data.js'
+import { countByType, toolsInCategory, visibleNodeIds } from '../lib/graphFilter.js'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 
 const ALL_EDGES = Object.keys(EDGE_META)
 
-/** Node counts per type, for the legend. Derived once from the bundled graph. */
+/** Graph node ids → catalogue records, dropping any id with no record. */
+const toResources = (ids) => ids.map((id) => resourceById.get(id)).filter(Boolean)
+
+/** Node counts per type for the whole graph — the 全部 chip's number. */
 const NODE_COUNT = graph.nodes.reduce((acc, n) => {
   acc[n.type] = (acc[n.type] ?? 0) + 1
   return acc
@@ -46,6 +58,9 @@ export default function GraphPage() {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const [enabledEdges, setEnabledEdges] = useState(ALL_EDGES)
+  // Below md the three control rows fold behind one button: on a phone they
+  // would otherwise eat ~340px of the screen before the canvas even starts.
+  const [filtersOpen, setFiltersOpen] = useState(false)
   const [selected, setSelected] = useState(null)
   // 一级分类聚焦：null = 全览；否则只显示该分类的子图. Held in state, not in the
   // URL: it is a wayfinding aid inside one sitting, not a view worth linking to.
@@ -226,28 +241,67 @@ export default function GraphPage() {
   const contained = useMemo(() => {
     if (!selected) return []
     /*
-     * Both predicates accept 自建 alongside 工具. The generator puts Atlas-owned
-     * services under their own 分类 (Atlas 自建), and a count that only matched
-     * `tool` would read 0 for that category and hide 12 running services from
-     * every sub-category list they belong to.
+     * Both predicates accept 自建 alongside 工具 (see toolsInCategory): the
+     * generator puts Atlas-owned services under their own 分类 (Atlas 自建), and
+     * a count that only matched `tool` would read 0 for that category.
      */
     if (selected.type === 'category') {
-      return graph.nodes
-        .filter(
-          (n) => (n.type === 'tool' || n.type === 'own') && n.category === selected.id.replace('cat:', ''),
-        )
-        .map((n) => resourceById.get(n.id))
-        .filter(Boolean)
+      return toResources(toolsInCategory(graph, selected.id.replace('cat:', '')))
     }
     if (selected.type === 'subcategory') {
       const subId = selected.id.replace('sub:', '')
-      return graph.nodes
-        .filter((n) => (n.type === 'tool' || n.type === 'own') && n.sub_category === subId)
-        .map((n) => resourceById.get(n.id))
-        .filter(Boolean)
+      return toResources(
+        graph.nodes
+          .filter((n) => (n.type === 'tool' || n.type === 'own') && n.sub_category === subId)
+          .map((n) => n.id),
+      )
     }
     return []
   }, [selected])
+
+  /*
+   * The view the canvas is showing, in one place. GraphView filters with the
+   * same function, so the legend's counts and the aside's tool list describe
+   * the subgraph actually on screen instead of the whole graph behind it.
+   */
+  const viewIds = useMemo(
+    () => visibleNodeIds(graph, { focusedCategory, deployedOnly }),
+    [focusedCategory, deployedOnly],
+  )
+  const viewCount = useMemo(() => countByType(graph, viewIds), [viewIds])
+  const viewTotal = Object.values(viewCount).reduce((a, b) => a + b, 0)
+
+  /**
+   * What the aside has to say. A keyboard reader can only reach a category's
+   * tool list through the chips row — clicking the category *node* in the canvas
+   * is the other way in, and it is unreachable without a pointer — so a focused
+   * category and the deployed-only view fill the same panel.
+   */
+  const asideSection = useMemo(() => {
+    if (selected) {
+      return {
+        title: selected.name,
+        meta: `${TYPE_META[selected.type]?.label} · ${contained.length} 个工具`,
+        items: contained,
+      }
+    }
+    if (focusedCategory) {
+      const items = toResources(toolsInCategory(graph, focusedCategory))
+      return {
+        title: categories.find((c) => c.id === focusedCategory)?.name ?? '当前分类',
+        meta: `分类 · ${items.length} 个工具`,
+        items,
+      }
+    }
+    if (deployedOnly) {
+      return {
+        title: '我部署了的',
+        meta: `自建 · ${deployedResources.length} 个工具`,
+        items: deployedResources,
+      }
+    }
+    return null
+  }, [selected, contained, focusedCategory, deployedOnly])
 
   return (
     <div className="space-y-4">
@@ -267,6 +321,21 @@ export default function GraphPage() {
         </p>
       </header>
 
+      <button
+        type="button"
+        onClick={() => setFiltersOpen((v) => !v)}
+        aria-expanded={filtersOpen}
+        className="self-start rounded-[var(--radius-sm)] border border-[var(--line)] px-2 py-1 text-[11px] text-[var(--text-dim)] md:hidden"
+      >
+        筛选与聚焦
+        {focusedCategory
+          ? ` · ${categories.find((c) => c.id === focusedCategory)?.name ?? ''}`
+          : deployedOnly
+            ? ' · 只看我部署了的'
+            : ''}
+      </button>
+
+      <div className={`${filtersOpen ? 'flex' : 'hidden'} flex-col gap-2 md:flex`}>
       {/* 一级分类聚焦：选一个分类，只留下它的子图（分类节点 + 子类 + 工具），
           其余节点整体收起，并自动框选居中。 */}
       <div className="flex flex-wrap items-center gap-2">
@@ -369,9 +438,20 @@ export default function GraphPage() {
           )
         })}
       </div>
+      </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <div className="h-[62vh] min-h-[420px] overflow-hidden rounded-[6px] border border-[var(--line)] bg-[var(--ink-sunken)]">
+        <div className="h-[62vh] min-h-[420px] overflow-hidden rounded-[6px] border border-[var(--line)] bg-[var(--ink-sunken)] md:h-[min(72vh,820px)]">
+          <Suspense
+            fallback={
+              <div
+                role="status"
+                className="mono grid h-full place-items-center text-[11px] text-[var(--text-faint)]"
+              >
+                加载图谱…
+              </div>
+            }
+          >
           <GraphView
             graph={graph}
             enabledEdges={enabledEdges}
@@ -396,12 +476,13 @@ export default function GraphPage() {
               />
             )}
           </GraphView>
+          </Suspense>
         </div>
 
         <aside className="space-y-4 lg:sticky lg:top-[4.5rem] lg:self-start">
           <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
             <h2 className="mono mb-2.5 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
-              图例 · 节点
+              图例 · {viewIds ? `当前视图 ${viewTotal} 个节点` : '节点'}
             </h2>
             <ul className="space-y-1.5 text-xs">
               {TYPE_ORDER.map((type) => {
@@ -423,7 +504,7 @@ export default function GraphPage() {
                     />
                     <span className="text-[var(--text-dim)]">{meta.label}</span>
                     <span className="mono ml-auto text-[10px] text-[var(--text-faint)]">
-                      {NODE_COUNT[type] ?? 0}
+                      {viewCount[type] ?? 0}
                     </span>
                   </li>
                 )
@@ -431,14 +512,12 @@ export default function GraphPage() {
             </ul>
           </section>
 
-          {selected ? (
+          {asideSection ? (
             <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
-              <h2 className="text-sm font-semibold text-[var(--text-strong)]">{selected.name}</h2>
-              <p className="mono mt-1 text-[11px] text-[var(--text-faint)]">
-                {TYPE_META[selected.type]?.label} · {contained.length} 个工具
-              </p>
+              <h2 className="text-sm font-semibold text-[var(--text-strong)]">{asideSection.title}</h2>
+              <p className="mono mt-1 text-[11px] text-[var(--text-faint)]">{asideSection.meta}</p>
               <ul className="mt-3 max-h-72 space-y-1 overflow-y-auto pr-1">
-                {contained.map((r) => (
+                {asideSection.items.map((r) => (
                   <li key={r.id}>
                     <Link
                       to={`/wiki/${r.id}/`}
@@ -470,7 +549,8 @@ export default function GraphPage() {
                   顶部<b className="text-[var(--text-strong)]">关系过滤</b>可按关系类型收窄连线
                 </li>
                 <li>
-                  <b className="text-[var(--own)]">只看我部署了的</b>把图收成我真正在跑的那部分
+                  顶部<b className="text-[var(--text-strong)]">聚焦分类</b>与
+                  <b className="text-[var(--own)]">只看我部署了的</b>把图收成一部分，这里同时列出那部分的工具
                 </li>
               </ul>
             </section>

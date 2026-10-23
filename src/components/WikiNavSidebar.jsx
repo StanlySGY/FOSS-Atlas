@@ -86,7 +86,7 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
               ].join(' ')}
             >
               <Chevron open={catOpen} />
-              <span className="min-w-0 flex-1 truncate font-medium">
+              <span className="min-w-0 flex-1 truncate font-semibold">
                 <span className="mr-1">{cat.icon}</span>
                 {cat.name}
               </span>

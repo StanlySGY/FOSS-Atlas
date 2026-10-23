@@ -22,7 +22,7 @@ export default function DeployedBadge({ resource, showGroups = false }) {
   return (
     <span
       title={`已在 ${groups.map((g) => DEPLOY_GROUP_LABEL[g] ?? g).join(' / ')} 部署`}
-      className="inline-flex items-center gap-1.5 rounded-[3px] border border-[var(--own)]/45 bg-[var(--own-soft)] px-1.5 py-0.5 text-[10px] font-medium text-[var(--own-text)]"
+      className="inline-flex items-center gap-1.5 rounded-[3px] border border-[var(--own)]/45 bg-[var(--own-soft)] px-1.5 py-0.5 text-[10px] text-[var(--own-text)]"
     >
       <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--own)]" aria-hidden="true" />
       已自部署 <span className="mono">{instances.length}</span>

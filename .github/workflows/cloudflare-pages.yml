@@ -51,6 +51,10 @@ jobs:
             exit 1
           fi
 
+      - name: Check graph views match their claims
+        # Same guard as the GitHub Pages job: both hosts ship the same graph.
+        run: npm run views:check
+
       - name: Build
         # Cloudflare Pages answers unknown paths from index.html with a 200, but
         # only when there is no 404.html in the upload — so skip the GitHub
@@ -58,6 +62,11 @@ jobs:
         env:
           SKIP_SPA_FALLBACK: "1"
         run: npm run build
+
+      - name: Probe self-hosted services
+        # Same snapshot the GitHub Pages deploy ships, written into dist/ after
+        # the build so it is not wiped by it and never committed.
+        run: npm run probe -- --out dist/probe.json || echo "::warning title=Probe failed::publishing without probe.json"
 
       - name: Check Cloudflare credentials
         id: creds

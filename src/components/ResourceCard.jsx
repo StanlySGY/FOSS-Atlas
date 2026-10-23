@@ -10,12 +10,13 @@ import { hostFor, iconFor, initialFor } from '../lib/data.js'
  */
 function SiteIcon({ resource }) {
   const [failed, setFailed] = useState(false)
+  const src = iconFor(resource)
   return (
     <span className="relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-[6px] border border-[var(--line)] bg-[var(--ink-raised)] text-[13px] font-semibold text-[var(--text-faint)]">
       <span aria-hidden="true">{initialFor(resource)}</span>
-      {failed ? null : (
+      {!src || failed ? null : (
         <img
-          src={iconFor(resource)}
+          src={src}
           alt=""
           loading="lazy"
           decoding="async"

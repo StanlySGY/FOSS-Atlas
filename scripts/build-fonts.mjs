@@ -30,6 +30,7 @@ import { fileURLToPath } from 'node:url'
 import subsetFont from 'subset-font'
 
 import { collectGlyphs } from './glyphSet.mjs'
+import { SHIPPED_FACES as WEIGHTS } from './shippedFonts.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
@@ -37,16 +38,14 @@ const OUT_DIR = resolve(ROOT, 'public/fonts')
 const CACHE_DIR = resolve(ROOT, '.cache/fonts')
 
 /*
- * The three weights the UI actually uses: 400 (body), 500 (medium), 700 (bold).
- * `font-semibold` (600) is declared against the 700 face — see fonts.css below.
- * Noto Sans CJK SC has no 600 weight in this family, and shipping a fourth
- * 16 MB→subset copy for a shade between Medium and Bold is not worth the bytes.
+ * Two weights: 400 (body) and 700 (everything bolder). `font-semibold` (600) is
+ * declared against the 700 face — see fonts.css below — because Noto Sans CJK SC
+ * has no 600 in this family, and a fourth 16 MB→subset copy for one shade between
+ * Medium and Bold is not worth the bytes. `font-medium` (500) is not used at all:
+ * a 500 face cost ~378 KB of a ~1.1 MB font payload for four labels.
+ * The list itself lives in scripts/shippedFonts.mjs — the glyph-coverage check
+ * and the card manifest have to look at the same faces this script writes.
  */
-const WEIGHTS = [
-  { weight: 400, file: 'NotoSansCJKsc-Regular.otf' },
-  { weight: 500, file: 'NotoSansCJKsc-Medium.otf' },
-  { weight: 700, file: 'NotoSansCJKsc-Bold.otf' },
-]
 const SOURCE_URL = (f) =>
   `https://cdn.jsdelivr.net/gh/notofonts/noto-cjk@main/Sans/OTF/SimplifiedChinese/${f}`
 

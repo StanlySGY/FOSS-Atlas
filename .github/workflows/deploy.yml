@@ -48,12 +48,22 @@ jobs:
             exit 1
           fi
 
+      - name: Check graph views match their claims
+        # A wrong visible-node set still draws a canvas, so nothing else notices.
+        run: npm run views:check
+
       - name: Build
         env:
           # Project site → served from /<repo>/. Set to "/" for a custom domain
           # or a user/org page.
           VITE_BASE: /${{ github.event.repository.name }}/
         run: npm run build
+
+      # The 自部署服务 page states what a build-time probe actually observed. The
+      # snapshot lands in dist/ (never committed), so each host ships its own,
+      # taken from the runner's network. A failed probe must not block a publish.
+      - name: Probe self-hosted services
+        run: npm run probe -- --out dist/probe.json || echo "::warning title=Probe failed::publishing without probe.json"
 
       - name: Configure Pages
         uses: actions/configure-pages@v6

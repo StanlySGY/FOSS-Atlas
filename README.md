@@ -126,7 +126,7 @@ ECharts 力导向图，可**拖拽节点、滚轮缩放、拖拽画布平移**�
 | 构建 | Vite 8 |
 | UI | React 19 + Tailwind CSS 4 |
 | 路由 | React Router 7（`basename` 适配 Pages 子路径） |
-| 图谱 | ECharts 6（`echarts/core` 按需引入） |
+| 图谱 | ECharts 6（`echarts/core` 按需引入；`GraphView` 懒加载成一个独立 chunk——首页与 Wiki 不下载 ECharts） |
 | Markdown | react-markdown + remark-gfm |
 | 部署 | GitHub Actions → GitHub Pages + Cloudflare Pages(双平台自动同步) |
 
@@ -141,6 +141,8 @@ npm run icons      # 抓取每个 host 的站点图标 → public/icons/ + src/d
 npm run fonts      # 抽取站点用到的字形 → public/fonts/*.woff2（中文子集，自托管）
 npm run og         # 无头 Chrome 重画 public/og/*.png 社交卡片，并记录卡片画自哪份数据
 npm run og:check   # 不渲染：只检查已提交的卡片是否还对得上当前数据（CI 跑这个）
+npm run views:check # 图谱各视图的节点数是否还符合代码里的说法（CI 跑这个）
+npm run probe      # 只读探测 81 个自部署 URL；CI 在 build 之后写 dist/probe.json，/deployed 页面显示这次观察
 node scripts/build-wikis.mjs   # 生成 181 篇 Wiki + src/data/backlinks.json
 npm run build      # 刷新 Wiki → vite build → 校验社交卡片 → 预渲染 189 个页面 → 404.html
 npm run preview    # 本地预览构建产物
@@ -247,12 +249,13 @@ dist/index.html + 数据 ──► scripts/prerender.mjs ──► dist/wiki/<id
 
 > 图标在**构建期**抓取并随包发布，而不是在浏览器里请求 favicon 服务：
 > `google.com` / `icons.duckduckgo.com` 在中国大陆不可达，运行时请求会让
-> 全部卡片图标退化成字母占位。`iconFor()` 仅在该 host 没有本地图标时才回落到远端。
+> 全部卡片图标退化成字母占位。没有本地图标的 host 直接用字母占位，`iconFor()` 不请求任何远端 favicon 服务。
 > 字体同理在**构建期**子集化并自托管：站点只渲染约 1100 个汉字，却要从
 > `fonts.googleapis.com` 拉取完整 CJK 字库（数 MB），且该域名在中国大陆不可达。
 > `build-fonts.mjs` 收集 `resources.json`、`public/wiki/*.md`、`src/**` 与 `index.html`
-> 里出现的全部字符，用 `subset-font`（harfbuzzjs）裁剪成三个权重各约 360KB 的
-> woff2（合计约 1MB）。改完站点文案后重跑 `npm run fonts` 即可。
+> 里出现的全部字符，用 `subset-font`（harfbuzzjs）裁剪成两个字重（400 / 700）各约 370KB 的
+> woff2（合计约 740KB）；`font-semibold` 声明在 700 这一脸上，字重列表只有一处：
+> `scripts/shippedFonts.mjs`。改完站点文案后重跑 `npm run fonts` 即可。
 >
 > **维护提醒**：新增文案若用了子集之外的生僻字，会回落到 `index.css` 里声明的
 > 平台中文字体；要覆盖它们，重跑一次 `npm run fonts` 把新字形并进子集。
@@ -325,6 +328,10 @@ dist/index.html + 数据 ──► scripts/prerender.mjs ──► dist/wiki/<id
 - 改完跑 `npm run data`：join 校验会列出具体的对不上项（缺 `resource`、指向已改名或
   已删除的工具、行 id 重复——同一组内或跨组都算、`kind` 非法、url 非 https、owned 服务
   url 重复…）并**让构建失败**——漂移不会变成一个悄悄消失的 Wiki 链接。
+- `status` 是这条部署的**声明**（`live` / `pending`），不是探测结果。`/deployed` 页面下方还有一行
+  来自发布时 CI 的只读探测（`npm run probe -- --out dist/probe.json`）：它按 Cloudflare 自己的
+  错误码分开 530/1033（隧道没接上云）与 502（云接上了、源站没应答），所以「不可达」永远指名
+  链条哪一段断了，而不是一句「挂了」。快照只随包发布，不进仓库。
 - 行的 `id` 就是这一行自己的名字，不是图鉴 id；`Deployed.jsx` 一律用 `resource ?? id` 解析。
   加一行之前先查它有没有撞别的行的名字（跨组也算，构建会拦下来），撞了就在 `id` 上区分
   （文档镜像用 `-docs`，第二个部署用 `-cf` / `-gh` / `-web`）。

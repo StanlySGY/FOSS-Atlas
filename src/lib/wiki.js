@@ -149,3 +149,52 @@ export function extractWikilinks(markdown) {
   }
   return [...out]
 }
+
+/**
+ * Anchors for an article's own sections.
+ *
+ * `headingsFromMarkdown` is the table of contents; components/Markdown.jsx calls
+ * `headingSlug` for every heading it renders. Both walks go over the same body in
+ * document order, so the ids the list points at are the ids that exist.
+ *
+ * The one case they can disagree: a `##` indented inside a list item is a heading
+ * to remark but is skipped by the source walk, so a *repeated* heading text later
+ * in that article can get the other one's anchor.
+ */
+function slugBase(text) {
+  const t = String(text ?? '')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1') // a link in a heading: keep its label
+    .replace(/[*_`>#]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase()
+  return t || 'section'
+}
+
+/** Anchor id, made unique by occurrence: `seen` carries the count across a walk. */
+export function headingSlug(text, seen = new Map()) {
+  const base = slugBase(text)
+  const n = (seen.get(base) ?? 0) + 1
+  seen.set(base, n)
+  return n === 1 ? base : `${base}-${n}`
+}
+
+/** `{ level, text, slug }` per `##`/`###` outside a fenced code block. */
+export function headingsFromMarkdown(markdown) {
+  const out = []
+  const seen = new Map()
+  let fenced = false
+  for (const line of String(markdown ?? '').split('\n')) {
+    if (/^ {0,3}(```|~~~)/.test(line)) {
+      fenced = !fenced
+      continue
+    }
+    if (fenced) continue
+    const m = /^(#{2,3})\s+(.+?)\s*#*\s*$/.exec(line)
+    if (!m) continue
+    const text = m[2].trim()
+    out.push({ level: m[1].length, text, slug: headingSlug(text, seen) })
+  }
+  return out
+}

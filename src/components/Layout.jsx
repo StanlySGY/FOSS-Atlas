@@ -14,18 +14,27 @@ export default function Layout() {
         跳到主内容
       </a>
 
-      <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[var(--ink)]/92 backdrop-blur">
-        <div className="flex h-[var(--header-h)] w-full items-center gap-6 px-4 sm:px-6">
-          <Link to="/" className="group flex items-center gap-2">
+      {/* Opaque, not blurred: content scrolls under a sticky header and a
+          translucent one only makes it look smeared. */}
+      <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[var(--ink)]">
+        {/* `shrink-0` + `whitespace-nowrap` on both text blocks, and the GitHub
+            link parked until sm: at 390px those three nav labels and the logo are
+            the whole row, and without them the labels wrap onto two lines and the
+            row overflows the viewport sideways. */}
+        <div className="flex h-[var(--header-h)] w-full items-center gap-3 px-4 sm:gap-6 sm:px-6">
+          <Link to="/" className="group flex shrink-0 items-center gap-2 whitespace-nowrap">
             <span className="grid h-6 w-6 place-items-center rounded-[var(--radius-sm)] border border-[var(--accent)]/50 text-[11px] font-bold text-[var(--accent)]">
               FA
             </span>
-            <span className="text-sm font-semibold tracking-tight text-[var(--text-strong)]">
+            {/* The wordmark parks below 370px: at 320 the tile + three nav labels
+                are 268px, with the wordmark 354px — a sideways scroll on the
+                narrowest phones for a word nobody reads there. */}
+            <span className="hidden text-sm font-semibold tracking-tight text-[var(--text-strong)] min-[370px]:inline">
               FOSS<span className="text-[var(--accent)]">-</span>Atlas
             </span>
           </Link>
 
-          <nav className="flex items-center gap-1 text-sm">
+          <nav className="flex shrink-0 items-center gap-1 whitespace-nowrap text-sm">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -53,7 +62,7 @@ export default function Layout() {
               href="https://github.com/StanlySGY/FOSS-Atlas"
               target="_blank"
               rel="noreferrer"
-              className="rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/60 hover:text-[var(--accent)]"
+              className="hidden rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/60 hover:text-[var(--accent)] sm:inline-block"
             >
               GitHub
             </a>

@@ -12,7 +12,9 @@
     "fonts": "node scripts/build-fonts.mjs",
     "data": "node scripts/build-data.mjs",
     "og": "node scripts/build-og.mjs",
-    "og:check": "node scripts/build-og.mjs --check"
+    "og:check": "node scripts/build-og.mjs --check",
+    "views:check": "node scripts/check-graph-views.mjs",
+    "probe": "node scripts/probe-deployed.mjs"
   },
   "dependencies": {
     "echarts": "^6.1.0",

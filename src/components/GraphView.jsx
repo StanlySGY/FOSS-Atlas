@@ -4,6 +4,7 @@ import * as echarts from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { CANVAS, EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
+import { visibleNodeIds } from '../lib/graphFilter.js'
 
 echarts.use([GraphChart, TooltipComponent, LegendComponent, CanvasRenderer])
 
@@ -57,6 +58,17 @@ export default function GraphView({
   const containerRef = useRef(null)
   const chartRef = useRef(null)
   /*
+   * Reduced-motion readers get no entry/update animation. The force layout is
+   * already settled up front (`layoutAnimation: false`), so this only drops the
+   * fade-in and the pan/zoom tween. Guarded on `typeof window` because
+   * `scripts/prerender.mjs` renders this component in Node.
+   */
+  const [reduceMotion] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true,
+  )
+  /*
    * A `graph` series with `layout: 'force'` re-seeds the simulation on every
    * `setOption`, so toggling a relation filter would scatter the graph — and
    * because `notMerge` rebuilds the view, the roam transform goes with it, which
@@ -102,70 +114,16 @@ export default function GraphView({
   const viewKey = `${focusId ?? ''}|${focusedCategory ?? ''}|${deployedOnly ? 1 : 0}`
 
   /*
-   * Category focus. When a 一级分类 is picked, only its own node, its sub-category
-   * nodes and its tool nodes stay on the canvas; tags, external services and the
-   * other categories drop out entirely (not just dim) so the hairball collapses
-   * to one legible cluster. The category node id is `cat:<id>`.
+   * What stays on the canvas — a 一级分类 subgraph, the running-services
+   * subgraph, or everything. The rules live in src/lib/graphFilter.js because
+   * the page needs the same answer for its legend counts and its tool list; the
+   * hidden nodes are mapped to opacity 0 rather than removed, so the coordinate
+   * space the framing is expressed in never changes. See the note in `option`.
    */
-  /*
-   * What stays on the canvas. Both filters work the same way — they name the ids
-   * to keep, and everything else is hidden by the node mapper below (opacity 0,
-   * never removed) so the coordinate space the framing is expressed in never
-   * changes. See the note in `option`.
-   *
-   * - A 一级分类 keeps its own node, its sub-categories and its tools.
-   * - 只看我部署了的 keeps every running service, plus only the structure those
-   *   services need to be read: the sub-category and category each one hangs
-   *   off, and a tag only when it joins *two or more* of them. A tag touching a
-   *   single running tool links it to nothing the filter kept, so it would add
-   *   visual weight and no information; with that rule 15 of the 40 tags and
-   *   116 of the 338 标签 edges survive, over ~100 visible nodes instead of all
-   *   283. 标签:开源 survives with 58 of those edges — kept deliberately: it is
-   *   a real node with real coordinates in the frozen layout, not a hub minted
-   *   for this view, and dropping it would make the subgraph read as if the
-   *   services running here were not open source.
-   */
-  const visibleIds = useMemo(() => {
-    if (deployedOnly) {
-      const running = new Set(graph.nodes.filter((n) => n.deployed).map((n) => n.id))
-      if (running.size === 0) return null
-      const keep = new Set(running)
-      const subcategories = new Set()
-      // How many running services each tag touches. A tagged edge always has a
-      // tag at one end and a tool at the other, so "both ends run" can never be
-      // true — the test is the number of running ends, not an edge predicate.
-      const tagWeight = new Map()
-      for (const e of graph.edges) {
-        if (e.type === 'belongs_to') {
-          if (running.has(e.source)) subcategories.add(e.target)
-          continue
-        }
-        if (e.type !== 'tagged') continue
-        for (const end of [e.source, e.target]) {
-          if (running.has(end)) continue
-          tagWeight.set(end, (tagWeight.get(end) ?? 0) + 1)
-        }
-      }
-      for (const [id, weight] of tagWeight) {
-        if (weight >= 2) keep.add(id)
-      }
-      // Sub-category nodes know their category; keeping it anchors each cluster
-      // instead of leaving it floating unlabelled.
-      for (const n of graph.nodes) {
-        if (subcategories.has(n.id) && n.category) keep.add(`cat:${n.category}`)
-      }
-      for (const id of subcategories) keep.add(id)
-      return keep
-    }
-    if (!focusedCategory) return null
-    const catNodeId = `cat:${focusedCategory}`
-    const keep = new Set()
-    for (const n of graph.nodes) {
-      if (n.id === catNodeId) keep.add(n.id)
-      else if (n.category === focusedCategory) keep.add(n.id)
-    }
-    return keep
-  }, [graph, focusedCategory, deployedOnly])
+  const visibleIds = useMemo(
+    () => visibleNodeIds(graph, { focusedCategory, deployedOnly }),
+    [graph, focusedCategory, deployedOnly],
+  )
 
   /*
    * Framing transform for category focus. ECharts renders a graph series so that
@@ -377,12 +335,13 @@ export default function GraphView({
           data: nodes,
           edges,
           scaleLimit: { min: 0.25, max: 6 },
+          animation: !reduceMotion,
           animationDuration: 600,
           animationEasingUpdate: 'quinticInOut',
         },
       ],
     }
-  }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout, visibleIds, categoryFrame, posOf])
+  }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout, visibleIds, categoryFrame, posOf, reduceMotion])
 
   /*
    * The handlers are read through a ref so that the chart is initialised exactly
