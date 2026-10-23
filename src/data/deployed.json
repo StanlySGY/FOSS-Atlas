@@ -682,7 +682,7 @@
           "id": "focalboard",
           "name": "Focalboard",
           "url": "https://kanban.sgyyyds.qzz.io",
-          "desc": "Notion/Trello 风格的开源项目管理面板。首次登录默认账号已设置,注册需持有团队注册 token(匿名注册 401)。",
+          "desc": "Notion/Trello 风格的开源项目管理面板。已有归属账号(非默认 admin),匿名注册 401,注册需持有团队注册 token。",
           "stack": "Docker",
           "kind": "instance",
           "status": "live",
