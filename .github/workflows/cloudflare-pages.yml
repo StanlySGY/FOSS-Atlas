@@ -42,7 +42,9 @@ jobs:
       - name: Check committed data is in sync
         run: |
           npm run data
-          drift=$(git diff -U0 src/data | grep -E '^[+-][^+-]' | grep -v generated_at)
+          # `|| true`: with no drift the last grep matches nothing and exits 1, and the step runs
+          # under `bash -e` — so an empty result would fail the job as if data had moved.
+          drift=$(git diff -U0 src/data | grep -E '^[+-][^+-]' | grep -v generated_at || true)
           if [ -n "$drift" ]; then
             echo "::error file=src/data::src/data is out of sync with the generators. Run \`npm run data\` and commit the regenerated JSON."
             echo "$drift"
