@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-22",
+  "updated": "2026-10-23",
   "host": "sgyyyds.qzz.io",
   "groups": [
     {
@@ -812,7 +812,7 @@
           "id": "qbittorrent",
           "name": "qBittorrent",
           "url": "https://bt.sgyyyds.qzz.io",
-          "desc": "BT/PT 下载客户端 WebUI,首次登录默认 admin / adminadmin,请尽快改密。",
+          "desc": "BT/PT 下载客户端 WebUI,默认密码已改并写入 PBKDF2 存储,启动时不再打印临时密码。",
           "stack": "Docker",
           "kind": "instance",
           "status": "live",
