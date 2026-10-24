@@ -18,9 +18,9 @@
  *   services need to be read: the sub-category and category each one hangs
  *   off, and a tag only when it joins *two or more* of them. A tag touching a
  *   single running tool links it to nothing the filter kept, so it would add
- *   visual weight and no information; with that rule 15 of the 40 tags and
- *   116 of the 338 标签 edges survive, over ~100 visible nodes instead of all
- *   283. 标签:开源 survives with 58 of those edges — kept deliberately: it is
+ *   visual weight and no information; with that rule 16 of the 40 tags and
+ *   120 of the 338 标签 edges survive, over ~106 visible nodes instead of all
+ *   283. 标签:开源 survives with 59 of those edges — kept deliberately: it is
  *   a real node with real coordinates in the frozen layout, not a hub minted
  *   for this view, and dropping it would make the subgraph read as if the
  *   services running here were not open source.
