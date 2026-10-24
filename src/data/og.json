@@ -3,14 +3,14 @@
   "stats": {
     "tools": 186,
     "edges": 643,
-    "deployed": 73,
-    "instances": 81
+    "deployed": 75,
+    "instances": 83
   },
-  "copyHash": "c28ec7d355580938c67349ce2d6661d392c0b9d1ac98922fec0bf8c613b74223",
-  "glyphHash": "54a70b5c01bd938eaac614258247e3effe60202a46e96881d5f1d6ea6482529e",
+  "copyHash": "00cdaa6e7aa7d365aeff91034f4ac8494534ab948cc77bd5c2eb635d37a4b843",
+  "glyphHash": "e28c88cf39955d989f45eb0efd816fc46a478e2b31a19928807c14343c3f3f3e",
   "fonts": {
-    "noto-sans-sc-400.woff2": "8c1db7756b79338b3004603d3801d2fb5c854d9bd2b827e6bdd168aa679c2a52",
-    "noto-sans-sc-700.woff2": "656e849c315c68b9080bbd578e32700a95239d8060d42bcab58ac96295128a65"
+    "noto-sans-sc-400.woff2": "68a7192d2fa810c0bad3f49f14f527e45b2bd2576cbc0d7728b0ecdb11b8b1c6",
+    "noto-sans-sc-700.woff2": "108284b969b0be6a746b6fe1e93bc509b1e62a65a1ac129fcb3811da159251a0"
   },
   "chrome": {
     "version": "Google Chrome 153.0.8010.52"

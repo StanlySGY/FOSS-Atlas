@@ -1301,7 +1301,20 @@
       "加密",
       "开源"
     ],
-    "wiki": "joplin"
+    "wiki": "joplin",
+    "instances": [
+      {
+        "id": "joplin",
+        "url": "https://joplin.sgyyyds.qzz.io",
+        "stack": "Docker · Postgres",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "trilium",
@@ -3432,7 +3445,20 @@
       "Cloudflare",
       "免费"
     ],
-    "wiki": "cloudflare-tunnel"
+    "wiki": "cloudflare-tunnel",
+    "instances": [
+      {
+        "id": "cloudflared",
+        "url": "https://one.dash.cloudflare.com/",
+        "stack": "cloudflared · systemd --user",
+        "group": "docker",
+        "kind": "instance"
+      }
+    ],
+    "deployed_kinds": [
+      "instance"
+    ],
+    "deployed": true
   },
   {
     "id": "subconverter",

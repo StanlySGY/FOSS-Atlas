@@ -2,7 +2,8 @@
 /**
  * Deployment probe — read-only, no verdict.
  * ------------------------------------------------------------------
- * The 31 `docker` rows are only reachable through a `cloudflared` connector
+ * The `docker` rows (minus the cloudflared row itself) are only reachable
+ * through a `cloudflared` connector
  * running on the machine that hosts the containers. When that machine is
  * offline the domains still resolve and still answer — with a Cloudflare error
  * page — so "the page did not load" says nothing about the service. It says

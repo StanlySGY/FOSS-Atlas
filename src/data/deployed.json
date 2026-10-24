@@ -897,6 +897,26 @@
           "kind": "instance",
           "status": "live",
           "resource": "neo-chat"
+        },
+        {
+          "id": "joplin",
+          "name": "Joplin Server",
+          "url": "https://joplin.sgyyyds.qzz.io",
+          "desc": "笔记同步服务端:Joplin 官方客户端的私有后端。注册关闭,仅管理员可建账号,匿名建用户 API 403。",
+          "stack": "Docker · Postgres",
+          "kind": "instance",
+          "status": "live",
+          "resource": "joplin"
+        },
+        {
+          "id": "cloudflared",
+          "name": "Cloudflare Tunnel",
+          "url": "https://one.dash.cloudflare.com/",
+          "desc": "本机 Docker 组的公网入口:cloudflared 以 systemd --user 常驻,把 foss-labs 隧道上 *.sgyyyds.qzz.io 的流量转回 localhost;此行探测的是它的控制台,隧道本身的健康由同行各 200 见证。",
+          "stack": "cloudflared · systemd --user",
+          "kind": "instance",
+          "status": "live",
+          "resource": "cloudflare-tunnel"
         }
       ]
     }

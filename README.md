@@ -29,7 +29,7 @@
 | 子分类 | **22** |
 | 图谱节点 | **283**（工具 / 自建 / 分类 / 子类 / 标签 / 外部服务） |
 | 图谱关系边 | **643**（属于 / 归类 / 标签 / 相关 / 替代） |
-| 自部署实例 | **81**（73 个资源条目在跑，其中 12 个为 Atlas 自建） |
+| 自部署实例 | **83**（75 个资源条目在跑，其中 12 个为 Atlas 自建） |
 | Wiki 页面 | **186**（每个条目一篇，全部可读） |
 
 分类覆盖：AI / LLM 白嫖 · 免费 SaaS 开发资源 · 自部署开源神器 · 公开 API 大全 ·
@@ -89,7 +89,7 @@ ECharts 力导向图，可**拖拽节点、滚轮缩放、拖拽画布平移**�
   （分类节点 + 子类 + 工具），标签、外部服务与其他分类整体收起，并自动框选居中；
   再点一次该分类或按 `Esc` 回到全览
 - **只看我部署了的**（「我的基础设施」那一行）：把整张图收成我真正在跑的那部分
-  ——73 个在跑的工具、它们的子类 / 分类，以及把它们串起来的标签。这个视图写在 URL 里
+  ——75 个在跑的工具、它们的子类 / 分类，以及把它们串起来的标签。这个视图写在 URL 里
   （`/graph?deployed=1`），首页的**已自部署**格子与「自部署服务」页每一行的
   「在图谱中查看」都指向它；它与分类聚焦互斥（开一个会自动清掉另一个），按 `Esc` 退回全图
 - 支持 `?focus=<工具 id>` 深链：从 Wiki 页点「在知识图谱中查看 →」后会带参跳转，
@@ -101,15 +101,15 @@ ECharts 力导向图，可**拖拽节点、滚轮缩放、拖拽画布平移**�
   所以退回全览时每个点都还在原来的坐标上。
 
 ### 4. 自部署服务（`/deployed`）
-按部署位置分组列出我实际在跑的 81 个服务：**Cloudflare 无服务器**（16）、
-**GitHub Pages 静态镜像**（34）、**本机 Docker + Cloudflare Tunnel**（31），
+按部署位置分组列出我实际在跑的 83 个服务：**Cloudflare 无服务器**（16）、
+**GitHub Pages 静态镜像**（34）、**本机 Docker + Cloudflare Tunnel**（33），
 每行写清它跑在什么栈上（Workers · KV、Pages、Docker…）。这一页不是另一份清单：
 每一行都通过自己的 `resource` 字段挂回图鉴条目，所以行上有两个出口——
 **Wiki**（进那个条目的页面）和**在图谱中查看**（`/graph?deployed=1&focus=<id>`，
 带着「只看已部署」的子图直接聚焦到它）。
 
 同一件事也可以跑两次：`searxng` 有本机容器、也有 GitHub Pages 文档镜像，`shlink` 有 Docker 后端、
-也有边缘上的官方前端 —— 这些不合并成一条，`instances` 按组累加，81 行落在 73 个条目上。
+也有边缘上的官方前端 —— 这些不合并成一条，`instances` 按组累加，83 行落在 75 个条目上。
 
 行的 `id` 全局唯一（不只是同一组内唯一）：页面拿 `id` 给每行做 key，Wiki 右栏、图谱气泡与
 节点速览也都拿 `id` 给实例做 key，所以 Docker 的 `ttyd` 和它的 GitHub 文档镜像如果同名，会在
@@ -142,7 +142,7 @@ npm run fonts      # 抽取站点用到的字形 → public/fonts/*.woff2（中�
 npm run og         # 无头 Chrome 重画 public/og/*.png 社交卡片，并记录卡片画自哪份数据
 npm run og:check   # 不渲染：只检查已提交的卡片是否还对得上当前数据（CI 跑这个）
 npm run views:check # 图谱各视图的节点数是否还符合代码里的说法（CI 跑这个）
-npm run probe      # 只读探测 81 个自部署 URL；CI 在 build 之后写 dist/probe.json，/deployed 页面显示这次观察
+npm run probe      # 只读探测 83 个自部署 URL；CI 在 build 之后写 dist/probe.json，/deployed 页面显示这次观察
 node scripts/build-wikis.mjs   # 生成 181 篇 Wiki + src/data/backlinks.json
 npm run build      # 刷新 Wiki → vite build → 校验社交卡片 → 预渲染 189 个页面 → 404.html
 npm run preview    # 本地预览构建产物

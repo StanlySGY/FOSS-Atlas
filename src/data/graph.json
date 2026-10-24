@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T16:58:11.714Z",
+  "generated_at": "2026-10-24T01:40:28.086Z",
   "stats": {
     "tools": 186,
     "categories": 11,
@@ -7,8 +7,8 @@
     "tags": 40,
     "externals": 24,
     "own": 12,
-    "deployed": 73,
-    "instances": 81,
+    "deployed": 75,
+    "instances": 83,
     "edges": 643
   },
   "categories": [
@@ -1156,7 +1156,20 @@
       "category": "selfhost",
       "sub_category": "selfhost-core",
       "url": "https://joplinapp.org",
-      "wiki": "joplin"
+      "wiki": "joplin",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "joplin",
+          "url": "https://joplin.sgyyyds.qzz.io",
+          "stack": "Docker · Postgres",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "trilium",
@@ -2654,7 +2667,20 @@
       "category": "gear",
       "sub_category": "gear-tools",
       "url": "https://developers.cloudflare.com/cloudflare-one/",
-      "wiki": "cloudflare-tunnel"
+      "wiki": "cloudflare-tunnel",
+      "deployed": true,
+      "deployed_kinds": [
+        "instance"
+      ],
+      "instances": [
+        {
+          "id": "cloudflared",
+          "url": "https://one.dash.cloudflare.com/",
+          "stack": "cloudflared · systemd --user",
+          "group": "docker",
+          "kind": "instance"
+        }
+      ]
     },
     {
       "id": "subconverter",
