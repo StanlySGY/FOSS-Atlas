@@ -55,6 +55,9 @@
   --down: #b8503f;
   --down-soft: rgba(184, 80, 63, 0.16);
   --down-text: #d9705f;
+  /* Probe health: the build-time snapshot's "this answered" green. Only ever a
+     6px mark, so it clears the 3:1 mark floor with room to spare on --ink-card. */
+  --ok: #46b981;
 
   /* Cards and panels sit one step softer than 6px: at this dark a theme the
      tighter radius reads as a form control, the looser one as a surface. */

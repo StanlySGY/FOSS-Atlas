@@ -145,6 +145,49 @@ export default function WikiPage() {
   // disagrees with the 自部署服务 page or with the graph node.
   const instances = instancesFor(id)
 
+  // 本页目录的当前节：IntersectionObserver 挑出视口顶部附近最近的标题，TOC
+  // 给它点亮。只监听当前页的 slug，切页自动重建。
+  const [activeHeading, setActiveHeading] = useState(null)
+  useEffect(() => {
+    if (!toc.length) return undefined
+    const targets = toc.map((h) => document.getElementById(h.slug)).filter(Boolean)
+    if (!targets.length) return undefined
+    const visible = new Set()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) visible.add(e.target.id)
+          else visible.delete(e.target.id)
+        }
+        if (visible.size) {
+          // 页面上最先出现的那一个：按文档顺序而不是 entry 顺序。
+          const first = targets.find((t) => visible.has(t.id))
+          if (first) setActiveHeading(first.id)
+        }
+      },
+      {
+        // rootMargin 只认 px / percent（rem 在这里会直接抛
+        // "rootMargin must be specified in pixels or percent"，把整棵树炸掉）：
+        // -72px ≈ 3.5rem 吸顶头部，-60% 把"当前节"压在视口上三分之一。
+        rootMargin: '-72px 0px -60% 0px',
+      },
+    )
+    targets.forEach((t) => observer.observe(t))
+    return () => observer.disconnect()
+  }, [toc])
+
+  // 复制分享链接：落成「已复制 ✓」一秒半，不弹 toast 不打断阅读。
+  const [copied, setCopied] = useState(false)
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1600)
+    } catch {
+      /* 剪贴板被拒（非安全上下文等）：静默——按钮回到原样即可。 */
+    }
+  }
+
   if (!resource) {
     return (
       <div className="space-y-4">
@@ -223,6 +266,13 @@ export default function WikiPage() {
             {instances.length ? (
               <DeployedBadge resource={resource} showGroups to={`/deployed/#${instances[0].id}`} />
             ) : null}
+            <button
+              type="button"
+              onClick={copyLink}
+              className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-faint)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--text-dim)]"
+            >
+              {copied ? '已复制 ✓' : '复制链接'}
+            </button>
             {isFallback ? (
               <span className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-faint)]">
                 暂无独立 Wiki
@@ -237,20 +287,27 @@ export default function WikiPage() {
             className="flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-[var(--line-soft)] py-2.5"
           >
             <span className="mono text-[10px] text-[var(--text-mute)]">本页目录</span>
-            {toc.map((h) => (
-              <button
-                key={h.slug}
-                type="button"
-                onClick={() => document.getElementById(h.slug)?.scrollIntoView({ block: 'start' })}
-                className={
-                  h.level === 3
-                    ? 'text-[11px] text-[var(--text-faint)] transition-colors hover:text-[var(--accent)]'
-                    : 'text-[11px] text-[var(--text-dim)] transition-colors hover:text-[var(--accent)]'
-                }
-              >
-                {h.level === 3 ? `› ${h.text}` : h.text}
-              </button>
-            ))}
+            {toc.map((h) => {
+              const on = activeHeading === h.slug
+              return (
+                <button
+                  key={h.slug}
+                  type="button"
+                  aria-current={on ? 'true' : undefined}
+                  onClick={() => document.getElementById(h.slug)?.scrollIntoView({ block: 'start' })}
+                  className={[
+                    'text-[11px] transition-colors',
+                    on
+                      ? 'text-[var(--accent)]'
+                      : h.level === 3
+                        ? 'text-[var(--text-faint)] hover:text-[var(--accent)]'
+                        : 'text-[var(--text-dim)] hover:text-[var(--accent)]',
+                  ].join(' ')}
+                >
+                  {h.level === 3 ? `› ${h.text}` : h.text}
+                </button>
+              )
+            })}
           </nav>
         ) : null}
 
