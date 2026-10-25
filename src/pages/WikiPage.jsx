@@ -161,13 +161,30 @@ export default function WikiPage() {
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_260px] xl:grid-cols-[minmax(0,1fr)_300px]">
       <article className="min-w-0 space-y-6 px-4 pb-10 pt-2 sm:px-6">
-        <nav className="flex items-center gap-2 text-xs text-[var(--text-faint)]">
+        {/*
+         * Every crumb above the current page is a link into the catalogue,
+         * pre-filtered to that slice — 分类 lands on its chips, 子类 on the
+         * narrowed grid. The trail is a way back, not a caption.
+         */}
+        <nav className="flex flex-wrap items-center gap-2 text-xs text-[var(--text-faint)]">
           <Link to="/" className="transition-colors hover:text-[var(--text-strong)]">
             导航
           </Link>
-          <span>/</span>
-          <span>{resource.category_name}</span>
-          <span>/</span>
+          <span aria-hidden="true">/</span>
+          <Link
+            to={`/?cat=${encodeURIComponent(resource.category)}`}
+            className="transition-colors hover:text-[var(--text-strong)]"
+          >
+            {resource.category_name}
+          </Link>
+          <span aria-hidden="true">/</span>
+          <Link
+            to={`/?cat=${encodeURIComponent(resource.category)}&sub=${encodeURIComponent(resource.sub_category)}`}
+            className="transition-colors hover:text-[var(--text-strong)]"
+          >
+            {resource.sub_category_name}
+          </Link>
+          <span aria-hidden="true">/</span>
           <span className="text-[var(--text-dim)]">{resource.name}</span>
         </nav>
 
@@ -203,7 +220,9 @@ export default function WikiPage() {
                 {data.license}
               </span>
             ) : null}
-            {instances.length ? <DeployedBadge resource={resource} showGroups /> : null}
+            {instances.length ? (
+              <DeployedBadge resource={resource} showGroups to={`/deployed/#${instances[0].id}`} />
+            ) : null}
             {isFallback ? (
               <span className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-faint)]">
                 暂无独立 Wiki
@@ -236,7 +255,7 @@ export default function WikiPage() {
         ) : null}
 
         {loading ? (
-          <p className="mono text-xs text-neutral-500">loading…</p>
+          <WikiSkeleton />
         ) : (
           <Markdown>{rendered}</Markdown>
         )}
@@ -380,6 +399,21 @@ export default function WikiPage() {
         >
           在知识图谱中查看 →
         </Link>
+
+        {/*
+         * This page is a file in the repo; the link goes straight to editing
+         * it on GitHub, which is how the 手写深度页 ask for corrections.
+         */}
+        {hasWiki ? (
+          <a
+            href={`https://github.com/StanlySGY/FOSS-Atlas/edit/main/public/wiki/${slug}.md`}
+            target="_blank"
+            rel="noreferrer"
+            className="block rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 text-center text-xs text-neutral-500 transition-colors hover:border-[var(--line-strong)] hover:text-[var(--text-dim)]"
+          >
+            在 GitHub 上编辑此页 ↗
+          </a>
+        ) : null}
       </aside>
     </div>
   )
@@ -420,6 +454,22 @@ function Panel({ title, children }) {
       </h3>
       {children}
     </section>
+  )
+}
+
+/** Body-sized placeholder bars while the markdown fetch lands. */
+function WikiSkeleton() {
+  const widths = ['w-3/4', 'w-full', 'w-11/12', 'w-5/6', 'w-2/3', 'w-full', 'w-4/5']
+  return (
+    <div aria-label="加载中" role="status" className="space-y-3.5 py-1">
+      {widths.map((w, i) => (
+        <div
+          key={i}
+          style={{ animationDelay: `${i * 120}ms` }}
+          className={`fa-skeleton h-3.5 rounded-[4px] bg-[var(--ink-tint)] ${w}`}
+        />
+      ))}
+    </div>
   )
 }
 

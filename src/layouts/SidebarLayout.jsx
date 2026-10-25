@@ -125,7 +125,11 @@ export default function SidebarLayout() {
           目录
         </button>
 
-        <Outlet />
+        {/* Keyed on the pathname: wiki→wiki navigation gets the same short rise
+            the full-width pages get, without remounting the left rail. */}
+        <div key={location.pathname} className="fa-page">
+          <Outlet />
+        </div>
       </main>
 
       {drawerOpen ? (

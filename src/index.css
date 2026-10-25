@@ -56,7 +56,9 @@
   --down-soft: rgba(184, 80, 63, 0.16);
   --down-text: #d9705f;
 
-  --radius: 6px;
+  /* Cards and panels sit one step softer than 6px: at this dark a theme the
+     tighter radius reads as a form control, the looser one as a surface. */
+  --radius: 8px;
   --radius-sm: 4px;
   --header-h: 3.5rem;
 }
@@ -69,7 +71,16 @@ body,
 
 body {
   margin: 0;
-  background: var(--ink);
+  background:
+    /*
+     * Two whisper-quiet washes give the flat #0a0c0d a sense of place: a warm
+     * one near the header (echoes the accent) and a cool one far down-left
+     * (echoes the graph canvas). Both under 4% alpha — felt, not seen.
+     */
+    radial-gradient(1200px 380px at 22% -80px, rgba(240, 180, 41, 0.05), transparent 70%),
+    radial-gradient(900px 420px at 88% 180px, rgba(127, 99, 207, 0.045), transparent 70%),
+    var(--ink);
+  background-attachment: fixed;
   color: var(--text);
   /*
    * "Noto Sans SC" is the self-hosted subset from public/fonts/ (see
@@ -263,6 +274,74 @@ kbd,
   border: 0;
   border-top: 1px solid var(--line);
   margin: 2rem 0;
+}
+
+/* ---------------------------------------------------------------- *
+ * Route transition: each main content area mounts with a short rise,
+ * so switching pages reads as one place moving rather than a flash.
+ * ---------------------------------------------------------------- */
+@keyframes fa-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fa-page {
+  animation: fa-page-in 170ms ease-out;
+}
+
+/*
+ * Card lift: the shared hover for the surfaces a reader can act on (catalogue
+ * cards, deployed rows). Border and background shifts alone read as a rendering
+ * glitch at this contrast; the two-pixel rise plus a soft drop shadow is what
+ * makes the surface feel picked up. Defined once so every surface that lifts,
+ * lifts the same distance with the same shadow.
+ */
+.fa-lift {
+  transition:
+    transform 150ms ease-out,
+    border-color 150ms ease-out,
+    background-color 150ms ease-out,
+    box-shadow 150ms ease-out;
+}
+.fa-lift:hover {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.38),
+    0 2px 8px rgba(0, 0, 0, 0.24);
+}
+
+/* Loading skeleton for the wiki body: three quiet bars, no layout shift when
+   the real content arrives because the heights mirror the first paragraphs. */
+@keyframes fa-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+.fa-skeleton {
+  animation: fa-skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fa-page,
+  .fa-skeleton {
+    animation: none;
+  }
+  .fa-lift,
+  .fa-lift:hover {
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ---------------------------------------------------------------- *

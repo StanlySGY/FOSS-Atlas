@@ -25,8 +25,11 @@ const STATS = [
 export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [query, setQuery] = useState(searchParams.get('q') ?? '')
-  const [activeCategory, setActiveCategory] = useState('all')
-  const [activeSub, setActiveSub] = useState('all')
+  /*
+   * 分类与子类跟 q / deployed 一样住在 URL 里：面包屑（Wiki 页的分类 /
+   * 子类）、卡片上的子类标签和标签链回这里时，地址要能直接说出「哪个分类、
+   * 哪个子类」。未知分类回退到 all；子类必须属于当前分类，否则一并回退。
+   */
   /*
    * 只看我部署了的 — in the URL, for the same reason the graph keeps it there:
    * the 自部署服务 page and a deployed row need to be able to hand the reader a
@@ -35,12 +38,27 @@ export default function Home() {
    */
   const deployedOnly = searchParams.get('deployed') === '1'
 
-  const setDeployedOnly = (next) => {
-    const p = new URLSearchParams(searchParams)
-    if (next) p.set('deployed', '1')
-    else p.delete('deployed')
-    setSearchParams(p, { replace: true })
+  const catParam = searchParams.get('cat')
+  const activeCategory = categories.some((c) => c.id === catParam) ? catParam : 'all'
+  const subParam = searchParams.get('sub')
+  const subs = activeCategory === 'all' ? [] : subCategoriesByCategory[activeCategory] ?? []
+  const activeSub = subs.some((s) => s.id === subParam) ? subParam : 'all'
+
+  const patchParams = (mutate) => {
+    setSearchParams(
+      (prev) => {
+        const p = new URLSearchParams(prev)
+        mutate(p)
+        return p
+      },
+      { replace: true },
+    )
   }
+  const setDeployedOnly = (next) =>
+    patchParams((p) => {
+      if (next) p.set('deployed', '1')
+      else p.delete('deployed')
+    })
 
   // Keep the input in sync when arriving via a /?q=... link.
   useEffect(() => {
@@ -51,13 +69,11 @@ export default function Home() {
 
   const handleQuery = (value) => {
     setQuery(value)
-    const next = new URLSearchParams(searchParams)
-    if (value) next.set('q', value)
-    else next.delete('q')
-    setSearchParams(next, { replace: true })
+    patchParams((p) => {
+      if (value) p.set('q', value)
+      else p.delete('q')
+    })
   }
-
-  const subs = activeCategory === 'all' ? [] : subCategoriesByCategory[activeCategory] ?? []
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -75,10 +91,18 @@ export default function Home() {
     })
   }, [query, activeCategory, activeSub, deployedOnly])
 
-  const pickCategory = (id) => {
-    setActiveCategory(id)
-    setActiveSub('all')
-  }
+  const pickCategory = (id) =>
+    patchParams((p) => {
+      if (id === 'all') p.delete('cat')
+      else p.set('cat', id)
+      p.delete('sub')
+    })
+
+  const pickSub = (id) =>
+    patchParams((p) => {
+      if (id === 'all') p.delete('sub')
+      else p.set('sub', id)
+    })
 
   const activeCategoryName =
     activeCategory === 'all'
@@ -200,7 +224,11 @@ export default function Home() {
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-1.5">
+        {/*
+         * The rail scrolls sideways on a phone instead of wrapping into a wall
+         * of pills; from `sm:` up there is room to wrap again.
+         */}
+        <div className="-mx-4 flex gap-1.5 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
           <CategoryTab
             active={activeCategory === 'all'}
             onClick={() => pickCategory('all')}
@@ -219,23 +247,36 @@ export default function Home() {
         </div>
 
         {subs.length > 1 ? (
-          <div className="flex flex-wrap items-center gap-1.5 border-t border-[var(--line-soft)] pt-3">
-            <span className="mono mr-1 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
-              {activeCategoryName} · 子类
-            </span>
-            <SubChip
-              active={activeSub === 'all'}
-              onClick={() => setActiveSub('all')}
-              label="全部"
-            />
-            {subs.map((sub) => (
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-[var(--line-soft)] pt-3">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="mono mr-1 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
+                {activeCategoryName} · 子类
+              </span>
               <SubChip
-                key={sub.id}
-                active={activeSub === sub.id}
-                onClick={() => setActiveSub(sub.id)}
-                label={`${sub.name} (${countBySubCategory[sub.id] ?? 0})`}
+                active={activeSub === 'all'}
+                onClick={() => pickSub('all')}
+                label="全部"
               />
-            ))}
+              {subs.map((sub) => (
+                <SubChip
+                  key={sub.id}
+                  active={activeSub === sub.id}
+                  onClick={() => pickSub(sub.id)}
+                  label={`${sub.name} (${countBySubCategory[sub.id] ?? 0})`}
+                />
+              ))}
+            </div>
+            {/*
+             * One hop from a filtered catalogue to the same slice of the graph:
+             * `?cat=` is the graph's category-focus deep link, so the address
+             * that says "these tools" keeps saying it on the other page.
+             */}
+            <Link
+              to={`/graph/?cat=${encodeURIComponent(activeCategory)}`}
+              className="text-[11px] text-[var(--text-dim)] transition-colors hover:text-[var(--accent)]"
+            >
+              在知识图谱中聚焦 {activeCategoryName} →
+            </Link>
           </div>
         ) : null}
       </section>

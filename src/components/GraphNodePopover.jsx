@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { TYPE_META } from '../lib/graphStyle.js'
 
 const POPOVER_WIDTH = 264
@@ -125,12 +126,22 @@ export default function GraphNodePopover({
           /*
            * "我运行着的实例" — the line that makes the graph and the 自部署服务
            * page one thing: the node you are looking at has services behind it,
-           * named, with the group they belong to and a link to each.
+           * named, with the group they belong to and a link to each. The header
+           * hands the reader to that page's own rows (each row carries the same
+           * instance id as its anchor).
            */
           <div className="mt-2.5">
-            <h4 className="mono text-[10px] uppercase tracking-wider text-[var(--own)]">
-              我运行着的实例 · {instances.length}
-            </h4>
+            <div className="flex items-baseline justify-between gap-2">
+              <h4 className="mono text-[10px] uppercase tracking-wider text-[var(--own)]">
+                我运行着的实例 · {instances.length}
+              </h4>
+              <Link
+                to={`/deployed/#${instances[0].id}`}
+                className="mono text-[10px] text-neutral-500 transition-colors hover:text-[var(--own-text)]"
+              >
+                自部署页 →
+              </Link>
+            </div>
             <ul className="mt-1 space-y-1">
               {instances.map((i) => (
                 <li key={i.id} className="flex items-baseline gap-1.5 text-[11px] leading-snug">

@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom'
 import { DEPLOY_GROUP_LABEL } from '../lib/data.js'
 
 /**
  * "已自部署 N" — the mark that ties a catalogue entry to the 自部署服务 page and
  * to its node in the graph. Rendered wherever a resource is shown as a card, a
  * row or a page header, so the same fact reads the same way in all three.
+ *
+ * `to` turns the badge into a link — the card and the wiki header point it at
+ * the 自部署服务 row of the first instance (`/deployed/#<row id>`), so the mark
+ * is also the door, not only the label.
  *
  * The hue is the graph's 自建 colour (--own, see src/lib/graphStyle.js), used
  * for the dot and the border; the *words* wear --own-text, the same purple
@@ -14,15 +19,15 @@ import { DEPLOY_GROUP_LABEL } from '../lib/data.js'
  * both the edge and Docker is two things the reader has to keep running, and
  * that is the number worth seeing.
  */
-export default function DeployedBadge({ resource, showGroups = false }) {
+export default function DeployedBadge({ resource, showGroups = false, to = null }) {
   const instances = resource.instances ?? []
   if (instances.length === 0) return null
   const groups = [...new Set(instances.map((i) => i.group))]
 
-  return (
+  const badge = (
     <span
       title={`已在 ${groups.map((g) => DEPLOY_GROUP_LABEL[g] ?? g).join(' / ')} 部署`}
-      className="inline-flex items-center gap-1.5 rounded-[3px] border border-[var(--own)]/45 bg-[var(--own-soft)] px-1.5 py-0.5 text-[10px] text-[var(--own-text)]"
+      className="inline-flex shrink-0 items-center gap-1.5 rounded-[3px] border border-[var(--own)]/45 bg-[var(--own-soft)] px-1.5 py-0.5 text-[10px] text-[var(--own-text)] transition-colors hover:border-[var(--own)]"
     >
       <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--own)]" aria-hidden="true" />
       已自部署 <span className="mono">{instances.length}</span>
@@ -34,5 +39,13 @@ export default function DeployedBadge({ resource, showGroups = false }) {
           ))
         : null}
     </span>
+  )
+
+  return to ? (
+    <Link to={to} className="shrink-0">
+      {badge}
+    </Link>
+  ) : (
+    badge
   )
 }

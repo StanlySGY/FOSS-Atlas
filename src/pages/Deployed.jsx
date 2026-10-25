@@ -74,7 +74,15 @@ function ServiceRow({ item, result }) {
   const resourceId = resourceIdFor(item)
   const resource = resourceById.get(resourceId)
   return (
-    <li className="group flex flex-col gap-2 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5 transition-colors duration-150 hover:border-[var(--line-strong)] hover:bg-[var(--ink-card-hover)] sm:flex-row sm:items-center sm:gap-4">
+    /*
+     * The row's own anchor: /deployed/#<id> is handed out by the graph bubble's
+     * 自部署页 link and the card badges, and scroll-mt keeps it clear of the
+     * sticky header when the browser jumps here.
+     */
+    <li
+      id={item.id}
+      className="group flex scroll-mt-20 flex-col gap-2 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5 transition-colors duration-150 hover:border-[var(--line-strong)] hover:bg-[var(--ink-card-hover)] sm:flex-row sm:items-center sm:gap-4"
+    >
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <a

@@ -62,9 +62,16 @@ export default function GraphPage() {
   // would otherwise eat ~340px of the screen before the canvas even starts.
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [selected, setSelected] = useState(null)
-  // 一级分类聚焦：null = 全览；否则只显示该分类的子图. Held in state, not in the
-  // URL: it is a wayfinding aid inside one sitting, not a view worth linking to.
-  const [focusedCategory, setFocusedCategory] = useState(null)
+  /*
+   * 一级分类聚焦：null = 全览；否则只显示该分类的子图. Lives in the URL as
+   * `?cat=<id>` so the catalogue can hand a filtered slice over — the home
+   * page's 在知识图谱中聚焦 link and a wiki breadcrumb both name the same
+   * slice on both pages. Unknown ids fall back to the full view. (It used to
+   * be component state only; the param name was reserved in this setter long
+   * before the param itself was read.)
+   */
+  const catParam = searchParams.get('cat')
+  const focusedCategory = categories.some((c) => c.id === catParam) ? catParam : null
   /*
    * 只看我部署了的 — in the URL, unlike the category focus. The 自部署服务 page
    * and the 已自部署 badges link here, and a link has to be able to say "show me
@@ -84,26 +91,6 @@ export default function GraphPage() {
    */
   const deployedOnly = searchParams.get('deployed') === '1'
 
-  const setDeployedOnly = useCallback(
-    (next) => {
-      setSearchParams(
-        (prev) => {
-          const p = new URLSearchParams(prev)
-          if (next) {
-            p.set('deployed', '1')
-            p.delete('cat') // not read anywhere; kept so a stale one never lingers
-          } else {
-            p.delete('deployed')
-          }
-          return p
-        },
-        { replace: true },
-      )
-      if (next) setFocusedCategory(null)
-    },
-    [setSearchParams],
-  )
-
   /*
    * The half that was missing. Picking (or clearing) a category drops
    * `?deployed=1` out of the address: the two filters cannot both be honoured,
@@ -114,17 +101,38 @@ export default function GraphPage() {
    */
   const setCategoryFocus = useCallback(
     (next) => {
-      setFocusedCategory(next)
       setSearchParams(
         (prev) => {
           const p = new URLSearchParams(prev)
           p.delete('deployed')
+          if (next) p.set('cat', next)
+          else p.delete('cat')
           return p
         },
         { replace: true },
       )
     },
     [setSearchParams],
+  )
+
+  const setDeployedOnly = useCallback(
+    (next) => {
+      setSearchParams(
+        (prev) => {
+          const p = new URLSearchParams(prev)
+          if (next) {
+            p.set('deployed', '1')
+            p.delete('cat') // the two filters are mutually exclusive
+          } else {
+            p.delete('deployed')
+          }
+          return p
+        },
+        { replace: true },
+      )
+      if (next) setCategoryFocus(null)
+    },
+    [setSearchParams, setCategoryFocus],
   )
   // `{ node, point }` for the single-click peek bubble. Kept out of the ECharts
   // option on purpose: `setOption` with `notMerge` rebuilds the view and would
@@ -203,12 +211,12 @@ export default function GraphPage() {
     if (!focusedCategory && !deployedOnly) return undefined
     const onKey = (event) => {
       if (event.key !== 'Escape') return
-      setFocusedCategory(null)
+      setCategoryFocus(null)
       setDeployedOnly(false)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [focusedCategory, deployedOnly, setDeployedOnly])
+  }, [focusedCategory, deployedOnly, setCategoryFocus, setDeployedOnly])
 
   const popoverModel = useMemo(() => {
     if (!popover) return null

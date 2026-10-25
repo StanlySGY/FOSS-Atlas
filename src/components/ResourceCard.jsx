@@ -30,11 +30,11 @@ function SiteIcon({ resource }) {
 }
 
 export default function ResourceCard({ resource }) {
-  const { id, name, url, description, tags, sub_category_name } = resource
+  const { id, name, url, description, tags, category, sub_category, sub_category_name } = resource
   const host = hostFor(resource)
 
   return (
-    <article className="group relative flex flex-col gap-3 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-4 transition-colors duration-150 hover:border-[var(--line-strong)] hover:bg-[var(--ink-card-hover)]">
+    <article className="fa-lift group relative flex flex-col gap-3 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-4 hover:bg-[var(--ink-card-hover)]">
       <div className="flex items-start gap-3">
         <SiteIcon resource={resource} />
 
@@ -53,20 +53,31 @@ export default function ResourceCard({ resource }) {
       {tags?.length ? (
         <div className="flex flex-wrap gap-1.5">
           {tags.slice(0, 3).map((tag) => (
-            <span
+            <Link
               key={tag}
-              className="rounded-[3px] bg-[var(--ink-tint)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)]"
+              to={`/?q=${encodeURIComponent(tag)}`}
+              className="rounded-[3px] bg-[var(--ink-tint)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] transition-colors hover:bg-[var(--ink-tint-hover)] hover:text-[var(--accent)]"
             >
               {tag}
-            </span>
+            </Link>
           ))}
         </div>
       ) : null}
 
       <div className="mt-auto flex items-center justify-between gap-2 border-t border-[var(--line-soft)] pt-3">
         <span className="flex min-w-0 items-center gap-2">
-          <span className="truncate text-[10px] text-[var(--text-faint)]">{sub_category_name}</span>
-          <DeployedBadge resource={resource} />
+          {/*
+           * The sub-category is a wayfinding link, not a caption: it opens the
+           * catalogue narrowed to the same 分类 → 子类 slice, with the URL that
+           * a breadcrumb on the wiki side can hand back.
+           */}
+          <Link
+            to={`/?cat=${encodeURIComponent(category)}&sub=${encodeURIComponent(sub_category)}`}
+            className="truncate text-[10px] text-[var(--text-faint)] transition-colors hover:text-[var(--accent)]"
+          >
+            {sub_category_name}
+          </Link>
+          <DeployedBadge resource={resource} to={`/deployed/#${(resource.instances?.[0]?.id) ?? ''}`} />
         </span>
         <a
           href={url}
