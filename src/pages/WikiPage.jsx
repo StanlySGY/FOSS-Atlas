@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import DeployedBadge from '../components/DeployedBadge.jsx'
 import Markdown from '../components/Markdown.jsx'
 import { backlinksFor } from '../lib/backlinks.js'
+import { categoryColor, categorySoft } from '../lib/categoryColor.js'
 import {
   DEPLOY_GROUP_LABEL,
   alternativesFor,
@@ -478,7 +479,8 @@ export default function WikiPage() {
 
 /**
  * The resource's site icon, echoing the cards on the home page so a reader
- * recognises the same tool across views. Falls back to a lettered tile.
+ * recognises the same tool across views — including the category tint the card
+ * wears. Falls back to a lettered tile.
  */
 function WikiIcon({ resource }) {
   const [failed, setFailed] = useState(false)
@@ -486,9 +488,12 @@ function WikiIcon({ resource }) {
   return (
     <span
       title={hostFor(resource)}
-      className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[8px] border border-[var(--line)] bg-[var(--ink-raised)] text-sm font-semibold text-[var(--text-faint)]"
+      style={{ background: categorySoft(resource.category), borderColor: `color-mix(in srgb, ${categoryColor(resource.category)} 38%, transparent)` }}
+      className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[9px] border text-sm font-semibold"
     >
-      <span aria-hidden="true">{initialFor(resource)}</span>
+      <span aria-hidden="true" style={{ color: categoryColor(resource.category) }}>
+        {initialFor(resource)}
+      </span>
       {!src || failed ? null : (
         <img
           src={src}
@@ -496,7 +501,7 @@ function WikiIcon({ resource }) {
           decoding="async"
           referrerPolicy="no-referrer"
           onError={() => setFailed(true)}
-          className="absolute inset-0 h-full w-full rounded-[7px] bg-[var(--ink-raised)] object-contain p-1.5"
+          className="absolute inset-0 h-full w-full rounded-[8px] object-contain p-1.5"
         />
       )}
     </span>

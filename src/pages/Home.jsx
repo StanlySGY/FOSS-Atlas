@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import ResourceCard from '../components/ResourceCard.jsx'
+import { categoryColor } from '../lib/categoryColor.js'
 import {
   categories,
   countByCategory,
@@ -114,8 +115,12 @@ export default function Home() {
       {/* Hero: title + one-line pitch + hard numbers. */}
       <section className="space-y-5 pt-2">
         <div className="max-w-3xl space-y-3">
-          <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-[2rem]">
-            开源白嫖资源图鉴
+          <h1 className="text-[1.7rem] font-bold leading-tight tracking-tight text-[var(--text-strong)] sm:text-[2.4rem]">
+            开源
+            <span className="bg-gradient-to-r from-[var(--accent)] via-[#e8c06a] to-[var(--own-text)] bg-clip-text text-transparent">
+              白嫖
+            </span>
+            资源图鉴
           </h1>
           <p className="text-sm leading-relaxed text-[var(--text-dim)]">
             把散落在收藏夹里的免费额度、开源自部署方案和公开 API，收进一张可搜索、可漫游、可追溯的图里。点卡片看
@@ -242,6 +247,7 @@ export default function Home() {
               onClick={() => pickCategory(cat.id)}
               label={`${cat.icon} ${cat.name}`}
               count={countByCategory[cat.id] ?? 0}
+              color={categoryColor(cat.id)}
             />
           ))}
         </div>
@@ -283,8 +289,8 @@ export default function Home() {
 
       {filtered.length ? (
         <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((r) => (
-            <ResourceCard key={r.id} resource={r} />
+          {filtered.map((r, i) => (
+            <ResourceCard key={r.id} resource={r} index={i} />
           ))}
         </section>
       ) : (
@@ -313,17 +319,18 @@ export default function Home() {
   )
 }
 
-function CategoryTab({ active, onClick, label, count }) {
+function CategoryTab({ active, onClick, label, count, color }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
+      style={active && color ? { color, borderColor: `color-mix(in srgb, ${color} 55%, transparent)`, background: `color-mix(in srgb, ${color} 12%, transparent)` } : undefined}
       className={[
-        'rounded-[var(--radius-sm)] border px-2.5 py-1.5 text-xs transition-colors',
+        'shrink-0 rounded-full border px-3 py-1.5 text-xs transition-colors',
         active
-          ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent)]'
-          : 'border-[var(--line)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
+          ? ''
+          : 'border-[var(--line)] bg-[var(--ink-card)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
       ].join(' ')}
     >
       {label}
@@ -339,7 +346,7 @@ function SubChip({ active, onClick, label }) {
       onClick={onClick}
       aria-pressed={active}
       className={[
-        'mono rounded-[3px] px-2 py-1 text-[11px] transition-colors',
+        'mono rounded-full px-2.5 py-1 text-[11px] transition-colors',
         active
           ? 'bg-[var(--accent)]/15 text-[var(--accent)]'
           : 'text-[var(--text-faint)] hover:text-[var(--text-strong)]',

@@ -76,13 +76,18 @@ body {
   margin: 0;
   background:
     /*
-     * Two whisper-quiet washes give the flat #0a0c0d a sense of place: a warm
-     * one near the header (echoes the accent) and a cool one far down-left
-     * (echoes the graph canvas). Both under 4% alpha — felt, not seen.
+     * 三层环境：一层 22px 点阵给深色面板"仪表盘"的肌理（Linear/Vercel 同款
+     * 手法，3% 白点），再加暖、冷两道光晕定位页面的重心，最后落回底色。
      */
-    radial-gradient(1200px 380px at 22% -80px, rgba(240, 180, 41, 0.05), transparent 70%),
-    radial-gradient(900px 420px at 88% 180px, rgba(127, 99, 207, 0.045), transparent 70%),
+    radial-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    radial-gradient(1200px 380px at 22% -80px, rgba(240, 180, 41, 0.055), transparent 70%),
+    radial-gradient(900px 420px at 88% 180px, rgba(127, 99, 207, 0.05), transparent 70%),
     var(--ink);
+  background-size:
+    22px 22px,
+    auto,
+    auto,
+    auto;
   background-attachment: fixed;
   color: var(--text);
   /*
@@ -299,6 +304,25 @@ kbd,
 }
 
 /*
+ * 卡片入场：首屏渲染时按序号错峰浮起（stagger），一次刷新只演一遍——筛选
+ * 变化复用同一批 DOM key，不会重演，所以打字搜索时不会闪。
+ */
+@keyframes fa-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fa-card-in {
+  animation: fa-card-in 260ms ease-out backwards;
+}
+
+/*
  * Card lift: the shared hover for the surfaces a reader can act on (catalogue
  * cards, deployed rows). Border and background shifts alone read as a rendering
  * glitch at this contrast; the two-pixel rise plus a soft drop shadow is what
@@ -337,6 +361,7 @@ kbd,
 
 @media (prefers-reduced-motion: reduce) {
   .fa-page,
+  .fa-card-in,
   .fa-skeleton {
     animation: none;
   }
