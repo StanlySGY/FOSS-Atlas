@@ -210,7 +210,8 @@ export default function Layout() {
               href="https://github.com/StanlySGY/FOSS-Atlas"
               target="_blank"
               rel="noreferrer"
-              className="hidden rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1.5 text-[var(--text-dim)] transition-colors hover:border-[var(--line-hover)] hover:text-[var(--text-strong)] sm:inline-block"            >
+              className="hidden rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1.5 text-[var(--text-dim)] transition-colors hover:border-[var(--line-hover)] hover:text-[var(--text-strong)] sm:inline-block"
+            >
               GitHub
             </a>
           </div>
@@ -245,7 +246,8 @@ export default function Layout() {
             >
               GitHub ↗
             </a>
-          </nav>        </div>
+          </nav>
+        </div>
       </footer>
 
       {/*

@@ -18,7 +18,7 @@ function SiteIcon({ resource }) {
   return (
     <span
       style={{ background: tint, borderColor: ring }}
-      className="relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-[8px] border text-[13px] font-semibold transition-transform duration-150 group-hover:scale-105"
+      className="relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-[8px] border text-[13px] font-semibold"
     >
       <span aria-hidden="true" style={{ color: categoryColor(resource.category) }}>
         {initialFor(resource)}

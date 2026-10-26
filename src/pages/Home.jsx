@@ -125,11 +125,7 @@ export default function Home() {
       <section className="space-y-5 pt-2">
         <div className="max-w-3xl space-y-3">
           <h1 className="text-[1.7rem] font-bold leading-tight tracking-tight text-[var(--text-strong)] sm:text-[2.4rem]">
-            开源
-            <span className="bg-gradient-to-r from-[var(--accent)] via-[#e8c06a] to-[var(--own-text)] bg-clip-text text-transparent">
-              白嫖
-            </span>
-            资源图鉴
+            开源<span className="text-[var(--accent)]">白嫖</span>资源图鉴
           </h1>
           <p className="text-sm leading-relaxed text-[var(--text-dim)]">
             把散落在收藏夹里的免费额度、开源自部署方案和公开 API，收进一张可搜索、可漫游、可追溯的图里。点卡片看

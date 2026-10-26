@@ -465,7 +465,7 @@ export default function WikiPage() {
             href={`https://github.com/StanlySGY/FOSS-Atlas/edit/main/public/wiki/${slug}.md`}
             target="_blank"
             rel="noreferrer"
-            className="block rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 text-center text-xs text-neutral-500 transition-colors hover:border-[var(--line-strong)] hover:text-[var(--text-dim)]"
+            className="block rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 text-center text-xs text-[var(--text-faint)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--text-dim)]"
           >
             在 GitHub 上编辑此页 ↗
           </a>
