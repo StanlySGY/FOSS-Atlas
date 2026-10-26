@@ -32,8 +32,15 @@
   --text: #cfd4d6;
   --text-strong: #f2f4f5;
   --text-dim: #9aa2a5;
-  --text-faint: #6a7376;
-  --text-mute: #5a6366;
+  /* Two floors, measured the way DeployedBadge measures --own-text: the
+     10–11px labels these tiers carry are text, not marks, so the bar is 4.5:1.
+     #6a7376 measured 3.85:1 against --ink-card and sat on 40 call sites — the
+     whole small-type layer of the site was below AA. #7c8588 is 4.95:1 on the
+     card, 4.60:1 on --ink-tint, 5.03:1 on --ink-sunken. */
+  --text-faint: #7c8588;
+  /* The quietest tier, for hints that must not compete: 4.43:1 on --ink-card
+     (was 3.03:1), one step below --text-faint so the three greys stay a scale. */
+  --text-mute: #747d80;
   /* Warm white reserved for the focused graph node (see GraphView). */
   --focus-fill: #f5f0e6;
   /* "跑在我自己的基础设施上": the graph's 自建 node colour, mirrored here so a

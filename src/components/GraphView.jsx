@@ -241,7 +241,7 @@ export default function GraphView({
             color: meta.color,
             width: meta.width,
             curveness: meta.curveness,
-            opacity: e.type === 'related' || e.type === 'alternative_to' ? 0.85 : 0.5,
+            opacity: meta.opacity,
           },
         }
       })
@@ -330,7 +330,7 @@ export default function GraphView({
             formatter: '{b}',
           },
           labelLayout: { hideOverlap: true },
-          lineStyle: { color: CANVAS.edge, opacity: 0.6 },
+          lineStyle: { color: CANVAS.edge, opacity: 0.8 },
           categories: TYPE_ORDER.map((t) => ({ name: TYPE_META[t].label })),
           data: nodes,
           edges,

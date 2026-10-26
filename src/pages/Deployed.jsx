@@ -138,11 +138,6 @@ export default function Deployed() {
   const probe = useProbe()
   const probeRows = probe?.rows ?? []
   const probeDown = probeRows.filter((r) => unreachable(r.cls))
-  const total = deployed.groups.reduce((n, g) => n + g.items.length, 0)
-  const live = deployed.groups.reduce(
-    (n, g) => n + g.items.filter((i) => i.status === 'live').length,
-    0,
-  )
   /*
    * The GitHub Pages mirror count, computed from the data instead of written
    * down. Scoped to the github group on purpose: the 运维 note below describes
@@ -155,6 +150,30 @@ export default function Deployed() {
    * So the count is taken per section, not by filtering a flat list on a field that
    * is not there (which yields 0, and 0 is the kind of wrong number that reads fine).
    */
+  /*
+   * Per-group reach, from the same snapshot the row chips use. Grouped because
+   * a flat "50/81" hides the only diagnostic fact a reader can act on: which
+   * kind of deployment is the one that is down. `worst` names the dominant
+   * failure class once, instead of repeating it on every row.
+   */
+  const probeGroups = probeRows.length
+    ? deployed.groups.map((g) => {
+        const rows = probeRows.filter((r) => r.group === g.id)
+        const down = rows.filter((r) => unreachable(r.cls))
+        const counts = {}
+        for (const r of down) counts[r.cls] = (counts[r.cls] ?? 0) + 1
+        const worst = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]
+        return {
+          id: g.id,
+          name: g.name,
+          total: rows.length,
+          ok: rows.length - down.length,
+          down: down.length > 0,
+          worst: worst ? `${worst[0]} ×${worst[1]}` : null,
+        }
+      })
+    : []
+
   const githubMirrors = deployed.groups
     .filter((g) => g.id === 'github')
     .reduce((n, g) => n + g.items.filter((i) => i.kind === 'mirror').length, 0)
@@ -162,9 +181,6 @@ export default function Deployed() {
   return (
     <div className="space-y-8">
       <section className="max-w-3xl space-y-3 pt-2">
-        <span className="mono inline-flex items-center rounded-full border border-[var(--line)] bg-[var(--ink-raised)] px-2.5 py-1 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
-          Self-hosted · {live}/{total} 记录为 live
-        </span>
         <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-[2rem]">
           自部署服务
         </h1>
@@ -184,22 +200,44 @@ export default function Deployed() {
          * below. No snapshot, no line — a dev server has nothing to show.
          */}
         {probe ? (
-          <p className="mono text-[11px] leading-relaxed text-[var(--text-faint)]">
-            发布时探测 {utcStamp(probe.ranAt)} UTC ·{' '}
-            <span className="text-[var(--text-strong)]">{probeRows.length - probeDown.length}</span> /{' '}
-            {probeRows.length} 可达
-            {probeDown.length ? (
-              <span className="text-[var(--down-text)]"> · {probeDown.length} 不可达</span>
-            ) : null}
-            <span className="text-[var(--text-mute)]"> · 逐行结果见各条目状态</span>
-          </p>
+          /*
+           * The snapshot used to be one mono line at the bottom of the intro,
+           * under a pill that said 81/81 live. When 31 of the 81 are not
+           * reachable, that line is the most important thing on the page and it
+           * was the smallest text on it. Now it is a block of its own, grouped
+           * the way the sections below are grouped, because the failure has a
+           * shape: it is the Docker tunnel, not "some services".
+           */
+          <div className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-sunken)] p-3.5">
+            <p className="text-[13px] leading-relaxed text-[var(--text-dim)]">
+              发布时从公网探测（{utcStamp(probe.ranAt)} UTC）：
+              <span className="font-semibold text-[var(--text-strong)]">{probeRows.length - probeDown.length}</span>
+              <span className="text-[var(--text-faint)]"> / {probeRows.length} 可达</span>
+              {probeDown.length ? (
+                <span className="font-semibold text-[var(--down-text)]"> · {probeDown.length} 不可达</span>
+              ) : null}
+            </p>
+            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5 text-[11px]">
+              {probeGroups.map((g) => (
+                <li key={g.id} className="flex items-baseline gap-1.5">
+                  <span className={g.down ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>
+                    {g.name}
+                  </span>
+                  <span className="mono text-[var(--text-faint)]">
+                    {g.ok}/{g.total}
+                    {g.worst ? ` · ${g.worst}` : ''}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : null}
       </section>
 
       {deployed.groups.map((group) => (
         <section key={group.id} className="space-y-3">
           <div className="flex flex-col gap-1 border-b border-[var(--line-soft)] pb-2 sm:flex-row sm:items-baseline sm:justify-between">
-            <h2 className="text-sm font-semibold text-[var(--text-strong)]">
+            <h2 className="text-base font-semibold tracking-tight text-[var(--text-strong)]">
               {group.name}
               <span className="mono ml-2 text-[11px] font-normal text-[var(--text-faint)]">
                 {group.items.length}
@@ -220,7 +258,7 @@ export default function Deployed() {
       ))}
 
       <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-sunken)] p-4">
-        <h2 className="text-xs font-semibold text-[var(--text-strong)]">运维说明</h2>
+        <h2 className="text-[13px] font-semibold text-[var(--text-strong)]">运维说明</h2>
         <ul className="mt-2 space-y-1 text-[11px] leading-relaxed text-[var(--text-dim)]">
           <li>· Docker 编排文件与隧道配置存放在本机 <span className="mono">~/workspace/selfhost</span>,全部 <span className="mono">restart: unless-stopped</span>。</li>
           <li>· 隧道由用户级 systemd 服务 <span className="mono">foss-labs-tunnel.service</span> 常驻,开机自启;新增域名用 <span className="mono">cloudflared tunnel route dns</span> 注册。</li>

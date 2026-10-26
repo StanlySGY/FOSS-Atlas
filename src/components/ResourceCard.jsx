@@ -91,11 +91,19 @@ export default function ResourceCard({ resource, index = 0 }) {
           </Link>
           <DeployedBadge resource={resource} to={`/deployed/#${(resource.instances?.[0]?.id) ?? ''}`} />
         </span>
+        {/*
+         * Was amber on all 186 cards, which is the same colour as every active
+         * chip on the page — so "interactive" had one meaning site-wide and the
+         * grid read as one flat field of available actions. The link is not what
+         * a card is *for* (the Wiki is, and the card title is the amber path to
+         * it); it is an escape hatch, so it sits in the quiet tier and takes the
+         * accent only when you are actually on it.
+         */}
         <a
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="shrink-0 text-[11px] text-[var(--accent)] hover:underline"
+          className="shrink-0 text-[11px] text-[var(--text-dim)] transition-colors hover:text-[var(--accent)] hover:underline"
         >
           访问 ↗
         </a>

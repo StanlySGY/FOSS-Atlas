@@ -92,29 +92,31 @@ export default function GraphNodePopover({
       <div className="p-3">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <h3 className="truncate text-sm font-semibold text-neutral-100">{node.name}</h3>
-            <p className="mono mt-0.5 text-[10px] uppercase tracking-wider text-neutral-500">
-              {kind}
-            </p>
+            <h3 className="truncate text-sm font-semibold text-[var(--text-strong)]">{node.name}</h3>
+            {/* The kind is already the node's colour in the canvas; here it is
+                the one line that says which type you are reading, so it is set
+                as plain small type — mono + uppercase + letter-spacing on a
+                10px Chinese label is decoration the reader cannot use. */}
+            <p className="mt-0.5 text-[11px] text-[var(--text-faint)]">{kind}</p>
           </div>
           <button
             type="button"
             onClick={onDismiss}
             aria-label="关闭"
-            className="-mr-1 -mt-0.5 shrink-0 rounded-[3px] px-1.5 py-0.5 text-neutral-500 transition-colors hover:bg-[var(--ink-tint)] hover:text-neutral-200"
+            className="-mr-1 -mt-0.5 shrink-0 rounded-[3px] px-1.5 py-0.5 text-[var(--text-faint)] transition-colors hover:bg-[var(--ink-tint)] hover:text-[var(--text-strong)]"
           >
             ✕
           </button>
         </div>
 
-        <p className="mt-2 text-xs leading-relaxed text-neutral-400">{description}</p>
+        <p className="mt-2 text-xs leading-relaxed text-[var(--text-dim)]">{description}</p>
 
         {tags.length > 0 && (
           <ul className="mt-2.5 flex flex-wrap gap-1">
             {tags.map((tag) => (
               <li
                 key={tag}
-                className="rounded-[3px] border border-[var(--line)] bg-[var(--ink-chip)] px-1.5 py-0.5 text-[10px] text-neutral-400"
+                className="rounded-[3px] border border-[var(--line)] bg-[var(--ink-chip)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)]"
               >
                 {tag}
               </li>
@@ -132,17 +134,17 @@ export default function GraphNodePopover({
            */
           <div className="mt-2.5">
             <div className="flex items-baseline justify-between gap-2">
-              <h4 className="mono text-[10px] uppercase tracking-wider text-[var(--own)]">
-                我运行着的实例 · {instances.length}
+              <h4 className="text-[11px] font-semibold text-[var(--own-text)]">
+                我运行着的实例{" "}
+                <span className="mono text-[var(--text-faint)]">· {instances.length}</span>
               </h4>
               <Link
                 to={`/deployed/#${instances[0].id}`}
-                className="mono text-[10px] text-neutral-500 transition-colors hover:text-[var(--own-text)]"
+                className="mono text-[10px] text-[var(--text-faint)] transition-colors hover:text-[var(--own-text)]"
               >
                 自部署页 →
               </Link>
-            </div>
-            <ul className="mt-1 space-y-1">
+            </div>            <ul className="mt-1 space-y-1">
               {instances.map((i) => (
                 <li key={i.id} className="flex items-baseline gap-1.5 text-[11px] leading-snug">
                   <span
@@ -154,11 +156,11 @@ export default function GraphNodePopover({
                     href={i.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="min-w-0 flex-1 truncate text-neutral-300 underline decoration-[var(--line-strong)] underline-offset-2 hover:text-[var(--accent)]"
+                    className="min-w-0 flex-1 truncate text-[var(--text)] underline decoration-[var(--line-strong)] underline-offset-2 hover:text-[var(--accent)]"
                   >
                     {i.id}
                   </a>
-                  <span className="shrink-0 text-[10px] text-neutral-500">{i.group}</span>
+                  <span className="shrink-0 text-[10px] text-[var(--text-faint)]">{i.group}</span>
                 </li>
               ))}
             </ul>

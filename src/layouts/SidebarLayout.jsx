@@ -106,9 +106,7 @@ export default function SidebarLayout() {
         style={{ top: HEADER, height: `calc(100vh - ${HEADER})` }}
         className="sticky hidden w-[280px] shrink-0 overflow-y-auto overscroll-contain border-r border-[var(--line)] bg-[var(--ink-sunken)] px-3 py-4 md:block"
       >
-        <p className="mono mb-2 px-2 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
-          工具目录
-        </p>
+        <p className="mb-2 px-2 text-[11px] font-semibold text-[var(--text-dim)]">工具目录</p>
         <WikiNavSidebar activeId={id} scrollRef={railRef} />
       </aside>
 
@@ -147,14 +145,12 @@ export default function SidebarLayout() {
             className="fa-drawer absolute inset-y-0 left-0 flex w-[280px] max-w-[85vw] flex-col border-r border-[var(--line)] bg-[var(--ink)] outline-none"
           >
             <div className="flex items-center justify-between border-b border-[var(--line)] px-3 py-3">
-              <span className="mono text-[10px] uppercase tracking-wider text-neutral-500">
-                工具目录
-              </span>
+              <span className="text-[13px] font-semibold text-[var(--text-strong)]">工具目录</span>
               <button
                 type="button"
                 aria-label="关闭目录"
                 onClick={closeDrawer}
-                className="rounded-[4px] px-2 py-0.5 text-sm text-neutral-500 hover:text-neutral-200"
+                className="rounded-[4px] px-2 py-0.5 text-sm text-[var(--text-faint)] hover:text-[var(--text-strong)]"
               >
                 ✕
               </button>

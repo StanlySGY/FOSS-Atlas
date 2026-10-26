@@ -489,8 +489,11 @@ export default function GraphPage() {
 
         <aside className="space-y-4 lg:sticky lg:top-[4.5rem] lg:self-start">
           <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
-            <h2 className="mono mb-2.5 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
-              图例 · {viewIds ? `当前视图 ${viewTotal} 个节点` : '节点'}
+            <h2 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">
+              图例
+              <span className="mono ml-2 text-[11px] font-normal text-[var(--text-faint)]">
+                {viewIds ? `当前视图 ${viewTotal} 个节点` : '节点'}
+              </span>
             </h2>
             <ul className="space-y-1.5 text-xs">
               {TYPE_ORDER.map((type) => {
@@ -522,7 +525,7 @@ export default function GraphPage() {
 
           {asideSection ? (
             <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
-              <h2 className="text-sm font-semibold text-[var(--text-strong)]">{asideSection.title}</h2>
+              <h2 className="text-[13px] font-semibold text-[var(--text-strong)]">{asideSection.title}</h2>
               <p className="mono mt-1 text-[11px] text-[var(--text-faint)]">{asideSection.meta}</p>
               <ul className="mt-3 max-h-72 space-y-1 overflow-y-auto pr-1">
                 {asideSection.items.map((r) => (
@@ -539,9 +542,7 @@ export default function GraphPage() {
             </section>
           ) : (
             <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
-              <h2 className="mono mb-2.5 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
-                怎么逛
-              </h2>
+              <h2 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">怎么逛</h2>
               <ul className="space-y-2 text-xs leading-relaxed text-[var(--text-dim)]">
                 <li>
                   <b className="text-[var(--text-strong)]">单击</b>节点看速览，气泡里再决定去向

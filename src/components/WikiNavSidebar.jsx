@@ -82,7 +82,7 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
               aria-controls={catPanelId}
               className={[
                 'flex w-full items-center gap-1.5 rounded-[4px] px-2 py-1.5 text-left text-xs transition-colors',
-                catOpen ? 'text-neutral-200' : 'text-neutral-400 hover:text-neutral-200',
+                catOpen ? 'text-[var(--text-strong)]' : 'text-[var(--text-dim)] hover:text-[var(--text-strong)]',
               ].join(' ')}
             >
               <Chevron open={catOpen} />
@@ -90,7 +90,7 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                 <span className="mr-1">{cat.icon}</span>
                 {cat.name}
               </span>
-              <span className="mono text-[10px] text-neutral-600">{cat.count}</span>
+              <span className="mono text-[10px] text-[var(--text-mute)]">{cat.count}</span>
             </button>
 
             {catOpen ? (
@@ -109,15 +109,15 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                         className={[
                           'flex w-full items-center gap-1.5 rounded-[4px] px-2 py-1.5 text-left text-[11px] transition-colors',
                           subActive
-                            ? 'text-neutral-200'
+                            ? 'text-[var(--text-strong)]'
                             : subOpen
-                              ? 'text-neutral-300'
-                              : 'text-neutral-500 hover:text-neutral-300',
+                              ? 'text-[var(--text)]'
+                              : 'text-[var(--text-faint)] hover:text-[var(--text)]',
                         ].join(' ')}
                       >
                         <Chevron open={subOpen} />
                         <span className="min-w-0 flex-1 truncate">{sub.name}</span>
-                        <span className="mono text-[10px] text-neutral-600">{sub.count}</span>
+                        <span className="mono text-[10px] text-[var(--text-mute)]">{sub.count}</span>
                       </button>
 
                       {subOpen ? (
@@ -135,7 +135,7 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                                     'block truncate rounded-[4px] border-l-2 px-2 py-1 text-[11px] transition-colors',
                                     isActive
                                       ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--accent)]'
-                                      : 'border-transparent text-neutral-400 hover:bg-[var(--ink-tint)] hover:text-neutral-200',
+                                      : 'border-transparent text-[var(--text-dim)] hover:bg-[var(--ink-tint)] hover:text-[var(--text-strong)]',
                                   ].join(' ')}
                                 >
                                   {tool.name}
@@ -163,7 +163,7 @@ function Chevron({ open }) {
       aria-hidden="true"
       viewBox="0 0 12 12"
       className={[
-        'h-2.5 w-2.5 shrink-0 text-neutral-600 transition-transform duration-150',
+        'h-2.5 w-2.5 shrink-0 text-[var(--text-mute)] transition-transform duration-150',
         open ? 'rotate-90' : '',
       ].join(' ')}
     >

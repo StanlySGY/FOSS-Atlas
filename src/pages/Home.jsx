@@ -16,8 +16,17 @@ import {
  * Top-of-page counters. Each tile is a live reflection of the catalogue so the
  * numbers can never drift from the data.
  */
-const STATS = [
-  { key: 'tools', label: '资源条目', value: graphStats.tools },
+/*
+ * Two numbers get a tile: how much is here, and how much of it I run. The other
+ * three (一级分类 / 标签 / 关系边) describe the *shape* of the same dataset
+ * rather than its size, and as tiles of identical weight they competed with the
+ * two that a reader actually acts on — five boxes reading as one flat row said
+ * "these are all equally worth knowing", which is not true of 11.
+ *
+ * They stay on the page as a mono line under the pitch, the way the graph page
+ * already states its counts, so the two views agree.
+ */
+const SHAPE = [
   { key: 'categories', label: '一级分类', value: graphStats.categories },
   { key: 'tags', label: '标签', value: graphStats.tags },
   { key: 'edges', label: '关系边', value: graphStats.edges },
@@ -128,32 +137,34 @@ export default function Home() {
           </p>
         </div>
 
-        {/*
-         * Five tiles, one grid. This row used to be a <dl> of dt/dd pairs; it is
-         * a div grid now because the fifth tile is a button and a button is not a
-         * permitted child of <dl>. The label sits under its number the same way.
-         *
-         * `sm:grid-cols-5` instead of the old `sm:grid-cols-4`: five tiles in a
-         * four-column grid leaves a hole. On phones the 自建 tile spans both
-         * columns, so the row still reads as a row.
-         */}
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
-          {STATS.map((s) => (
-            <div
-              key={s.key}
-              className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] px-4 py-3"
-            >
-              <span className="mono block text-xl font-semibold text-[var(--text-strong)]">{s.value}</span>
-              <span className="mt-0.5 block text-[11px] text-[var(--text-faint)]">{s.label}</span>
-            </div>
-          ))}
+        <div className="max-w-xl space-y-2">
+          <div className="mono flex flex-wrap items-baseline gap-x-4 gap-y-1 text-[11px] text-[var(--text-faint)]">
+            {SHAPE.map((s) => (
+              <span key={s.key}>
+                <span className="text-[var(--text-dim)]">{s.value}</span> {s.label}
+              </span>
+            ))}
+          </div>
 
           {/*
-           * The fifth number is not a catalogue fact — it is how much of the
+           * A <div> grid rather than a <dl>: the second cell is a button, and a
+           * button is not a permitted child of <dl>. The label sits under its
+           * number the same way either would have.
+           */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] px-4 py-3">
+              <span className="mono block text-2xl font-semibold text-[var(--text-strong)]">
+                {graphStats.tools}
+              </span>
+              <span className="mt-0.5 block text-[11px] text-[var(--text-faint)]">资源条目</span>
+            </div>
+
+          {/*
+           * The second tile is not a catalogue fact — it is how much of the
            * catalogue I actually run, and it is a control: pressing it narrows the
            * card grid below to those entries. It wears the 自建 hue rather than
-           * the accent so it reads as "mine", not as a fifth count of the same
-           * kind as the four beside it.
+           * the accent so it reads as "mine", not as another count of the same
+           * kind as the one beside it.
            */}
           <button
             type="button"
@@ -161,19 +172,20 @@ export default function Home() {
             aria-pressed={deployedOnly}
             title={`${deployedStats.instances} 个实例 · ${deployedStats.own} 个 Atlas 自建`}
             className={[
-              'col-span-2 rounded-[var(--radius)] border px-4 py-3 text-left transition-colors sm:col-span-1',
+              'rounded-[var(--radius)] border px-4 py-3 text-left transition-colors',
               deployedOnly
                 ? 'border-[var(--own)] bg-[var(--own-soft)]'
                 : 'border-[var(--line)] bg-[var(--ink-card)] hover:border-[var(--own)]/60',
             ].join(' ')}
           >
-            <span className="mono block text-xl font-semibold text-[var(--text-strong)]">
+            <span className="mono block text-2xl font-semibold text-[var(--text-strong)]">
               {deployedStats.resources}
             </span>
             <span className="mt-0.5 block text-[11px] text-[var(--own-text)]">
               已自部署{deployedOnly ? ' · 只看这些' : ''}
             </span>
           </button>
+          </div>
         </div>
 
         {deployedOnly ? (
@@ -255,7 +267,7 @@ export default function Home() {
         {subs.length > 1 ? (
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-[var(--line-soft)] pt-3">
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="mono mr-1 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">
+              <span className="mr-1 text-[11px] text-[var(--text-faint)]">
                 {activeCategoryName} · 子类
               </span>
               <SubChip
@@ -302,7 +314,7 @@ export default function Home() {
               handleQuery('')
               pickCategory('all')
             }}
-            className="mt-3 text-xs text-[var(--accent)] hover:underline"
+            className="mt-3 text-xs text-[var(--text-dim)] transition-colors hover:text-[var(--text-strong)] hover:underline"
           >
             重置筛选
           </button>
@@ -311,7 +323,7 @@ export default function Home() {
 
       <p className="text-center text-[11px] text-[var(--text-faint)]">
         想要更立体地浏览？试试{' '}
-        <Link to="/graph/" className="text-[var(--accent)] hover:underline">
+        <Link to="/graph/" className="text-[var(--text-dim)] transition-colors hover:text-[var(--text-strong)] hover:underline">
           知识图谱 →
         </Link>
       </p>

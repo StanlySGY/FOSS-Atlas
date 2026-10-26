@@ -192,7 +192,7 @@ export default function WikiPage() {
   if (!resource) {
     return (
       <div className="space-y-4">
-        <p className="text-sm text-neutral-400">
+        <p className="text-sm text-[var(--text-dim)]">
           没有找到 id 为 <code className="mono text-[var(--accent)]">{id}</code> 的资源。
         </p>
         <Link to="/" className="text-sm text-[var(--accent)] hover:underline">
@@ -287,7 +287,7 @@ export default function WikiPage() {
             aria-label="本页目录"
             className="flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-[var(--line-soft)] py-2.5"
           >
-            <span className="mono text-[10px] text-[var(--text-mute)]">本页目录</span>
+            <span className="text-[11px] font-semibold text-[var(--text-faint)]">本页目录</span>
             {toc.map((h) => {
               const on = activeHeading === h.slug
               return (
@@ -308,19 +308,17 @@ export default function WikiPage() {
                   {h.level === 3 ? `› ${h.text}` : h.text}
                 </button>
               )
-            })}
-          </nav>
+            })}          </nav>
         ) : null}
 
         {loading ? (
-          <WikiSkeleton />
-        ) : (
+          <WikiSkeleton />        ) : (
           <Markdown>{rendered}</Markdown>
         )}
 
         {related.length ? (
           <section className="space-y-3 border-t border-[var(--line)] pt-6">
-            <h2 className="text-sm font-semibold text-neutral-200">图谱关联</h2>
+            <h2 className="text-[1.05rem] font-semibold tracking-tight text-[var(--text-strong)]">图谱关联</h2>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {related.map((r) => (
                 <Link
@@ -329,14 +327,14 @@ export default function WikiPage() {
                   className="flex items-center justify-between gap-3 rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 transition-colors hover:border-[var(--line-strong)]"
                 >
                   <span className="min-w-0">
-                    <span className="block truncate text-xs font-semibold text-neutral-200">
+                    <span className="block truncate text-xs font-semibold text-[var(--text-strong)]">
                       {r.name}
                     </span>
-                    <span className="block truncate text-[11px] text-neutral-500">
+                    <span className="block truncate text-[11px] text-[var(--text-faint)]">
                       {r.description}
                     </span>
                   </span>
-                  <span className="shrink-0 text-neutral-600">→</span>
+                  <span className="shrink-0 text-[var(--text-mute)]">→</span>
                 </Link>
               ))}
             </div>
@@ -362,7 +360,7 @@ export default function WikiPage() {
                 <Link
                   key={t}
                   to={`/?q=${encodeURIComponent(t)}`}
-                  className="rounded-[3px] bg-[var(--ink-tint)] px-1.5 py-0.5 text-[10px] text-neutral-400 hover:text-[var(--accent)]"
+                  className="rounded-[3px] bg-[var(--ink-tint)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] hover:text-[var(--accent)]"
                 >
                   {t}
                 </Link>
@@ -385,7 +383,7 @@ export default function WikiPage() {
                     href={i.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="block truncate text-neutral-200 underline decoration-[var(--line-strong)] underline-offset-2 transition-colors hover:text-[var(--accent)]"
+                    className="block truncate text-[var(--text-strong)] underline decoration-[var(--line-strong)] underline-offset-2 transition-colors hover:text-[var(--accent)]"
                   >
                     {i.url.replace(/^https?:\/\//, '')}
                   </a>
@@ -410,9 +408,9 @@ export default function WikiPage() {
             <ul className="space-y-1.5 text-xs">
               {alternatives.map((a) => (
                 <li key={a.id} className="flex items-center gap-2">
-                  <span className="text-neutral-500">替代</span>
+                  <span className="text-[var(--text-faint)]">替代</span>
                   {a.linkId ? (
-                    <Link to={`/wiki/${a.linkId}/`} className="text-neutral-300 hover:text-[var(--accent)]">
+                    <Link to={`/wiki/${a.linkId}/`} className="text-[var(--text)] hover:text-[var(--accent)]">
                       {a.name}
                     </Link>
                   ) : a.url ? (
@@ -420,12 +418,12 @@ export default function WikiPage() {
                       href={a.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-neutral-300 hover:text-[var(--accent)]"
+                      className="text-[var(--text)] hover:text-[var(--accent)]"
                     >
                       {a.name} ↗
                     </a>
                   ) : (
-                    <span className="text-neutral-400">{a.name}</span>
+                    <span className="text-[var(--text-dim)]">{a.name}</span>
                   )}
                 </li>
               ))}
@@ -442,7 +440,7 @@ export default function WikiPage() {
                 <Link
                   key={r.id}
                   to={`/wiki/${r.id}/`}
-                  className="rounded-[3px] border border-[var(--line)] px-1.5 py-0.5 text-[10px] text-neutral-400 hover:border-[var(--accent)]/50 hover:text-[var(--accent)]"
+                  className="rounded-[3px] border border-[var(--line)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] hover:border-[var(--accent)]/50 hover:text-[var(--accent)]"
                 >
                   {r.name}
                 </Link>
@@ -453,7 +451,7 @@ export default function WikiPage() {
 
         <Link
           to={`/graph/?focus=${encodeURIComponent(id)}`}
-          className="block rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 text-center text-xs text-neutral-400 transition-colors hover:border-[var(--accent)]/50 hover:text-[var(--accent)]"
+          className="block rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 text-center text-xs text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/50 hover:text-[var(--accent)]"
         >
           在知识图谱中查看 →
         </Link>
@@ -511,9 +509,7 @@ function WikiIcon({ resource }) {
 function Panel({ title, children }) {
   return (
     <section className="rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
-      <h3 className="mono mb-2.5 text-[10px] uppercase tracking-wider text-neutral-500">
-        {title}
-      </h3>
+      <h3 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">{title}</h3>
       {children}
     </section>
   )
@@ -538,8 +534,8 @@ function WikiSkeleton() {
 function Row({ label, value }) {
   return (
     <div className="flex items-center justify-between gap-3">
-      <dt className="text-neutral-500">{label}</dt>
-      <dd className="truncate text-right text-neutral-300">{value}</dd>
+      <dt className="text-[var(--text-faint)]">{label}</dt>
+      <dd className="truncate text-right text-[var(--text)]">{value}</dd>
     </div>
   )
 }
