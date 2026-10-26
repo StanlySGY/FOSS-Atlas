@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import DeployedBadge from './DeployedBadge.jsx'
-import { categoryColor, categorySoft } from '../lib/categoryColor.js'
+import { categoryColor, categoryRing, categorySoft } from '../lib/categoryColor.js'
 import { hostFor, iconFor, initialFor } from '../lib/data.js'
 
 /**
@@ -14,7 +14,7 @@ function SiteIcon({ resource }) {
   const [failed, setFailed] = useState(false)
   const src = iconFor(resource)
   const tint = categorySoft(resource.category)
-  const ring = `color-mix(in srgb, ${categoryColor(resource.category)} 38%, transparent)`
+  const ring = categoryRing(resource.category)
   return (
     <span
       style={{ background: tint, borderColor: ring }}

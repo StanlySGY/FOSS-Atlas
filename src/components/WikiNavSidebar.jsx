@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { categoryColor } from '../lib/categoryColor.js'
 import { navTree, resourceById } from '../lib/data.js'
 
 const has = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key)
@@ -73,6 +74,16 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
       {navTree.map((cat) => {
         const catOpen = isCatOpen(cat.id)
         const catPanelId = `nav-cat-${cat.id}`
+        /*
+         * The rail used to carry exactly one colour — --accent on the active
+         * tool — so 11 categories were 11 identical grey rows and the only
+         * thing colour said was "this one". The hue now marks the *category*:
+         * the chevron, the count and the open branch's indent line. Names stay
+         * in the --text tiers (they are text; colouring 11 nav labels is the
+         * slop version of the same idea), and everything nested inherits the
+         * identity through the indent line instead of repeating the hue.
+         */
+        const hue = categoryColor(cat.id)
         return (
           <div key={cat.id}>
             <button
@@ -85,16 +96,29 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                 catOpen ? 'text-[var(--text-strong)]' : 'text-[var(--text-dim)] hover:text-[var(--text-strong)]',
               ].join(' ')}
             >
-              <Chevron open={catOpen} />
+              <Chevron open={catOpen} color={hue} />
               <span className="min-w-0 flex-1 truncate font-semibold">
                 <span className="mr-1">{cat.icon}</span>
                 {cat.name}
               </span>
-              <span className="mono text-[10px] text-[var(--text-mute)]">{cat.count}</span>
+              <span className="mono text-[10px]" style={{ color: hue }}>
+                {cat.count}
+              </span>
             </button>
 
+            {/* The branch line wears its category at 28% — 1.54–1.85:1 against
+                the rail. A container line is not a mark you read, it is what
+                tells you which rows belong together, so it sits deliberately
+                under the 3:1 mark floor, the same way the graph's structural
+                edges do. */}
             {catOpen ? (
-              <div id={catPanelId} className="ml-[13px] border-l border-[var(--line-soft)] pl-1.5">
+              <div
+                id={catPanelId}
+                className="ml-[13px] border-l pl-1.5"
+                style={{
+                  borderColor: `color-mix(in srgb, ${hue} 28%, transparent)`,
+                }}
+              >
                 {cat.subs.map((sub) => {
                   const subOpen = isSubOpen(sub.id)
                   const subActive = sub.id === activeSub
@@ -131,10 +155,19 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                                   ref={isActive ? activeRef : null}
                                   onClick={onNavigate}
                                   aria-current={isActive ? 'page' : undefined}
+                                  style={
+                                    isActive
+                                      ? {
+                                          color: hue,
+                                          borderColor: `color-mix(in srgb, ${hue} 55%, transparent)`,
+                                          background: `color-mix(in srgb, ${hue} 12%, transparent)`,
+                                        }
+                                      : undefined
+                                  }
                                   className={[
                                     'block truncate rounded-[4px] border-l-2 px-2 py-1 text-[11px] transition-colors',
                                     isActive
-                                      ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--accent)]'
+                                      ? 'text-[var(--text-strong)]'
                                       : 'border-transparent text-[var(--text-dim)] hover:bg-[var(--ink-tint)] hover:text-[var(--text-strong)]',
                                   ].join(' ')}
                                 >
@@ -157,15 +190,16 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
   )
 }
 
-function Chevron({ open }) {
+function Chevron({ open, color }) {
   return (
     <svg
       aria-hidden="true"
       viewBox="0 0 12 12"
       className={[
-        'h-2.5 w-2.5 shrink-0 text-[var(--text-mute)] transition-transform duration-150',
+        'h-2.5 w-2.5 shrink-0 transition-transform duration-150',
         open ? 'rotate-90' : '',
       ].join(' ')}
+      style={{ color: color ?? 'var(--text-mute)' }}
     >
       <path
         d="M4 2.5 L8 6 L4 9.5"

@@ -234,6 +234,20 @@ export default function Deployed() {
         ) : null}
       </section>
 
+      {/*
+       * A 部署分组 header wears no hue, and that is a measurement rather than an
+       * omission. Everywhere else on the site a colour answers "which 分类", and
+       * these three sections are not 分类 divisions — they are *where it runs*.
+       * Counted from the shipped data: 16 rows on Cloudflare 边缘 spread over 4
+       * categories (atlas 12, security 2, gear 1, selfhost 1), 34 on GitHub Pages
+       * mirrors over 5 (selfhost 22, security 5, ai 4, gear 2, ebook 1), 33 on the
+       * Docker tunnel over 3 (selfhost 24, gear 6, ai 3). No group has a majority
+       * category — 75% at best — so any single hue on a header would be a 分类
+       * claim the rows under it contradict a quarter of the time, and the site has
+       * no colour that means "edge" or "docker". The group is stated by its name
+       * and its note in type, and 自建 stays the page's one hue (the row links,
+       * the badges) because that is the claim every row on this page actually makes.
+       */}
       {deployed.groups.map((group) => (
         <section key={group.id} className="space-y-3">
           <div className="flex flex-col gap-1 border-b border-[var(--line-soft)] pb-2 sm:flex-row sm:items-baseline sm:justify-between">

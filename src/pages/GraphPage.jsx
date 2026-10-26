@@ -19,6 +19,7 @@ import {
   instancesFor,
   resourceById,
 } from '../lib/data.js'
+import { categoryColor } from '../lib/categoryColor.js'
 import { countByType, toolsInCategory, visibleNodeIds } from '../lib/graphFilter.js'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 
@@ -363,18 +364,29 @@ export default function GraphPage() {
         </button>
         {categories.map((cat) => {
           const on = focusedCategory === cat.id
+          /*
+           * Was: all 11 chips wore --accent, the same colour the *graph itself*
+           * uses for every category node and for the focus ring. So the chips
+           * could not tell you which category they were about — they only said
+           * "a filter" — and the one colour that means "category" in the canvas
+           * was spent on the control instead. Now each chip is its category's
+           * hue, at rest 10% fill / 35% border and at 12% / 55% when focused,
+           * which is the same concentration ladder the homepage rail uses.
+           * Labels clear AA on their own chip: 5.75:1 worst (cn-ai).
+           */
+          const hue = categoryColor(cat.id)
           return (
             <button
               key={cat.id}
               type="button"
               onClick={() => setCategoryFocus(on ? null : cat.id)}
               aria-pressed={on}
-              className={[
-                'rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors',
-                on
-                  ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent)]'
-                  : 'border-[var(--line)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
-              ].join(' ')}
+              style={{
+                color: hue,
+                borderColor: `color-mix(in srgb, ${hue} ${on ? 55 : 35}%, transparent)`,
+                background: `color-mix(in srgb, ${hue} ${on ? 12 : 10}%, transparent)`,
+              }}
+              className="rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors"
             >
               {cat.icon} {cat.name}
               <span className="mono ml-1.5 text-[10px] opacity-60">
@@ -436,9 +448,21 @@ export default function GraphPage() {
                   : 'border-[var(--line-soft)] text-[var(--text-mute)]',
               ].join(' ')}
             >
+              {/*
+               * The dot is a mark (an 8px opaque swatch on --ink), so it cannot
+               * wear the canvas hex: the three structural greys measure 2.20 /
+               * 2.47 / 2.90:1 there, under the 3:1 mark floor, and they are only
+               * 3.3–8.6 ΔE76 apart, so three separate swatches would promise a
+               * distinction the canvas itself does not make. `chip` is the DOM
+               * value — one grey (#645e80, 3.29:1) for 属于 / 归类 / 标签, and the
+               * semantic edges keep their hue. Grey on a chip therefore means
+               * "structural", and which one is told by the label and its count.
+               */}
               <span
                 className="inline-block h-2 w-2 rounded-full"
-                style={{ background: on ? EDGE_META[type].color : 'var(--line-muted)' }}
+                style={{
+                  background: on ? EDGE_META[type].chip ?? EDGE_META[type].color : 'var(--line-muted)',
+                }}
               />
               {EDGE_META[type].label}
               <span className="mono text-[10px] opacity-60">{EDGE_COUNT[type] ?? 0}</span>
@@ -521,6 +545,16 @@ export default function GraphPage() {
                 )
               })}
             </ul>
+            {/*
+             * The 工具 swatch is one grey; the 工具 nodes on the canvas are not.
+             * Each wears its 分类's hue as its ring (GraphView), so the hue on a
+             * small node answers *which 分类* and 类型 comes from shape and size —
+             * 46 / 26 / 15px, and only the two larger kinds are filled. The swatch
+             * stays the fallback grey: eleven categories have no single hue to show.
+             */}
+            <p className="mt-2.5 border-t border-[var(--line-soft)] pt-2.5 text-[11px] leading-relaxed text-[var(--text-faint)]">
+              工具节点的空心圆环取它所属分类的颜色；圆点大小、实心还是空心表示类型。
+            </p>
           </section>
 
           {asideSection ? (
@@ -555,7 +589,9 @@ export default function GraphPage() {
                   会在这里列出它包含的工具
                 </li>
                 <li>
-                  顶部<b className="text-[var(--text-strong)]">关系过滤</b>可按关系类型收窄连线
+                  顶部<b className="text-[var(--text-strong)]">关系过滤</b>收窄连线：三个
+                  <b className="text-[var(--text-strong)]">灰色</b>圆点是结构关系（属于 / 归类 /
+                  标签），颜色只属于「相关」和「替代」
                 </li>
                 <li>
                   顶部<b className="text-[var(--text-strong)]">聚焦分类</b>与

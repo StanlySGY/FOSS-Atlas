@@ -327,16 +327,35 @@ export default function Home() {
   )
 }
 
+/*
+ * The rail is where the 11 category hues are supposed to do their work, and
+ * until now only the *active* one had a hue — the other ten were grey pills,
+ * so the rail read as one undifferentiated row plus a highlighted one. An
+ * inactive chip now carries its own category at rest (10% fill, 35% border,
+ * the hue as its own label) so the row says "these are eleven different
+ * things" before anything is clicked.
+ *
+ * Rest vs active is a change of *concentration*, not of hue: fill 10% → 12%,
+ * border 35% → 55% (1.83–2.30:1 → 2.80–3.89:1 against the card). Every label
+ * clears AA on its own chip: 5.75:1 worst case (cn-ai), 8.00:1 best (ai).
+ */
 function CategoryTab({ active, onClick, label, count, color }) {
+  const tint = color
+    ? {
+        color,
+        borderColor: `color-mix(in srgb, ${color} ${active ? 55 : 35}%, transparent)`,
+        background: `color-mix(in srgb, ${color} ${active ? 12 : 10}%, transparent)`,
+      }
+    : undefined
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      style={active && color ? { color, borderColor: `color-mix(in srgb, ${color} 55%, transparent)`, background: `color-mix(in srgb, ${color} 12%, transparent)` } : undefined}
+      style={tint}
       className={[
         'shrink-0 rounded-full border px-3 py-1.5 text-xs transition-colors',
-        active
+        color
           ? ''
           : 'border-[var(--line)] bg-[var(--ink-card)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
       ].join(' ')}

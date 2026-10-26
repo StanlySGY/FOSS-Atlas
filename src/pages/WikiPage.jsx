@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import DeployedBadge from '../components/DeployedBadge.jsx'
 import Markdown from '../components/Markdown.jsx'
 import { backlinksFor } from '../lib/backlinks.js'
-import { categoryColor, categorySoft } from '../lib/categoryColor.js'
+import { categoryColor, categoryRing, categorySoft } from '../lib/categoryColor.js'
 import {
   DEPLOY_GROUP_LABEL,
   alternativesFor,
@@ -486,7 +486,7 @@ function WikiIcon({ resource }) {
   return (
     <span
       title={hostFor(resource)}
-      style={{ background: categorySoft(resource.category), borderColor: `color-mix(in srgb, ${categoryColor(resource.category)} 38%, transparent)` }}
+      style={{ background: categorySoft(resource.category), borderColor: categoryRing(resource.category) }}
       className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[9px] border text-sm font-semibold"
     >
       <span aria-hidden="true" style={{ color: categoryColor(resource.category) }}>

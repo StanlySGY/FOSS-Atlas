@@ -122,7 +122,7 @@ export default function Layout() {
           86% ink + blur reads as depth instead of the old smear — the washes
           are static (background-attachment: fixed), so there is nothing moving
           to smear. */}
-      <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[rgba(10,12,13,0.86)] backdrop-blur-md">
+      <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[rgba(8,8,11,0.86)] backdrop-blur-md">
         {/* `shrink-0` + `whitespace-nowrap` on both text blocks, and the GitHub
             link parked until sm: at 390px those three nav labels and the logo are
             the whole row, and without them the labels wrap onto two lines and the
@@ -257,7 +257,7 @@ export default function Layout() {
        */}
       <nav
         aria-label="页面导航"
-        className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-[var(--line)] bg-[rgba(10,12,13,0.9)] backdrop-blur-md sm:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-[var(--line)] bg-[rgba(8,8,11,0.9)] backdrop-blur-md sm:hidden"
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
         {navItems.map((item) => (

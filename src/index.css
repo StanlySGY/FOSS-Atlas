@@ -8,39 +8,61 @@
 :root {
   color-scheme: dark;
 
-  --ink: #0a0c0d;
-  --ink-raised: #101314;
-  --ink-card: #101314;
-  --ink-card-hover: #14191a;
-  --ink-sunken: #0d1112;
+  /*
+   * The ladder used to be nearly achromatic: every step carried 16–23% chroma
+   * and the panels separated by 1.02–1.25:1, so "surface", "raised surface" and
+   * "sunken surface" were the same grey at different brightnesses and the page
+   * read as black-and-white with one yellow wire on top.
+   *
+   * The whole ladder now sits on a cool violet base — the same hue family as
+   * --own, so the surfaces and the 自建 accent belong to one palette instead of
+   * two. Chroma is 26–41% at every step, and each step still separates from the
+   * card by 1.05–1.19:1, which is a *layer* cue, not a contrast cue: nothing
+   * here carries text, so none of these ratios have to clear 4.5:1.
+   */
+  --ink: #08080b; /* L* 2.3, chroma 27.3 — 1.081:1 against the card */
+  --ink-raised: #221d2c; /* 1.128:1 against the card, 1.20:1 against --ink-sunken */
+  --ink-card: #15121c; /* L* 6.1, chroma 35.7 — the reference surface everything else is measured against */
+  --ink-card-hover: #1d1926; /* 1.074:1 against the card */
+  --ink-sunken: #0b0b0f; /* L* 3.1 — the graph canvas, 1.062:1 against the card */
   /* Small tinted surfaces: dropdown rows, chip backgrounds, active tab wells. */
-  --ink-tint: #171b1c;
-  --ink-tint-hover: #1e2426;
-  --ink-chip: #151a1b;
-  --ink-tab: #1b2021;
-  --line: #23282a;
-  --line-strong: #3a4245;
-  --line-soft: #1c2123;
+  --ink-tint: #1f1b28; /* 1.097:1 against the card */
+  --ink-tint-hover: #262133; /* 1.187:1 */
+  --ink-chip: #1b1727; /* 1.056:1 against the card — the faintest well that is still a well */
+  --ink-tab: #241f30; /* 1.157:1 */
+  --line: #262033; /* 1.178:1 against the card, 1.27:1 against --ink */
+  --line-strong: #48415a; /* 1.92:1 */
+  --line-soft: #201c2b; /* 1.112:1 */
   /* Line shades used only around interactive chips / swatches. */
-  --line-muted: #2a3033;
-  --line-hover: #4a5457;
+  --line-muted: #2f2940; /* 1.33:1 */
+  --line-hover: #605876; /* 2.78:1 — a hover border, not a mark, so it stays under 3:1 */
 
   --accent: #f0b429;
-  --accent-dim: #8a6a1f;
-  --accent-ink: #101314;
+  /* --accent-dim is the only accent-tier *text* in the site: the 10–11px list
+     markers in .md li::marker (which renders on --ink, not on a card). The old
+     #8a6a1f is 3.67:1 on the new card, 3.96:1 on --ink — under 4.5:1 as text on
+     every surface it can land on, so it only ever worked as a *mark*. #9a7a2a
+     clears it: 4.57:1 on the card, 4.94:1 on --ink. */
+  --accent-dim: #9a7a2a;
+  --accent-ink: #15121c; /* the ink a solid accent chip writes its label in */
 
   --text: #cfd4d6;
   --text-strong: #f2f4f5;
-  --text-dim: #9aa2a5;
-  /* Two floors, measured the way DeployedBadge measures --own-text: the
-     10–11px labels these tiers carry are text, not marks, so the bar is 4.5:1.
-     #6a7376 measured 3.85:1 against --ink-card and sat on 40 call sites — the
-     whole small-type layer of the site was below AA. #7c8588 is 4.95:1 on the
-     card, 4.60:1 on --ink-tint, 5.03:1 on --ink-sunken. */
-  --text-faint: #7c8588;
-  /* The quietest tier, for hints that must not compete: 4.43:1 on --ink-card
-     (was 3.03:1), one step below --text-faint so the three greys stay a scale. */
-  --text-mute: #747d80;
+  --text-dim: #9aa2a5; /* 7.12:1 on the card, worst 6.00:1 on --ink-tint-hover */
+  /* Measured the way DeployedBadge measures --own-text: the 10–11px labels
+     these tiers carry are text, not marks, so the bar is 4.5:1. The floors are
+     set against the *brightest small surface a label can land on*
+     (--ink-tint-hover, --ink-tab), not against the card — a grey that clears
+     4.5:1 on the card is worthless on the chip it actually labels. #7c8588 was
+     4.95:1 on the old card but 4.17:1 on the old --ink-tint-hover, below AA on
+     the chips it labels; over the new surfaces it is worse, 4.90:1 / 4.13:1.
+     #8e979a: 6.20:1 on the card, 5.23:1 worst case. */
+  --text-faint: #8e979a;
+  /* The quietest tier, for hints that must not compete: 5.60:1 on the card,
+     4.72:1 worst case. The three greys now step 5.60 → 6.20 → 7.12 (1.11, 1.15)
+     instead of 4.43 → 4.95 → 7.19, where the jump between the top two made the
+     middle tier look like the loud one. */
+  --text-mute: #868f92;
   /* Warm white reserved for the focused graph node (see GraphView). */
   --focus-fill: #f5f0e6;
   /* "跑在我自己的基础设施上": the graph's 自建 node colour, mirrored here so a
@@ -163,14 +185,14 @@ kbd,
 /* thin scrollbars so the dark theme stays quiet */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #2c3234 transparent;
+  scrollbar-color: #3a3450 transparent;
 }
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 *::-webkit-scrollbar-thumb {
-  background: #2c3234;
+  background: #3a3450;
   border-radius: 4px;
 }
 
@@ -242,7 +264,7 @@ kbd,
   font-weight: 620;
 }
 .md code {
-  background: #171b1c;
+  background: #231e2e;
   border: 1px solid var(--line);
   border-radius: 4px;
   padding: 0.1rem 0.35rem;
@@ -250,7 +272,7 @@ kbd,
   color: #e8c877;
 }
 .md pre {
-  background: #0e1213;
+  background: #0e0c14;
   border: 1px solid var(--line);
   border-radius: 6px;
   padding: 0.9rem 1rem;
@@ -281,7 +303,7 @@ kbd,
   text-align: left;
 }
 .md th {
-  background: #14181a;
+  background: #221d2c;
   color: #e6eaeb;
   font-weight: 600;
 }

@@ -21,7 +21,7 @@ export default function BackToTop() {
       aria-label="返回顶部"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       className={[
-        'fixed bottom-20 right-4 z-40 grid h-9 w-9 place-items-center rounded-full border border-[var(--line)] bg-[var(--ink-raised)] text-[var(--text-dim)] shadow-[0_6px_20px_rgba(0,0,0,0.4)] transition-all duration-150 hover:border-[var(--accent)]/60 hover:text-[var(--accent)] sm:bottom-6 sm:right-6',
+        'fixed bottom-20 right-4 z-40 grid h-9 w-9 place-items-center rounded-full border border-[var(--line)] bg-[var(--ink-raised)] text-[var(--text-dim)] shadow-[0_6px_20px_rgba(0,0,0,0.4)] transition-[opacity,transform,border-color,color] duration-150 hover:border-[var(--accent)]/60 hover:text-[var(--accent)] sm:bottom-6 sm:right-6',
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0',
       ].join(' ')}
     >
