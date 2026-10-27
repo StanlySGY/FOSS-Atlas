@@ -1765,9 +1765,17 @@
         "stack": "GH Pages · Actions",
         "group": "github",
         "kind": "mirror"
+      },
+      {
+        "id": "woodpecker-ci",
+        "url": "https://ci.sgyyyds.qzz.io",
+        "stack": "Docker · SQLite",
+        "group": "docker",
+        "kind": "instance"
       }
     ],
     "deployed_kinds": [
+      "instance",
       "mirror"
     ],
     "deployed": true

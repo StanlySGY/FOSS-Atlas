@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24",
+  "updated": "2026-10-27",
   "host": "sgyyyds.qzz.io",
   "groups": [
     {
@@ -727,6 +727,16 @@
           "kind": "instance",
           "status": "live",
           "resource": "gitea"
+        },
+        {
+          "id": "woodpecker-ci",
+          "name": "Woodpecker CI",
+          "url": "https://ci.sgyyyds.qzz.io",
+          "desc": "自建 CI/CD,forge 接本机 Gitea:push 触发 pipeline,流水线容器限 2 GiB / 2 CPU。",
+          "stack": "Docker · SQLite",
+          "kind": "instance",
+          "status": "live",
+          "resource": "woodpecker"
         },
         {
           "id": "ttyd",
