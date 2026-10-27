@@ -170,8 +170,8 @@ export default function Home() {
             className={[
               'rounded-[var(--radius)] border px-4 py-3 text-left transition-colors',
               deployedOnly
-                ? 'border-[var(--own)] bg-[var(--own-soft)]'
-                : 'border-[var(--line)] bg-[var(--ink-card)] hover:border-[var(--own)]/60',
+                ? 'border-[var(--own-text)]/65 bg-[var(--own-well)]'
+                : 'border-[var(--line)] bg-[var(--ink-card)] hover:border-[var(--own-text)]/65',
             ].join(' ')}
           >
             <span className="mono block text-2xl font-semibold text-[var(--text-strong)]">
@@ -287,7 +287,7 @@ export default function Home() {
              */}
             <Link
               to={`/graph/?cat=${encodeURIComponent(activeCategory)}`}
-              className="text-[11px] text-[var(--text-dim)] transition-colors hover:text-[var(--accent)]"
+              className="text-[11px] text-[var(--text-dim)] transition-colors hover:text-[var(--accent-text)]"
             >
               在知识图谱中聚焦 {activeCategoryName} →
             </Link>
@@ -330,21 +330,28 @@ export default function Home() {
 /*
  * The rail is where the 11 category hues are supposed to do their work, and
  * until now only the *active* one had a hue — the other ten were grey pills,
- * so the rail read as one undifferentiated row plus a highlighted one. An
- * inactive chip now carries its own category at rest (10% fill, 35% border,
- * the hue as its own label) so the row says "these are eleven different
- * things" before anything is clicked.
+ * so the rail read as one undifferentiated row plus a highlighted one. Every
+ * chip now carries its own category at rest (8% fill, 35% border, the hue as
+ * its own label) so the row says "these are eleven different things" before
+ * anything is clicked.
  *
- * Rest vs active is a change of *concentration*, not of hue: fill 10% → 12%,
- * border 35% → 55% (1.83–2.30:1 → 2.80–3.89:1 against the card). Every label
- * clears AA on its own chip: 5.75:1 worst case (cn-ai), 8.00:1 best (ai).
+ * Rest vs active is a change of *concentration*, not of hue: fill 8% → 10%,
+ * border 35% → 70%. Measured at the worst place a chip can sit — over the
+ * body's warm halo, where the ground is brightest (#3b333a, L* 22.3) — every
+ * label clears AA on its own wash: 4.78:1 worst (cn-ai) to 6.35 best at rest,
+ * 4.60–6.78 active. The border is 1.83–2.09:1 at rest and **3.07–3.65:1**
+ * active: at rest it is a container line, when active it is a mark, which is
+ * the point of the 35% → 70% step. The two concentrations were solved for
+ * those two floors, not chosen — 12% fill would have put the active label at
+ * 4.42:1, under AA, and 65% border at 2.79:1, under the mark floor. The wash
+ * itself stays 1.107–1.190:1 against the ground: tinted, not painted.
  */
 function CategoryTab({ active, onClick, label, count, color }) {
   const tint = color
     ? {
         color,
-        borderColor: `color-mix(in srgb, ${color} ${active ? 55 : 35}%, transparent)`,
-        background: `color-mix(in srgb, ${color} ${active ? 12 : 10}%, transparent)`,
+        borderColor: `color-mix(in srgb, ${color} ${active ? 70 : 35}%, transparent)`,
+        background: `color-mix(in srgb, ${color} ${active ? 10 : 8}%, transparent)`,
       }
     : undefined
   return (
@@ -361,7 +368,7 @@ function CategoryTab({ active, onClick, label, count, color }) {
       ].join(' ')}
     >
       {label}
-      <span className="mono ml-1.5 text-[10px] opacity-60">{count}</span>
+      <span className="mono ml-1.5 text-[10px] text-[var(--text-mute)]">{count}</span>
     </button>
   )
 }
@@ -375,7 +382,7 @@ function SubChip({ active, onClick, label }) {
       className={[
         'mono rounded-full px-2.5 py-1 text-[11px] transition-colors',
         active
-          ? 'bg-[var(--accent)]/15 text-[var(--accent)]'
+          ? 'bg-[var(--accent)]/15 text-[var(--accent-text)]'
           : 'text-[var(--text-faint)] hover:text-[var(--text-strong)]',
       ].join(' ')}
     >

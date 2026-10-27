@@ -198,7 +198,7 @@ export default function CommandPalette({ onClose }) {
                   {item.page ? (
                     <span
                       aria-hidden="true"
-                      className="grid h-6 w-6 shrink-0 place-items-center rounded-[4px] border border-[var(--accent)]/40 text-[10px] text-[var(--accent)]"
+                      className="grid h-6 w-6 shrink-0 place-items-center rounded-[4px] border border-[var(--accent)]/60 text-[10px] text-[var(--accent-text)]"
                     >
                       ↗
                     </span>
@@ -219,7 +219,7 @@ export default function CommandPalette({ onClose }) {
                   {item.deployed ? (
                     <span
                       aria-hidden="true"
-                      className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--own)]"
+                      className="h-1.5 w-1.5 shrink-0 rounded-full border border-[var(--own-text)]/65 bg-[var(--own-well)]"
                       title="已自部署"
                     />
                   ) : null}

@@ -56,9 +56,17 @@ function useProbeState(instanceIds) {
  * is also the door, not only the label.
  *
  * The hue is the graph's 自建 colour (--own, see src/lib/graphStyle.js), used
- * for the dot and the border; the *words* wear --own-text, the same purple
- * stepped up in lightness, because OWN_COLOR only reaches 2.74:1 against this
- * chip's own background and a badge is text, not a mark.
+ * for the dot; the *words* and the border wear --own-text, the same purple
+ * stepped up in lightness, because --own is a mark, not a text colour: a 10px
+ * word in it on this chip measures 2.65:1 where 4.5:1 is required. On the
+ * chip's own plate --own-text is 8.60:1 and its 65% border 4.56:1, while the
+ * 6px --own dot — the one thing here that is a mark rather than a word —
+ * clears the 3:1 mark floor at 3.34:1. The plate is --own-well, which is
+ * 1.262:1 and ΔE76 8.7 away from the card behind it: enough to read as its own
+ * well, not enough to eat the dot (a 16% --own wash swallowed it at 2.67:1).
+ * The same well hosts the probe marks — 可达 (--ok) 4.59, 4xx (--accent) 7.52,
+ * 不可达 (--down) 3.86, all 6px dots against the 3:1 floor. The GraphNodePopover's
+ * instance panel rides the same plate for the same reason.
  *
  * The count is the number of *instances*, not of groups: one tool deployed on
  * both the edge and Docker is two things the reader has to keep running, and
@@ -73,7 +81,7 @@ export default function DeployedBadge({ resource, showGroups = false, to = null 
   const badge = (
     <span
       title={`已在 ${groups.map((g) => DEPLOY_GROUP_LABEL[g] ?? g).join(' / ')} 部署${probe ? ` · ${probe.label}` : ''}`}
-      className="inline-flex shrink-0 items-center gap-1.5 rounded-[3px] border border-[var(--own)]/45 bg-[var(--own-soft)] px-1.5 py-0.5 text-[10px] text-[var(--own-text)] transition-colors hover:border-[var(--own)]"
+      className="inline-flex shrink-0 items-center gap-1.5 rounded-[3px] border border-[var(--own-text)]/65 bg-[var(--own-well)] px-1.5 py-0.5 text-[10px] text-[var(--own-text)] transition-colors hover:border-[var(--own-text)]"
     >
       <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--own)]" aria-hidden="true" />
       已自部署 <span className="mono">{instances.length}</span>

@@ -132,7 +132,15 @@ export default function GraphNodePopover({
            * hands the reader to that page's own rows (each row carries the same
            * instance id as its anchor).
            */
-          <div className="mt-2.5">
+          /* The panel gets its own plate rather than sitting on the card, because
+           * the instance dots are the only 1.5px marks in this bubble and
+           * --own measures 2.65:1 on --ink-card — under the 3:1 floor for a dot.
+           * On --own-well the same dot is 3.34:1, and the well is 1.262:1 / ΔE76
+           * 8.7 away from the card, so it reads as a inset panel rather than a
+           * stain on it. Text on the well: --own-text 8.6, --text 10.03,
+           * --text-faint 8.76; the 50% --own-text border is 3.29:1, so the panel
+           * edge is a mark-grade line, not a decorative one. */
+          <div className="mt-2.5 rounded-[4px] border border-[var(--own-text)]/50 bg-[var(--own-well)] p-2.5">
             <div className="flex items-baseline justify-between gap-2">
               <h4 className="text-[11px] font-semibold text-[var(--own-text)]">
                 我运行着的实例{" "}
@@ -156,7 +164,7 @@ export default function GraphNodePopover({
                     href={i.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="min-w-0 flex-1 truncate text-[var(--text)] underline decoration-[var(--line-strong)] underline-offset-2 hover:text-[var(--accent)]"
+                    className="min-w-0 flex-1 truncate text-[var(--text)] underline decoration-[var(--line-strong)] underline-offset-2 hover:text-[var(--accent-text)]"
                   >
                     {i.id}
                   </a>
@@ -169,7 +177,7 @@ export default function GraphNodePopover({
         <button
           type="button"
           onClick={onAction}
-          className="mt-3 flex w-full items-center justify-center rounded-[4px] border border-[var(--line-strong)] bg-[var(--ink-tint)] px-2.5 py-1.5 text-xs font-semibold text-[var(--accent)] transition-colors hover:border-[var(--line-hover)] hover:bg-[var(--ink-tint-hover)]"
+          className="mt-3 flex w-full items-center justify-center rounded-[4px] border border-[var(--line-strong)] bg-[var(--ink-tint)] px-2.5 py-1.5 text-xs font-semibold text-[var(--accent-text)] transition-colors hover:border-[var(--line-hover)] hover:bg-[var(--ink-tint-hover)]"
         >
           {actionLabel}
         </button>

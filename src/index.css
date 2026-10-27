@@ -9,86 +9,137 @@
   color-scheme: dark;
 
   /*
-   * The ladder used to be nearly achromatic: every step carried 16–23% chroma
-   * and the panels separated by 1.02–1.25:1, so "surface", "raised surface" and
-   * "sunken surface" were the same grey at different brightnesses and the page
-   * read as black-and-white with one yellow wire on top.
+   * A page is dark because of CIE L*, not because of how coloured it is. The
+   * ladder this replaces ran L* 2.3 -> 13.7 over twelve steps: surface, raised
+   * surface and sunken surface were all near-black, and ~90% of a rendered page
+   * measured under L* 8. The pass before this one reported "chroma 26-41%",
+   * which is sRGB saturation ((max-min)/max) and says nothing about lightness -
+   * the C* of those same tokens was 1.2-13.9. So this pass moves L*.
    *
-   * The whole ladder now sits on a cool violet base — the same hue family as
-   * --own, so the surfaces and the 自建 accent belong to one palette instead of
-   * two. Chroma is 26–41% at every step, and each step still separates from the
-   * card by 1.05–1.19:1, which is a *layer* cue, not a contrast cue: nothing
-   * here carries text, so none of these ratios have to clear 4.5:1.
+   * The ground moves 3.2 -> 18.6, the card 6.1 -> 25.1, the sunken graph canvas
+   * 3.1 -> 12.8; the fifteen steps between them are 1.0-6.5 L* apart. All of them
+   * stay on one violet base (hue 300-302, C* 11-22) so the surfaces, the lines and
+   * the 自建 hue are one palette. Steps separate from the card by 1.035-1.449:1,
+   * which is a *layer* cue, not a contrast cue: a panel fill or a container line
+   * carries nothing you have to read, so no ratio in this block has to clear
+   * 4.5:1. The top of the line range is interactive chrome only, and --line-hover
+   * (2.551:1 on the card, 3.154 on the ground, 2.901 at the halo peak where the
+   * ground is brightest) is a hover border, not a mark.
    */
-  --ink: #08080b; /* L* 2.3, chroma 27.3 — 1.081:1 against the card */
-  --ink-raised: #221d2c; /* 1.128:1 against the card, 1.20:1 against --ink-sunken */
-  --ink-card: #15121c; /* L* 6.1, chroma 35.7 — the reference surface everything else is measured against */
-  --ink-card-hover: #1d1926; /* 1.074:1 against the card */
-  --ink-sunken: #0b0b0f; /* L* 3.1 — the graph canvas, 1.062:1 against the card */
+  --ink: #2f2b3b; /* L* 18.6, C* 11.2, hue 302 - 1.236:1 against the card */
+  --ink-raised: #4b4561; /* L* 30.9 - 1.229:1 against the card, 1.780:1 against --ink-sunken */
+  --ink-card: #3d394d; /* L* 25.1, C* 13.3 - the reference surface everything else is measured against */
+  --ink-card-hover: #433e53; /* 1.086:1 against the card */
+  --ink-sunken: #221f2f; /* L* 12.8 - the graph canvas, 1.449:1 against the card */
   /* Small tinted surfaces: dropdown rows, chip backgrounds, active tab wells. */
-  --ink-tint: #1f1b28; /* 1.097:1 against the card */
-  --ink-tint-hover: #262133; /* 1.187:1 */
-  --ink-chip: #1b1727; /* 1.056:1 against the card — the faintest well that is still a well */
-  --ink-tab: #241f30; /* 1.157:1 */
-  --line: #262033; /* 1.178:1 against the card, 1.27:1 against --ink */
-  --line-strong: #48415a; /* 1.92:1 */
-  --line-soft: #201c2b; /* 1.112:1 */
+  --ink-tint: #454058; /* 1.125:1 against the card */
+  --ink-tint-hover: #554e70; /* 1.433:1 - the brightest small surface a label can land on */
+  --ink-chip: #403b4f; /* 1.035:1 against the card - the faintest well that is still a well */
+  --ink-tab: #4f4866; /* 1.296:1 */
+  --line: #524b6b; /* 1.363:1 against the card, 1.685:1 against --ink */
+  --line-strong: #6a6281; /* 1.945:1 */
+  --line-soft: #48425c; /* 1.168:1 */
   /* Line shades used only around interactive chips / swatches. */
-  --line-muted: #2f2940; /* 1.33:1 */
-  --line-hover: #605876; /* 2.78:1 — a hover border, not a mark, so it stays under 3:1 */
+  --line-muted: #5a546e; /* 1.549:1 */
+  --line-hover: #7d7498; /* 2.551:1 on the card, 3.154 on the ground, 2.901 at the halo peak - a hover border, not a mark */
 
   --accent: #f0b429;
-  /* --accent-dim is the only accent-tier *text* in the site: the 10–11px list
-     markers in .md li::marker (which renders on --ink, not on a card). The old
-     #8a6a1f is 3.67:1 on the new card, 3.96:1 on --ink — under 4.5:1 as text on
-     every surface it can land on, so it only ever worked as a *mark*. #9a7a2a
-     clears it: 4.57:1 on the card, 4.94:1 on --ink. */
-  --accent-dim: #9a7a2a;
-  --accent-ink: #15121c; /* the ink a solid accent chip writes its label in */
+  /* Two accent tiers, because the accent has two jobs and they have different
+     floors. --accent is the mark: node fills, borders, the hero word, focus
+     rings. 5.96:1 on the card, 6.76 on the ground, 8.63 on --ink-sunken, 4.37
+     at its worst (--line). --accent-text is the same hue lifted to L* 84 for
+     10-12px words: 7.35:1 on the card, 8.34 on the ground, 5.13 at its worst
+     (--ink-tint-hover), 5.53 even on the accent's own 15% wash. Bare --accent
+     as text on that same wash is 4.48 - just under AA - which is why the two
+     are separate tokens rather than one colour used both ways.
 
-  --text: #cfd4d6;
-  --text-strong: #f2f4f5;
-  --text-dim: #9aa2a5; /* 7.12:1 on the card, worst 6.00:1 on --ink-tint-hover */
-  /* Measured the way DeployedBadge measures --own-text: the 10–11px labels
-     these tiers carry are text, not marks, so the bar is 4.5:1. The floors are
-     set against the *brightest small surface a label can land on*
-     (--ink-tint-hover, --ink-tab), not against the card — a grey that clears
-     4.5:1 on the card is worthless on the chip it actually labels. #7c8588 was
-     4.95:1 on the old card but 4.17:1 on the old --ink-tint-hover, below AA on
-     the chips it labels; over the new surfaces it is worse, 4.90:1 / 4.13:1.
-     #8e979a: 6.20:1 on the card, 5.23:1 worst case. */
-  --text-faint: #8e979a;
-  /* The quietest tier, for hints that must not compete: 5.60:1 on the card,
-     4.72:1 worst case. The three greys now step 5.60 → 6.20 → 7.12 (1.11, 1.15)
-     instead of 4.43 → 4.95 → 7.19, where the jump between the top two made the
-     middle tier look like the loud one. */
-  --text-mute: #868f92;
+     --accent-dim is the accent-tier colour for the 10-11px .md li::marker (it
+     renders on --ink, not on a card) and the blockquote rule: #cca652, L* 70,
+     5.98:1 on --ink, 4.84 on the card, 5.49 on the ground. The previous
+     #b08d3d fell to 3.56:1 once the card moved 8 L* up underneath it. */
+  --accent-dim: #cca652;
+  --accent-text: #f5cd7a; /* the accent as text - see the note above */
+  --accent-ink: #221f2f; /* the ink a solid accent chip writes its label in - 8.63:1 on --accent */
+  /* Five greys, one violet family, each measured against the *brightest small
+     surface a label can land on* (--ink-tint-hover), not against the card: a
+     grey that clears 4.5:1 on the card is worthless on the chip it labels.
+     Worst case / on the card / on the ground, all 10-11px text where the bar
+     is 4.5:1:
+       --text-mute   4.55 / 6.53 / 7.40   (L* 80.0)
+       --text-faint  4.84 / 6.94 / 7.87   (L* 82.2)
+       --text-dim    5.14 / 7.37 / 8.36   (L* 84.3)
+       --text        5.55 / 7.95 / 9.02   (L* 87.1)
+       --text-strong 6.00 / 8.60 / 9.76   (L* 90.0)
+     The previous tiers (L* 70.1 -> 89.0) were built for a card at L* 17. Over
+     this ladder the same hexes fall to 3.38 - 5.84 on --ink-tint-hover and
+     3.95 on --ink-raised, i.e. the quietest three fail AA on surfaces that
+     exist in the site. The whole ladder moves up 7-10 L* and keeps its step ratios. */
+  --text: #dcd8e8;
+  --text-strong: #e5e0f1;
+  --text-dim: #d5d0e1;
+  --text-faint: #cfcadb;
+  /* The quietest tier, for hints that must not compete. */
+  --text-mute: #c9c4d5;
   /* Warm white reserved for the focused graph node (see GraphView). */
-  --focus-fill: #f5f0e6;
+  --focus-fill: #f7f0e5;
   /* "跑在我自己的基础设施上": the graph's 自建 node colour, mirrored here so a
      已自部署 badge on a card is the same hue as the node it points at. Kept in
      sync with OWN_COLOR in src/lib/graphStyle.js.
 
-     --own-text is the same purple stepped up in lightness. OWN_COLOR clears the
-     3:1 floor for a *mark* (4.08:1 against --ink-card) but a badge is 10–11px
-     *text*, where the bar is 4.5:1 — against --own-soft (the chip's own
-     background) it only reaches 2.74:1. Stepped to #b3a7df: 8.45:1 on the card,
-     5.68:1 on the chip. Marks wear --own, words wear --own-text. */
-  --own: #7f63cf;
-  --own-soft: rgba(127, 99, 207, 0.16);
-  --own-text: #b3a7df;
+     --own is a *mark*, and it is unchanged at #7b6cdb: 3.84:1 on --ink-sunken
+     (a filled node), 3.01 on the page ground, 3.34 on its own well - all over
+     the 3:1 floor for a filled node or a 1.5px dot. It is deliberately not
+     brighter: 分类 8.63, 子类 6.38, 工具 5.05, 自建 3.84 is the order of how
+     much attention each node type deserves. Brightening it to clear 3:1 on the
+     *card* as well would take L* 55.4+, and every violet tried there (L* 55-58.5,
+     C* >=50, hue 296-312) either falls under 3:1 on --ink-tint / --ink-tab or
+     collapses to ΔE76 12-22 against the proxy category hue - so the fix is the
+     plate, not the hue. --own measures 2.65 on a bare card and 2.36 on
+     --ink-tint, which is why no 自建 dot sits on either any more.
+
+     --own-well is that fix. An alpha wash cannot host a 3:1 mark at these
+     lightnesses: the old --own-soft (4% of --own) composited to #403b52, a
+     1.039:1 layer, and the dot on it measured 2.33:1 - the chip's own fill was
+     eating the mark. A solid well 7 L* *darker* than the card does the opposite:
+     #2e2842 is 1.262:1 below the card (ΔE76 8.7, C* 18.2 - the same violet,
+     pushed rather than tinted) and puts --own at 3.34, --ok at 4.59, --accent
+     at 7.52 and --down at 3.86 on itself.
+
+     Marks wear --own, words wear --own-text: #cfc5ef, L* 81.5, 6.81:1 on the
+     card, 7.73 on the ground, 8.60 on the well, 4.76 at its worst
+     (--ink-tint-hover). Its badge border is the same colour at 65% over the
+     plate it sits on - #9c94b6, 3.87 on a card, 4.39 on the ground, 4.89 on the
+     well; the old --own at 45% was 1.50. */
+  --own: #7b6cdb;
+  --own-well: #2e2842; /* L* 17.9, C* 18.2 - a solid well, not an alpha wash: see the note above */
+  --own-text: #cfc5ef;
   /* A service that did not answer when the build probed it. Red is not in this
      palette for anything else, which is the point: it only ever means "this one
-     did not answer". #d9705f measured against --ink-card 5.72:1 and against
-     --down-soft (the chip's own background) 4.89:1 — the bar for 10px text. */
-  --down: #b8503f;
-  --down-soft: rgba(184, 80, 63, 0.16);
-  --down-text: #d9705f;
-  /* Probe health: the build-time snapshot's "this answered" green. Only ever a
-     6px mark, so it clears the 3:1 mark floor with room to spare on --ink-card. */
-  --ok: #46b981;
+     did not answer". Same shape as 自建 - mark, well, text.
 
-  /* Cards and panels sit one step softer than 6px: at this dark a theme the
+     --down #cf6766 (L* 56) is the mark: 3.06 on the card, 3.47 on the ground,
+     4.43 on --ink-sunken, 3.61 on its own well. 2.82 on --ink-card-hover, which
+     is why the chip's dot lives on the well rather than on a row that brightens
+     under the cursor.
+     --down-well #472827 is the chip fill: solid, 1.181:1 below the card and
+     ΔE76 20.6 away from it - the clearest layer step in the whole palette. The
+     old --down-soft (13% alpha) composited to #4f3e4d and left its own dot at
+     2.36:1.
+     --down-text #f4a191 is the word: 6.47 on the well, 5.48 on a card, 6.21 on
+     the ground. One limit worth stating: 4.87 on --ink-tint and 3.82 on
+     --ink-tint-hover, so a down label is never placed on a tinted well.
+     Chip border: --down-text at 70% over the well - #c07d71, 4.01 on the well,
+     3.39 on a card, 3.85 on the ground. 40% (2.14) and 55% (2.80) both fail. */
+  --down: #cf6766;
+  --down-well: #472827; /* L* 20.1, C* 15.9 */
+  --down-text: #f4a191;
+  /* Probe health: the build-time snapshot's "this answered" green. A mark only,
+     never a word - 3.64:1 on --ink-card is fine for a 6px dot and is not enough
+     for 10px text. 4.13 on the ground, 5.27 on --ink-sunken, 4.59 on --own-well,
+     4.30 on --down-well, 3.24 at its worst (--ink-tint). */
+  --ok: #37a677;
+
+  /* Cards and panels sit one step softer than 6px: at a ground this light the
      tighter radius reads as a form control, the looser one as a surface. */
   --radius: 8px;
   --radius-sm: 4px;
@@ -105,12 +156,18 @@ body {
   margin: 0;
   background:
     /*
-     * 三层环境：一层 22px 点阵给深色面板"仪表盘"的肌理（Linear/Vercel 同款
+     * 三层环境：一层 22px 点阵给面板"仪表盘"的肌理（Linear/Vercel 同款
      * 手法，3% 白点），再加暖、冷两道光晕定位页面的重心，最后落回底色。
+     * 底色抬到 L* 18.6 之后这两道光晕才真的有得可叠：暖晕峰值 #37313a（L* 21.3）、
+     * 冷晕峰值 #332f44（L* 20.7）。旧底色 L* 2.3 时同一批叠加只到 3.5 / 3.8，
+     * 等于没画。点阵要按它真实的覆盖率算：1px 的点铺在 22px 的格子里，覆盖率
+     * 1/484，面积加权只抬 0.03 L* —— 它是肌理，不是亮度，别把它当成变亮的办法。
+     * 页面地面的中位数就是 --ink 本身（L* 18.6），只有两道晕的附近更亮；chip
+     * 与 rail 的对比数按最亮的晕峰值量，那是它们的最坏情况。
      */
-    radial-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    radial-gradient(1200px 380px at 22% -80px, rgba(240, 180, 41, 0.055), transparent 70%),
-    radial-gradient(900px 420px at 88% 180px, rgba(127, 99, 207, 0.05), transparent 70%),
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(1200px 380px at 22% -80px, rgba(240, 180, 41, 0.06), transparent 70%),
+    radial-gradient(900px 420px at 88% 180px, rgba(123, 108, 219, 0.055), transparent 70%),
     var(--ink);
   background-size:
     22px 22px,
@@ -175,7 +232,7 @@ kbd,
   background: var(--ink-raised);
   padding: 0.4rem 0.75rem;
   font-size: 0.8rem;
-  color: var(--accent);
+  color: var(--accent-text);
   transition: transform 140ms ease-out;
 }
 .fa-skip:focus {
@@ -185,14 +242,14 @@ kbd,
 /* thin scrollbars so the dark theme stays quiet */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #3a3450 transparent;
+  scrollbar-color: var(--line-strong) transparent;
 }
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 *::-webkit-scrollbar-thumb {
-  background: #3a3450;
+  background: var(--line-strong);
   border-radius: 4px;
 }
 
@@ -209,7 +266,7 @@ kbd,
 .md h1,
 .md h2,
 .md h3 {
-  color: #f2f4f5;
+  color: var(--text-strong);
   font-weight: 650;
   line-height: 1.3;
   margin: 2rem 0 0.75rem;
@@ -252,19 +309,19 @@ kbd,
   color: var(--accent-dim);
 }
 .md a {
-  color: var(--accent);
+  color: var(--accent-text);
   text-decoration: none;
-  border-bottom: 1px solid rgba(240, 180, 41, 0.35);
+  border-bottom: 1px solid rgba(245, 205, 122, 0.35);
 }
 .md a:hover {
   border-bottom-color: var(--accent);
 }
 .md strong {
-  color: #eef1f2;
+  color: var(--text-strong);
   font-weight: 620;
 }
 .md code {
-  background: #231e2e;
+  background: var(--ink-tint);
   border: 1px solid var(--line);
   border-radius: 4px;
   padding: 0.1rem 0.35rem;
@@ -272,7 +329,7 @@ kbd,
   color: #e8c877;
 }
 .md pre {
-  background: #0e0c14;
+  background: var(--ink-sunken);
   border: 1px solid var(--line);
   border-radius: 6px;
   padding: 0.9rem 1rem;
@@ -284,12 +341,12 @@ kbd,
   background: none;
   border: 0;
   padding: 0;
-  color: #cbd3d5;
+  color: var(--text);
 }
 .md blockquote {
   border-left: 2px solid var(--accent-dim);
   padding-left: 0.9rem;
-  color: #9aa2a5;
+  color: var(--text-dim);
 }
 .md table {
   width: 100%;
@@ -303,8 +360,8 @@ kbd,
   text-align: left;
 }
 .md th {
-  background: #221d2c;
-  color: #e6eaeb;
+  background: var(--ink-raised);
+  color: var(--text-strong);
   font-weight: 600;
 }
 .md hr {

@@ -106,11 +106,13 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
               </span>
             </button>
 
-            {/* The branch line wears its category at 28% — 1.54–1.85:1 against
-                the rail. A container line is not a mark you read, it is what
-                tells you which rows belong together, so it sits deliberately
-                under the 3:1 mark floor, the same way the graph's structural
-                edges do. */}
+            {/* The branch line wears its category at 28% — 1.750–2.053:1 against
+                the rail (--ink-sunken), 1.707–2.010 in the drawer (--ink). A
+                container line is not a mark you read, it is what tells you which
+                rows belong together, so it sits deliberately under the 3:1 mark
+                floor, the same way the graph's structural edges do. The hue still
+                does its job where it is read: as the count label on the rail it
+                measures 7.27–10.57:1, in the drawer (--ink) 6.20–9.02:1. */}
             {catOpen ? (
               <div
                 id={catPanelId}
@@ -149,6 +151,17 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                           {sub.tools.map((tool) => {
                             const isActive = tool.id === activeId
                             return (
+                              /* The active tool's own row is the one place in the nav
+                                 * where the category hue is a mark you read, so it
+                                 * gets the same concentration the category chips on
+                                 * the home rail and the graph page use: 10% fill,
+                                 * 70% border. Measured on the rail (--ink-sunken)
+                                 * the label is 6.08–8.36:1 and the 2px left border
+                                 * 4.25–5.85:1; in the mobile drawer (--ink) 5.15–7.16
+                                 * and 3.82–5.24. At the old 12%/55% the border was
+                                 * 2.83–3.57 and 2.58–3.22 — under the 3:1 mark floor
+                                 * on a row that is the nav's only "you are here".
+                                 * The wash stays 1.19–1.27:1 against the plate. */
                               <li key={tool.id}>
                                 <Link
                                   to={`/wiki/${tool.id}/`}
@@ -159,8 +172,8 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                                     isActive
                                       ? {
                                           color: hue,
-                                          borderColor: `color-mix(in srgb, ${hue} 55%, transparent)`,
-                                          background: `color-mix(in srgb, ${hue} 12%, transparent)`,
+                                          borderColor: `color-mix(in srgb, ${hue} 70%, transparent)`,
+                                          background: `color-mix(in srgb, ${hue} 10%, transparent)`,
                                         }
                                       : undefined
                                   }

@@ -193,9 +193,9 @@ export default function WikiPage() {
     return (
       <div className="space-y-4">
         <p className="text-sm text-[var(--text-dim)]">
-          没有找到 id 为 <code className="mono text-[var(--accent)]">{id}</code> 的资源。
+          没有找到 id 为 <code className="mono text-[var(--accent-text)]">{id}</code> 的资源。
         </p>
-        <Link to="/" className="text-sm text-[var(--accent)] hover:underline">
+        <Link to="/" className="text-sm text-[var(--accent-text)] hover:underline">
           ← 返回导航
         </Link>
       </div>
@@ -245,7 +245,10 @@ export default function WikiPage() {
               href={resource.url}
               target="_blank"
               rel="noreferrer"
-              className="rounded-[var(--radius-sm)] border border-[var(--accent)]/50 px-2.5 py-1 text-xs text-[var(--accent)] transition-colors hover:bg-[var(--accent)]/10"
+              /* accent at 50% measured 2.62:1 on the card this button sits on — a
+               * border you read as "the primary action" has to clear 3:1, so it is
+               * 60% (3.16:1); --accent-text on the /10 hover wash is 6.10:1. */
+              className="rounded-[var(--radius-sm)] border border-[var(--accent)]/60 px-2.5 py-1 text-xs text-[var(--accent-text)] transition-colors hover:bg-[var(--accent)]/10"
             >
               访问官网 ↗
             </a>
@@ -299,10 +302,10 @@ export default function WikiPage() {
                   className={[
                     'text-[11px] transition-colors',
                     on
-                      ? 'text-[var(--accent)]'
+                      ? 'text-[var(--accent-text)]'
                       : h.level === 3
-                        ? 'text-[var(--text-faint)] hover:text-[var(--accent)]'
-                        : 'text-[var(--text-dim)] hover:text-[var(--accent)]',
+                        ? 'text-[var(--text-faint)] hover:text-[var(--accent-text)]'
+                        : 'text-[var(--text-dim)] hover:text-[var(--accent-text)]',
                   ].join(' ')}
                 >
                   {h.level === 3 ? `› ${h.text}` : h.text}
@@ -360,7 +363,7 @@ export default function WikiPage() {
                 <Link
                   key={t}
                   to={`/?q=${encodeURIComponent(t)}`}
-                  className="rounded-[3px] bg-[var(--ink-tint)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] hover:text-[var(--accent)]"
+                  className="rounded-[3px] bg-[var(--ink-tint)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] hover:text-[var(--accent-text)]"
                 >
                   {t}
                 </Link>
@@ -383,7 +386,7 @@ export default function WikiPage() {
                     href={i.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="block truncate text-[var(--text-strong)] underline decoration-[var(--line-strong)] underline-offset-2 transition-colors hover:text-[var(--accent)]"
+                    className="block truncate text-[var(--text-strong)] underline decoration-[var(--line-strong)] underline-offset-2 transition-colors hover:text-[var(--accent-text)]"
                   >
                     {i.url.replace(/^https?:\/\//, '')}
                   </a>
@@ -410,7 +413,7 @@ export default function WikiPage() {
                 <li key={a.id} className="flex items-center gap-2">
                   <span className="text-[var(--text-faint)]">替代</span>
                   {a.linkId ? (
-                    <Link to={`/wiki/${a.linkId}/`} className="text-[var(--text)] hover:text-[var(--accent)]">
+                    <Link to={`/wiki/${a.linkId}/`} className="text-[var(--text)] hover:text-[var(--accent-text)]">
                       {a.name}
                     </Link>
                   ) : a.url ? (
@@ -418,7 +421,7 @@ export default function WikiPage() {
                       href={a.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-[var(--text)] hover:text-[var(--accent)]"
+                      className="text-[var(--text)] hover:text-[var(--accent-text)]"
                     >
                       {a.name} ↗
                     </a>
@@ -440,7 +443,7 @@ export default function WikiPage() {
                 <Link
                   key={r.id}
                   to={`/wiki/${r.id}/`}
-                  className="rounded-[3px] border border-[var(--line)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] hover:border-[var(--accent)]/50 hover:text-[var(--accent)]"
+                  className="rounded-[3px] border border-[var(--line)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] hover:border-[var(--accent)]/50 hover:text-[var(--accent-text)]"
                 >
                   {r.name}
                 </Link>
@@ -451,7 +454,7 @@ export default function WikiPage() {
 
         <Link
           to={`/graph/?focus=${encodeURIComponent(id)}`}
-          className="block rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 text-center text-xs text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/50 hover:text-[var(--accent)]"
+          className="block rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 text-center text-xs text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/50 hover:text-[var(--accent-text)]"
         >
           在知识图谱中查看 →
         </Link>

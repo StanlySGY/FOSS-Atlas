@@ -49,6 +49,18 @@ function useProbe() {
 
 const utcStamp = (iso) => String(iso ?? '').slice(0, 16).replace('T', ' ')
 
+/*
+ * Three states, three plates, and each one's floor is measured rather than
+ * assumed. 不可达 is the state a reader has to act on, so it gets its own well
+ * (--down-well, 1.181:1 and ΔE76 20.6 from the card — the largest colour jump on
+ * the page, which is the point) with --down-text words at 6.47:1 and a 70%
+ * --down-text border at 4.01:1, a mark-grade line. 已上线 wears the accent: the
+ * 70% border is 3.74:1 on the card and --accent-text on the 10% wash is 6.10:1.
+ * 部署中 / no-snapshot is deliberately the plainest: --ink-tint is only 1.125:1
+ * above the card (ΔE76 4.1) and --line on it 1.212, because an unknown state
+ * must not compete for attention with a known failure; its --text-faint words
+ * are 6.17:1, so it is quiet, not unreadable.
+ */
 function StatusChip({ status, result }) {
   const pending = status === 'pending'
   const down = !pending && result ? unreachable(result.cls) : false
@@ -58,10 +70,10 @@ function StatusChip({ status, result }) {
       className={[
         'mono shrink-0 rounded-[3px] px-1.5 py-0.5 text-[10px]',
         down
-          ? 'bg-[var(--down-soft)] text-[var(--down-text)]'
+          ? 'border border-[color-mix(in_srgb,var(--down-text)_70%,transparent)] bg-[var(--down-well)] text-[var(--down-text)]'
           : neutral
-            ? 'bg-[var(--ink-tint)] text-[var(--text-faint)]'
-            : 'bg-[var(--accent)]/15 text-[var(--accent)]',
+            ? 'border border-[var(--line)] bg-[var(--ink-tint)] text-[var(--text-faint)]'
+            : 'border border-[var(--accent)]/70 bg-[var(--accent)]/10 text-[var(--accent-text)]',
       ].join(' ')}
       title={result ? `${result.cls}: ${result.note}` : undefined}
     >
@@ -89,7 +101,7 @@ function ServiceRow({ item, result }) {
             href={item.url}
             target="_blank"
             rel="noreferrer"
-            className="truncate text-sm font-semibold text-[var(--text-strong)] transition-colors group-hover:text-[var(--accent)]"
+            className="truncate text-sm font-semibold text-[var(--text-strong)] transition-colors group-hover:text-[var(--accent-text)]"
           >
             {item.name}
           </a>
@@ -125,7 +137,7 @@ function ServiceRow({ item, result }) {
           href={item.url}
           target="_blank"
           rel="noreferrer"
-          className="text-[11px] text-[var(--accent)] hover:underline"
+          className="text-[11px] text-[var(--accent-text)] hover:underline"
         >
           访问 ↗
         </a>

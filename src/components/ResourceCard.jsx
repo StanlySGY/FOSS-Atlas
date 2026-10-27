@@ -52,7 +52,7 @@ export default function ResourceCard({ resource, index = 0 }) {
 
         <div className="min-w-0 flex-1">
           <Link to={`/wiki/${id}/`} className="block">
-            <h3 className="truncate text-sm font-semibold text-[var(--text-strong)] transition-colors group-hover:text-[var(--accent)]">
+            <h3 className="truncate text-sm font-semibold text-[var(--text-strong)] transition-colors group-hover:text-[var(--accent-text)]">
               {name}
             </h3>
           </Link>
@@ -68,7 +68,7 @@ export default function ResourceCard({ resource, index = 0 }) {
             <Link
               key={tag}
               to={`/?q=${encodeURIComponent(tag)}`}
-              className="rounded-full bg-[var(--ink-tint)] px-2 py-0.5 text-[10px] text-[var(--text-dim)] transition-colors hover:bg-[var(--ink-tint-hover)] hover:text-[var(--accent)]"
+              className="rounded-full bg-[var(--ink-tint)] px-2 py-0.5 text-[10px] text-[var(--text-dim)] transition-colors hover:bg-[var(--ink-tint-hover)] hover:text-[var(--accent-text)]"
             >
               {tag}
             </Link>
@@ -85,7 +85,7 @@ export default function ResourceCard({ resource, index = 0 }) {
            */}
           <Link
             to={`/?cat=${encodeURIComponent(category)}&sub=${encodeURIComponent(sub_category)}`}
-            className="truncate text-[10px] text-[var(--text-faint)] transition-colors hover:text-[var(--accent)]"
+            className="truncate text-[10px] text-[var(--text-faint)] transition-colors hover:text-[var(--accent-text)]"
           >
             {sub_category_name}
           </Link>
@@ -103,7 +103,7 @@ export default function ResourceCard({ resource, index = 0 }) {
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="shrink-0 text-[11px] text-[var(--text-dim)] transition-colors hover:text-[var(--accent)] hover:underline"
+          className="shrink-0 text-[11px] text-[var(--text-dim)] transition-colors hover:text-[var(--accent-text)] hover:underline"
         >
           访问 ↗
         </a>

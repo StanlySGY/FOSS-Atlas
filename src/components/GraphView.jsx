@@ -209,26 +209,33 @@ export default function GraphView({
            * the canvas that says which 分类 a tool belongs to without hovering it
            * — and 174 of 174 tool nodes carry a category, so the ring always has
            * an answer. It is the ring and not the fill on purpose: a category hue
-           * diluted to a fill is 1.3–1.5:1 against the field, invisible; at full
-           * strength a ring measures 6.95–10.94:1 on --ink-sunken. The ring is
-           * 1.6px, i.e. a mark, and every category hue clears the 3:1 mark floor
-           * on its own.
+           * diluted to a fill (18%, the concentration the DOM chips use) is
+           * 1.41–1.55:1 against --ink-sunken, invisible; at full strength a ring
+           * measures 7.27–10.57:1 on that field (worst cn-ai, best vps) and
+           * 5.02–7.30:1 against the hole it is drawn around. The ring is 1.6px,
+           * i.e. a mark, and every category hue clears the 3:1 mark floor against
+           * both.
            *
            * 外部服务 keeps its own #c2643f instead: 0 of 24 external nodes has a
            * category (they are services outside the catalogue, so there is no
            * category to name), and its hue is the palette's only warm-red.
            *
-           * The rings do overlap the solid type hues — gear ↔ 子类 7.0, vps ↔ 子类
-           * 10.2, ai ↔ 分类 5.7 ΔE76 under deuteranopia — and that is accepted
-           * rather than solved, because a tool ring and a category/subcategory
-           * node never have to be told apart by hue alone: they are 46 / 26 / 15px
-           * and the larger node is the one that is filled. 类型 stays legible from
-           * shape and size; the ring adds 分类 on top of it.
+           * The rings do overlap the solid type hues — worst pairs under
+           * deuteranopia: ai ↔ 分类 ΔE76 2.5 (11.1 for a normal-tricolour reader —
+           * #e3b341 is the 分类 amber's near-relative by design), gear ↔ 子类 11.4,
+           * vps ↔ 子类 16.9, selfhost ↔ 子类 24.1 — accepted rather than solved,
+           * because a tool ring and a category / subcategory node never have to be
+           * told apart by hue alone: they are 46 / 26 / 15px and the larger node
+           * is the one that is filled. The ai pair is the one worth saying out
+           * loud: an AI tool's ring and the AI category node are *meant* to be the
+           * same colour, so a reader who cannot separate them is reading a correct
+           * fact. 类型 stays legible from shape and size; the ring adds 分类 on top
+           * of it.
            */
           color: isFocused
             ? FOCUS_FILL
             : n.type === 'tool' || n.type === 'external'
-              ? CANVAS.surface
+              ? CANVAS.field
               : meta.color,
           borderColor: isFocused
             ? FOCUS_RING

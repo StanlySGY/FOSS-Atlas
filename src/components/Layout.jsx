@@ -121,22 +121,31 @@ export default function Layout() {
       {/* Glass, not opaque: the fixed washes behind scroll under it, and an
           86% ink + blur reads as depth instead of the old smear — the washes
           are static (background-attachment: fixed), so there is nothing moving
-          to smear. */}
-      <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[rgba(8,8,11,0.86)] backdrop-blur-md">
+          to smear. The 86% is the *card* ink, not the ground: over the ground
+          it composites to #3b374a at L* 24.2, 1.197:1 above the ground (1.142
+          at the cool halo's peak, #332f44 at L* 20.7) — a plate a layer above
+          what it floats on, the same step the cards make. rgba of the ground
+          would have composited to the ground — no plate at all. On this plate:
+          --accent-text 7.59, the FA tile's accent/60 border 3.23, the active
+          underbar 6.15, --text-dim 7.61; --line on it is 1.407, which is why
+          the bottom border reads as a seam rather than a drawn rule. The nav
+          pill (--ink-tab) is 1.339 above the plate with --text-strong on it at
+          6.63. The mobile bar rides the same ink at 90%: #3c384b, L* 24.6. */}
+      <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[rgba(61,57,77,0.86)] backdrop-blur-md">
         {/* `shrink-0` + `whitespace-nowrap` on both text blocks, and the GitHub
             link parked until sm: at 390px those three nav labels and the logo are
             the whole row, and without them the labels wrap onto two lines and the
             row overflows the viewport sideways. */}
         <div className="flex h-[var(--header-h)] w-full items-center gap-3 px-4 sm:gap-6 sm:px-6">
           <Link to="/" className="group flex shrink-0 items-center gap-2 whitespace-nowrap">
-            <span className="grid h-6 w-6 place-items-center rounded-[var(--radius-sm)] border border-[var(--accent)]/50 bg-[var(--accent)]/10 text-[11px] font-bold text-[var(--accent)]">
+            <span className="grid h-6 w-6 place-items-center rounded-[var(--radius-sm)] border border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[11px] font-bold text-[var(--accent-text)]">
               FA
             </span>
             {/* The wordmark parks below 370px: at 320 the tile + three nav labels
                 are 268px, with the wordmark 354px — a sideways scroll on the
                 narrowest phones for a word nobody reads there. */}
             <span className="hidden text-sm font-semibold tracking-tight text-[var(--text-strong)] min-[370px]:inline">
-              FOSS<span className="text-[var(--accent)]">-</span>Atlas
+              FOSS<span className="text-[var(--accent-text)]">-</span>Atlas
             </span>
           </Link>
 
@@ -188,7 +197,7 @@ export default function Layout() {
               onClick={openPalette}
               aria-label="搜索与跳转（Ctrl+K）"
               title="搜索 / 跳转（Ctrl K）"
-              className="flex items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--line)] px-2 py-1.5 text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/60 hover:text-[var(--accent)]"
+              className="flex items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--line)] px-2 py-1.5 text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/70 hover:text-[var(--accent-text)]"
             >
               <svg
                 aria-hidden="true"
@@ -257,7 +266,7 @@ export default function Layout() {
        */}
       <nav
         aria-label="页面导航"
-        className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-[var(--line)] bg-[rgba(8,8,11,0.9)] backdrop-blur-md sm:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-[var(--line)] bg-[rgba(61,57,77,0.9)] backdrop-blur-md sm:hidden"
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
         {navItems.map((item) => (
@@ -268,7 +277,7 @@ export default function Layout() {
             className={({ isActive }) =>
               [
                 'flex flex-col items-center gap-0.5 py-2 text-[10px] transition-colors',
-                isActive ? 'text-[var(--accent)]' : 'text-[var(--text-faint)]',
+                isActive ? 'text-[var(--accent-text)]' : 'text-[var(--text-faint)]',
               ].join(' ')
             }
           >

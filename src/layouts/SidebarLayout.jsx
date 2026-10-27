@@ -117,7 +117,7 @@ export default function SidebarLayout() {
           onClick={openDrawer}
           aria-haspopup="dialog"
           aria-expanded={drawerOpen}
-          className="mono ml-4 mt-4 inline-flex items-center gap-2 rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2 text-xs text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/50 hover:text-[var(--accent)] sm:ml-6 md:hidden"
+          className="mono ml-4 mt-4 inline-flex items-center gap-2 rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2 text-xs text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/50 hover:text-[var(--accent-text)] sm:ml-6 md:hidden"
         >
           <DrawerIcon />
           目录

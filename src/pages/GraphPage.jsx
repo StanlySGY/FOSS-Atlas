@@ -323,7 +323,7 @@ export default function GraphPage() {
           <span className="mono text-[var(--text-strong)]"> {graphStats.externals} </span> 个外部服务，
           <span className="mono text-[var(--text-strong)]">{graphStats.edges}</span> 条关系。
           其中
-          <span className="mono text-[var(--own)]"> {deployedStats.resources} </span> 个工具我已经在跑
+          <span className="mono text-[var(--own-text)]"> {deployedStats.resources} </span> 个工具我已经在跑
           （<span className="mono">{deployedStats.instances}</span> 个实例，含
           <span className="mono"> {deployedStats.own} </span> 个 Atlas 自建），下面可以只看这一部分。
           可拖拽节点、滚轮缩放、拖动空白平移。
@@ -356,11 +356,11 @@ export default function GraphPage() {
           className={[
             'rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors',
             focusedCategory === null
-              ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent)]'
+              ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent-text)]'
               : 'border-[var(--line)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
           ].join(' ')}
         >
-          全部 <span className="mono text-[10px] opacity-60">{NODE_COUNT.category}</span>
+          全部 <span className="mono text-[10px] text-[var(--text-mute)]">{NODE_COUNT.category}</span>
         </button>
         {categories.map((cat) => {
           const on = focusedCategory === cat.id
@@ -370,9 +370,14 @@ export default function GraphPage() {
            * could not tell you which category they were about — they only said
            * "a filter" — and the one colour that means "category" in the canvas
            * was spent on the control instead. Now each chip is its category's
-           * hue, at rest 10% fill / 35% border and at 12% / 55% when focused,
-           * which is the same concentration ladder the homepage rail uses.
-           * Labels clear AA on their own chip: 5.75:1 worst (cn-ai).
+           * hue, at rest 8% fill / 35% border and at 10% / 70% when focused —
+           * the same ladder the homepage rail uses, and measured the same way,
+           * at the brightest ground the bar can sit on (the warm halo peak,
+           * #3b333a): labels 4.78–6.35:1 at rest and 4.60–6.78 focused, all AA
+           * on their own wash; borders 1.83–2.09 at rest (a container line) and
+           * 3.07–3.65 focused (a mark). The hue is also legal as text here
+           * because the bar sits on the ground, not on a tinted plate — see the
+           * plate list in src/lib/categoryColor.js.
            */
           const hue = categoryColor(cat.id)
           return (
@@ -383,13 +388,13 @@ export default function GraphPage() {
               aria-pressed={on}
               style={{
                 color: hue,
-                borderColor: `color-mix(in srgb, ${hue} ${on ? 55 : 35}%, transparent)`,
-                background: `color-mix(in srgb, ${hue} ${on ? 12 : 10}%, transparent)`,
+                borderColor: `color-mix(in srgb, ${hue} ${on ? 70 : 35}%, transparent)`,
+                background: `color-mix(in srgb, ${hue} ${on ? 10 : 8}%, transparent)`,
               }}
               className="rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors"
             >
               {cat.icon} {cat.name}
-              <span className="mono ml-1.5 text-[10px] opacity-60">
+              <span className="mono ml-1.5 text-[10px] text-[var(--text-mute)]">
                 {graph.nodes.filter(
                   (n) => n.category === cat.id && (n.type === 'tool' || n.type === 'own'),
                 ).length}
@@ -413,7 +418,7 @@ export default function GraphPage() {
           className={[
             'flex items-center gap-1.5 rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors',
             deployedOnly
-              ? 'border-[var(--own)] bg-[var(--own-soft)] text-[var(--text-strong)]'
+              ? 'border-[var(--own-text)]/65 bg-[var(--own-well)] text-[var(--text-strong)]'
               : 'border-[var(--line)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
           ].join(' ')}
         >
@@ -423,7 +428,7 @@ export default function GraphPage() {
             aria-hidden="true"
           />
           只看我部署了的
-          <span className="mono text-[10px] opacity-60">{deployedStats.resources}</span>
+          <span className="mono text-[10px] text-[var(--text-mute)]">{deployedStats.resources}</span>
         </button>
         {deployedOnly && (
           <span className="text-[11px] text-[var(--text-faint)]">
@@ -449,14 +454,18 @@ export default function GraphPage() {
               ].join(' ')}
             >
               {/*
-               * The dot is a mark (an 8px opaque swatch on --ink), so it cannot
-               * wear the canvas hex: the three structural greys measure 2.20 /
-               * 2.47 / 2.90:1 there, under the 3:1 mark floor, and they are only
-               * 3.3–8.6 ΔE76 apart, so three separate swatches would promise a
-               * distinction the canvas itself does not make. `chip` is the DOM
-               * value — one grey (#645e80, 3.29:1) for 属于 / 归类 / 标签, and the
-               * semantic edges keep their hue. Grey on a chip therefore means
+               * The dot is a mark (an 8px opaque swatch on the page ground), so
+               * it cannot wear the canvas hex: those three structural greys are
+               * tuned to be *seen through* a canvas at L* 12.8 and, drawn flat
+               * here, measure 2.15 / 2.48 / 1.95:1 — under the 3:1 mark floor —
+               * while sitting only 2.7–6.6 ΔE76 apart. Three swatches that close
+               * would promise a distinction the canvas itself does not make.
+               * `chip` is the DOM value — one grey (#89839b, 3.78:1 here, 3.06 on
+               * a card) for 属于 / 归类 / 标签, and the semantic edges keep their
+               * hue (相关 6.25:1, 替代 3.90:1). Grey on a chip therefore means
                * "structural", and which one is told by the label and its count.
+               * Off state wears --line-muted: 2.11:1 on a card, and off-ness is
+               * carried by the label and the border, not by the swatch.
                */}
               <span
                 className="inline-block h-2 w-2 rounded-full"
@@ -465,7 +474,7 @@ export default function GraphPage() {
                 }}
               />
               {EDGE_META[type].label}
-              <span className="mono text-[10px] opacity-60">{EDGE_COUNT[type] ?? 0}</span>
+              <span className="mono text-[10px] text-[var(--text-mute)]">{EDGE_COUNT[type] ?? 0}</span>
             </button>
           )
         })}
@@ -566,7 +575,7 @@ export default function GraphPage() {
                   <li key={r.id}>
                     <Link
                       to={`/wiki/${r.id}/`}
-                      className="block truncate rounded-[3px] px-1.5 py-1 text-xs text-[var(--text-dim)] hover:bg-[var(--ink-tint)] hover:text-[var(--accent)]"
+                      className="block truncate rounded-[3px] px-1.5 py-1 text-xs text-[var(--text-dim)] hover:bg-[var(--ink-tint)] hover:text-[var(--accent-text)]"
                     >
                       {r.name}
                     </Link>
@@ -595,7 +604,7 @@ export default function GraphPage() {
                 </li>
                 <li>
                   顶部<b className="text-[var(--text-strong)]">聚焦分类</b>与
-                  <b className="text-[var(--own)]">只看我部署了的</b>把图收成一部分，这里同时列出那部分的工具
+                  <b className="text-[var(--own-text)]">只看我部署了的</b>把图收成一部分，这里同时列出那部分的工具
                 </li>
               </ul>
             </section>
