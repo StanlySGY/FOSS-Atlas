@@ -1264,9 +1264,17 @@
         "stack": "GH Pages · Actions",
         "group": "github",
         "kind": "mirror"
+      },
+      {
+        "id": "cloud",
+        "url": "https://cloud.sgyyyds.qzz.io",
+        "stack": "Docker · Postgres",
+        "group": "docker",
+        "kind": "instance"
       }
     ],
     "deployed_kinds": [
+      "instance",
       "mirror"
     ],
     "deployed": true
@@ -1512,9 +1520,17 @@
         "stack": "GH Pages · Actions",
         "group": "github",
         "kind": "mirror"
+      },
+      {
+        "id": "photos",
+        "url": "https://photos.sgyyyds.qzz.io",
+        "stack": "Docker · Postgres · Valkey",
+        "group": "docker",
+        "kind": "instance"
       }
     ],
     "deployed_kinds": [
+      "instance",
       "mirror"
     ],
     "deployed": true
@@ -1541,9 +1557,17 @@
         "stack": "GH Pages · Actions",
         "group": "github",
         "kind": "mirror"
+      },
+      {
+        "id": "matrix",
+        "url": "https://matrix.sgyyyds.qzz.io",
+        "stack": "Docker · Postgres",
+        "group": "docker",
+        "kind": "instance"
       }
     ],
     "deployed_kinds": [
+      "instance",
       "mirror"
     ],
     "deployed": true
@@ -1949,9 +1973,17 @@
         "stack": "GH Pages · Actions",
         "group": "github",
         "kind": "mirror"
+      },
+      {
+        "id": "kb",
+        "url": "https://kb.sgyyyds.qzz.io",
+        "stack": "Docker · Postgres · Valkey",
+        "group": "docker",
+        "kind": "instance"
       }
     ],
     "deployed_kinds": [
+      "instance",
       "mirror"
     ],
     "deployed": true
@@ -2379,9 +2411,17 @@
         "stack": "GH Pages · Actions",
         "group": "github",
         "kind": "mirror"
+      },
+      {
+        "id": "auth",
+        "url": "https://auth.sgyyyds.qzz.io",
+        "stack": "Docker · Postgres",
+        "group": "docker",
+        "kind": "instance"
       }
     ],
     "deployed_kinds": [
+      "instance",
       "mirror"
     ],
     "deployed": true
@@ -2408,9 +2448,17 @@
         "stack": "GH Pages · Actions",
         "group": "github",
         "kind": "mirror"
+      },
+      {
+        "id": "home",
+        "url": "https://home.sgyyyds.qzz.io",
+        "stack": "Docker",
+        "group": "docker",
+        "kind": "instance"
       }
     ],
     "deployed_kinds": [
+      "instance",
       "mirror"
     ],
     "deployed": true

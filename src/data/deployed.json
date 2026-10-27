@@ -927,6 +927,66 @@
           "kind": "instance",
           "status": "live",
           "resource": "cloudflare-tunnel"
+        },
+        {
+          "id": "home",
+          "name": "Heimdall",
+          "url": "https://home.sgyyyds.qzz.io",
+          "desc": "服务入口仪表盘:自建服务的卡片首页(Heimdall 2.8.3)。游客访问 / 只出空 dashboard(还没有钉住的卡片),账号在容器内 SQLite 的 users 表里,只有部署时建的 admin。",
+          "stack": "Docker",
+          "kind": "instance",
+          "status": "live",
+          "resource": "heimdall"
+        },
+        {
+          "id": "cloud",
+          "name": "Nextcloud",
+          "url": "https://cloud.sgyyyds.qzz.io",
+          "desc": "自建网盘:Nextcloud 31.0.14 + Postgres。/ 302 到 /login,登录页没有“创建账号”入口,注册已关,管理员 sgy。",
+          "stack": "Docker · Postgres",
+          "kind": "instance",
+          "status": "live",
+          "resource": "nextcloud"
+        },
+        {
+          "id": "kb",
+          "name": "Outline",
+          "url": "https://kb.sgyyyds.qzz.io",
+          "desc": "团队知识库:登录完全走 authentik 的 OIDC — /auth/oidc 302 到 auth 域(PKCE S256),流程跑通后回 /auth/oidc.callback 换 token 并建管理员账号。",
+          "stack": "Docker · Postgres · Valkey",
+          "kind": "instance",
+          "status": "live",
+          "resource": "outline"
+        },
+        {
+          "id": "matrix",
+          "name": "Matrix (Synapse)",
+          "url": "https://matrix.sgyyyds.qzz.io",
+          "desc": "Matrix homeserver:Synapse + Postgres,client-server API 支持到 v1.15。注册关闭,公开 /_matrix/client/v3/register 403,唯一管理员 @sgy;配套的 Element 网页客户端在同组 im 域名下,config.json 里 homeserver 已指向本站。",
+          "stack": "Docker · Postgres",
+          "kind": "instance",
+          "status": "live",
+          "resource": "matrix-synapse"
+        },
+        {
+          "id": "auth",
+          "name": "Authentik",
+          "url": "https://auth.sgyyyds.qzz.io",
+          "desc": "统一身份入口:authentik 2026.8.5,给上面的知识库发 OIDC。首次配置的 /if/flow/initial-setup/ 在 akadmin 建好后报 invalid;未登录时 /api/v3/ 只是接口索引,数据类接口 403。",
+          "stack": "Docker · Postgres",
+          "kind": "instance",
+          "status": "live",
+          "resource": "authentik"
+        },
+        {
+          "id": "photos",
+          "name": "Immich",
+          "url": "https://photos.sgyyyds.qzz.io",
+          "desc": "自建相册:Immich 3.3.5,server + 机器学习 + Postgres + Valkey。注册端点已撤(/api/auth/signup 404),publicUsers=false,未登录 /api/albums 401。",
+          "stack": "Docker · Postgres · Valkey",
+          "kind": "instance",
+          "status": "live",
+          "resource": "immich"
         }
       ]
     }

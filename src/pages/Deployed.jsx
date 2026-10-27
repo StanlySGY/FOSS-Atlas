@@ -252,13 +252,15 @@ export default function Deployed() {
        * these three sections are not 分类 divisions — they are *where it runs*.
        * Counted from the shipped data: 16 rows on Cloudflare 边缘 spread over 4
        * categories (atlas 12, security 2, gear 1, selfhost 1), 34 on GitHub Pages
-       * mirrors over 5 (selfhost 22, security 5, ai 4, gear 2, ebook 1), 33 on the
-       * Docker tunnel over 3 (selfhost 24, gear 6, ai 3). No group has a majority
-       * category — 75% at best — so any single hue on a header would be a 分类
-       * claim the rows under it contradict a quarter of the time, and the site has
-       * no colour that means "edge" or "docker". The group is stated by its name
-       * and its note in type, and 自建 stays the page's one hue (the row links,
-       * the badges) because that is the claim every row on this page actually makes.
+       * mirrors over 5 (selfhost 22, security 5, ai 4, gear 2, ebook 1), 40 on the
+       * Docker tunnel over 3 (selfhost 31, gear 6, ai 3). The largest category is
+       * 78% of the Docker group, so a single hue there would match most rows — and
+       * that is exactly the trap: the header would read as a 分类 claim while six
+       * gear rows and three ai rows sit underneath it, and the site has no colour
+       * that means "edge" or "docker" in the first place. The group is stated by
+       * its name and its note in type, and 自建 stays the page's one hue (the row
+       * links, the badges) because that is the claim every row on this page
+       * actually makes.
        */}
       {deployed.groups.map((group) => (
         <section key={group.id} className="space-y-3">
@@ -296,6 +298,13 @@ export default function Deployed() {
           <li>· 边缘小工具 <span className="mono">short</span> / <span className="mono">paste</span> 是同一个 Worker(<span className="mono">atlas-edge-kit</span>)的两个自定义域,数据存 Cloudflare KV。</li>
           <li>· <span className="mono">vault</span> / <span className="mono">book</span> / <span className="mono">sgyyyds</span> / <span className="mono">hub</span> / <span className="mono">chat</span> 五项由另一条隧道 <span className="mono">cloudflared.service</span>(<span className="mono">/etc/cloudflared/config.yml</span>)承载,与 foss-labs 相互独立,改动互不影响。</li>
           <li>· 端口统一避开本机已占用的 3000/3001/3002/8222/9090 等,新增服务前先查占用。</li>
+          <li>· 后加的六项(<span className="mono">home</span> / <span className="mono">cloud</span> / <span className="mono">kb</span> / <span className="mono">matrix</span> / <span className="mono">auth</span> / <span className="mono">photos</span>)的域名在 <span className="mono">cloudflared-config.yml</span> 里排在 catch-all <span className="mono">http_status:404</span> 之前 —— 排在它之后的 hostname 永远匹配不到。</li>
+          <li>· <span className="mono">kb</span> 的登录交给 <span className="mono">auth</span>:OIDC 的 scope 不是勾选项而是关联表,authentik 新建的 provider 默认一个 scope 都不带,<span className="mono">/application/o/userinfo/</span> 会回 403(Scope mismatch);已在 authentik 的库里给 Outline 挂上 <span className="mono">openid</span> / <span className="mono">profile</span> / <span className="mono">email</span> / <span className="mono">offline_access</span> 四个 managed scope mapping。</li>
+          <li>· <span className="mono">auth</span> 的 worker 按上游 compose 以 <span className="mono">user: root</span> 运行并挂 <span className="mono">/var/run/docker.sock</span>,等价于宿主 root;上游文档 <span className="mono">docs.goauthentik.io/install-config/install/docker-compose.mdx</span> 第 85-93 行写了这是固有取舍并建议换 Docker Socket Proxy。要收紧就换 socket proxy,代价与理由记在 compose 注释里。</li>
+          <li>· 管理员凭据只写在仓库内被 gitignore 的 <span className="mono">data/credentials.md</span>(mode 600),不进 compose、不进本页。Matrix 的注册已关,新账号只能在容器内用 <span className="mono">register_new_matrix_user</span> 开,而那需要 <span className="mono">registration_shared_secret</span> —— 部署完已从 <span className="mono">homeserver.yaml</span> 移除。</li>
+          <li>· <span className="mono">photos</span> 的模型下载改写 <span className="mono">HF_ENDPOINT=https://hf-mirror.com</span>(直连 huggingface.co 不通);server 显式指向自己的 redis 与机器学习容器,不靠默认名。</li>
+          <li>· <span className="mono">im</span>(Element 网页客户端)在跑,但图鉴没有 <span className="mono">element</span> 这个资源,而 deployed.json 的非 <span className="mono">own</span> 行必须挂在一个已有资源上,所以它只有容器、没有行。</li>
+          <li>· 缺口清单里没上的七项留在原地:<span className="mono">cowrie</span> / <span className="mono">dionaea</span> / <span className="mono">hfish</span> / <span className="mono">T-Pot</span> 要对外开 TCP/UDP 端口,<span className="mono">rustdesk</span> 要 21115-21118 TCP 加 21116 UDP —— 这条隧道只有 cloudflared 的 HTTPS 入口,不做端口中继;<span className="mono">wetty</span> 与 <span className="mono">mattermost</span> 与 <span className="mono">1panel</span> 的上游镜像在本机拉不到(403/401),且 wetty 要用宿主账号登录、与已在跑的 <span className="mono">term</span> 重复,后两者与 <span className="mono">kanban</span> 与 <span className="mono">auth</span> 的职能重叠;<span className="mono">sing-box</span> / <span className="mono">trojan-go</span> 是出口代理,把这台机器变成中继不是这次要建的东西。<span className="mono">nginx-proxy-manager</span> 镜像能拉,但它的角色已由 cloudflared 承担,而它的控制台没法无人值守地建管理员账号 —— 未加保护地放在这个 zone 上不是可接受的状态,所以它也没上。</li>
         </ul>
       </section>
     </div>

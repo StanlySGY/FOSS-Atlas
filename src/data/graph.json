@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T06:21:25.400Z",
+  "generated_at": "2026-10-27T10:58:14.655Z",
   "stats": {
     "tools": 186,
     "categories": 11,
@@ -8,7 +8,7 @@
     "externals": 24,
     "own": 12,
     "deployed": 75,
-    "instances": 84,
+    "instances": 90,
     "edges": 643
   },
   "categories": [
@@ -1128,6 +1128,7 @@
       "wiki": "nextcloud",
       "deployed": true,
       "deployed_kinds": [
+        "instance",
         "mirror"
       ],
       "instances": [
@@ -1137,6 +1138,13 @@
           "stack": "GH Pages · Actions",
           "group": "github",
           "kind": "mirror"
+        },
+        {
+          "id": "cloud",
+          "url": "https://cloud.sgyyyds.qzz.io",
+          "stack": "Docker · Postgres",
+          "group": "docker",
+          "kind": "instance"
         }
       ]
     },
@@ -1313,6 +1321,7 @@
       "wiki": "immich",
       "deployed": true,
       "deployed_kinds": [
+        "instance",
         "mirror"
       ],
       "instances": [
@@ -1322,6 +1331,13 @@
           "stack": "GH Pages · Actions",
           "group": "github",
           "kind": "mirror"
+        },
+        {
+          "id": "photos",
+          "url": "https://photos.sgyyyds.qzz.io",
+          "stack": "Docker · Postgres · Valkey",
+          "group": "docker",
+          "kind": "instance"
         }
       ]
     },
@@ -1335,6 +1351,7 @@
       "wiki": "matrix-synapse",
       "deployed": true,
       "deployed_kinds": [
+        "instance",
         "mirror"
       ],
       "instances": [
@@ -1344,6 +1361,13 @@
           "stack": "GH Pages · Actions",
           "group": "github",
           "kind": "mirror"
+        },
+        {
+          "id": "matrix",
+          "url": "https://matrix.sgyyyds.qzz.io",
+          "stack": "Docker · Postgres",
+          "group": "docker",
+          "kind": "instance"
         }
       ]
     },
@@ -1642,6 +1666,7 @@
       "wiki": "outline",
       "deployed": true,
       "deployed_kinds": [
+        "instance",
         "mirror"
       ],
       "instances": [
@@ -1651,6 +1676,13 @@
           "stack": "GH Pages · Actions",
           "group": "github",
           "kind": "mirror"
+        },
+        {
+          "id": "kb",
+          "url": "https://kb.sgyyyds.qzz.io",
+          "stack": "Docker · Postgres · Valkey",
+          "group": "docker",
+          "kind": "instance"
         }
       ]
     },
@@ -1970,6 +2002,7 @@
       "wiki": "authentik",
       "deployed": true,
       "deployed_kinds": [
+        "instance",
         "mirror"
       ],
       "instances": [
@@ -1979,6 +2012,13 @@
           "stack": "GH Pages · Actions",
           "group": "github",
           "kind": "mirror"
+        },
+        {
+          "id": "auth",
+          "url": "https://auth.sgyyyds.qzz.io",
+          "stack": "Docker · Postgres",
+          "group": "docker",
+          "kind": "instance"
         }
       ]
     },
@@ -1992,6 +2032,7 @@
       "wiki": "heimdall",
       "deployed": true,
       "deployed_kinds": [
+        "instance",
         "mirror"
       ],
       "instances": [
@@ -2001,6 +2042,13 @@
           "stack": "GH Pages · Actions",
           "group": "github",
           "kind": "mirror"
+        },
+        {
+          "id": "home",
+          "url": "https://home.sgyyyds.qzz.io",
+          "stack": "Docker",
+          "group": "docker",
+          "kind": "instance"
         }
       ]
     },
