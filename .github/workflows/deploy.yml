@@ -3,6 +3,12 @@ name: Build & Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # The page states what a build-time probe observed, and probe.json only refreshes
+  # when a build runs. Without a schedule, a quiet week ships a stale snapshot with
+  # no signal that it went stale. 03:17 UTC daily; the hour is not round so many
+  # scheduled workflows do not all land at once.
+  schedule:
+    - cron: '17 3 * * *'
   workflow_dispatch:
 
 # Allow the workflow to publish to Pages and mint an OIDC token for deploy-pages.

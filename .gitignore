@@ -45,3 +45,6 @@ Thumbs.db
 # public/, because `public/` is copied verbatim into `dist/`). The cards themselves
 # are committed binaries: a count painted into a PNG is not diffable, so
 # src/data/og.json records what they were drawn from.
+
+# zcode plugin cache pointer — unreferenced by the code, keep it out of status
+.v2c/
