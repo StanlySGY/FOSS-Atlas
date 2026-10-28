@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27",
+  "updated": "2026-10-28",
   "host": "sgyyyds.qzz.io",
   "groups": [
     {
@@ -987,6 +987,36 @@
           "kind": "instance",
           "status": "live",
           "resource": "immich"
+        },
+        {
+          "id": "team",
+          "name": "Mattermost",
+          "url": "https://team.sgyyyds.qzz.io",
+          "desc": "团队协作 IM:Mattermost Team Edition 12.0.1 + Postgres。开放注册与自助建号都关(POST /api/v4/users 403),管理员在容器内用 mmctl --local 建;登录接口读的是 login_id 字段,请求体写成 login 会得到 401。",
+          "stack": "Docker · Postgres",
+          "kind": "instance",
+          "status": "live",
+          "resource": "mattermost"
+        },
+        {
+          "id": "ai",
+          "name": "Dify",
+          "url": "https://ai.sgyyyds.qzz.io",
+          "desc": "自建 LLM 应用平台:Dify 1.18.0 + Postgres 15 + Redis 6 + pgvector 0.8.7,14 个容器。一次性建号口 /console/api/setup 已关闭(再 POST 403),本机端口只绑 127.0.0.1:8107,公网入口只有这条隧道;代码执行走 dify-sandbox,出口被 squid + internal 网络挡住(访内网 000);遥测已关。模型供应商凭据未配,pgvector 的 vector 扩展与 hnsw 索引是拿上游 PGVector 类实测出来的。",
+          "stack": "Docker · Postgres · Redis · pgvector",
+          "kind": "instance",
+          "status": "live",
+          "resource": "dify"
+        },
+        {
+          "id": "graph",
+          "name": "Langflow",
+          "url": "https://graph.sgyyyds.qzz.io",
+          "desc": "可视化拖拽的 LLM 工作流:langflow 官方镜像单容器,sqlite 库已从镜像的 site-packages 挪进卷内。上游警告多用户模式下 custom component 代码在服务进程里 exec,两把锁都上了;注册口与 auto_login 均 403,遥测已关,端口只绑 127.0.0.1:8110。常驻 1.25 GiB。",
+          "stack": "Docker · SQLite",
+          "kind": "instance",
+          "status": "live",
+          "resource": "langflow"
         }
       ]
     }

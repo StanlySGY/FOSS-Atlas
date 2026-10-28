@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T10:58:14.655Z",
+  "generated_at": "2026-10-28T01:34:11.308Z",
   "stats": {
     "tools": 186,
     "categories": 11,
@@ -8,7 +8,7 @@
     "externals": 24,
     "own": 12,
     "deployed": 75,
-    "instances": 90,
+    "instances": 93,
     "edges": 643
   },
   "categories": [
@@ -734,6 +734,7 @@
       "wiki": "dify",
       "deployed": true,
       "deployed_kinds": [
+        "instance",
         "mirror"
       ],
       "instances": [
@@ -743,6 +744,13 @@
           "stack": "GH Pages · Actions",
           "group": "github",
           "kind": "mirror"
+        },
+        {
+          "id": "ai",
+          "url": "https://ai.sgyyyds.qzz.io",
+          "stack": "Docker · Postgres · Redis · pgvector",
+          "group": "docker",
+          "kind": "instance"
         }
       ]
     },
@@ -774,6 +782,7 @@
       "wiki": "langflow",
       "deployed": true,
       "deployed_kinds": [
+        "instance",
         "mirror"
       ],
       "instances": [
@@ -783,6 +792,13 @@
           "stack": "GH Pages · Actions",
           "group": "github",
           "kind": "mirror"
+        },
+        {
+          "id": "graph",
+          "url": "https://graph.sgyyyds.qzz.io",
+          "stack": "Docker · SQLite",
+          "group": "docker",
+          "kind": "instance"
         }
       ]
     },
@@ -1696,6 +1712,7 @@
       "wiki": "mattermost",
       "deployed": true,
       "deployed_kinds": [
+        "instance",
         "mirror"
       ],
       "instances": [
@@ -1705,6 +1722,13 @@
           "stack": "GH Pages · Actions",
           "group": "github",
           "kind": "mirror"
+        },
+        {
+          "id": "team",
+          "url": "https://team.sgyyyds.qzz.io",
+          "stack": "Docker · Postgres",
+          "group": "docker",
+          "kind": "instance"
         }
       ]
     },

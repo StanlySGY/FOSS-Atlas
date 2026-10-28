@@ -29,7 +29,7 @@
 | 子分类 | **22** |
 | 图谱节点 | **283**（工具 / 自建 / 分类 / 子类 / 标签 / 外部服务） |
 | 图谱关系边 | **643**（属于 / 归类 / 标签 / 相关 / 替代） |
-| 自部署实例 | **83**（75 个资源条目在跑，其中 12 个为 Atlas 自建） |
+| 自部署实例 | **93**（75 个资源条目在跑，其中 12 个为 Atlas 自建） |
 | Wiki 页面 | **186**（每个条目一篇，全部可读） |
 
 分类覆盖：AI / LLM 白嫖 · 免费 SaaS 开发资源 · 自部署开源神器 · 公开 API 大全 ·
@@ -105,22 +105,22 @@ ECharts 力导向图，可**拖拽节点、滚轮缩放、拖拽画布平移**�
   所以退回全览时每个点都还在原来的坐标上。
 
 ### 4. 自部署服务（`/deployed`）
-按部署位置分组列出我实际在跑的 83 个服务：**Cloudflare 无服务器**（16）、
-**GitHub Pages 静态镜像**（34）、**本机 Docker + Cloudflare Tunnel**（33），
+按部署位置分组列出我实际在跑的 93 个服务：**Cloudflare 无服务器**（16）、
+**GitHub Pages 静态镜像**（34）、**本机 Docker + Cloudflare Tunnel**（43），
 每行写清它跑在什么栈上（Workers · KV、Pages、Docker…）。这一页不是另一份清单：
 每一行都通过自己的 `resource` 字段挂回图鉴条目，所以行上有两个出口——
 **Wiki**（进那个条目的页面）和**在图谱中查看**（`/graph?deployed=1&focus=<id>`，
 带着「只看已部署」的子图直接聚焦到它）。
 
 同一件事也可以跑两次：`searxng` 有本机容器、也有 GitHub Pages 文档镜像，`shlink` 有 Docker 后端、
-也有边缘上的官方前端 —— 这些不合并成一条，`instances` 按组累加，83 行落在 75 个条目上。
+也有边缘上的官方前端 —— 这些不合并成一条，`instances` 按组累加，93 行落在 75 个条目上。
 
 行的 `id` 全局唯一（不只是同一组内唯一）：页面拿 `id` 给每行做 key，Wiki 右栏、图谱气泡与
 节点速览也都拿 `id` 给实例做 key，所以 Docker 的 `ttyd` 和它的 GitHub 文档镜像如果同名，会在
-这三个视图里一起撞开。`npm run data` 现在直接拒绝跨组重用的行 id。18 行因此不叫工具本名：
-13 个 GitHub 文档镜像带 `-docs`（`ttyd-docs`、`heimdall-docs`、`synapse-docs`…），5 行是同一
-工具的第二个部署（`shlink-web`、`hacktricks-gh`、`patt-cf`…）。
-页面一律经由 `resource` 而不是行的 `id` 解析：这 18 行的 id 不是图鉴 id，直接拿 `id` 找条目
+这三个视图里一起撞开。`npm run data` 现在直接拒绝跨组重用的行 id。29 行因此不叫工具本名：
+13 个 GitHub 文档镜像带 `-docs`（`ttyd-docs`、`heimdall-docs`、`synapse-docs`…），16 行是同一
+工具的另一路部署（`shlink-web`、`hacktricks-gh`、`patt-cf`、`home`、`kb`、`team`、`ai`、`graph`…）。
+页面一律经由 `resource` 而不是行的 `id` 解析：这 29 行的 id 不是图鉴 id，直接拿 `id` 找条目
 会让它们的 Wiki 链接和图谱聚焦一起落空。
 
 ## 🛠 技术栈
@@ -146,7 +146,7 @@ npm run fonts      # 抽取站点用到的字形 → public/fonts/*.woff2（中�
 npm run og         # 无头 Chrome 重画 public/og/*.png 社交卡片，并记录卡片画自哪份数据
 npm run og:check   # 不渲染：只检查已提交的卡片是否还对得上当前数据（CI 跑这个）
 npm run views:check # 图谱各视图的节点数是否还符合代码里的说法（CI 跑这个）
-npm run probe      # 只读探测 83 个自部署 URL；CI 在 build 之后写 dist/probe.json，/deployed 页面显示这次观察
+npm run probe      # 只读探测 93 个自部署 URL；CI 在 build 之后写 dist/probe.json，/deployed 页面显示这次观察
 node scripts/build-wikis.mjs   # 生成 181 篇 Wiki + src/data/backlinks.json
 npm run build      # 刷新 Wiki → vite build → 校验社交卡片 → 预渲染 189 个页面 → 404.html
 npm run preview    # 本地预览构建产物

@@ -604,9 +604,17 @@
         "stack": "GH Pages · Actions",
         "group": "github",
         "kind": "mirror"
+      },
+      {
+        "id": "ai",
+        "url": "https://ai.sgyyyds.qzz.io",
+        "stack": "Docker · Postgres · Redis · pgvector",
+        "group": "docker",
+        "kind": "instance"
       }
     ],
     "deployed_kinds": [
+      "instance",
       "mirror"
     ],
     "deployed": true
@@ -665,9 +673,17 @@
         "stack": "GH Pages · Actions",
         "group": "github",
         "kind": "mirror"
+      },
+      {
+        "id": "graph",
+        "url": "https://graph.sgyyyds.qzz.io",
+        "stack": "Docker · SQLite",
+        "group": "docker",
+        "kind": "instance"
       }
     ],
     "deployed_kinds": [
+      "instance",
       "mirror"
     ],
     "deployed": true
@@ -2010,9 +2026,17 @@
         "stack": "GH Pages · Actions",
         "group": "github",
         "kind": "mirror"
+      },
+      {
+        "id": "team",
+        "url": "https://team.sgyyyds.qzz.io",
+        "stack": "Docker · Postgres",
+        "group": "docker",
+        "kind": "instance"
       }
     ],
     "deployed_kinds": [
+      "instance",
       "mirror"
     ],
     "deployed": true
