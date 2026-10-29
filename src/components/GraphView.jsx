@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { categoryColor } from '../lib/categoryColor.js'
 import { CANVAS, EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 import { visibleNodeIds } from '../lib/graphFilter.js'
+import { shouldShowGraphLabel } from '../lib/graphLabel.js'
 
 echarts.use([GraphChart, TooltipComponent, LegendComponent, CanvasRenderer])
 
@@ -251,11 +252,12 @@ export default function GraphView({
           // removes it, while keeping the series' coordinate extent intact.
           opacity: hidden ? 0 : 1,
         },
-        label: hidden
-          ? { show: false }
-          : isFocused
-            ? { show: true, color: FOCUS_RING, fontSize: 12, fontWeight: 600, fontFamily: GRAPH_FONT }
-            : { show: n.type === 'category' || n.type === 'subcategory' || n.type === 'tag' },
+        label: shouldShowGraphLabel(n, { hidden, focused: isFocused, selected: isSelected })
+          ? {
+              show: true,
+              ...(isFocused ? { color: FOCUS_RING, fontSize: 12, fontWeight: 600, fontFamily: GRAPH_FONT } : {}),
+            }
+          : { show: false },
         _raw: n,
       }
     })

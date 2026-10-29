@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run regression tests
+        run: npm test && npm run lint
+
       # Same gate as the GitHub Pages workflow: it is a different deploy of the
       # same commit, so it must not publish a JSON snapshot that the generator
       # would disagree with.

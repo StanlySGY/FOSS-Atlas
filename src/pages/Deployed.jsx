@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import deployed from '../data/deployed.json'
 import { resourceById } from '../lib/data.js'
+import { isUnreachable, probeStatusPresentation, summarizeProbeRows } from '../lib/probeStatus.js'
 
 /*
  * A row's catalogue entry, resolved through the `resource` field the generator
@@ -15,20 +16,6 @@ import { resourceById } from '../lib/data.js'
  */
 const resourceIdFor = (item) => item.resource ?? item.id
 const graphUrlFor = (item) => `/graph/?deployed=1&focus=${encodeURIComponent(resourceIdFor(item))}`
-
-const STATUS_LABEL = {
-  live: '已上线',
-  pending: '部署中',
-}
-
-/*
- * What the probe's own classification means for a row. 3xx and 4xx are not
- * failures: the tunnel carried the request and something answered it (Access, a
- * redirect to its own app, a 404 page). Only the edge-side and origin-side
- * connect failures name a link that did not carry.
- */
-const unreachable = (cls) =>
-  cls === '530/1033' || cls === '502' || cls === '504' || cls === 'transport' || String(cls).startsWith('5xx')
 
 /** The snapshot `npm run probe -- --out dist/probe.json` shipped with this build. */
 function useProbe() {
@@ -63,22 +50,22 @@ const utcStamp = (iso) => String(iso ?? '').slice(0, 16).replace('T', ' ')
  * are 6.17:1, so it is quiet, not unreadable.
  */
 function StatusChip({ status, result }) {
-  const pending = status === 'pending'
-  const down = !pending && result ? unreachable(result.cls) : false
-  const neutral = pending || (!result && status !== 'live')
+  const presentation = probeStatusPresentation(status, result)
   return (
     <span
       className={[
         'mono shrink-0 rounded-[3px] px-1.5 py-0.5 text-[10px]',
-        down
+        presentation.kind === 'down'
           ? 'border border-[color-mix(in_srgb,var(--down-text)_70%,transparent)] bg-[var(--down-well)] text-[var(--down-text)]'
-          : neutral
-            ? 'border border-[var(--line)] bg-[var(--ink-tint)] text-[var(--text-faint)]'
-            : 'border border-[var(--accent)]/70 bg-[var(--accent)]/10 text-[var(--accent-text)]',
+          : presentation.kind === 'ok'
+            ? 'border border-[var(--accent)]/70 bg-[var(--accent)]/10 text-[var(--accent-text)]'
+            : presentation.kind === 'restricted'
+              ? 'border border-[color-mix(in_srgb,var(--accent-text)_65%,transparent)] bg-[var(--accent)]/10 text-[var(--accent-text)]'
+              : 'border border-[var(--line)] bg-[var(--ink-tint)] text-[var(--text-faint)]',
       ].join(' ')}
-      title={result ? `${result.cls}: ${result.note}` : undefined}
+      title={presentation.title}
     >
-      {down ? `不可达 ${result.code ?? result.cls}` : (STATUS_LABEL[status] ?? status)}
+      {presentation.label}
     </span>
   )
 }
@@ -150,7 +137,7 @@ function ServiceRow({ item, result }) {
 export default function Deployed() {
   const probe = useProbe()
   const probeRows = probe?.rows ?? []
-  const probeDown = probeRows.filter((r) => unreachable(r.cls))
+  const probeSummary = summarizeProbeRows(probeRows)
   /*
    * The GitHub Pages mirror count, computed from the data instead of written
    * down. Scoped to the github group on purpose: the 运维 note below describes
@@ -172,17 +159,18 @@ export default function Deployed() {
   const probeGroups = probeRows.length
     ? deployed.groups.map((g) => {
         const rows = probeRows.filter((r) => r.group === g.id)
-        const down = rows.filter((r) => unreachable(r.cls))
-        const counts = {}
-        for (const r of down) counts[r.cls] = (counts[r.cls] ?? 0) + 1
-        const worst = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]
+        const counts = summarizeProbeRows(rows)
+        const downRows = rows.filter((r) => isUnreachable(r.cls))
+        const failureCounts = {}
+        for (const r of downRows) failureCounts[r.cls] = (failureCounts[r.cls] ?? 0) + 1
+        const worst = Object.entries(failureCounts).sort((a, b) => b[1] - a[1])[0]
         return {
           id: g.id,
           name: g.name,
           total: rows.length,
-          ok: rows.length - down.length,
-          down: down.length > 0,
-          worst: worst ? `${worst[0]} ×${worst[1]}` : null,
+          counts,
+          down: downRows.length > 0,
+          worst: worst ? worst[0] + ' ×' + worst[1] : null,
         }
       })
     : []
@@ -223,22 +211,28 @@ export default function Deployed() {
            */
           <div className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-sunken)] p-3.5">
             <p className="text-[13px] leading-relaxed text-[var(--text-dim)]">
-              发布时从公网探测（{utcStamp(probe.ranAt)} UTC）：
-              <span className="font-semibold text-[var(--text-strong)]">{probeRows.length - probeDown.length}</span>
-              <span className="text-[var(--text-faint)]"> / {probeRows.length} 可达</span>
-              {probeDown.length ? (
-                <span className="font-semibold text-[var(--down-text)]"> · {probeDown.length} 不可达</span>
-              ) : null}
+              最近一次发布时从公网探测（{utcStamp(probe.ranAt)} UTC），共{' '}
+              <span className="font-semibold text-[var(--text-strong)]">{probeSummary.total}</span> 个实例。
+              这是发布快照，不是实时监控，也不代表已完成登录或完整用户流程。
             </p>
+            <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5 text-[11px]">
+              <li className="text-[var(--accent-text)]">2xx 正常响应 <span className="mono">{probeSummary.ok}</span></li>
+              <li className="text-[var(--text-dim)]">3xx 重定向 <span className="mono">{probeSummary.redirect}</span></li>
+              <li className="text-[var(--accent-text)]">4xx 访问受限/客户端错误 <span className="mono">{probeSummary.restricted}</span></li>
+              <li className={probeSummary.unreachable ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>
+                不可达/连接失败 <span className="mono">{probeSummary.unreachable}</span>
+              </li>
+              {probeSummary.other ? <li className="text-[var(--text-dim)]">其他 <span className="mono">{probeSummary.other}</span></li> : null}
+            </ul>
             <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5 text-[11px]">
               {probeGroups.map((g) => (
-                <li key={g.id} className="flex items-baseline gap-1.5">
+                <li key={g.id} className="flex flex-wrap items-baseline gap-1.5">
                   <span className={g.down ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>
                     {g.name}
                   </span>
                   <span className="mono text-[var(--text-faint)]">
-                    {g.ok}/{g.total}
-                    {g.worst ? ` · ${g.worst}` : ''}
+                    2xx {g.counts.ok} · 3xx {g.counts.redirect} · 4xx {g.counts.restricted} · 不可达 {g.counts.unreachable}
+                    {g.worst ? ' · ' + g.worst : ''}
                   </span>
                 </li>
               ))}
@@ -293,7 +287,7 @@ export default function Deployed() {
           <li>· 隧道由用户级 systemd 服务 <span className="mono">foss-labs-tunnel.service</span> 常驻,开机自启;新增域名用 <span className="mono">cloudflared tunnel route dns</span> 注册。</li>
           <li>· Cloudflare 侧的静态站与知识库镜像用 <span className="mono">wrangler</span> 部署到 Workers/Pages,自定义域直接绑在同一个 zone 上。</li>
           <li>· 本页数据源 <span className="mono">src/data/deployed.json</span>;改完推送到 main,GitHub Pages 与 Cloudflare Pages 会各自自动重新发布。</li>
-          <li>· 每条的状态 chip 来自发布时跑的只读探测(<span className="mono">npm run probe -- --out dist/probe.json</span>),它说的是上一次发布那一刻从公网看到的结果,<b className="text-[var(--text-strong)]">不是实时监控</b>;530/1033 指隧道没接上云,502 指云接上了但源站没应答。</li>
+          <li>· 每条状态 chip 来自发布时的只读探测(<span className="mono">npm run probe -- --out dist/probe.json</span>),是上一次发布时从公网看到的结果,<b className="text-[var(--text-strong)]">不是实时监控,也不等于完整用户流程已验证</b>。2xx 表示收到成功响应,3xx 表示重定向,401/403 通常表示需认证或访问受限;530/1033 表示隧道没有健康连接器,502/504/其他 5xx 表示网关或源站响应异常。</li>
           <li>· GitHub Pages 的 <span className="mono">{githubMirrors}</span> 个镜像仓库各自带自己的 <span className="mono">Atlas · …</span> workflow 和 <span className="mono">schedule</span>,不存在集中的调度仓库:<span className="mono">Atlas · sync upstream</span> 每天 03:23 UTC 拉上游,<span className="mono">Atlas · sync mirror</span> 每天 04:17 UTC 重建镜像内容,<span className="mono">Atlas · docs site</span> 每周一 04:37 UTC 重建文档站。</li>
           <li>· 网页终端 <span className="mono">term</span> 走 HTTP Basic 密码保护;如需更强鉴权可挂 Cloudflare Access。</li>
           <li>· 边缘小工具 <span className="mono">short</span> / <span className="mono">paste</span> 是同一个 Worker(<span className="mono">atlas-edge-kit</span>)的两个自定义域,数据存 Cloudflare KV。</li>

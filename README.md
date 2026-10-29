@@ -150,6 +150,7 @@ npm run probe      # 只读探测 93 个自部署 URL；CI 在 build 之后写 d
 node scripts/build-wikis.mjs   # 生成 181 篇 Wiki + src/data/backlinks.json
 npm run build      # 刷新 Wiki → vite build → 校验社交卡片 → 预渲染 189 个页面 → 404.html
 npm run preview    # 本地预览构建产物
+npm test            # 资源状态语义与图谱标签密度回归
 npm run lint       # oxlint
 ```
 

@@ -38,6 +38,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run regression tests
+        run: npm test && npm run lint
+
       # The catalogue JSON is committed, so a PR that edits the hand-written
       # sources without re-running the generator would ship stale JSON. Regenerate
       # and fail if the working tree moved — except for `generated_at`, which the
