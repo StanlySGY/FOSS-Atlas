@@ -588,7 +588,7 @@ export default function GraphPage() {
               <h2 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">怎么逛</h2>
               <ul className="space-y-2 text-xs leading-relaxed text-[var(--text-dim)]">
                 <li>
-                  为了让大图更容易读，默认只显示<b className="text-[var(--text-strong)]">分类与子类</b>名称；悬停节点会显示具体名称，单击后可查看完整速览。
+                  为了让大图更容易读，默认只显示<b className="text-[var(--text-strong)]">一级分类</b>名称；悬停节点会显示具体名称，单击后可查看完整速览。
                 </li>
                 <li>
                   <b className="text-[var(--text-strong)]">单击</b>节点看速览，气泡里再决定去向

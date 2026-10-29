@@ -35,7 +35,7 @@ test('probe summary accounts for every row without calling 3xx/4xx a successful 
 })
 
 test('graph defaults keep only category/subcategory labels; selected/focused nodes remain discoverable', () => {
-  const shown = { category: true, subcategory: true, tool: false, tag: false, external: false, own: false }
+  const shown = { category: true, subcategory: false, tool: false, tag: false, external: false, own: false }
   for (const [type, expected] of Object.entries(shown)) {
     assert.equal(shouldShowGraphLabel({ id: type, type }), expected, 'unexpected default for ' + type)
   }
@@ -45,5 +45,5 @@ test('graph defaults keep only category/subcategory labels; selected/focused nod
 
   const graph = JSON.parse(readFileSync(new URL('../../src/data/graph.json', import.meta.url), 'utf8'))
   const visibleDefaultLabels = graph.nodes.filter((node) => shouldShowGraphLabel(node)).length
-  assert.ok(visibleDefaultLabels < graph.nodes.length * 0.2, 'default label density should stay below 20% of graph nodes')
+  assert.equal(visibleDefaultLabels, graph.stats.categories, 'only the primary category anchors should be labeled by default')
 })

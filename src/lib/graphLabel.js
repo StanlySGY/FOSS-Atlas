@@ -2,5 +2,5 @@
 export function shouldShowGraphLabel(node, { hidden = false, focused = false, selected = false } = {}) {
   if (hidden) return false
   if (focused || selected) return true
-  return node?.type === 'category' || node?.type === 'subcategory'
+  return node?.type === 'category'
 }
