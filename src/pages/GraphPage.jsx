@@ -21,6 +21,7 @@ import {
 } from '../lib/data.js'
 import { categoryColor } from '../lib/categoryColor.js'
 import { countByType, toolsInCategory, visibleNodeIds } from '../lib/graphFilter.js'
+import { setCategoryFocusParams, setDeployedOnlyParams } from '../lib/graphFilterState.js'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 
 const ALL_EDGES = Object.keys(EDGE_META)
@@ -101,43 +102,14 @@ export default function GraphPage() {
    * down.
    */
   const setCategoryFocus = useCallback(
-    (next) => {
-      setSearchParams(
-        (prev) => {
-          const p = new URLSearchParams(prev)
-          p.delete('deployed')
-          if (next) p.set('cat', next)
-          else p.delete('cat')
-          return p
-        },
-        { replace: true },
-      )
-    },
+    (next) => setSearchParams((prev) => setCategoryFocusParams(prev, next), { replace: true }),
     [setSearchParams],
   )
 
   const setDeployedOnly = useCallback(
-    (next) => {
-      setSearchParams(
-        (prev) => {
-          const p = new URLSearchParams(prev)
-          if (next) {
-            p.set('deployed', '1')
-            p.delete('cat') // the two filters are mutually exclusive
-          } else {
-            p.delete('deployed')
-          }
-          return p
-        },
-        { replace: true },
-      )
-      if (next) setCategoryFocus(null)
-    },
-    [setSearchParams, setCategoryFocus],
+    (next) => setSearchParams((prev) => setDeployedOnlyParams(prev, next), { replace: true }),
+    [setSearchParams],
   )
-  // `{ node, point }` for the single-click peek bubble. Kept out of the ECharts
-  // option on purpose: `setOption` with `notMerge` rebuilds the view and would
-  // throw away the reader's pan/zoom on every click.
   const [popover, setPopover] = useState(null)
 
   // `?focus=<id>` is set by the "在知识图谱中查看 →" link on a wiki page, so

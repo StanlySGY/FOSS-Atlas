@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { isUnreachable, probeStatusPresentation, summarizeProbeRows } from '../../src/lib/probeStatus.js'
 import { shouldShowGraphLabel } from '../../src/lib/graphLabel.js'
+import { setCategoryFocusParams, setDeployedOnlyParams } from '../../src/lib/graphFilterState.js'
 
 test('probe chips distinguish responses, redirects, access restrictions, and unreachable endpoints', () => {
   assert.equal(probeStatusPresentation('live', { cls: '2xx', code: 200, note: 'answered with a body' }).label, '响应正常 200')
@@ -46,4 +47,22 @@ test('graph defaults keep only category/subcategory labels; selected/focused nod
   const graph = JSON.parse(readFileSync(new URL('../../src/data/graph.json', import.meta.url), 'utf8'))
   const visibleDefaultLabels = graph.nodes.filter((node) => shouldShowGraphLabel(node)).length
   assert.equal(visibleDefaultLabels, graph.stats.categories, 'only the primary category anchors should be labeled by default')
+})
+
+test('graph category and deployed filters are mutually exclusive and preserve deep-link focus', () => {
+  const focused = new URLSearchParams('focus=ollama&deployed=1')
+  const category = setCategoryFocusParams(focused, 'ai')
+  assert.equal(category.get('cat'), 'ai')
+  assert.equal(category.has('deployed'), false)
+  assert.equal(category.get('focus'), 'ollama')
+
+  const deployed = setDeployedOnlyParams(new URLSearchParams('focus=cloudflare-imgbed&cat=ai'), true)
+  assert.equal(deployed.get('deployed'), '1')
+  assert.equal(deployed.has('cat'), false)
+  assert.equal(deployed.get('focus'), 'cloudflare-imgbed')
+
+  const all = setDeployedOnlyParams(deployed, false)
+  assert.equal(all.has('deployed'), false)
+  assert.equal(all.has('cat'), false)
+  assert.equal(all.get('focus'), 'cloudflare-imgbed')
 })
