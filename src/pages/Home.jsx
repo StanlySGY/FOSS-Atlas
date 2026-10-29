@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import ResourceCard from '../components/ResourceCard.jsx'
 import { categoryColor } from '../lib/categoryColor.js'
+import { queryFromSearchParams, resetCatalogFiltersParams } from '../lib/catalogFilterState.js'
 import {
   categories,
   countByCategory,
@@ -34,7 +35,7 @@ const SHAPE = [
 
 export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [query, setQuery] = useState(searchParams.get('q') ?? '')
+  const [query, setQuery] = useState(() => queryFromSearchParams(searchParams))
   /*
    * 分类与子类跟 q / deployed 一样住在 URL 里：面包屑（Wiki 页的分类 /
    * 子类）、卡片上的子类标签和标签链回这里时，地址要能直接说出「哪个分类、
@@ -72,8 +73,9 @@ export default function Home() {
 
   // Keep the input in sync when arriving via a /?q=... link.
   useEffect(() => {
-    const q = searchParams.get('q')
-    if (q !== null && q !== query) setQuery(q)
+    const q = queryFromSearchParams(searchParams)
+    if (q !== query) setQuery(q)
+    // A missing `q` is meaningful too: tag/category links must not leave a stale query in the input.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
@@ -96,6 +98,8 @@ export default function Home() {
         r.name.toLowerCase().includes(q) ||
         r.description.toLowerCase().includes(q) ||
         r.url.toLowerCase().includes(q) ||
+        (r.category_name ?? '').toLowerCase().includes(q) ||
+        (r.sub_category_name ?? '').toLowerCase().includes(q) ||
         r.tags.some((t) => t.toLowerCase().includes(q))
       )
     })
@@ -118,6 +122,12 @@ export default function Home() {
     activeCategory === 'all'
       ? null
       : categories.find((c) => c.id === activeCategory)?.name ?? null
+
+  const resetFilters = () => {
+    setQuery('')
+    setSearchParams((prev) => resetCatalogFiltersParams(prev), { replace: true })
+  }
+  const hasActiveFilters = Boolean(query.trim() || activeCategory !== 'all' || activeSub !== 'all' || deployedOnly)
 
   return (
     <div className="space-y-8">
@@ -295,6 +305,17 @@ export default function Home() {
         ) : null}
       </section>
 
+      {hasActiveFilters ? (
+        <div className="mb-3 flex flex-wrap items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--line-soft)] bg-[var(--ink-card)] px-3 py-2.5">
+          <span className="mr-1 text-[10px] text-[var(--text-faint)]">当前筛选</span>
+          {query.trim() ? <button type="button" onClick={() => handleQuery('')} className="rounded-full border border-[var(--line)] px-2 py-1 text-[10px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]">搜索：{query.trim()} ×</button> : null}
+          {activeCategoryName ? <button type="button" onClick={() => pickCategory('all')} className="rounded-full border border-[var(--line)] px-2 py-1 text-[10px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]">分类：{activeCategoryName} ×</button> : null}
+          {activeSub !== 'all' ? <button type="button" onClick={() => pickSub('all')} className="rounded-full border border-[var(--line)] px-2 py-1 text-[10px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]">子类：{subs.find((sub) => sub.id === activeSub)?.name ?? activeSub} ×</button> : null}
+          {deployedOnly ? <button type="button" onClick={() => setDeployedOnly(false)} className="rounded-full border border-[var(--own-text)]/50 bg-[var(--own-well)] px-2 py-1 text-[10px] text-[var(--own-text)]">只看已部署 ×</button> : null}
+          <button type="button" onClick={resetFilters} className="ml-auto text-[10px] text-[var(--accent-text)] hover:underline">清除全部</button>
+        </div>
+      ) : null}
+
       {filtered.length ? (
         <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((r, i) => (
@@ -306,10 +327,7 @@ export default function Home() {
           <p className="text-sm text-[var(--text-dim)]">没有匹配的资源，换个关键词试试。</p>
           <button
             type="button"
-            onClick={() => {
-              handleQuery('')
-              pickCategory('all')
-            }}
+            onClick={resetFilters}
             className="mt-3 text-xs text-[var(--text-dim)] transition-colors hover:text-[var(--text-strong)] hover:underline"
           >
             重置筛选

@@ -1,6 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import GraphNodePopover from '../components/GraphNodePopover.jsx'
+import GraphNodeList from '../components/GraphNodeList.jsx'
 /*
  * The one route-level split in the app: ECharts is about a third of the shipped
  * bundle and is dead weight for a reader who only came to read a Wiki page. Kept
@@ -22,6 +23,7 @@ import {
 import { categoryColor } from '../lib/categoryColor.js'
 import { countByType, toolsInCategory, visibleNodeIds } from '../lib/graphFilter.js'
 import { setCategoryFocusParams, setDeployedOnlyParams } from '../lib/graphFilterState.js'
+import { graphViewModeFromParams, setGraphViewModeParams } from '../lib/graphViewState.js'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 
 const ALL_EDGES = Object.keys(EDGE_META)
@@ -92,6 +94,7 @@ export default function GraphPage() {
    * filter can ride on top of the other.
    */
   const deployedOnly = searchParams.get('deployed') === '1'
+  const viewMode = graphViewModeFromParams(searchParams)
 
   /*
    * The half that was missing. Picking (or clearing) a category drops
@@ -111,6 +114,15 @@ export default function GraphPage() {
     [setSearchParams],
   )
   const [popover, setPopover] = useState(null)
+
+  const setViewMode = useCallback(
+    (next) => {
+      setPopover(null)
+      setSelected(null)
+      setSearchParams((prev) => setGraphViewModeParams(prev, next), { replace: true })
+    },
+    [setSearchParams],
+  )
 
   // `?focus=<id>` is set by the "在知识图谱中查看 →" link on a wiki page, so
   // the graph can centre on the tool the reader just came from. Unknown ids are
@@ -302,6 +314,27 @@ export default function GraphPage() {
         </p>
       </header>
 
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[var(--radius-sm)] border border-[var(--line-soft)] bg-[var(--ink-card)] px-3 py-2.5">
+        <div>
+          <p className="text-xs font-medium text-[var(--text-strong)]">探索方式</p>
+          <p className="mt-0.5 text-[10px] text-[var(--text-faint)]">图谱适合看关系，列表适合搜索、键盘浏览与精确跳转。</p>
+        </div>
+        <div role="group" aria-label="图谱显示方式" className="flex rounded-[var(--radius-sm)] border border-[var(--line)] bg-[var(--ink-sunken)] p-0.5">
+          <button type="button" aria-pressed={viewMode === 'graph'} onClick={() => setViewMode('graph')} className={[
+            'rounded-[3px] px-3 py-1.5 text-[11px] transition-colors',
+            viewMode === 'graph' ? 'bg-[var(--ink-tab)] text-[var(--text-strong)]' : 'text-[var(--text-faint)] hover:text-[var(--text-dim)]',
+          ].join(' ')}>
+            ◉ 图谱
+          </button>
+          <button type="button" aria-pressed={viewMode === 'list'} onClick={() => setViewMode('list')} className={[
+            'rounded-[3px] px-3 py-1.5 text-[11px] transition-colors',
+            viewMode === 'list' ? 'bg-[var(--ink-tab)] text-[var(--text-strong)]' : 'text-[var(--text-faint)] hover:text-[var(--text-dim)]',
+          ].join(' ')}>
+            ☷ 列表
+          </button>
+        </div>
+      </div>
+
       <button
         type="button"
         onClick={() => setFiltersOpen((v) => !v)}
@@ -453,7 +486,10 @@ export default function GraphPage() {
       </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
+      <div className={viewMode === 'list' ? 'grid grid-cols-1 gap-4' : 'grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_280px]'}>
+        {viewMode === 'list' ? (
+          <GraphNodeList graph={graph} visibleIds={viewIds} enabledEdges={enabledEdges} focusId={focusId} focusedCategory={focusedCategory} onFocusCategory={setCategoryFocus} />
+        ) : (
         <div className="h-[62vh] min-h-[420px] overflow-hidden rounded-[6px] border border-[var(--line)] bg-[var(--ink-sunken)] md:h-[min(72vh,820px)]">
           <Suspense
             fallback={
@@ -491,8 +527,9 @@ export default function GraphPage() {
           </GraphView>
           </Suspense>
         </div>
+        )}
 
-        <aside className="space-y-4 lg:sticky lg:top-[4.5rem] lg:self-start">
+        <aside className={viewMode === 'list' ? 'hidden' : 'space-y-4 lg:sticky lg:top-[4.5rem] lg:self-start'}>
           <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
             <h2 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">
               图例

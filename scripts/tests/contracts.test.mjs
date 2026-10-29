@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs'
 import { isUnreachable, probeStatusPresentation, summarizeProbeRows } from '../../src/lib/probeStatus.js'
 import { shouldShowGraphLabel } from '../../src/lib/graphLabel.js'
 import { setCategoryFocusParams, setDeployedOnlyParams } from '../../src/lib/graphFilterState.js'
+import { queryFromSearchParams, resetCatalogFiltersParams } from '../../src/lib/catalogFilterState.js'
+import { graphViewModeFromParams, setGraphViewModeParams } from '../../src/lib/graphViewState.js'
 
 test('probe chips distinguish responses, redirects, access restrictions, and unreachable endpoints', () => {
   assert.equal(probeStatusPresentation('live', { cls: '2xx', code: 200, note: 'answered with a body' }).label, '响应正常 200')
@@ -47,6 +49,29 @@ test('graph defaults keep only category/subcategory labels; selected/focused nod
   const graph = JSON.parse(readFileSync(new URL('../../src/data/graph.json', import.meta.url), 'utf8'))
   const visibleDefaultLabels = graph.nodes.filter((node) => shouldShowGraphLabel(node)).length
   assert.equal(visibleDefaultLabels, graph.stats.categories, 'only the primary category anchors should be labeled by default')
+})
+
+test('catalogue query sync treats a missing q as empty and reset clears every active filter', () => {
+  assert.equal(queryFromSearchParams(new URLSearchParams('cat=ai&deployed=1')), '')
+  assert.equal(queryFromSearchParams(new URLSearchParams('q=ollama')), 'ollama')
+  const reset = resetCatalogFiltersParams(new URLSearchParams('q=ollama&cat=ai&sub=ai-local&deployed=1&campaign=test'))
+  assert.equal(reset.has('q'), false)
+  assert.equal(reset.has('cat'), false)
+  assert.equal(reset.has('sub'), false)
+  assert.equal(reset.has('deployed'), false)
+  assert.equal(reset.get('campaign'), 'test')
+})
+
+test('graph view mode is deep-linkable and preserves active filters and focus', () => {
+  const list = setGraphViewModeParams(new URLSearchParams('focus=ollama&cat=ai&q=local'), 'list')
+  assert.equal(graphViewModeFromParams(list), 'list')
+  assert.equal(list.get('focus'), 'ollama')
+  assert.equal(list.get('cat'), 'ai')
+  assert.equal(list.get('q'), 'local')
+  const graphView = setGraphViewModeParams(list, 'graph')
+  assert.equal(graphViewModeFromParams(graphView), 'graph')
+  assert.equal(graphView.has('view'), false)
+  assert.equal(graphView.get('focus'), 'ollama')
 })
 
 test('graph category and deployed filters are mutually exclusive and preserve deep-link focus', () => {
