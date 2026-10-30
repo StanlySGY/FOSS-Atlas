@@ -1,11 +1,11 @@
 # FOSS-Atlas UI/UX 交接记录
 
-> 最近更新：2026-10-30（Asia/Taipei）
+> 最近更新：2026-10-30（Asia/Seoul）
 > 范围：仅记录公开仓库 `StanlySGY/FOSS-Atlas` 的站点体验与交付状态，不替代私有 `selfhost` 运维交接文档。
 
 ## 当前状态
 
-- `main` 最新功能提交：`8e736661af5b32c50ef51f4be77820c37291692c`（`docs: deepen Atlas service wiki guides`）；本阶段补全四个 Atlas 自建精选服务的 Wiki 快速上手、API 示例和安全边界。
+- `main` 最新功能提交：`ebe76de5e07e69501f64d802e2814b610b5229c5`（`docs: complete remaining Atlas edge service guides`）；本阶段补全其余七个 Atlas 边缘服务的 Wiki 操作指南、只读 API 示例与安全边界。
 - Cloudflare Pages：<https://atlas.sgyyyds.qzz.io/>；由 `main` 分支推送自动触发发布。
 - GitHub Pages：<https://stanlysgy.github.io/FOSS-Atlas/>；由 `main` 分支推送自动触发发布。
 - 根目录 `HANDOVER.md` 仍是本地私有 selfhost 交接副本，不属于此公开仓库的提交内容。
@@ -75,6 +75,30 @@
 - `npm run views:check`：通过；全图 283 节点、部署视图 106 节点、11 个分类视图。
 - `npm run build`：通过；转换 900 个模块、预渲染 189 个页面（186 篇 Wiki），OG 检查匹配当前目录（186 tools、643 edges、75 deployed resources、93 instances）。
 - `git diff --check`：通过；Wiki 生成产物仅 4 篇内容页有语义变化。
+
+## 本轮追加交付：剩余七个 Atlas 边缘服务 Wiki 深化（2026-10-30）
+
+1. **覆盖范围**：Atlas Nodes、Atlas QR、Atlas Proxy、Atlas IP、Atlas Check、Atlas Geo、Atlas Meta 七篇 Wiki 均补充快速上手、只读 GET 示例、响应结构和安全/使用边界；已有 EdgeSSH、Atlas Short、Atlas Paste、Atlas Tools 四篇指南保持不变。
+2. **生成器约束**：`scripts/build-wikis.mjs` 不再把示例路径局限于 `/api/`，允许已核验的站内只读路径（例如 Geo 的 `/search`、`/reverse`）；同时要求单斜杠相对路径，并拒绝换行、空白、引号和反斜杠，避免生成的 curl 单引号命令被打断。示例使用 curl 默认 GET，不提供写入型请求。
+3. **关键线上核验快照**：
+   - Nodes：`/api/sources` 返回 9,058 条聚合节点及各上游 `ok/count` 状态；页面数据会随上游和缓存变化。
+   - QR：`/api/qr?data=FOSS-Atlas` 与 `/qr.svg?data=FOSS-Atlas` 返回 `image/svg+xml`。`/qr.png` 也返回 HTTP 200，但 MIME 仍是 SVG，不应当作 PNG 输出。
+   - Proxy：`/http`、`/socks4`、`/socks5`、`/json` 和 `/api/sources` 均返回 200；本次首页快照为 HTTP 3,346、SOCKS4 2,373、SOCKS5 3,814 条，来源 API 合计 9,533 条。完整 JSON 列表响应约 912,747 字节，文档建议优先用 `/api/sources` 做状态轮询。
+   - IP：`/api/ip` 与 `/json` 返回 200；结果表示发起请求的客户端出口及其粗略地理/ASN 信息，不是服务器固定 IP。
+   - Check：`/api/email` 和 `/api/domain` 使用 Gmail 样例返回 200，字段包含 `format_valid`、`disposable`、`has_mx`、`mx` 和 `blocklist_size`；黑名单规模 9,963 是本次快照。MX 存在不代表邮箱真实存在或邮件可送达。
+   - Geo：`/search?q=Seoul` 与 `/reverse?lat=37.5665&lon=126.9780` 正常返回结构化结果；`/json?q=Seoul` 本轮返回“上游地理编码服务暂不可用”，因此未把它列为推荐调用示例。
+   - Meta：`/json?url=` 早期对公开网页曾返回标题/描述/图片等元数据，但重复请求随后出现 `{"error":"抓取失败"}`；目前按间歇性故障记录，调用方需处理错误并准备降级。
+4. **风险提示**：Nodes 免费节点与 Proxy 公开代理均不保证可用性和安全性，Wiki 明确禁止承载敏感流量；IP 地理位置只作粗略参考；Meta 只能提交可公开访问且有权抓取的 URL，禁止提交内网地址和含凭据/令牌的链接。
+5. **分享素材同步**：重新生成中文字体子集与 4 张 OG 分享卡片，本轮 OG 文本覆盖 1,276 个字形；构建检查与目录数据一致。
+
+## 本轮验证证据（2026-10-30）
+
+- `npm test`：19/19 通过，覆盖七篇新增 Wiki、API 示例安全路径、Geo/QR/Meta 已知异常与生成输出。
+- `npm run lint`：65 个文件，0 警告、0 错误。
+- `npm run views:check`：通过；全图 283 节点、部署视图 106 节点、11 个分类视图。
+- `npm run build`：通过；转换 900 个模块，预渲染 189 个页面（186 篇 Wiki），OG 数据匹配 186 tools、643 edges、75 deployed resources、93 instances。
+- `npm run fonts`、`npm run og`：已重建字体子集与 4 张 OG 卡片；`build-og --check` 通过。
+- `git diff --check`：通过。
 
 ## 后续任务 / 已知限制
 
