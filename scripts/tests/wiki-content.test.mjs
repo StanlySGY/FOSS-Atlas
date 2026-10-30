@@ -17,6 +17,18 @@ test('featured Atlas service Wiki entries include practical usage and clear secu
   }
 })
 
+test('Atlas Paste documents seven-day expiry for new shares and legacy retention limits', () => {
+  const entry = deployedWiki.paste
+  assert.ok(entry.summary.includes('保留 7 天'))
+  assert.ok(entry.features.some((item) => item.includes('7 天') && item.includes('TTL')))
+  assert.ok(entry.usage.some((item) => item.includes('expires_at')))
+  assert.ok(entry.cautions.some((item) => item.includes('旧分享') && item.includes('未追溯')))
+  const markdown = readFileSync(new URL('../../public/wiki/paste.md', import.meta.url), 'utf8')
+  assert.match(markdown, /新建分享保留 7 天/)
+  assert.match(markdown, /expires_at/)
+  assert.match(markdown, /旧分享未追溯设置 TTL/)
+})
+
 test('remaining Atlas edge service Wiki entries include practical usage and cautions', () => {
   for (const id of additionalEdgeIds) {
     const entry = deployedWiki[id]

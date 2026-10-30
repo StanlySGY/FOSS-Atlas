@@ -133,3 +133,25 @@ git log -1 --oneline
 ```
 
 提交时只 stage 明确属于 FOSS-Atlas 的文件。不要把根目录本地 `HANDOVER.md`（旧 selfhost 私有交接副本）添加到公开仓库。
+
+
+## 本轮追加交付：Atlas Edge Kit 十域名运行治理与生产复验（2026-10-30）
+
+1. **十域名健康接口**：共享 Worker 为 short、paste、nodes、qr、px、ip、check、geo、meta、tools 十个正式域名增加 GET/HEAD /healthz。返回服务标识和时间戳；响应 no-store，带 nosniff、noindex 和 no-referrer；不支持的方法返回 405。该接口只证明 Worker 路由可响应，不代表 KV 或外部上游健康。
+2. **Atlas Paste 生命周期修正**：新建 Paste KV 项目设置 7 天 expirationTtl，创建接口返回 expires_at；首页展示保留时长。纯文本和渲染页使用 no-store、nosniff、noindex。仅对本次上线后新建的内容生效，旧 KV 记录没有被批量删除或追溯设置 TTL。FOSS-Atlas paste Wiki 已同步说明新旧记录差异。
+3. **Atlas Nodes 上游修复**：aiboboxx/v2rayfree 原日期化地址 /main/v20261020 已失效（404），更换为上游长期订阅路径 /main/sub。增加解析回归测试；部署后直接刷新 /api/sources，当时 cached=false、总量 9,318，其中该来源 ok=true、解析 85 条。
+4. **自动化生产巡检**：私有仓库新增 npm run smoke:health、MONITORING.md 和 .github/workflows/atlas-edge-health.yml。每天定时执行并支持手动触发，检查十域名 GET/HEAD、QR PNG 签名和尺寸、Tools SHA-256/UUID/Base64、IP JSON、Check 域名校验、Short/Paste 输入校验及 Meta 公开网页抓取。定时任务刻意不发起 Geo 查询，也不刷新 Nodes/Proxy 聚合源，避免周期性请求公共上游。健康探针和上游依赖状态分别报告。
+5. **此前遗留的生产验证缺口已补验**：
+   - QR：生产 /qr.png?data=AtlasEdgeKitAudit&size=256 直连返回 200 image/png，PNG 签名与 256×256 IHDR 尺寸均有效；云端 smoke 再次检查 160×160 PNG。
+   - Meta：生产抓取 https://www.cloudflare.com/ 返回 HTTP 200、页面标题且 stale=false；云端 smoke 对 https://example.com/ 再次获取新鲜成功结果。网页采集器之前的 invalid_redirect_url 属于采集器解析问题，不是 Worker 返回的 Meta 错误。
+   - Geo：以 Old Town Square, Prague, Czechia 做单次未命中缓存的生产查询，返回 cached=false、stale=false、6 条结果并带 © OpenStreetMap contributors。这证明此次 Geo 上游链路成功；后续定时巡检不重复触发上游。
+6. **发布与版本**：私有仓库 StanlySGY/atlas-edge-kit 仍为 Private；源码提交 f0f997b6ac678f6164986b9ae299629d3571dd5a，随后仅升级 CI action 的提交 9137a6e0b9ab70ce8d090d4461874df34504489b。Cloudflare Worker Version 13：682429f4-67f4-479b-9872-368254ca7830，部署记录 646d0e11-ecf8-4b57-ae6e-075cc08f463a，API 确认 100% 流量。原 KV namespace 与 GEO_RATE_LIMITER Durable Object 绑定均保留。
+7. **测试证据**：Worker npm run check 20/20 通过；npx wrangler deploy --dry-run 成功（107.45 KiB，gzip 25.80 KiB）；git diff --check 通过。云端 GitHub Actions 41019372484 与使用 Node 24 兼容 checkout@v7 / setup-node@v7 后的 41019561011 均成功；最终运行结果 29 项通过、0 项失败。
+
+### 运维边界
+
+- /healthz 只检查 Worker 是否响应；不能把它解释为所有外部源、KV 或 DO 均正常。
+- Nodes / Proxy 上游可用性会变化，聚合缓存可在部分上游失败时继续提供可用数据；监控必须显示单源失败，不得把缓存命中等同于所有来源正常。
+- Geo 只在用户触发时查询；继续保留全站一秒一请求的 Durable Object 限速、队列上限、缓存和 OpenStreetMap attribution。不得把实时 Geo 请求加到每日 smoke。
+- Meta 仍不是任意 URL 代理；现有主机/IP/重定向校验不等于完整抵御 DNS rebinding。
+- 根目录本地 HANDOVER.md 保持未跟踪，仅供私人 selfhost 交接，不提交到 FOSS-Atlas。
