@@ -5,10 +5,10 @@
 
 ## 当前状态
 
-- `main` 最新代码提交：`00a70cee0135c4b229f4e3972dce182ec6108931`（`fix: sync client route titles and graph filter state`）。本次交接文档补记不改变该代码提交。
-- Cloudflare Pages：<https://atlas.sgyyyds.qzz.io/>；对应部署工作流 [40982142384](https://github.com/StanlySGY/FOSS-Atlas/actions/runs/40982142384) 成功。
-- GitHub Pages：<https://stanlysgy.github.io/FOSS-Atlas/>；对应部署工作流 [40982142380](https://github.com/StanlySGY/FOSS-Atlas/actions/runs/40982142380) 成功。
-- 最后一次工作区核对（交接文档修改前）：`main` 与 `origin/main` 同步且工作区干净；根目录 `HANDOVER.md` 是本地私有 selfhost 交接副本，不属于此公开仓库的提交内容。
+- `main` 最近一次功能提交：`2cd7b9fc9c46adec227adc9a2b2db1e408161ad2`（`feat: add featured Atlas builds to homepage`）；本轮只增加自建精选展示与首页发现提示，没有改变资源 / Wiki / 图谱数据模型。
+- Cloudflare Pages：<https://atlas.sgyyyds.qzz.io/>；本轮部署工作流 [40986819167](https://github.com/StanlySGY/FOSS-Atlas/actions/runs/40986819167) 成功，线上首页已核验出现「Atlas 自建 · 精选服务」与四张精选卡片。
+- GitHub Pages：<https://stanlysgy.github.io/FOSS-Atlas/>；本轮部署工作流 [40986819161](https://github.com/StanlySGY/FOSS-Atlas/actions/runs/40986819161) 成功，线上首页已核验出现同一精选区。
+- 本轮功能提交推送后，`main` 与 `origin/main` 同步；根目录 `HANDOVER.md` 仍是本地私有 selfhost 交接副本，不属于此公开仓库的提交内容。
 
 ## 上一轮已交付（2026-10-29）
 
