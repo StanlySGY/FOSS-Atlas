@@ -156,6 +156,16 @@ export default {
       '分享长链接时想要自己的短域名，而不是公共短链的域名',
       '需要知道某条链接被点过多少次，并且数据留在自己的 KV 里',
     ],
+    updated: '2026-10-30',
+    usage: [
+      '在页面的「短链目标 URL」输入完整的 http 或 https 地址。',
+      '点击「生成短链」，页面会返回对应的短地址；复制短地址后即可分享。',
+      '已登记的接口入口包括 POST /api/shorten、/stats/<短码> 统计页和 /api/list 链接清单。',
+    ],
+    cautions: [
+      '短链是公开跳转入口，不要把带有登录令牌、重置密码参数或其他秘密的 URL 转成可公开传播的短链。',
+      '/api/list 是清单入口，不应把它当作私有管理接口；不要在短链目标或短链备注中放入个人敏感信息。',
+    ],
   },
 
   paste: {
@@ -168,6 +178,16 @@ export default {
     scenarios: [
       '贴一段配置或报错给别人看，几分钟内有效就够',
       '需要在两个设备之间传一小段文本，但不想经过外部站点',
+    ],
+    updated: '2026-10-30',
+    usage: [
+      '在页面的文本框中粘贴要分享的内容，当前单条内容上限为 60 KB。',
+      '点击「生成链接」，复制返回的分享地址并发送给接收者。',
+      '需要程序读取纯文本时，可使用分享地址对应的 /raw/<id> 端点。',
+    ],
+    cautions: [
+      '持有分享地址的人即可读取内容；不要粘贴密码、访问令牌、私钥、个人身份信息或未脱敏的生产日志。',
+      '公开页面没有说明内容保留时长，因此不要把 Atlas Paste 当作有明确自动过期承诺的秘密保险箱。',
     ],
   },
 
@@ -273,6 +293,41 @@ export default {
       '命令行里临时要算个哈希或做段 Base64，不想装额外工具',
       '在脚本中调用编码转换，希望有个稳定的 HTTP 接口',
     ],
+    updated: '2026-10-30',
+    usage: [
+      '手动计算时，在首页「哈希」文本框输入内容并点击「计算 SHA-256」；页面说明这条交互在浏览器侧处理。',
+      '脚本调用可使用只读 GET 接口：/api/hash?data=hello、/api/uuid?count=3，以及 /api/encode?mode=base64&data=hello。',
+      '编解码接口还可使用 mode=url；示例输入 hello world 会返回 hello%20world。',
+    ],
+    apiExamples: [
+      {
+        title: '计算 SHA-256 哈希',
+        path: '/api/hash?data=hello',
+        response: { alg: 'sha-256', input_bytes: 5, hex: '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824', base64: 'LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=' },
+        note: '此示例省略 alg 参数，当前实测默认算法为 sha-256。',
+      },
+      {
+        title: '生成 3 个 UUID v4',
+        path: '/api/uuid?count=3',
+        response: { uuids: ['<uuid-v4>', '<uuid-v4>', '<uuid-v4>'] },
+        note: 'UUID 是每次请求动态生成的，响应中的占位值仅用于说明 JSON 结构。',
+      },
+      {
+        title: 'Base64 编码',
+        path: '/api/encode?mode=base64&data=hello',
+        response: { mode: 'base64', input: 'hello', output: 'aGVsbG8=' },
+      },
+      {
+        title: 'URL 编码',
+        path: '/api/encode?mode=url&data=hello%20world',
+        response: { mode: 'url', input: 'hello world', output: 'hello%20world' },
+      },
+    ],
+    cautions: [
+      '页面手动哈希交互在浏览器侧执行；调用 /api/* 时，参数会发送到自己的 tools.sgyyyds.qzz.io 服务。',
+      '这些接口通过 GET 查询参数传入文本，参数可能留在浏览器历史、代理或服务访问日志中，不要传入密码、令牌或其他敏感内容。',
+      '普通 SHA-256 摘要不等于密码存储方案；不要直接用它替代带盐、专门设计的密码哈希算法。',
+    ],
   },
 
   edgessh: {
@@ -285,6 +340,16 @@ export default {
     scenarios: [
       '在别人电脑或手机上要临时连一台服务器应急',
       '需要一个能审计、能撤销的入口，而不是长期有效的密钥或密码',
+    ],
+    updated: '2026-10-30',
+    usage: [
+      '打开 EdgeSSH 服务地址，先通过 Cloudflare Access 的邮箱验证码验证身份。',
+      '只有被 Access 策略允许的邮箱才能继续访问；未获授权的访客会停留在认证入口。',
+      '通过认证后再按页面提供的连接流程进入终端；不要在 Wiki、工单或聊天中粘贴 SSH 私钥、密码或一次性验证码。',
+    ],
+    cautions: [
+      'EdgeSSH 的终端界面受 Cloudflare Access 保护；本次公开核验只能确认认证门槛，未登录状态无法核实认证后的交互细节。',
+      'Access 邮箱验证不等于目标服务器本身的 SSH 权限；服务器账号、主机密钥与网络可达性仍需按实际连接目标配置。',
     ],
   },
 };

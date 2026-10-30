@@ -7,7 +7,7 @@ tags: [短链, API, 自建]
 url: https://short.sgyyyds.qzz.io
 alternatives: [is.gd, TinyURL]
 related: [foss-atlas-cf, paste, nodes, qr]
-updated: 2026-10-19
+updated: 2026-10-30
 generated: true
 ---
 
@@ -29,6 +29,17 @@ generated: true
 
 - 分享长链接时想要自己的短域名，而不是公共短链的域名
 - 需要知道某条链接被点过多少次，并且数据留在自己的 KV 里
+
+## 快速上手
+
+- 在页面的「短链目标 URL」输入完整的 http 或 https 地址。
+- 点击「生成短链」，页面会返回对应的短地址；复制短地址后即可分享。
+- 已登记的接口入口包括 POST /api/shorten、/stats/<短码> 统计页和 /api/list 链接清单。
+
+## 使用边界与安全提醒
+
+- 短链是公开跳转入口，不要把带有登录令牌、重置密码参数或其他秘密的 URL 转成可公开传播的短链。
+- /api/list 是清单入口，不应把它当作私有管理接口；不要在短链目标或短链备注中放入个人敏感信息。
 
 ## 同类推荐
 

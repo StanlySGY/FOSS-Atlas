@@ -129,7 +129,7 @@ function renderPage(resource, entry) {
     `url: ${resource.url}`,
     alternatives.length ? `alternatives: [${alternatives.join(', ')}]` : null,
     related.length ? `related: [${related.join(', ')}]` : null,
-    `updated: ${CONTENT_REVISION}`,
+    `updated: ${entry.updated ?? CONTENT_REVISION}`,
     // Marks the file as machine-owned: this script rewrites generated pages
     // unconditionally, so an edit made here is gone on the next run.
     'generated: true',
@@ -163,15 +163,36 @@ function renderPage(resource, entry) {
     bullets(entry.scenarios),
   ]
 
+  if (entry.usage?.length) {
+    sections.push('', '## 快速上手', '', bullets(entry.usage))
+  }
+
+  if (entry.apiExamples?.length) {
+    sections.push('', '## API 调用示例', '')
+    for (const example of entry.apiExamples) {
+      if (!example.title || !example.path?.startsWith('/api/')) {
+        throw new Error(`invalid API example for "${resource.id}"`)
+      }
+      sections.push(`### ${example.title}`, '', '```bash', `curl -sS '${resource.url}${example.path}'`, '```')
+      if (example.response) {
+        sections.push('', '响应示例：', '', '```json', JSON.stringify(example.response, null, 2), '```')
+      }
+      if (example.note) sections.push('', example.note)
+      sections.push('')
+    }
+  }
+
+  if (entry.cautions?.length) {
+    sections.push('', '## 使用边界与安全提醒', '', bullets(entry.cautions))
+  }
+
   if (links.length) {
     sections.push('', '## 同类推荐', '', links.join('\n'))
   }
 
-  sections.push('')
-
   const body = sections.join('\n')
 
-  return `${frontmatter}\n\n${body}`
+  return `${frontmatter}\n\n${body.trimEnd()}\n`
 }
 
 /* ------------------------------------------------------------------ *
