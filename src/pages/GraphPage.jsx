@@ -360,7 +360,7 @@ export default function GraphPage() {
           aria-pressed={focusedCategory === null && !deployedOnly}
           className={[
             'rounded-[var(--radius-sm)] border px-2 py-1 text-[11px] transition-colors',
-            focusedCategory === null
+            focusedCategory === null && !deployedOnly
               ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent-text)]'
               : 'border-[var(--line)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
           ].join(' ')}

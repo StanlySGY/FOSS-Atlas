@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { NavLink, Outlet, Link, useLocation } from 'react-router-dom'
 import BackToTop from './BackToTop.jsx'
 import CommandPalette from './CommandPalette.jsx'
-import { graphStats } from '../lib/data.js'
+import { graphStats, resourceById } from '../lib/data.js'
+import { documentTitleForLocation } from '../lib/documentTitle.js'
 
 const navItems = [
   { to: '/', label: '导航', end: true },
@@ -64,6 +65,12 @@ const MOBILE_ICONS = { '/': 'home', '/graph/': 'graph', '/deployed/': 'server' }
 export default function Layout() {
   const location = useLocation()
   const [paletteOpen, setPaletteOpen] = useState(false)
+
+  // Static HTML ships the right title on direct loads; SPA route changes must
+  // update it too, or the tab and assistive technology keep announcing the old page.
+  useEffect(() => {
+    document.title = documentTitleForLocation(location.pathname, resourceById)
+  }, [location.pathname])
 
   /*
    * Route changes reset the scroll — but a hash link (/deployed/#joplin, handed

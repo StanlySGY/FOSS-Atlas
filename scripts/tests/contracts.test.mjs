@@ -74,6 +74,13 @@ test('graph view mode is deep-linkable and preserves active filters and focus', 
   assert.equal(graphView.get('focus'), 'ollama')
 })
 
+test('graph all-category chip styling matches its pressed state when deployed-only is active', () => {
+  const source = readFileSync(new URL('../../src/pages/GraphPage.jsx', import.meta.url), 'utf8')
+  const allCategoryCondition = 'focusedCategory === null && !deployedOnly'
+  assert.equal(source.includes(`aria-pressed={${allCategoryCondition}}`), true)
+  assert.equal(source.includes(`${allCategoryCondition}\n              ? 'border-[var(--accent)]/60`), true)
+})
+
 test('graph category and deployed filters are mutually exclusive and preserve deep-link focus', () => {
   const focused = new URLSearchParams('focus=ollama&deployed=1')
   const category = setCategoryFocusParams(focused, 'ai')
