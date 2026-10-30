@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import ResourceCard from '../components/ResourceCard.jsx'
+import FeaturedBuilds from '../components/FeaturedBuilds.jsx'
 import { categoryColor } from '../lib/categoryColor.js'
 import { queryFromSearchParams, resetCatalogFiltersParams } from '../lib/catalogFilterState.js'
 import {
@@ -128,6 +129,7 @@ export default function Home() {
     setSearchParams((prev) => resetCatalogFiltersParams(prev), { replace: true })
   }
   const hasActiveFilters = Boolean(query.trim() || activeCategory !== 'all' || activeSub !== 'all' || deployedOnly)
+  const showFeaturedBuilds = !query.trim() && activeCategory === 'all' && activeSub === 'all' && !deployedOnly
 
   return (
     <div className="space-y-8">
@@ -138,8 +140,7 @@ export default function Home() {
             开源<span className="text-[var(--accent)]">白嫖</span>资源图鉴
           </h1>
           <p className="text-sm leading-relaxed text-[var(--text-dim)]">
-            把散落在收藏夹里的免费额度、开源自部署方案和公开 API，收进一张可搜索、可漫游、可追溯的图里。点卡片看
-            Wiki，点「知识图谱」看全局。
+            把散落在收藏夹里的免费额度、开源自部署方案和公开 API，收进一张可搜索、可漫游、可追溯的图里。搜索定位资源，打开 Wiki 查看部署方式与替代关系，再用知识图谱看全局；带「已自部署」标记的条目还可以直接打开实际服务。
           </p>
         </div>
 
@@ -205,6 +206,8 @@ export default function Home() {
         ) : null}
 
       </section>
+
+      {showFeaturedBuilds ? <FeaturedBuilds /> : null}
 
       {/* Toolbar: search + live result count, then the category rail. */}
       <section className="space-y-3">

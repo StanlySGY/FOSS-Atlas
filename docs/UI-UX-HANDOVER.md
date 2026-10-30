@@ -46,6 +46,21 @@
 - 部署后线上验收：Cloudflare 自定义域名图谱列表 AI 分类筛选可用，搜索 `ollama` 可打开 Wiki，标题为 `Ollama · 本地跑大模型 | FOSS-Atlas`；后退/前进的页面标题随路由恢复。GitHub Pages 镜像与 Cloudflare 主站的首页、Wiki 页面标题及 Wiki 内容元数据均核验正常。
 - 推送 `00a70cee0135c4b229f4e3972dce182ec6108931` 后，GitHub Pages 工作流 [40982142380](https://github.com/StanlySGY/FOSS-Atlas/actions/runs/40982142380) 与 Cloudflare Pages 工作流 [40982142384](https://github.com/StanlySGY/FOSS-Atlas/actions/runs/40982142384) 均完成且结论为 `success`。
 
+## 本轮追加交付（2026-10-30）
+
+1. **Atlas 自建精选展示**：首页新增 `BUILT HERE` 项目展示区，精选 EdgeSSH、Atlas Short、Atlas Paste、Atlas Tools 四个真实自建且已部署的服务。每张卡片同时提供在线服务入口与对应 Wiki 技术说明，并展示部署栈和主题标签；所有信息均从现有资源目录读取，不维护第二份项目清单。
+2. **响应式浏览**：窄屏使用横向滚动与 snap 定位，桌面端切换为两列 / 四列网格。开始搜索、分类筛选或只看已部署时自动隐藏精选区，避免打断原有资源检索。
+3. **首屏发现提示**：首页说明改为明确的「搜索 → Wiki → 知识图谱」浏览路径，并提示已自部署条目的在线入口。没有为 API 类服务伪造产品截图，也没有引入 3D 场景、人物、天气或独立 Portal。
+4. **数据约束**：新增 `src/lib/featuredBuilds.js` 和 `scripts/tests/featured-builds.test.mjs`，精选列表只接受目录中标记为自建且已部署的条目；缺失、第三方和未部署记录不会进入展示区。
+
+## 本轮追加验证证据（2026-10-30）
+
+- `npm test`：13/13 通过（含精选列表的数据约束测试）。
+- `npm run lint`：64 个文件，0 警告、0 错误。
+- `npm run views:check`：通过；全图 283 节点、部署视图 106 节点、11 个分类视图。
+- `npm run build`：通过；转换 900 个模块，预渲染 189 个页面（186 篇 Wiki），OG 检查与当前数据一致（186 tools、643 edges、75 deployed resources、93 instances）。
+- 本轮验证通过 Ubuntu-24.04 WSL 执行；精选区没有改变资源目录、Wiki、图谱或部署数据模型。
+
 ## 后续任务 / 已知限制
 
 - 用户提供的生图参考站点：<https://l0veyou.com/chat> 与 <https://image.mlgb7.com/>。本次浏览器会话没有继承用户原 Chrome 登录态：前者要求登录才能开始对话，后者停在登录页。因此本轮没有验证生图流程，也未生成或接入这两个站点的素材。后续应在用户完成登录后先验证它们的真实生图流程，再决定是否为首页/Wiki/分享卡片引入少量统一视觉素材；不要为了装饰给目录卡片墙无差别添加图片。
