@@ -5,10 +5,10 @@
 
 ## 当前状态
 
-- `main` 最近一次功能提交：`2cd7b9fc9c46adec227adc9a2b2db1e408161ad2`（`feat: add featured Atlas builds to homepage`）；本轮只增加自建精选展示与首页发现提示，没有改变资源 / Wiki / 图谱数据模型。
-- Cloudflare Pages：<https://atlas.sgyyyds.qzz.io/>；本轮部署工作流 [40986819167](https://github.com/StanlySGY/FOSS-Atlas/actions/runs/40986819167) 成功，线上首页已核验出现「Atlas 自建 · 精选服务」与四张精选卡片。
-- GitHub Pages：<https://stanlysgy.github.io/FOSS-Atlas/>；本轮部署工作流 [40986819161](https://github.com/StanlySGY/FOSS-Atlas/actions/runs/40986819161) 成功，线上首页已核验出现同一精选区。
-- 本轮功能提交推送后，`main` 与 `origin/main` 同步；根目录 `HANDOVER.md` 仍是本地私有 selfhost 交接副本，不属于此公开仓库的提交内容。
+- `main` 最新功能提交：`8e736661af5b32c50ef51f4be77820c37291692c`（`docs: deepen Atlas service wiki guides`）；本阶段补全四个 Atlas 自建精选服务的 Wiki 快速上手、API 示例和安全边界。
+- Cloudflare Pages：<https://atlas.sgyyyds.qzz.io/>；由 `main` 分支推送自动触发发布。
+- GitHub Pages：<https://stanlysgy.github.io/FOSS-Atlas/>；由 `main` 分支推送自动触发发布。
+- 根目录 `HANDOVER.md` 仍是本地私有 selfhost 交接副本，不属于此公开仓库的提交内容。
 
 ## 上一轮已交付（2026-10-29）
 
@@ -60,6 +60,21 @@
 - `npm run views:check`：通过；全图 283 节点、部署视图 106 节点、11 个分类视图。
 - `npm run build`：通过；转换 900 个模块，预渲染 189 个页面（186 篇 Wiki），OG 检查与当前数据一致（186 tools、643 edges、75 deployed resources、93 instances）。
 - 本轮验证通过 Ubuntu-24.04 WSL 执行；精选区没有改变资源目录、Wiki、图谱或部署数据模型。
+
+## 本轮追加交付：精选服务 Wiki 深化（2026-10-30）
+
+1. **四篇自建服务 Wiki 增加可操作说明**：EdgeSSH、Atlas Short、Atlas Paste、Atlas Tools 均新增「快速上手」与「使用边界与安全提醒」。Atlas Tools 额外提供 SHA-256、UUID v4、Base64、URL 编码四个只读 GET 调用示例及响应结构。
+2. **按真实线上页面校准**：已检查短链、Paste、Tools 的线上表单与按钮；只读验证 Tools 的 `/api/hash`、`/api/uuid`、`/api/encode` 响应。Short/Paste 的写入型创建接口没有做 POST 探测，避免在真实 KV 中留下测试记录。EdgeSSH 的未登录入口由 Cloudflare Access 拦截，因此 Wiki 只描述可确认的邮箱验证码门槛，不声称已验收认证后的终端交互。
+3. **Wiki 生成器能力**：`scripts/build-wikis.mjs` 支持按条目覆盖 `updated`，并为可选的 `usage`、`apiExamples`、`cautions` 生成固定章节；API 示例路径限制为 `/api/`，避免把任意链接当命令渲染。改动只影响四个目标 Wiki，没有重写其他条目内容。
+4. **字体与分享素材**：新增中文内容后，重新生成字体子集（1257 glyphs）与 4 张 OG 分享卡片，确保新增文案在页面和分享预览中有对应字形。
+
+## 本轮追加验证证据（2026-10-30）
+
+- `npm test`：16/16 通过，新增 Wiki 内容、API 示例与生成输出约束测试。
+- `npm run lint`：65 个文件，0 警告、0 错误。
+- `npm run views:check`：通过；全图 283 节点、部署视图 106 节点、11 个分类视图。
+- `npm run build`：通过；转换 900 个模块、预渲染 189 个页面（186 篇 Wiki），OG 检查匹配当前目录（186 tools、643 edges、75 deployed resources、93 instances）。
+- `git diff --check`：通过；Wiki 生成产物仅 4 篇内容页有语义变化。
 
 ## 后续任务 / 已知限制
 
