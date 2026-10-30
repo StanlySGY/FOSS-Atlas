@@ -5,7 +5,7 @@
 
 ## 当前状态
 
-- `main` 最新功能提交：`ebe76de5e07e69501f64d802e2814b610b5229c5`（`docs: complete remaining Atlas edge service guides`）；本阶段补全其余七个 Atlas 边缘服务的 Wiki 操作指南、只读 API 示例与安全边界。
+- `main` 最新功能提交：`9fd8fff3ee5f581f1571e48a9b5546ddac6867fa`（`docs: align Atlas service guides with hardening release`）；本轮同步 Atlas QR、Geo、Meta 的生产修复说明、使用政策与安全边界。
 - Cloudflare Pages：<https://atlas.sgyyyds.qzz.io/>；由 `main` 分支推送自动触发发布。
 - GitHub Pages：<https://stanlysgy.github.io/FOSS-Atlas/>；由 `main` 分支推送自动触发发布。
 - 根目录 `HANDOVER.md` 仍是本地私有 selfhost 交接副本，不属于此公开仓库的提交内容。
@@ -99,6 +99,21 @@
 - `npm run build`：通过；转换 900 个模块，预渲染 189 个页面（186 篇 Wiki），OG 数据匹配 186 tools、643 edges、75 deployed resources、93 instances。
 - `npm run fonts`、`npm run og`：已重建字体子集与 4 张 OG 卡片；`build-og --check` 通过。
 - `git diff --check`：通过。
+
+## 本轮追加交付：Atlas Edge Kit 服务质量治理（2026-10-30）
+
+1. **源码恢复与版本治理**：线上十域名共用的 Cloudflare Worker `atlas-edge-kit` 原先只有已部署 bundle，没有可追溯的源码仓库或 source map。本轮从 Cloudflare 导出活动模块并建立恢复基线（不是声称恢复了原始 pre-bundle 源码），新建私有仓库 <https://github.com/StanlySGY/atlas-edge-kit>。当前源码提交：`8f690cc3bd41b46baca789541ce9236bd8ee8267`；Worker 生产版本：`d74ed99e-dab7-4732-8bc1-fa0d81208d71`，部署记录：`76d89869-c087-4ae9-8065-7c491e483737`，Cloudflare API 确认该版本承载 100% 流量。十个自定义域名仍全部 enabled。
+2. **Atlas QR**：`/qr.png` 现在输出真实 1-bit 灰度 PNG，响应 MIME 为 `image/png`；`/api/qr` 与 `/qr.svg` 保持 SVG。自动化测试会校验 PNG 签名、IHDR、IDAT 解压与像素尺寸；本地 HTTP 验收确认 320×320 PNG 文件结构有效。生产 bundle 已核对包含独立 PNG 输出逻辑，但本轮通过外部采集器未能稳定取得生产二进制响应，因此生产 PNG 下载仍建议后续再做一次直接浏览器/客户端抽查。
+3. **Atlas Geo**：请求经全站共享 Durable Object `GEO_RATE_LIMITER` 串行排队，出站请求至少间隔 1 秒，队列最多等待 8 项；Fresh cache 7 天，成功结果保留 30 天并可在上游故障时以 `stale=true` 回退。上游状态、超时、Retry-After 会以稳定字段输出，不做自动重试。上游地址可用 KV 的 `config:atlas-geo-upstream` 切换为 HTTPS Nominatim-compatible 服务，署名用 `config:atlas-geo-attribution` 配置；设置为 `disabled` 可停止新外部请求。默认仍使用公共 Nominatim，并在页面及响应中标注 `© OpenStreetMap contributors`。该公共服务对整个应用总量限制为每秒最多 1 次，要求用户触发、禁止自动补全或批量/系统性查询；接手者更换上游前必须先核对替代服务的条款、限流和署名要求：<https://operations.osmfoundation.org/policies/nominatim/>。
+4. **Atlas Meta**：抓取增加 10 秒超时、400 KiB 流式读取上限、最多 5 次手动重定向并逐跳验证、常见私网主机/IP 字面量/凭据/非标准端口拦截；缓存 24 小时新鲜、最长 7 天陈旧回退，错误响应带稳定 `code`。这不是对 DNS rebinding 等所有 SSRF 变体的完整防护，不能当作任意 URL 代理；仍只允许抓取有权访问的公开 URL。本轮已通过本地自动化测试验证防护、重定向、体积上限和降级；但生产外部目标的最终抓取结果未通过当前网页采集工具独立确认（采集器报 `invalid_redirect_url`，不能据此认定是 Worker 响应或服务端故障）。调用方应继续处理 `error/code`，端到端稳定性保持为待复核项。
+5. **Worker 验证**：私有项目 `npm run check`：17/17 通过，包含 PNG 二进制校验、全局 DO 一秒限速、Geo stale/provider 切换/缓存隔离、Meta SSRF 边界、重定向、超时降级和响应体上限。`npx wrangler deploy --dry-run` 成功；打包约 106 KiB（gzip 25.22 KiB），仅保留原 KV namespace `b9a5a660ec1d4a5e9a60335a00255315` 并新增 Durable Object 绑定。`npx wrangler whoami` 通过。
+6. **FOSS-Atlas Wiki 同步**：QR、Geo、Meta 三篇 Wiki 更新为当前接口、全局 Nominatim 限流、署名要求、缓存/降级策略和 Meta 安全边界；同步新增回归断言。字体子集覆盖 1,276 glyph，4 张 OG 分享卡已重建。功能提交：`9fd8fff3ee5f581f1571e48a9b5546ddac6867fa`（`docs: align Atlas service guides with hardening release`）。
+
+## 本轮验证证据（2026-10-30）
+
+- FOSS-Atlas：`npm test` 19/19 通过；`npm run lint` 65 个文件、0 警告/错误；`npm run views:check` 通过（全图 283 节点、部署图 106 节点、11 分类）；`npm run fonts`、`npm run og` 通过；`npm run build` 转换 900 个模块并预渲染 189 个页面，OG 检查匹配 186 tools、643 edges、75 deployed resources、93 instances；`git diff --check` 通过。
+- Cloudflare 生产 Worker：API 复核 `d74ed99e-dab7-4732-8bc1-fa0d81208d71` 为最新活动版本且流量分配 100%；十个自定义域名均 enabled。线上 Geo `/json?q=Seoul&limit=1` 返回 200，显示 `cached=true`、`stale=false` 与 OSM attribution。十个服务首页均可被采集器读取。
+- 生产边界：Geo 本次线上结果命中已有缓存，证明新响应结构和服务路由在线，不代表当次触发了一次新的 Nominatim 出站请求；Meta 外部网页抓取尚未独立确认；QR 生产 PNG 二进制需后续直接客户端抽查。以上边界不得在后续交接中写成已完成端到端验收。
 
 ## 后续任务 / 已知限制
 
