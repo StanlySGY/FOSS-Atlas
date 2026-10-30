@@ -192,93 +192,290 @@ export default {
   },
 
   nodes: {
-    summary: '免费节点聚合订阅：合并 11 个上游源并去重，13,000+ 条节点，30 分钟自动刷新。',
+    summary: '免费节点聚合订阅：合并多个公开上游并去重，提供 Base64 订阅、明文列表和来源状态。',
     features: [
-      '/sub 输出订阅，/txt 输出明文列表，/api/sources 列出上游源',
-      '跨源合并去重，避免客户端里出现重复节点',
-      '定时刷新，上游变动后订阅自己跟上',
+      '/sub 输出客户端可用的 Base64 订阅，/txt 输出明文节点列表',
+      '/api/sources 返回上游来源、抓取状态和各源节点数量',
+      '缓存按周期自动刷新，聚合结果会随上游可用性变化',
     ],
     scenarios: [
-      '客户端里想要一份持续更新的免费节点订阅，而不是手动导入了就过期',
-      '多个上游源质量不一，需要先合并去重再喂给客户端',
+      '客户端需要一份集中管理的节点订阅，避免手动逐个导入多个来源',
+      '想先查看各上游来源状态，再决定是否使用聚合结果',
+    ],
+    updated: '2026-10-30',
+    usage: [
+      '打开 Atlas Nodes 首页，查看当前去重节点数、缓存更新时间和各上游来源状态。',
+      '将 /sub 地址作为 Base64 订阅导入兼容客户端；需要可读文本时使用 /txt。',
+      '脚本或监控可调用 /api/sources，读取 total、cached 和 sources 中每个来源的 ok、count。',
+    ],
+    apiExamples: [
+      {
+        title: '查看聚合与上游来源状态',
+        path: '/api/sources',
+        response: {
+          total: 9058,
+          cached: true,
+          sources: [
+            { name: 'mahdibland/V2RayAggregator', ok: true, count: 200 },
+            { name: 'peasoft/NoMoreWalls', ok: true, count: 436 },
+            { name: 'Epodonios/v2ray-configs · vless', ok: false, count: 0 },
+          ],
+        },
+        note: '数量与 ok 状态为 2026-10-30 的线上快照；上游可用性、节点数量和缓存状态会持续变化。',
+      },
+    ],
+    cautions: [
+      '这些是公开抓取的免费节点，来源和质量不一，不保证可用性、匿名性或安全性；不要用于银行、工作账号、生产系统或其他敏感流量。',
+      '使用前应自行核验节点来源与出口行为；不要把私人订阅地址、账号凭据或其他秘密混入公开订阅。',
     ],
   },
 
   qr: {
-    summary: '二维码生成 API：传 data 参数返回 SVG，替代 qrserver 之类第三方接口。',
+    summary: '二维码生成 API：将文本或链接转换为 SVG 二维码，适合网页嵌入和矢量打印。',
     features: [
-      '/api/qr?data= 生成二维码，另有 /qr.svg 与 /qr.png 两种输出',
-      'SVG 输出可直接嵌进网页或打印，不受位图尺寸限制',
-      '生成在自己账号下，不依赖第三方服务的可用性与速率',
+      '/api/qr?data= 和 /qr.svg?data= 均可生成 SVG 二维码',
+      '首页提供内容输入框与可选边长像素设置',
+      '二维码在自建边缘服务生成，不必把内容交给第三方二维码 API',
     ],
     scenarios: [
-      '页面里要放二维码，但不想把内容交给外部二维码接口',
-      '需要矢量二维码以便缩放或印刷',
+      '页面里要放二维码，但不想调用外部二维码生成服务',
+      '需要 SVG 矢量图以便缩放、嵌入网页或打印',
+    ],
+    updated: '2026-10-30',
+    usage: [
+      '在 Atlas QR 首页输入要编码的文本或完整 URL；需要调整图像尺寸时，可使用页面提供的可选边长像素设置。',
+      '程序调用可使用 /api/qr?data=... 或 /qr.svg?data=...，请先对 data 参数进行 URL 编码。',
+      '接口返回 SVG 图像，可保存为 .svg 文件或直接作为网页图片资源使用。',
+    ],
+    apiExamples: [
+      {
+        title: '生成 SVG 二维码',
+        path: '/api/qr?data=FOSS-Atlas',
+        note: '线上响应为 image/svg+xml；本轮同时验证 /qr.svg?data=FOSS-Atlas 可用。',
+      },
+    ],
+    cautions: [
+      '本轮检查发现 /qr.png?data=FOSS-Atlas 虽返回 HTTP 200，响应 MIME 仍为 image/svg+xml；不要把该路径当作已验证的 PNG 输出。',
+      '二维码只是把内容编码成图像，不会替链接背书；扫描陌生二维码前应先核对解码出的域名和目标地址。',
     ],
   },
 
   px: {
-    summary: '公开代理聚合 API：HTTP / SOCKS4 / SOCKS5 共 8,000+ 条，可按类型取用并带国家与 ASN 信息。',
+    summary: '公开代理聚合 API：聚合 HTTP、SOCKS4 和 SOCKS5 代理列表，提供明文与结构化输出。',
     features: [
-      '/http、/socks4、/socks5 分别输出对应类型，/all 一次取全部',
-      '/json 返回结构化结果，附国家与 ASN 字段',
-      '/api/sources 说明上游来源，便于判断数据新鲜度',
+      '/http、/socks4、/socks5 分别输出对应协议的明文列表',
+      '/json 返回结构化代理数据，包含国家与 ASN 等字段',
+      '/api/sources 返回上游抓取状态和各来源数量',
     ],
     scenarios: [
-      '做网络实验或抓取时需要成批公开代理，不想逐个站点去抓',
-      '按国家筛代理列表，需要每条带元数据而不只是地址',
+      '进行隔离的网络连通性实验，需要按协议读取公开代理样本',
+      '研究公开代理来源与数据结构，而不是逐个上游站点抓取',
+    ],
+    updated: '2026-10-30',
+    usage: [
+      '打开 Atlas Proxy 首页，先查看 HTTP、SOCKS4、SOCKS5 当前数量和页面顶部的安全提示。',
+      '按需要读取 /http、/socks4 或 /socks5 明文列表；需要国家和 ASN 字段时再请求 /json。',
+      '监控数据来源时使用 /api/sources；本次实测 JSON 汇总接口响应约 913 KB，避免在高频轮询中无必要地重复下载完整列表。',
+    ],
+    apiExamples: [
+      {
+        title: '查看代理上游来源',
+        path: '/api/sources',
+        response: {
+          total: 9533,
+          cached: true,
+          sources: [
+            { name: 'TheSpeedX/PROXY-List · http', ok: true, count: 2757 },
+            { name: 'monosans/proxy-list · http', ok: true, count: 721 },
+            { name: 'monosans/proxy-list · json(带国家/ASN)', ok: true, count: 1752 },
+          ],
+        },
+        note: '这是 2026-10-30 的来源快照；各类型数量随上游更新和缓存刷新而变化。',
+      },
+    ],
+    cautions: [
+      '首页明确将数据限定为研究和连通性测试用途；代理来自公开抓取，不保证可用性或安全性，严禁承载密码、Cookie、支付信息和其他敏感流量。',
+      '公开代理可能记录、篡改或中转请求；不要把代理列表的存在理解为可信代理服务或隐私保护承诺。',
     ],
   },
 
   ip: {
-    summary: '客户端 IP 与地理位置 / ASN 查询 API，替代 ipinfo 之类第三方接口。',
+    summary: '客户端 IP 查询 API：返回请求来源 IP、粗略地理位置、ASN 和 Cloudflare 边缘节点信息。',
     features: [
-      '/json 返回请求方的 IP、地理位置与 ASN',
-      '/api/ip 提供同样的结构化查询',
-      '边缘就近响应，不需要把请求发给外部查询服务',
+      '/json 和 /api/ip 均返回请求来源的结构化信息',
+      '字段包括国家、城市、区域、经纬度、时区、ASN、运营商组织和 colo',
+      '适合验证当前请求的出口网络与边缘接入位置',
     ],
     scenarios: [
-      '脚本里要拿到出口 IP 及其归属，用来验证路由或策略是否生效',
-      '页面想显示访客的大致位置，但不愿调用第三方 IP 查询服务',
+      '脚本需要读取当前出口 IP 和 ASN，检查代理或路由策略是否生效',
+      '应用需要展示访客的大致网络归属，而不是精确住址',
+    ],
+    updated: '2026-10-30',
+    usage: [
+      '浏览器打开 Atlas IP 首页，可直接看到当前请求来源的 IP、地理位置、ASN 和边缘 colo。',
+      '脚本调用 GET /api/ip 或 /json 获取 JSON；返回信息描述的是发起这次请求的客户端网络。',
+      '需要自动处理时，可按 ip、country、city、timezone、asn、as_organization 和 colo 等字段读取。',
+    ],
+    apiExamples: [
+      {
+        title: '查询当前请求来源信息',
+        path: '/api/ip',
+        response: {
+          ip: '<request-ip>',
+          country: '<country-code>',
+          country_name: '<country-name>',
+          city: '<city>',
+          timezone: '<iana-timezone>',
+          asn: 0,
+          as_organization: '<network-organization>',
+          colo: '<cloudflare-colo>',
+        },
+        note: '尖括号字段和 ASN=0 是文档占位符；真实结果取决于发起请求的网络出口。',
+      },
+    ],
+    cautions: [
+      '城市、区域和经纬度来自 IP 归属信息，只能用于粗略定位，不能推断街道、楼栋或真实住址。',
+      '接口返回的是调用者本次请求的公网出口信息；通过代理、VPN 或云端执行环境调用时，看到的会是代理或执行环境的出口。',
     ],
   },
 
   check: {
-    summary: '邮箱与域名校验 API：9,900+ 一次性邮箱域名黑名单加 MX 记录查询，替代 disify 等第三方。',
+    summary: '邮箱与域名校验 API：检查邮箱格式、一次性邮箱域名黑名单和 MX 记录。',
     features: [
-      '/api/email 判断域名是否属于一次性邮箱',
-      '/api/domain 查询 MX 记录，确认可收件域名',
-      '黑名单自带在 KV 里，判定不依赖外部服务',
+      '/api/email 校验邮箱地址，并返回域名、格式、一次性邮箱和 MX 字段',
+      '/api/domain 直接查询域名的黑名单状态与 MX 记录',
+      '响应包含 blocklist_size，便于了解当前本地黑名单规模',
     ],
     scenarios: [
-      '注册表单要挡掉临时邮箱，需要一个能自己控制的判定接口',
-      '发信前先确认域名的 MX 是否真的存在',
+      '注册流程需要初步拦截格式错误或常见一次性邮箱域名',
+      '发信前先检查域名是否配置了 MX 记录',
+    ],
+    updated: '2026-10-30',
+    usage: [
+      '要检查完整邮箱时，请求 /api/email?email= 并对邮箱地址进行 URL 编码。',
+      '只检查域名时，请求 /api/domain?domain=；例如 gmail.com 可用于查看 MX 记录结构。',
+      '读取 format_valid、disposable、has_mx、mx 和 blocklist_size 等字段，按业务策略自行决定是否继续注册或发信。',
+    ],
+    apiExamples: [
+      {
+        title: '检查邮箱地址',
+        path: '/api/email?email=test%40gmail.com',
+        response: {
+          email: 'test@gmail.com',
+          domain: 'gmail.com',
+          format_valid: true,
+          disposable: false,
+          has_mx: true,
+          mx: ['5 gmail-smtp-in.l.google.com.'],
+          blocklist_size: 9963,
+        },
+        note: 'MX 列表会有多条记录；blocklist_size 是本轮核验的快照值。',
+      },
+      {
+        title: '检查域名 MX 与黑名单状态',
+        path: '/api/domain?domain=gmail.com',
+        response: {
+          domain: 'gmail.com',
+          disposable: false,
+          has_mx: true,
+          format_valid: true,
+          mx: ['5 gmail-smtp-in.l.google.com.'],
+          blocklist_size: 9963,
+        },
+      },
+    ],
+    cautions: [
+      'MX 记录存在不代表具体邮箱地址一定存在，也不代表邮件最终一定送达；该接口不是 SMTP 投递测试。',
+      '一次性邮箱黑名单存在覆盖和更新滞后，disposable=false 不等于地址可信；不要仅凭此结果作为唯一反欺诈或账户安全依据。',
     ],
   },
 
   'atlas-geo': {
-    summary: '地理编码与逆地理编码：地名与坐标互转，带自建 KV 缓存，替代 Nominatim 公共实例。',
+    summary: '地理编码与逆地理编码 API：通过地名查找坐标，或通过坐标反查附近地点与地址。',
     features: [
-      '/search 地名转坐标，/reverse 坐标转地名，/json 统一输出',
-      '查询结果缓存在 KV，重复请求不再回源',
-      '不受公共实例的速率限制与可用性影响',
+      '/search?q= 将地名转换为坐标和匹配结果',
+      '/reverse?lat=...&lon=... 根据坐标返回地址、地点类型和地址组成',
+      '查询结果使用自建 KV 缓存，重复请求可直接命中缓存',
     ],
     scenarios: [
-      '应用里需要把地址转成坐标，但公共 Nominatim 实例限速或不稳',
-      '同一批地点反复查询，希望第二次几乎瞬时返回',
+      '应用需要把城市、地标或地址转换为经纬度',
+      '地图交互已经拿到坐标，需要反查可读的地址或地点信息',
+    ],
+    updated: '2026-10-30',
+    usage: [
+      '地名正向查询使用 /search?q=，对中文或包含空格的地名应先做 URL 编码。',
+      '坐标逆向查询使用 /reverse?lat=纬度&lon=经度；纬度范围为 -90 至 90，经度范围为 -180 至 180。',
+      '响应中的 display_name、lat、lon、type 和 category 可用于展示或进一步处理；结果来自 OpenStreetMap Nominatim。',
+    ],
+    apiExamples: [
+      {
+        title: '地名转坐标（首尔）',
+        path: '/search?q=Seoul',
+        response: {
+          source: 'OpenStreetMap Nominatim',
+          count: 1,
+          results: [
+            {
+              display_name: '首尔特别市, 韩国 / 南韓',
+              lat: '37.5666791',
+              lon: '126.9782914',
+              type: 'administrative',
+              category: 'boundary',
+            },
+          ],
+        },
+      },
+      {
+        title: '坐标反查地址',
+        path: '/reverse?lat=37.5665&lon=126.9780',
+        response: {
+          source: 'OpenStreetMap Nominatim',
+          result: {
+            display_name: 'Happy Plus Cafe, 110, 世宗大路, 太平路1街, 明洞, 中區, 首尔特别市, 04520, 韩国 / 南韓',
+            lat: '37.5665253',
+            lon: '126.9787754',
+            type: 'cafe',
+            category: 'amenity',
+          },
+        },
+        note: '地理结果会随 OpenStreetMap 数据和上游状态变化。',
+      },
+    ],
+    cautions: [
+      '地理编码结果是地图数据匹配，不代表地址已经过权威核验；同名地点可能返回多个候选项。',
+      '本轮 /json 统一入口的带参数请求遇到上游暂不可用响应，因此只把已成功核验的 /search 与 /reverse 列为推荐调用示例。',
     ],
   },
 
   'atlas-meta': {
-    summary: '链接元数据 / OpenGraph 解析：抓标题、摘要与缩略图，请求不转发给第三方解析服务。',
+    summary: '链接元数据 / OpenGraph 解析 API：尝试抓取公开网页标题、描述、预览图和站点信息。',
     features: [
-      '/json?url= 返回标题、描述与缩略图',
-      '解析在服务端完成，客户端不必处理 HTML',
-      '自建解析意味着抓取行为与缓存策略由自己定',
+      '/json?url= 接收目标页面地址，返回标题、描述、预览图和 favicon 等字段',
+      '由服务端抓取目标 HTML 并解析元数据，客户端不必自行处理网页源码',
+      '成功响应提供目标状态码、内容类型、字节数和缓存标记；抓取失败会返回 error',
     ],
     scenarios: [
-      '分享链接时想自动生成卡片，而不依赖第三方元数据 API',
-      '在自建站点里做链接预览，需要可控的抓取与缓存',
+      '分享链接时希望自动生成标题、摘要和缩略图卡片',
+      '自建应用需要尝试读取公开网页元数据，并能处理上游抓取失败',
+    ],
+    updated: '2026-10-30',
+    usage: [
+      '在首页「页面 URL」输入一个可公开访问的网页地址，或者直接调用 /json?url=。',
+      '将目标 URL 作为 url 查询参数并进行 URL 编码；请先用普通公开网页做小规模测试。',
+      '成功时读取 status、content_type、title、description、image、site_name 和 favicon；失败时检查 error 字段并准备回退内容。',
+    ],
+    apiExamples: [
+      {
+        title: '请求公开网页元数据（当前错误响应示例）',
+        path: '/json?url=https%3A%2F%2Fexample.org',
+        response: { error: '抓取失败' },
+        note: '本轮早期请求曾成功返回 Example Domain 的标题和 status=200，随后对相同公开目标重复探测又返回此错误；此示例记录当前复测到的失败响应，不代表唯一可能的结果。',
+      },
+    ],
+    cautions: [
+      '本轮服务表现为间歇性抓取失败：公开页面有过成功响应，但重复探测随后返回「抓取失败」；稳定性尚未确认，调用方必须处理 error 并准备降级展示。',
+      '这是服务端抓取目标网页的功能；只提交你有权抓取且可以公开访问的 URL，不要传入内网管理地址、云服务凭据端点或含访问令牌、签名参数、会话标识的 URL。',
+      'URL 查询字符串可能进入浏览器历史、代理或服务访问日志，不要放入个人隐私或其他秘密。',
     ],
   },
 

@@ -170,7 +170,12 @@ function renderPage(resource, entry) {
   if (entry.apiExamples?.length) {
     sections.push('', '## API 调用示例', '')
     for (const example of entry.apiExamples) {
-      if (!example.title || !example.path?.startsWith('/api/')) {
+      const pathIsSafeForGet =
+        typeof example.path === 'string'
+        && example.path.startsWith('/')
+        && !example.path.startsWith('//')
+        && !/[\r\n'`\\\s]/.test(example.path)
+      if (!example.title || !pathIsSafeForGet) {
         throw new Error(`invalid API example for "${resource.id}"`)
       }
       sections.push(`### ${example.title}`, '', '```bash', `curl -sS '${resource.url}${example.path}'`, '```')
