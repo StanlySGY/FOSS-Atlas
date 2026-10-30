@@ -83,7 +83,7 @@
           "id": "paste",
           "name": "Atlas Paste",
           "url": "https://paste.sgyyyds.qzz.io",
-          "desc": "临时文本分享:粘贴即生成链接,附 /raw 纯文本端点(上限 60KB)。",
+          "desc": "临时文本分享：粘贴即生成链接，附 /raw 纯文本端点（上限 60 KB）；新建分享保留 7 天。",
           "stack": "CF Workers · KV",
           "kind": "own",
           "status": "live",
