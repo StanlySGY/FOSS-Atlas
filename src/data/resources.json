@@ -3810,7 +3810,7 @@
     "category_name": "Atlas 自建",
     "sub_category": "atlas-edge",
     "sub_category_name": "Cloudflare 边缘服务",
-    "description": "临时文本分享:粘贴即生成链接,附 /raw 纯文本端点(上限 60KB)。",
+    "description": "临时文本分享：粘贴即生成链接，附 /raw 纯文本端点（上限 60 KB）；新建分享保留 7 天。",
     "tags": [
       "粘贴分享",
       "临时分享",

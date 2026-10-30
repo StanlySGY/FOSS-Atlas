@@ -138,7 +138,7 @@ git log -1 --oneline
 ## 本轮追加交付：Atlas Edge Kit 十域名运行治理与生产复验（2026-10-30）
 
 1. **十域名健康接口**：共享 Worker 为 short、paste、nodes、qr、px、ip、check、geo、meta、tools 十个正式域名增加 GET/HEAD /healthz。返回服务标识和时间戳；响应 no-store，带 nosniff、noindex 和 no-referrer；不支持的方法返回 405。该接口只证明 Worker 路由可响应，不代表 KV 或外部上游健康。
-2. **Atlas Paste 生命周期修正**：新建 Paste KV 项目设置 7 天 expirationTtl，创建接口返回 expires_at；首页展示保留时长。纯文本和渲染页使用 no-store、nosniff、noindex。仅对本次上线后新建的内容生效，旧 KV 记录没有被批量删除或追溯设置 TTL。FOSS-Atlas paste Wiki 已同步说明新旧记录差异。
+2. **Atlas Paste 生命周期修正**：新建 Paste KV 项目设置 7 天 expirationTtl，创建接口返回 expires_at；首页展示保留时长。纯文本和渲染页使用 no-store、nosniff、noindex。仅对本次上线后新建的内容生效，旧 KV 记录没有被批量删除或追溯设置 TTL。FOSS-Atlas paste Wiki、资源目录摘要及相关 Wiki 推荐描述已同步说明新旧记录差异，避免卡片和页面元数据保留旧文案。
 3. **Atlas Nodes 上游修复**：aiboboxx/v2rayfree 原日期化地址 /main/v20261020 已失效（404），更换为上游长期订阅路径 /main/sub。增加解析回归测试；部署后直接刷新 /api/sources，当时 cached=false、总量 9,318，其中该来源 ok=true、解析 85 条。
 4. **自动化生产巡检**：私有仓库新增 npm run smoke:health、MONITORING.md 和 .github/workflows/atlas-edge-health.yml。每天定时执行并支持手动触发，检查十域名 GET/HEAD、QR PNG 签名和尺寸、Tools SHA-256/UUID/Base64、IP JSON、Check 域名校验、Short/Paste 输入校验及 Meta 公开网页抓取。定时任务刻意不发起 Geo 查询，也不刷新 Nodes/Proxy 聚合源，避免周期性请求公共上游。健康探针和上游依赖状态分别报告。
 5. **此前遗留的生产验证缺口已补验**：
