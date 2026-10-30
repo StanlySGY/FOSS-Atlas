@@ -52,18 +52,28 @@ test('Atlas Tools examples retain the verified read-only endpoints and responses
   ])
 })
 
-test('Wiki documents verified Geo paths and does not advertise the failing JSON alias', () => {
+test('Wiki documents deployed QR, Geo and Meta service behavior with current policy and safety boundaries', () => {
   const geo = deployedWiki['atlas-geo']
   assert.deepEqual(geo.apiExamples.map((example) => example.path), [
     '/search?q=Seoul',
     '/reverse?lat=37.5665&lon=126.9780',
   ])
-  assert.ok(geo.cautions.some((item) => item.includes('/json') && item.includes('暂不可用')))
+  assert.ok(geo.features.some((item) => item.includes('Durable Object')))
+  assert.ok(geo.cautions.some((item) => item.includes('每秒最多 1 次')))
+  assert.ok(geo.cautions.some((item) => item.includes('自动补全') && item.includes('系统性查询')))
+  assert.ok(geo.usage.some((item) => item.includes('config:atlas-geo-upstream')))
+  assert.ok(geo.apiExamples.every((example) => example.response.attribution === '© OpenStreetMap contributors'))
+
   const qr = deployedWiki.qr
-  assert.ok(qr.cautions.some((item) => item.includes('/qr.png') && item.includes('image/svg+xml')))
+  assert.ok(qr.features.some((item) => item.includes('/qr.png') && item.includes('image/png')))
+  assert.ok(qr.usage.some((item) => item.includes('/qr.png?data=') && item.includes('.png')))
+  assert.equal(qr.cautions.some((item) => item.includes('image/svg+xml') && item.includes('/qr.png')), false)
+
   const meta = deployedWiki['atlas-meta']
-  assert.equal(meta.apiExamples[0].response.error, '抓取失败')
-  assert.ok(meta.cautions.some((item) => item.includes('间歇性抓取失败')))
+  assert.ok(meta.features.some((item) => item.includes('400 KiB') && item.includes('10 秒')))
+  assert.ok(meta.features.some((item) => item.includes('陈旧结果回退')))
+  assert.ok(meta.cautions.some((item) => item.includes('DNS rebinding')))
+  assert.ok(meta.cautions.some((item) => item.includes('不构成') && item.includes('完整防护')))
 })
 
 test('generated Wiki pages render usage, API examples, and cautions', () => {

@@ -231,32 +231,32 @@ export default {
   },
 
   qr: {
-    summary: '二维码生成 API：将文本或链接转换为 SVG 二维码，适合网页嵌入和矢量打印。',
+    summary: '二维码生成 API：同时支持 SVG 矢量图和 PNG 位图输出，可用于网页嵌入或下载。',
     features: [
-      '/api/qr?data= 和 /qr.svg?data= 均可生成 SVG 二维码',
-      '首页提供内容输入框与可选边长像素设置',
-      '二维码在自建边缘服务生成，不必把内容交给第三方二维码 API',
+      '/api/qr?data= 和 /qr.svg?data= 返回 SVG 二维码',
+      '/qr.png?data= 返回真实 PNG 图像，MIME 为 image/png',
+      '首页提供内容输入框与可选边长像素设置，二维码由自建边缘服务生成',
     ],
     scenarios: [
       '页面里要放二维码，但不想调用外部二维码生成服务',
-      '需要 SVG 矢量图以便缩放、嵌入网页或打印',
+      '需要 SVG 矢量图或可直接下载的 PNG 位图',
     ],
     updated: '2026-10-30',
     usage: [
-      '在 Atlas QR 首页输入要编码的文本或完整 URL；需要调整图像尺寸时，可使用页面提供的可选边长像素设置。',
-      '程序调用可使用 /api/qr?data=... 或 /qr.svg?data=...，请先对 data 参数进行 URL 编码。',
-      '接口返回 SVG 图像，可保存为 .svg 文件或直接作为网页图片资源使用。',
+      '在 Atlas QR 首页输入要编码的文本或完整 URL；可选设置图像边长像素。',
+      '需要矢量图时使用 /api/qr?data=... 或 /qr.svg?data=...；需要 PNG 文件时使用 /qr.png?data=...&size=320。',
+      '程序传参前请对 data 内容进行 URL 编码；PNG 响应可保存为 .png 文件，SVG 响应可保存为 .svg 文件。',
     ],
     apiExamples: [
       {
         title: '生成 SVG 二维码',
         path: '/api/qr?data=FOSS-Atlas',
-        note: '线上响应为 image/svg+xml；本轮同时验证 /qr.svg?data=FOSS-Atlas 可用。',
+        note: '线上响应类型为 image/svg+xml；/qr.svg 使用相同 SVG 输出。',
       },
     ],
     cautions: [
-      '本轮检查发现 /qr.png?data=FOSS-Atlas 虽返回 HTTP 200，响应 MIME 仍为 image/svg+xml；不要把该路径当作已验证的 PNG 输出。',
       '二维码只是把内容编码成图像，不会替链接背书；扫描陌生二维码前应先核对解码出的域名和目标地址。',
+      'PNG 路由现在返回真实 1-bit 灰度 PNG；不要再把旧版曾返回 SVG 的行为当作当前响应格式。',
     ],
   },
 
@@ -393,9 +393,9 @@ export default {
   'atlas-geo': {
     summary: '地理编码与逆地理编码 API：通过地名查找坐标，或通过坐标反查附近地点与地址。',
     features: [
-      '/search?q= 将地名转换为坐标和匹配结果',
-      '/reverse?lat=...&lon=... 根据坐标返回地址、地点类型和地址组成',
-      '查询结果使用自建 KV 缓存，重复请求可直接命中缓存',
+      '/search?q= 与 /json?q= 将地名转换为坐标和匹配结果，/reverse 根据坐标反查地址',
+      'KV 提供 7 天新鲜缓存与最长 30 天的陈旧结果回退',
+      '单个 Durable Object 对全站上游请求排队限速，并支持通过 KV 切换 Nominatim-compatible 上游',
     ],
     scenarios: [
       '应用需要把城市、地标或地址转换为经纬度',
@@ -403,16 +403,19 @@ export default {
     ],
     updated: '2026-10-30',
     usage: [
-      '地名正向查询使用 /search?q=，对中文或包含空格的地名应先做 URL 编码。',
-      '坐标逆向查询使用 /reverse?lat=纬度&lon=经度；纬度范围为 -90 至 90，经度范围为 -180 至 180。',
-      '响应中的 display_name、lat、lon、type 和 category 可用于展示或进一步处理；结果来自 OpenStreetMap Nominatim。',
+      '地名正向查询使用 /search?q= 或 /json?q=，对中文或包含空格的地名应先做 URL 编码；坐标逆向查询使用 /reverse?lat=纬度&lon=经度。',
+      '上游请求由全站共享的队列统一限速，至少间隔 1 秒；不要把接口用于自动补全、批量抓取或系统性查询。',
+      '默认数据来自 OpenStreetMap Nominatim，使用时请保留页面提供的 © OpenStreetMap contributors 署名。可通过 KV 的 config:atlas-geo-upstream 与 config:atlas-geo-attribution 切换兼容上游和署名；将上游配置为 disabled 可停止新的外部请求。',
     ],
     apiExamples: [
       {
         title: '地名转坐标（首尔）',
         path: '/search?q=Seoul',
         response: {
-          source: 'OpenStreetMap Nominatim',
+          source: 'Nominatim-compatible geocoder',
+          attribution: '© OpenStreetMap contributors',
+          cached: true,
+          stale: false,
           count: 1,
           results: [
             {
@@ -424,12 +427,16 @@ export default {
             },
           ],
         },
+        note: '线上缓存命中响应示例；结果会随上游数据和缓存状态变化。',
       },
       {
         title: '坐标反查地址',
         path: '/reverse?lat=37.5665&lon=126.9780',
         response: {
-          source: 'OpenStreetMap Nominatim',
+          source: 'Nominatim-compatible geocoder',
+          attribution: '© OpenStreetMap contributors',
+          cached: true,
+          stale: false,
           result: {
             display_name: 'Happy Plus Cafe, 110, 世宗大路, 太平路1街, 明洞, 中區, 首尔特别市, 04520, 韩国 / 南韓',
             lat: '37.5665253',
@@ -438,44 +445,44 @@ export default {
             category: 'amenity',
           },
         },
-        note: '地理结果会随 OpenStreetMap 数据和上游状态变化。',
+        note: '地理结果会随地图数据和上游状态变化；缓存回退时 stale 会为 true。',
       },
     ],
     cautions: [
-      '地理编码结果是地图数据匹配，不代表地址已经过权威核验；同名地点可能返回多个候选项。',
-      '本轮 /json 统一入口的带参数请求遇到上游暂不可用响应，因此只把已成功核验的 /search 与 /reverse 列为推荐调用示例。',
+      '公开 Nominatim 对整个应用设有每秒最多 1 次请求的限额，不是每个访客各 1 次；当前由全局 Durable Object 排队执行，队列过满时请求可能被拒绝。',
+      '不要实现自动补全或批量/系统性查询；如需调整上游，先确认替代服务的使用条款、速率限制和署名要求。详见 https://operations.osmfoundation.org/policies/nominatim/。',
+      '地理编码结果是地图数据匹配，不代表地址已经过权威核验；同名地点可能返回多个候选项，缓存回退结果也可能不是最新数据。',
     ],
   },
 
   'atlas-meta': {
-    summary: '链接元数据 / OpenGraph 解析 API：尝试抓取公开网页标题、描述、预览图和站点信息。',
+    summary: '链接元数据 / OpenGraph 解析 API：抓取公开网页标题、描述、预览图和站点信息，并提供失败降级。',
     features: [
       '/json?url= 接收目标页面地址，返回标题、描述、预览图和 favicon 等字段',
-      '由服务端抓取目标 HTML 并解析元数据，客户端不必自行处理网页源码',
-      '成功响应提供目标状态码、内容类型、字节数和缓存标记；抓取失败会返回 error',
+      '抓取设置 10 秒超时、400 KiB HTML 读取上限和有限重定向',
+      '支持 24 小时新鲜缓存与最长 7 天的陈旧结果回退，错误响应带稳定 code',
     ],
     scenarios: [
       '分享链接时希望自动生成标题、摘要和缩略图卡片',
-      '自建应用需要尝试读取公开网页元数据，并能处理上游抓取失败',
+      '自建应用需要读取公开网页元数据，并能处理目标站超时或拒绝抓取',
     ],
     updated: '2026-10-30',
     usage: [
       '在首页「页面 URL」输入一个可公开访问的网页地址，或者直接调用 /json?url=。',
-      '将目标 URL 作为 url 查询参数并进行 URL 编码；请先用普通公开网页做小规模测试。',
-      '成功时读取 status、content_type、title、description、image、site_name 和 favicon；失败时检查 error 字段并准备回退内容。',
+      '将目标 URL 作为 url 查询参数并进行 URL 编码；成功时读取 status、content_type、title、description、image、site_name 和 favicon。',
+      '目标站超时或抓取失败时，接口会返回稳定错误 code；如果存在 7 天内的历史成功缓存，会返回 stale=true 的缓存结果。',
     ],
     apiExamples: [
       {
-        title: '请求公开网页元数据（当前错误响应示例）',
+        title: '提取公开网页元数据',
         path: '/json?url=https%3A%2F%2Fexample.org',
-        response: { error: '抓取失败' },
-        note: '本轮早期请求曾成功返回 Example Domain 的标题和 status=200，随后对相同公开目标重复探测又返回此错误；此示例记录当前复测到的失败响应，不代表唯一可能的结果。',
+        note: '成功响应包含 url、status、content_type、bytes、title、description、image、site_name 和 favicon；具体字段取决于目标网页。',
       },
     ],
     cautions: [
-      '本轮服务表现为间歇性抓取失败：公开页面有过成功响应，但重复探测随后返回「抓取失败」；稳定性尚未确认，调用方必须处理 error 并准备降级展示。',
-      '这是服务端抓取目标网页的功能；只提交你有权抓取且可以公开访问的 URL，不要传入内网管理地址、云服务凭据端点或含访问令牌、签名参数、会话标识的 URL。',
-      'URL 查询字符串可能进入浏览器历史、代理或服务访问日志，不要放入个人隐私或其他秘密。',
+      '只提交你有权抓取且可公开访问的 URL；服务会拒绝常见私网主机名、IP 字面量、非标准端口和不安全重定向，但这些检查不构成对 DNS rebinding 等所有 SSRF 变体的完整防护，不要把它当成任意 URL 代理。',
+      '这是服务端抓取目标网页的功能；不要传入云服务凭据端点、含访问令牌/签名参数/会话标识的 URL，查询字符串也可能进入浏览器历史或访问日志。',
+      '上游站点可能拒绝抓取或超时；调用方仍应处理 error/code 并准备降级展示，stale=true 表示返回了缓存而非本次新抓取结果。',
     ],
   },
 
