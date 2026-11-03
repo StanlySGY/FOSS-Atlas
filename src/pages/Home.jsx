@@ -140,7 +140,7 @@ export default function Home() {
             开源<span className="text-[var(--accent)]">白嫖</span>资源图鉴
           </h1>
           <p className="text-sm leading-relaxed text-[var(--text-dim)]">
-            把散落在收藏夹里的免费额度、开源自部署方案和公开 API，收进一张可搜索、可漫游、可追溯的图里。搜索定位资源，打开 Wiki 查看部署方式与替代关系，再用知识图谱看全局；带「已自部署」标记的条目还可以直接打开实际服务。
+            免费额度、开源自部署方案与公开 API，一站搜索、Wiki 深挖、图谱看关系；带「已自部署」标记的资源可直接打开实际服务。
           </p>
         </div>
 
@@ -207,8 +207,6 @@ export default function Home() {
 
       </section>
 
-      {showFeaturedBuilds ? <FeaturedBuilds /> : null}
-
       {/* Toolbar: search + live result count, then the category rail. */}
       <section className="space-y-3">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -225,6 +223,7 @@ export default function Home() {
               <path d="m20 20-3.2-3.2" strokeLinecap="round" />
             </svg>
             <input
+              aria-label="搜索资源目录"
               value={query}
               onChange={(e) => handleQuery(e.target.value)}
               placeholder="搜索名称 / 描述 / 标签 / 域名，例如 ollama、密码、免费"
@@ -307,6 +306,8 @@ export default function Home() {
           </div>
         ) : null}
       </section>
+
+      {showFeaturedBuilds ? <FeaturedBuilds /> : null}
 
       {hasActiveFilters ? (
         <div className="mb-3 flex flex-wrap items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--line-soft)] bg-[var(--ink-card)] px-3 py-2.5">
