@@ -337,7 +337,7 @@ const CATEGORIES = [
           ['mfuu-freeproxies', 'mfuu/FreeProxies', 'https://github.com/mfuu/FreeProxies', '每日更新的免费节点订阅仓库', ['订阅', '节点', '开源']],
           ['aiboboxx-v2rayfree', 'aiboboxx/v2rayfree', 'https://github.com/free-nodes/v2rayfree', '免费 v2ray 节点订阅', ['订阅', 'v2ray', '开源']],
           ['barry-far-v2ray-configs', 'barry-far/V2ray-Configs', 'https://github.com/barry-far/V2ray-Config', '聚合式免费节点配置', ['订阅', 'v2ray', '开源']],
-          ['epodonators-v2ray-configs', 'Epodonators/v2ray-configs', 'https://github.com/Epodonios/v2ray-configs', '高频更新的免费节点订阅', ['订阅', 'v2ray', '开源']],
+          ['epodonators-v2ray-configs', 'Epodonios/v2ray-configs', 'https://github.com/Epodonios/v2ray-configs', '原始 GitHub 仓库目前返回 404；同名社区 fork 不自动等同原项目，使用前需重新核验来源', ['订阅', 'v2ray', '来源待核验']],
         ],
       },
     ],

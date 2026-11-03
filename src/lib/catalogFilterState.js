@@ -5,6 +5,6 @@ export function queryFromSearchParams(searchParams) {
 
 export function resetCatalogFiltersParams(searchParams) {
   const params = new URLSearchParams(searchParams)
-  for (const key of ['q', 'cat', 'sub', 'deployed']) params.delete(key)
+  for (const key of ['q', 'cat', 'sub', 'deployed', 'offer']) params.delete(key)
   return params
 }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import DeployedBadge from './DeployedBadge.jsx'
 import { categoryColor, categoryRing, categorySoft } from '../lib/categoryColor.js'
 import { hostFor, iconFor, initialFor } from '../lib/data.js'
+import { getOffering } from '../lib/offerings.js'
 
 /**
  * Site icon. Renders a lettered tile underneath and layers the favicon on top,
@@ -41,6 +42,7 @@ function SiteIcon({ resource }) {
 export default function ResourceCard({ resource, index = 0 }) {
   const { id, name, url, description, tags, category, sub_category, sub_category_name } = resource
   const host = hostFor(resource)
+  const offering = getOffering(id)
 
   return (
     <article
@@ -61,6 +63,7 @@ export default function ResourceCard({ resource, index = 0 }) {
       </div>
 
       <p className="line-clamp-2 text-xs leading-relaxed text-[var(--text-dim)]">{description}</p>
+      {offering ? <span className="-mt-1 w-fit rounded-[4px] border border-[var(--line)] bg-[var(--ink-sunken)] px-1.5 py-0.5 text-[10px] text-[var(--text-faint)]">{offering.shortLabel}</span> : null}
 
       {tags?.length ? (
         <div className="flex flex-wrap gap-1.5">

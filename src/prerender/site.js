@@ -68,7 +68,7 @@ export const STATIC_ROUTES = [
     path: '/graph/',
     title: '知识图谱 · FOSS-Atlas',
     description:
-      '186 个条目、643 条关系边的可拖拽图谱：同类、替代、分类、自建实例一目了然，可只看已自部署的部分。',
+      '186 个条目、642 条关系边的可拖拽图谱：同类、替代、分类、自建实例一目了然，可只看已自部署的部分。',
     kind: 'WebPage',
   },
   {

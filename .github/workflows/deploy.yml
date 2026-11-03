@@ -39,7 +39,7 @@ jobs:
         run: npm ci
 
       - name: Run regression tests
-        run: npm test && npm run lint
+        run: npm test && npm run lint && npm run offers:check
 
       # The catalogue JSON is committed, so a PR that edits the hand-written
       # sources without re-running the generator would ship stale JSON. Regenerate
@@ -66,6 +66,7 @@ jobs:
           # Project site → served from /<repo>/. Set to "/" for a custom domain
           # or a user/org page.
           VITE_BASE: /${{ github.event.repository.name }}/
+          GITHUB_TOKEN: ${{ github.token }}
         run: npm run build
 
       # The 自部署服务 page states what a build-time probe actually observed. The

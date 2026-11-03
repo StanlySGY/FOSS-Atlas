@@ -54,11 +54,12 @@ test('graph defaults keep only category/subcategory labels; selected/focused nod
 test('catalogue query sync treats a missing q as empty and reset clears every active filter', () => {
   assert.equal(queryFromSearchParams(new URLSearchParams('cat=ai&deployed=1')), '')
   assert.equal(queryFromSearchParams(new URLSearchParams('q=ollama')), 'ollama')
-  const reset = resetCatalogFiltersParams(new URLSearchParams('q=ollama&cat=ai&sub=ai-local&deployed=1&campaign=test'))
+  const reset = resetCatalogFiltersParams(new URLSearchParams('q=ollama&cat=ai&sub=ai-local&deployed=1&offer=trial&campaign=test'))
   assert.equal(reset.has('q'), false)
   assert.equal(reset.has('cat'), false)
   assert.equal(reset.has('sub'), false)
   assert.equal(reset.has('deployed'), false)
+  assert.equal(reset.has('offer'), false)
   assert.equal(reset.get('campaign'), 'test')
 })
 

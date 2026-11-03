@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T07:27:39.116Z",
+  "generated_at": "2026-11-03T09:32:43.397Z",
   "stats": {
     "tools": 186,
     "categories": 11,
@@ -9,7 +9,7 @@
     "own": 12,
     "deployed": 75,
     "instances": 93,
-    "edges": 643
+    "edges": 642
   },
   "categories": [
     {
@@ -2630,7 +2630,7 @@
     },
     {
       "id": "epodonators-v2ray-configs",
-      "name": "Epodonators/v2ray-configs",
+      "name": "Epodonios/v2ray-configs",
       "type": "tool",
       "category": "proxy",
       "sub_category": "proxy-sub",
@@ -5964,11 +5964,6 @@
     {
       "source": "epodonators-v2ray-configs",
       "target": "tag:订阅",
-      "type": "tagged"
-    },
-    {
-      "source": "epodonators-v2ray-configs",
-      "target": "tag:开源",
       "type": "tagged"
     },
     {

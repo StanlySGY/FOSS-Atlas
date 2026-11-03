@@ -1,0 +1,798 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-11-03",
+  "entries": [
+    {
+      "resourceId": "aws",
+      "types": [
+        "free-tier",
+        "trial",
+        "credit"
+      ],
+      "label": "持续免费额度 + 新用户试用",
+      "shortLabel": "免费层 + 试用",
+      "summary": "新客户可获得最长 6 个月、最高 00 AWS credits；另有 30 多项服务提供按各自限制执行的 Always Free 用量。试用 credits 不是永久免费。",
+      "limits": [
+        [
+          "新客户 credits",
+          "最高 00",
+          "最长 6 个月；00 注册额度，另有最多 00 可通过基础服务获得"
+        ],
+        [
+          "Always Free",
+          "30+ 项服务",
+          "按各服务单独额度"
+        ]
+      ],
+      "conditions": [
+        "试用 credits 有资格、时限和服务范围限制。",
+        "Always Free 并非所有 AWS 产品免费；超额可能收费。"
+      ],
+      "sources": [
+        [
+          "AWS Free Tier FAQs",
+          "https://aws.amazon.com/free/free-tier-faqs/",
+          "新客户最长 6 个月、最高 00 credits 和 30+ Always Free 服务"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "azure",
+      "types": [
+        "free-tier",
+        "trial",
+        "credit"
+      ],
+      "label": "新用户试用 + 持续免费额度",
+      "shortLabel": "试用 + 免费层",
+      "summary": "新 Azure 客户可获得 30 天内使用的 00 额度；20 多项常用服务有 12 个月免费月度额度，65 多项服务提供 Always Free 月度额度。",
+      "limits": [
+        [
+          "试用额度",
+          "00",
+          "30 天"
+        ],
+        [
+          "热门服务",
+          "20+ 项",
+          "前 12 个月免费月度用量"
+        ],
+        [
+          "Always Free",
+          "65+ 项",
+          "按服务提供免费月度用量"
+        ]
+      ],
+      "conditions": [
+        "仅适用于符合条件的新客户。",
+        "免费用量受服务、区域和规格限制；试用额度用尽或到期后继续使用完整服务目录需转即用即付。"
+      ],
+      "sources": [
+        [
+          "Azure account and free services",
+          "https://azure.microsoft.com/en-gb/pricing/purchase-options/azure-account",
+          "00/30 天、20+ 项 12 个月免费服务、65+ 项 Always Free"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "google-cloud",
+      "types": [
+        "free-tier"
+      ],
+      "label": "按产品的持续免费额度",
+      "shortLabel": "免费层",
+      "summary": "Google Cloud Free Tier 含部分产品持续免费用量；e2-micro 额度仅覆盖指定美国区域、每月总小时数以及特定磁盘和出网条件。",
+      "limits": [
+        [
+          "Compute Engine",
+          "1 台 e2-micro 等效用量",
+          "每月总小时数；限 us-west1 / us-central1 / us-east1"
+        ],
+        [
+          "标准持久磁盘",
+          "30 GB-month",
+          "每月"
+        ],
+        [
+          "出网流量",
+          "1 GB",
+          "每月；符合条件的北美出网"
+        ],
+        [
+          "Cloud Storage",
+          "5 GB-month",
+          "每月；限指定美国区域"
+        ]
+      ],
+      "conditions": [
+        "e2-micro 按当月总小时数计算，不是每个实例各自免费。",
+        "区域、目的地、GPU/TPU 和其他产品规格均有额外限制。"
+      ],
+      "sources": [
+        [
+          "Google Cloud Free Tier features",
+          "https://docs.cloud.google.com/free/docs/free-cloud-features",
+          "e2-micro、30GB 磁盘、1GB 出网和区域存储额度"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "oracle-cloud",
+      "types": [
+        "free-tier"
+      ],
+      "label": "Always Free（有区域与容量限制）",
+      "shortLabel": "Always Free",
+      "summary": "Oracle Cloud Always Free 包括最多 2 台 AMD Micro VM，以及 Ampere A1 每月 1,500 OCPU-hours 和 9,000 GB-hours 免费额度，约等于 2 OCPU / 12 GB 内存。",
+      "limits": [
+        [
+          "AMD Micro",
+          "最多 2 台 VM.Standard.E2.1.Micro",
+          "Always Free"
+        ],
+        [
+          "Ampere A1",
+          "1,500 OCPU-hours + 9,000 GB-hours",
+          "每月；约 2 OCPU + 12 GB 内存"
+        ]
+      ],
+      "conditions": [
+        "Always Free Compute 必须部署在 tenancy 的 home region。",
+        "部分区域可能暂时没有免费主机容量；额外存储等仍需逐项核对。"
+      ],
+      "sources": [
+        [
+          "Oracle Always Free resources",
+          "https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm",
+          "2 台 AMD Micro 与 A1 每月免费额度"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "cloudflare",
+      "types": [
+        "free-tier"
+      ],
+      "label": "免费计划（按产品限额）",
+      "shortLabel": "免费层",
+      "summary": "Cloudflare Workers Free 每日包含 100,000 次请求，单次 CPU 时间上限 10 ms；这仅是 Workers 免费计划，不代表 Cloudflare 所有产品都无限免费。",
+      "limits": [
+        [
+          "Workers 请求",
+          "100,000 次",
+          "每日"
+        ],
+        [
+          "CPU 时间",
+          "10 ms",
+          "每次请求"
+        ],
+        [
+          "Subrequests",
+          "50 次",
+          "每次请求"
+        ]
+      ],
+      "conditions": [
+        "以上仅适用于 Workers Free；其他产品另有各自限制。",
+        "达到请求或 CPU 限制后可能出现失败或需要升级。"
+      ],
+      "sources": [
+        [
+          "Cloudflare Workers limits",
+          "https://developers.cloudflare.com/workers/platform/limits/",
+          "Workers Free 请求、CPU 和 Subrequests 限额"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "render",
+      "types": [
+        "free-tier"
+      ],
+      "label": "免费实例（仅适合测试/爱好项目）",
+      "shortLabel": "免费实例",
+      "summary": "Render 提供免费的 Web Service、Postgres、Key Value 和静态站点，但有持久化、休眠和月度额度限制，不适合生产服务。",
+      "limits": [
+        [
+          "Free instance hours",
+          "750 小时",
+          "每 workspace / 每自然月"
+        ],
+        [
+          "Free Postgres",
+          "最长 30 天",
+          "创建后到期"
+        ]
+      ],
+      "conditions": [
+        "免费 Web Service 不提供持久化本地磁盘。",
+        "免费 Postgres 30 天后过期；小时额度耗尽后免费 Web Services 暂停至下月。",
+        "官方明确建议不要将免费实例用于生产应用。"
+      ],
+      "sources": [
+        [
+          "Render Deploy for Free",
+          "https://render.com/docs/free",
+          "免费服务类型、750 小时/月和免费 Postgres 30 天期限"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "railway",
+      "types": [
+        "free-tier",
+        "trial",
+        "credit"
+      ],
+      "label": "30 天试用 + 每月  免费额度",
+      "shortLabel": "试用 + /月",
+      "summary": "新用户试用提供一次性  额度，最长 30 天；试用到期或用尽后回到 Free 计划，每月  用量额度，不滚存。",
+      "limits": [
+        [
+          "新用户试用",
+          "一次性 ",
+          "最长 30 天"
+        ],
+        [
+          "Free 计划",
+          " 用量额度",
+          "每月；不滚存"
+        ]
+      ],
+      "conditions": [
+        "试用不是持续 /月；到期后进入 Free 计划。",
+        "额度用于抵扣资源消耗，超过额度需升级或停止超额用量。"
+      ],
+      "sources": [
+        [
+          "Railway Free Trial",
+          "https://docs.railway.com/pricing/free-trial",
+          " 一次性试用、30 天期限和试用后 /月"
+        ],
+        [
+          "Railway Pricing Plans",
+          "https://docs.railway.com/pricing/plans",
+          "Free 计划每月  用量额度"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "fly-io",
+      "types": [
+        "paid-usage"
+      ],
+      "label": "按量付费（无通用新用户免费层）",
+      "shortLabel": "按量付费",
+      "summary": "Fly.io 当前以组织级资源用量计费，Machines 按运行秒数收费，存储和出网另计。旧资料中的早期免费权益不能视为新用户普遍可用的免费计划。",
+      "limits": [
+        [
+          "计费方式",
+          "运行时间、存储和出网用量",
+          "按量计费"
+        ]
+      ],
+      "conditions": [
+        "非 Linked Organization 需要账户留存信用卡。",
+        "旧账户可能存在历史权益；部署前应使用官方价格页核算费用。"
+      ],
+      "sources": [
+        [
+          "Fly.io Resource Pricing",
+          "https://fly.io/docs/about/pricing/",
+          "组织级用量计费与信用卡要求"
+        ],
+        [
+          "Fly.io Pricing",
+          "https://fly.io/pricing/",
+          "Machines 按秒计费，存储和出网另计"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "koyeb",
+      "types": [
+        "free-tier"
+      ],
+      "label": "每组织 1 个免费 Web 实例",
+      "shortLabel": "1 个免费实例",
+      "summary": "每个 Koyeb 组织可使用一个 Free Web Service（512 MB RAM、0.1 vCPU、2 GB SSD）；免费 PostgreSQL 的活跃时间和容量也有限。",
+      "limits": [
+        [
+          "Free Web Service",
+          "1 个；512 MB / 0.1 vCPU / 2 GB SSD",
+          "每组织"
+        ],
+        [
+          "Free PostgreSQL",
+          "1 GB 存储、5 小时活跃时间",
+          "每组织"
+        ]
+      ],
+      "conditions": [
+        "免费 Web Service 区域有限。",
+        "免费实例定位为平台预览和爱好项目，不应当作生产保障。"
+      ],
+      "sources": [
+        [
+          "Koyeb Pricing FAQ",
+          "https://www.koyeb.com/docs/faqs/pricing",
+          "每组织一个免费 Web Service 和 PostgreSQL 额度"
+        ],
+        [
+          "Koyeb Instances",
+          "https://www.koyeb.com/docs/reference/instances",
+          "免费实例硬件规格"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "supabase",
+      "types": [
+        "free-tier"
+      ],
+      "label": "Free 计划（项目会自动暂停）",
+      "shortLabel": "免费层",
+      "summary": "Supabase Free 最多 2 个活跃项目、每项目 500 MB 数据库、5 GB 出网和 1 GB 文件存储；项目连续一周不活跃可能暂停。",
+      "limits": [
+        [
+          "活跃项目",
+          "最多 2 个",
+          "Free 计划"
+        ],
+        [
+          "数据库",
+          "500 MB",
+          "每项目"
+        ],
+        [
+          "出网 / 缓存出网",
+          "5 GB / 5 GB",
+          "每月"
+        ],
+        [
+          "文件存储",
+          "1 GB",
+          "Free 计划"
+        ],
+        [
+          "MAU",
+          "50,000",
+          "每月"
+        ]
+      ],
+      "conditions": [
+        "Free 项目 1 周无活动后会暂停，需手动恢复。",
+        "Free 项目数限制按用户在各组织的 Owner / Admin 身份汇总计算。"
+      ],
+      "sources": [
+        [
+          "Supabase Pricing",
+          "https://supabase.com/pricing/",
+          "Free 计划项目、数据库、出网、文件存储和 MAU 额度"
+        ],
+        [
+          "Supabase Billing",
+          "https://supabase.com/docs/guides/platform/billing-on-supabase",
+          "2 个项目限制和组织级计算规则"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "neon",
+      "types": [
+        "free-tier"
+      ],
+      "label": "Free 计划（2026-10 存储额度已调整）",
+      "shortLabel": "免费层",
+      "summary": "Neon Free 当前提供 100 个项目，每项目 100 CU-hours/月、1 GB Postgres 存储和 10 个分支；1 GB 是 2026-10-02 上调后的额度，不应继续沿用旧的 0.5 GB。",
+      "limits": [
+        [
+          "项目数",
+          "100 个",
+          "Free 计划"
+        ],
+        [
+          "计算",
+          "100 CU-hours",
+          "每项目 / 每月"
+        ],
+        [
+          "数据库存储",
+          "1 GB",
+          "每项目；2026-10-02 更新"
+        ],
+        [
+          "分支",
+          "10 个",
+          "每项目"
+        ],
+        [
+          "公网传输",
+          "5 GB",
+          "每项目 / 每月"
+        ]
+      ],
+      "conditions": [
+        "Compute 按项目单独计算，不是账户统一共享池。",
+        "空闲计算会自动 scale to zero；额度和产品功能可能变化。"
+      ],
+      "sources": [
+        [
+          "Neon Free Plan update (2026-10-02)",
+          "https://neon.com/blog/neon-free-plan-1-gb-per-project",
+          "100 个项目、每项目 1GB 存储、100 CU-hours 和 10 个分支"
+        ],
+        [
+          "Neon Free Plan quotas",
+          "https://github.com/neondatabase/website/blob/main/content/faqs/free-plan-limits-and-quotas.md",
+          "项目、分支、计算、存储和传输限制"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "vercel",
+      "types": [
+        "free-tier"
+      ],
+      "label": "Hobby 免费计划（仅个人非商业使用）",
+      "shortLabel": "Hobby 免费",
+      "summary": "Vercel Hobby 面向个人项目和小型应用；官方公平使用规则将 Hobby 限定为非商业个人用途。",
+      "limits": [
+        [
+          "Active CPU",
+          "4 CPU-hours",
+          "每月"
+        ],
+        [
+          "Function invocations",
+          "1,000,000 次",
+          "额度周期按官方表"
+        ],
+        [
+          "Build execution",
+          "6,000 分钟",
+          "每月"
+        ],
+        [
+          "Projects",
+          "最多 200 个",
+          "Hobby 计划"
+        ]
+      ],
+      "conditions": [
+        "Hobby 仅用于个人、非商业用途；商业项目应评估 Pro。",
+        "额度按功能分别计算，不等于所有资源无限免费。"
+      ],
+      "sources": [
+        [
+          "Vercel Hobby plan",
+          "https://vercel.com/docs/plans/hobby",
+          "Hobby 额度和非商业个人用途限制"
+        ],
+        [
+          "Vercel limits",
+          "https://vercel.com/docs/limits",
+          "项目、构建和函数全局上限"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "netlify",
+      "types": [
+        "free-tier",
+        "credit"
+      ],
+      "label": "Free /bin/bash 计划（每月 300 credits）",
+      "shortLabel": "300 credits/月",
+      "summary": "Netlify Free 为 /bin/bash 计划，每月提供 300 credits；构建、带宽和请求等服务会消耗 credits。",
+      "limits": [
+        [
+          "月度 credits",
+          "300 credits",
+          "每月"
+        ],
+        [
+          "自定义域名 + SSL",
+          "包含",
+          "Free 计划"
+        ],
+        [
+          "Deploy previews",
+          "Unlimited",
+          "产品页面标示"
+        ]
+      ],
+      "conditions": [
+        "300 credits 是多项资源共同消耗的额度，不是 300 次部署或 300 GB 流量。",
+        "实际消耗取决于构建、带宽和请求等用量；额度耗尽后的行为以账户控制台为准。"
+      ],
+      "sources": [
+        [
+          "Netlify Pricing",
+          "https://www.netlify.com/pricing/",
+          "Free /bin/bash 计划和每月 300 credits"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "hf-inference-api",
+      "types": [
+        "credit",
+        "api-demo"
+      ],
+      "label": "每月 /bin/bash.10 推理 credits（可变）",
+      "shortLabel": "/bin/bash.10/月 credits",
+      "summary": "Hugging Face Free 用户每月获得 /bin/bash.10 Inference Providers credits；官方注明金额可能变化，超出部分按量计费并需要购买 credits。",
+      "limits": [
+        [
+          "Free 用户额度",
+          "/bin/bash.10",
+          "每月；subject to change"
+        ]
+      ],
+      "conditions": [
+        "仅用于 Inference Providers，不代表免费的 GPU 推理端点或所有 Spaces 资源。",
+        "额外用量按量计费；Pro、Team、Enterprise credits 不能套用到 Free 用户。"
+      ],
+      "sources": [
+        [
+          "Hugging Face Inference Providers Pricing",
+          "https://huggingface.co/docs/inference-providers/pricing",
+          "Free 用户每月 /bin/bash.10 credits，金额可能变化和额外计费规则"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "openweathermap",
+      "types": [
+        "free-tier",
+        "api-demo"
+      ],
+      "label": "One Call API 4.0 每日首 1,000 次免费",
+      "shortLabel": "1,000 次/天",
+      "summary": "OpenWeather 当前页面说明 One Call API 4.0 每日首 1,000 次调用免费，超出部分每次 /bin/bash.0015；这个规则只针对 One Call 产品，不代表所有 API 都有同样额度。",
+      "limits": [
+        [
+          "One Call API 4.0",
+          "首 1,000 calls 免费",
+          "每日"
+        ],
+        [
+          "超额调用",
+          "/bin/bash.0015 / call",
+          "超过每日免费额度后"
+        ]
+      ],
+      "conditions": [
+        "免费额度是 One Call API 产品级规则，其他 API 产品需单独核对。",
+        "不要把旧版 One Call 3.0 条件与当前 4.0 定价混为一谈。"
+      ],
+      "sources": [
+        [
+          "OpenWeather API pricing",
+          "https://openweathermap.org/price",
+          "One Call 首 1,000 calls/day 免费，超额 /bin/bash.0015/call"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "ipinfo",
+      "types": [
+        "free-tier",
+        "api-demo"
+      ],
+      "label": "IPinfo Lite 免费（需 token；字段受限）",
+      "shortLabel": "Lite 免费",
+      "summary": "IPinfo Lite 免费计划对使用 token 的 country-level geolocation 和基础 ASN 查询不设每日或每月请求上限；城市级定位、隐私检测等属于其他产品。",
+      "limits": [
+        [
+          "IPinfo Lite",
+          "无限请求（country-level + basic ASN）",
+          "需 access token"
+        ],
+        [
+          "Legacy public API",
+          "1,000 requests",
+          "每日；无账户公共接口，按共享出口 IP 限流"
+        ]
+      ],
+      "conditions": [
+        "Lite 必须使用账户 token，返回字段范围比付费产品少。",
+        "无 token 的 Legacy 公共接口额度不同；IPinfo Lite 公开使用需要署名。"
+      ],
+      "sources": [
+        [
+          "IPinfo Free Plan usage limits",
+          "https://support.ipinfo.io/hc/en-us/articles/30792535492626-What-Is-the-Usage-Limit-for-the-Free-Plan",
+          "Lite country-level 和 basic ASN token 查询不设日/月请求上限"
+        ],
+        [
+          "Legacy API vs IPinfo Lite",
+          "https://support.ipinfo.io/hc/en-us/articles/30792479436562-What-Is-the-Difference-Between-Using-the-Authenticated-Free-Plan-and-the-Public-API-With-No-Account",
+          "无账户公共接口每日 1,000 次并由共享 IP 计数"
+        ],
+        [
+          "Legacy Free API vs IPinfo Lite",
+          "https://support.ipinfo.io/hc/en-us/articles/34121895556242-Legacy-Free-API-vs-IPinfo-Lite",
+          "Lite / Legacy 字段、Token 和署名差异"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "unsplash",
+      "types": [
+        "api-demo"
+      ],
+      "label": "Demo 50 次/小时；生产额度需审批",
+      "shortLabel": "Demo 50 次/小时",
+      "summary": "Unsplash API 默认 Demo 模式限额为每小时 50 次 JSON API 请求；申请并获批 Production 后可提高至每小时 1,000 次。",
+      "limits": [
+        [
+          "Demo mode",
+          "50 requests",
+          "每小时"
+        ],
+        [
+          "Production mode",
+          "1,000 requests",
+          "每小时；需申请并获批"
+        ]
+      ],
+      "conditions": [
+        "Production 提额不是自动获得，需通过 API Guidelines 和 Unsplash 审核。",
+        "必须遵守摄影师署名、图片 hotlinking 和下载事件追踪等 API 指南。"
+      ],
+      "sources": [
+        [
+          "Unsplash API Documentation",
+          "https://unsplash.com/documentation",
+          "Demo 50 requests/hour、Production 1,000 requests/hour 及 API Guidelines"
+        ],
+        [
+          "Unsplash higher rate limits",
+          "https://help.unsplash.com/en/articles/3887917-when-should-i-apply-for-a-higher-rate-limit",
+          "Production 审核条件与公开使用要求"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "google-ai-api",
+      "types": [
+        "free-tier",
+        "api-demo"
+      ],
+      "label": "模型受限的免费 API 层",
+      "shortLabel": "Gemini 免费 API",
+      "summary": "Gemini Developer API 提供部分模型的免费输入与输出 token 和 Google AI Studio 访问；免费层仅开放部分模型，速率限制因模型和项目而异。免费层提交内容可能用于改进 Google 产品。",
+      "limits": [
+        [
+          "模型访问",
+          "仅限部分模型",
+          "以 Models 与 Rate limits 页面为准"
+        ],
+        [
+          "输入 / 输出 token",
+          "部分模型免费",
+          "具体型号和配额不同"
+        ],
+        [
+          "Google AI Studio",
+          "可使用",
+          "免费层"
+        ]
+      ],
+      "conditions": [
+        "不要把免费层额度泛化到全部 Gemini 模型或所有工具功能。",
+        "Google 官方说明免费层内容可能用于改进产品；生产敏感数据应先评估数据处理政策。",
+        "具体 RPM / TPM / RPD 按模型、项目及使用层级变化。"
+      ],
+      "sources": [
+        [
+          "Gemini API pricing",
+          "https://ai.google.dev/gemini-api/docs/pricing",
+          "部分模型免费输入输出 token、受限模型访问及免费层数据使用说明"
+        ],
+        [
+          "Gemini API rate limits",
+          "https://ai.google.dev/gemini-api/docs/rate-limits",
+          "按模型、项目和使用层级划分速率限制"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "mymemory",
+      "types": [
+        "free-tier",
+        "api-demo"
+      ],
+      "label": "按字符数计量的免费翻译 API",
+      "shortLabel": "5,000 字符/天",
+      "summary": "MyMemory 匿名免费使用限额为每天 5,000 个字符；在请求中提供有效邮箱参数 de 可提高到每天 50,000 个字符。白名单 150,000 字符/天仅面向符合条件的成熟 CAT 工具。",
+      "limits": [
+        [
+          "匿名使用",
+          "5,000 字符",
+          "每日"
+        ],
+        [
+          "提供有效邮箱 de",
+          "50,000 字符",
+          "每日"
+        ],
+        [
+          "白名单 CAT 工具",
+          "150,000 字符",
+          "每日；需审核资格"
+        ]
+      ],
+      "conditions": [
+        "额度按字符而非请求次数计算。",
+        "邮箱参数应使用可联系的有效邮箱。",
+        "白名单不是个人项目或开发中项目的默认权益。",
+        "需遵守 MyMemory 服务条款。"
+      ],
+      "sources": [
+        [
+          "MyMemory API usage limits",
+          "https://mymemory.translated.net/doc/usagelimits.php",
+          "匿名 5,000 字符/天、提供邮箱 50,000 字符/天、白名单 150,000 字符/天"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "replicate",
+      "types": [
+        "paid-usage"
+      ],
+      "label": "按模型用量计费（无通用免费层承诺）",
+      "shortLabel": "按量付费",
+      "summary": "Replicate 公共模型按模型硬件和运行时长或输入输出计费；每个模型有自己的价格，不能把社区模型可浏览或可试用理解为持续免费推理。",
+      "limits": [
+        [
+          "计费方式",
+          "按模型运行时间或输入输出计费",
+          "每个模型价格不同"
+        ],
+        [
+          "成本估算",
+          "查看具体模型页面",
+          "硬件、时长和模型不同"
+        ]
+      ],
+      "conditions": [
+        "运行前检查模型页标出的每次运行价格和硬件费率。",
+        "GPU 运行成本可能显著高于 CPU；停止或取消运行的计费规则以具体模型和平台条款为准。",
+        "本条不把短期推广额度或个别试用误认为持续免费层。"
+      ],
+      "sources": [
+        [
+          "Replicate Pricing",
+          "https://replicate.com/pricing",
+          "公共模型按硬件与时间或输入输出计费，具体成本见模型页"
+        ]
+      ],
+      "verifiedAt": "2026-11-03"
+    }
+  ]
+}

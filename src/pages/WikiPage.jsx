@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import DeployedBadge from '../components/DeployedBadge.jsx'
 import Markdown from '../components/Markdown.jsx'
+import OfferingPanel from '../components/OfferingPanel.jsx'
+import RepositoryPanel from '../components/RepositoryPanel.jsx'
 import { backlinksFor } from '../lib/backlinks.js'
 import { categoryColor, categoryRing, categorySoft } from '../lib/categoryColor.js'
 import {
@@ -284,6 +286,9 @@ export default function WikiPage() {
             ) : null}
           </div>
         </header>
+
+        <OfferingPanel resourceId={id} />
+        <RepositoryPanel resourceId={id} />
 
         {toc.length >= 3 ? (
           <nav

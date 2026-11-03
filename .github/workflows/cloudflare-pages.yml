@@ -3,6 +3,8 @@ name: Build & Deploy to Cloudflare Pages
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '17 3 * * *'
   workflow_dispatch:
 
 # Never cancel a publish that is half-way through.
@@ -23,6 +25,7 @@ jobs:
       VITE_BASE: /
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -37,7 +40,7 @@ jobs:
         run: npm ci
 
       - name: Run regression tests
-        run: npm test && npm run lint
+        run: npm test && npm run lint && npm run offers:check
 
       # Same gate as the GitHub Pages workflow: it is a different deploy of the
       # same commit, so it must not publish a JSON snapshot that the generator

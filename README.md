@@ -28,7 +28,7 @@
 | 一级分类 | **11** |
 | 子分类 | **22** |
 | 图谱节点 | **283**（工具 / 自建 / 分类 / 子类 / 标签 / 外部服务） |
-| 图谱关系边 | **643**（属于 / 归类 / 标签 / 相关 / 替代） |
+| 图谱关系边 | **642**（属于 / 归类 / 标签 / 相关 / 替代） |
 | 自部署实例 | **93**（75 个资源条目在跑，其中 12 个为 Atlas 自建） |
 | Wiki 页面 | **186**（每个条目一篇，全部可读） |
 
@@ -146,6 +146,8 @@ npm run fonts      # 抽取站点用到的字形 → public/fonts/*.woff2（中�
 npm run og         # 无头 Chrome 重画 public/og/*.png 社交卡片，并记录卡片画自哪份数据
 npm run og:check   # 不渲染：只检查已提交的卡片是否还对得上当前数据（CI 跑这个）
 npm run views:check # 图谱各视图的节点数是否还符合代码里的说法（CI 跑这个）
+npm run offers:check # 免费方案证据、资源关联和来源格式校验
+npm run repositories:sync # 有 GITHUB_TOKEN 时刷新公开 GitHub 仓库元数据
 npm run probe      # 只读探测 93 个自部署 URL；CI 在 build 之后写 dist/probe.json，/deployed 页面显示这次观察
 node scripts/build-wikis.mjs   # 生成 181 篇 Wiki + src/data/backlinks.json
 npm run build      # 刷新 Wiki → vite build → 校验社交卡片 → 预渲染 189 个页面 → 404.html
@@ -285,6 +287,18 @@ dist/index.html + 数据 ──► scripts/prerender.mjs ──► dist/wiki/<id
 | `deployed_kinds` | 这些实现的种类：`instance`（跑工具本身）/ `companion`（官方前端）/ `mirror`（文档或仓库镜像）/ `own`（Atlas 自己的服务） |
 | `instances` | 具名实例数组 `{id, url, stack, group, kind}`，`group` 是 `edge` / `github` / `docker`；卡片上的「已自部署 N」就是这个数组的长度 |
 | `own` | 仅 Atlas 自建的 12 个条目为 `true`：它们由生成器从 `deployed.json` mint 成真正的图鉴条目（分类 `atlas` / Atlas 自建），另带 `stack` / `group` / `replaces` |
+
+### 免费方案与证据数据
+
+免费层不是一个布尔值。2026-11-03 首批为 20 个高风险条目建立独立的 src/data/offerings.json，区分持续免费、限时试用、credits、API 免费配额和按量付费。每条记录包含适用方案、额度与周期、资格 / 区域 / 绑卡 / 暂停 / 超额条件、官方证据 URL、支持的 claim 和核验日期。
+
+Wiki 内容编辑时间（updated）与官方事实核验日期（verifiedAt）分开管理。首页的“方案类型”筛选通过 URL 参数 offer 分享筛选结果；资源卡片显示方案标签，Wiki 详情展示额度、条件和官方来源。此数据是核验日的官方资料快照，不构成供应商对账户资格或未来价格的承诺。
+
+### GitHub 仓库元数据
+
+src/data/repository-metadata.json 保存资源与公开 GitHub 仓库的映射快照。构建时，scripts/sync-repository-metadata.mjs 在存在只读 GITHUB_TOKEN 时调用 Repository API 刷新 Stars、Forks、SPDX 许可证、归档状态、最近推送时间和默认分支。两个发布工作流都提供只读令牌，并每天运行一次。
+
+同步只读取公开元数据，不调用上游写接口。单仓库请求失败或 API 限流时保留该仓库上次成功快照，不阻断构建；没有令牌的本地构建也保留当前快照。Stars、Forks 和最近推送时间不是软件质量、安全性或维护健康度评分；许可证未识别也不代表项目没有许可证，需回到仓库确认。
 
 ### `graph.json` 关系类型
 

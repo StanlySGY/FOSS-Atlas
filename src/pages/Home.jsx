@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import ResourceCard from '../components/ResourceCard.jsx'
 import FeaturedBuilds from '../components/FeaturedBuilds.jsx'
 import { categoryColor } from '../lib/categoryColor.js'
+import { OFFER_FILTERS, countOfferFilter, getOffering, matchesOfferFilter } from '../lib/offerings.js'
 import { queryFromSearchParams, resetCatalogFiltersParams } from '../lib/catalogFilterState.js'
 import {
   categories,
@@ -49,6 +50,8 @@ export default function Home() {
    * same parameter name on /graph and here, so the two views agree on the address.
    */
   const deployedOnly = searchParams.get('deployed') === '1'
+  const offerParam = searchParams.get('offer')
+  const activeOffer = OFFER_FILTERS.some((filter) => filter.id === offerParam) ? offerParam : 'all'
 
   const catParam = searchParams.get('cat')
   const activeCategory = categories.some((c) => c.id === catParam) ? catParam : 'all'
@@ -66,6 +69,12 @@ export default function Home() {
       { replace: true },
     )
   }
+  const setOfferFilter = (next) =>
+    patchParams((p) => {
+      if (!next || next === 'all') p.delete('offer')
+      else p.set('offer', next)
+    })
+
   const setDeployedOnly = (next) =>
     patchParams((p) => {
       if (next) p.set('deployed', '1')
@@ -92,6 +101,7 @@ export default function Home() {
     const q = query.trim().toLowerCase()
     return resources.filter((r) => {
       if (deployedOnly && !r.deployed) return false
+      if (!matchesOfferFilter(r.id, activeOffer)) return false
       if (activeCategory !== 'all' && r.category !== activeCategory) return false
       if (activeSub !== 'all' && r.sub_category !== activeSub) return false
       if (!q) return true
@@ -101,10 +111,11 @@ export default function Home() {
         r.url.toLowerCase().includes(q) ||
         (r.category_name ?? '').toLowerCase().includes(q) ||
         (r.sub_category_name ?? '').toLowerCase().includes(q) ||
-        r.tags.some((t) => t.toLowerCase().includes(q))
+        r.tags.some((t) => t.toLowerCase().includes(q)) ||
+        [getOffering(r.id)?.label, getOffering(r.id)?.summary, ...(getOffering(r.id)?.conditions ?? [])].filter(Boolean).join(' ').toLowerCase().includes(q)
       )
     })
-  }, [query, activeCategory, activeSub, deployedOnly])
+  }, [query, activeCategory, activeSub, deployedOnly, activeOffer])
 
   const pickCategory = (id) =>
     patchParams((p) => {
@@ -128,8 +139,8 @@ export default function Home() {
     setQuery('')
     setSearchParams((prev) => resetCatalogFiltersParams(prev), { replace: true })
   }
-  const hasActiveFilters = Boolean(query.trim() || activeCategory !== 'all' || activeSub !== 'all' || deployedOnly)
-  const showFeaturedBuilds = !query.trim() && activeCategory === 'all' && activeSub === 'all' && !deployedOnly
+  const hasActiveFilters = Boolean(query.trim() || activeCategory !== 'all' || activeSub !== 'all' || deployedOnly || activeOffer !== 'all')
+  const showFeaturedBuilds = !query.trim() && activeCategory === 'all' && activeSub === 'all' && !deployedOnly && activeOffer === 'all'
 
   return (
     <div className="space-y-8">
@@ -226,7 +237,7 @@ export default function Home() {
               aria-label="搜索资源目录"
               value={query}
               onChange={(e) => handleQuery(e.target.value)}
-              placeholder="搜索名称 / 描述 / 标签 / 域名，例如 ollama、密码、免费"
+              placeholder="搜索名称 / 描述 / 标签 / 域名，例如 ollama、密码、免费额度"
               className="w-full rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] py-2.5 pl-9 pr-16 text-xs text-[var(--text)] placeholder:text-[var(--text-faint)] transition-colors focus:border-[var(--accent)]/60 focus:outline-none"
             />
             {query ? (
@@ -270,6 +281,28 @@ export default function Home() {
               color={categoryColor(cat.id)}
             />
           ))}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-1.5 border-b border-[var(--line-soft)] pb-3">
+          <span className="mr-1 text-[10px] text-[var(--text-faint)]">方案类型</span>
+          {OFFER_FILTERS.map((filter) => {
+            const count = filter.id === 'all' ? resources.length : countOfferFilter(resources, filter.id)
+            const active = activeOffer === filter.id
+            return (
+              <button
+                key={filter.id}
+                type="button"
+                aria-pressed={active}
+                onClick={() => setOfferFilter(filter.id)}
+                className={[
+                  'rounded-full border px-2.5 py-1 text-[11px] transition-colors',
+                  active ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent-text)]' : 'border-[var(--line)] text-[var(--text-faint)] hover:border-[var(--line-strong)] hover:text-[var(--text-dim)]',
+                ].join(' ')}
+              >
+                {filter.label}<span className="mono ml-1.5 text-[10px] opacity-70">{count}</span>
+              </button>
+            )
+          })}
         </div>
 
         {subs.length > 1 ? (
@@ -316,6 +349,7 @@ export default function Home() {
           {activeCategoryName ? <button type="button" onClick={() => pickCategory('all')} className="rounded-full border border-[var(--line)] px-2 py-1 text-[10px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]">分类：{activeCategoryName} ×</button> : null}
           {activeSub !== 'all' ? <button type="button" onClick={() => pickSub('all')} className="rounded-full border border-[var(--line)] px-2 py-1 text-[10px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]">子类：{subs.find((sub) => sub.id === activeSub)?.name ?? activeSub} ×</button> : null}
           {deployedOnly ? <button type="button" onClick={() => setDeployedOnly(false)} className="rounded-full border border-[var(--own-text)]/50 bg-[var(--own-well)] px-2 py-1 text-[10px] text-[var(--own-text)]">只看已部署 ×</button> : null}
+          {activeOffer !== 'all' ? <button type="button" onClick={() => setOfferFilter('all')} className="rounded-full border border-[var(--accent)]/50 bg-[var(--accent)]/8 px-2 py-1 text-[10px] text-[var(--accent-text)]">方案：{OFFER_FILTERS.find((filter) => filter.id === activeOffer)?.label} ×</button> : null}
           <button type="button" onClick={resetFilters} className="ml-auto text-[10px] text-[var(--accent-text)] hover:underline">清除全部</button>
         </div>
       ) : null}

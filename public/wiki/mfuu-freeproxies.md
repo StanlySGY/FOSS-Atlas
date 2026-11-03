@@ -33,4 +33,4 @@ generated: true
 
 - [[aiboboxx/v2rayfree]] —— 免费 v2ray 节点订阅
 - [[barry-far/V2ray-Configs]] —— 聚合式免费节点配置
-- [[Epodonators/v2ray-configs]] —— 高频更新的免费节点订阅
+- [[Epodonios/v2ray-configs]] —— 原始 GitHub 仓库目前返回 404；同名社区 fork 不自动等同原项目，使用前需重新核验来源

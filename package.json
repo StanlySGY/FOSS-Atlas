@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-wikis.mjs && vite build && node scripts/build-og.mjs --check && node scripts/prerender.mjs && node scripts/spa-fallback.mjs",
+    "build": "node scripts/check-offerings.mjs && node scripts/sync-repository-metadata.mjs && node scripts/build-wikis.mjs && vite build && node scripts/build-og.mjs --check && node scripts/prerender.mjs && node scripts/spa-fallback.mjs",
     "lint": "oxlint",
     "test": "node --test scripts/tests/*.test.mjs",
     "preview": "vite preview",
@@ -15,7 +15,9 @@
     "og": "node scripts/build-og.mjs",
     "og:check": "node scripts/build-og.mjs --check",
     "views:check": "node scripts/check-graph-views.mjs",
-    "probe": "node scripts/probe-deployed.mjs"
+    "probe": "node scripts/probe-deployed.mjs",
+    "offers:check": "node scripts/check-offerings.mjs",
+    "repositories:sync": "node scripts/sync-repository-metadata.mjs"
   },
   "dependencies": {
     "echarts": "^6.1.0",

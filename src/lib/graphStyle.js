@@ -77,7 +77,7 @@ export const TYPE_META = {
  *
  * Brightness is ranked by *rarity × meaning*, not uniformly: 归类 is 22 edges
  * and is the strongest structural claim, so it gets the most; 标签 is 338 of the
- * 643 edges and only says "shares a word", so it stays the faintest.
+ * 642 edges and only says "shares a word", so it stays the faintest.
  *
  * `chip` is a separate value for one reason: the same hex has to do two jobs
  * that have different floors. On the canvas the three structural greys are a

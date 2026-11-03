@@ -164,3 +164,16 @@ git log -1 --oneline
 4. **首页资源密度**：资源卡片超宽屏增加到四列，桌面保留三列，小屏两列、手机单列；不增加图片装饰或依赖。
 5. **验证证据**：npm test 22/22；npm run lint 68 个文件、0 警告 / 错误；npm run views:check 通过（283 全图节点、106 部署节点、11 分类）；GitHub Pages base 与 Cloudflare base 均构建成功，189 页面预渲染。WSL Headless Chrome/CDP 实测图谱搜索 / 类型筛选 / Wiki / 浏览器返回，Wiki 桌面与抽屉搜索、吸顶目录；1440px 首页四列，390px / 320px 页面无横向溢出。
 6. 详细设计取舍与验证记录见 docs/UI-UX-ITERATION-2026-11-03.md。
+
+
+## 本轮追加交付：资源可信度一期（2026-11-03）
+
+1. 新增 src/data/offerings.json，首批 20 条高风险免费 / 付费方案记录。类型分别为 free-tier、trial、credit、api-demo、paid-usage；每条记录包含额度周期、条件、官方来源和核验日期，不把限时试用混为永久免费。
+2. 新增 scripts/check-offerings.mjs 和 npm run offers:check。检查资源 ID 唯一且存在、类型和日期有效、额度结构完整、来源为 HTTPS；npm run build 自动执行。
+3. 首页加入方案类型筛选（URL 参数 offer），搜索可命中方案摘要和条件；资源卡片展示简短方案类型；Wiki 详情加入免费方案与证据面板。
+4. 新增 GitHub 仓库公开元数据面板：Stars、Forks、SPDX 许可证、归档 / 禁用状态、最近推送时间、默认分支。新增 scripts/sync-repository-metadata.mjs，使用只读 GitHub Repository API；失败保留上次成功快照，首次失败也记录 not-found / unavailable 状态，没令牌时本地构建不触发网络。本轮实际刷新 62 个映射，61 成功、1 个 HTTP 404（Epodonios/v2ray-configs），不自动替换为社区 fork。
+5. GitHub Pages 与 Cloudflare Pages 工作流提供 github.token，并每日运行刷新；GitHub token 权限保持 contents:read。元数据只代表公开快照，不作为安全或质量评分。
+6. 研究与数据说明见 docs/RESOURCE-CREDIBILITY-2026-11-03.md。首批 20 条不等于 186 条已全部核验；API 真实调用、其他 Git 托管平台和图谱关系治理仍未完成。
+7. **最终验收**：npm test 32/32；lint 76 文件、0 警告 / 错误；offers:check 20/20；views:check 通过（283 节点、部署图 106 节点、337 标签边）；og:check 4 张卡片匹配 186 tools / 642 edges / 75 deployed / 93 instances。GitHub Pages 与 Cloudflare 两目标均成功构建，预渲染 189 页面。Chrome 156 实测方案筛选 / URL 清除、AWS offering 面板、Ollama 仓库数据、404 来源提示、API 未真实调用提示；390px / 320px 无横向溢出，0 浏览器运行时错误。
+
+不要把根目录本地 HANDOVER.md（私人 selfhost 交接）纳入公开提交。

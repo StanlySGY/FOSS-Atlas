@@ -149,7 +149,7 @@ export default function GraphPage() {
 
   /*
    * The only way out of the graph. A single click just opens the bubble, so
-   * every exit is an explicit press of this button — mis-clicks in a 643-edge
+   * every exit is an explicit press of this button — mis-clicks in a 642-edge
    * hairball are far more common than deliberate ones.
    */
   const primaryAction = useCallback(

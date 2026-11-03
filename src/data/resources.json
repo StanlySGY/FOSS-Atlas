@@ -3324,17 +3324,17 @@
   },
   {
     "id": "epodonators-v2ray-configs",
-    "name": "Epodonators/v2ray-configs",
+    "name": "Epodonios/v2ray-configs",
     "url": "https://github.com/Epodonios/v2ray-configs",
     "category": "proxy",
     "category_name": "免费节点 / 代理订阅",
     "sub_category": "proxy-sub",
     "sub_category_name": "活跃订阅仓库",
-    "description": "高频更新的免费节点订阅",
+    "description": "原始 GitHub 仓库目前返回 404；同名社区 fork 不自动等同原项目，使用前需重新核验来源",
     "tags": [
       "订阅",
       "v2ray",
-      "开源"
+      "来源待核验"
     ],
     "wiki": "epodonators-v2ray-configs"
   },

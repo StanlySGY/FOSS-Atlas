@@ -911,17 +911,17 @@
   "mfuu-freeproxies": [
     "aiboboxx/v2rayfree",
     "barry-far/V2ray-Configs",
-    "Epodonators/v2ray-configs"
+    "Epodonios/v2ray-configs"
   ],
   "aiboboxx-v2rayfree": [
     "mfuu/FreeProxies",
     "barry-far/V2ray-Configs",
-    "Epodonators/v2ray-configs"
+    "Epodonios/v2ray-configs"
   ],
   "barry-far-v2ray-configs": [
     "mfuu/FreeProxies",
     "aiboboxx/v2rayfree",
-    "Epodonators/v2ray-configs"
+    "Epodonios/v2ray-configs"
   ],
   "epodonators-v2ray-configs": [
     "mfuu/FreeProxies",
