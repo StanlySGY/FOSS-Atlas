@@ -169,8 +169,8 @@ export default function WikiPage() {
       {
         // rootMargin 只认 px / percent（rem 在这里会直接抛
         // "rootMargin must be specified in pixels or percent"，把整棵树炸掉）：
-        // -72px ≈ 3.5rem 吸顶头部，-60% 把"当前节"压在视口上三分之一。
-        rootMargin: '-72px 0px -60% 0px',
+        // -112px accounts for the sticky site header plus the compact sticky TOC.
+        rootMargin: '-112px 0px -60% 0px',
       },
     )
     targets.forEach((t) => observer.observe(t))
@@ -288,9 +288,9 @@ export default function WikiPage() {
         {toc.length >= 3 ? (
           <nav
             aria-label="本页目录"
-            className="flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-[var(--line-soft)] py-2.5"
+            className="sticky top-[var(--header-h)] z-20 -mx-4 flex max-w-[calc(100%+2rem)] flex-nowrap items-center gap-x-4 overflow-x-auto whitespace-nowrap border-y border-[var(--line-soft)] bg-[rgba(61,57,77,0.96)] px-4 py-2.5 shadow-[0_5px_14px_rgba(0,0,0,0.12)] backdrop-blur-md sm:-mx-6 sm:max-w-[calc(100%+3rem)] sm:px-6"
           >
-            <span className="text-[11px] font-semibold text-[var(--text-faint)]">本页目录</span>
+            <span className="shrink-0 text-[11px] font-semibold text-[var(--text-faint)]">本页目录</span>
             {toc.map((h) => {
               const on = activeHeading === h.slug
               return (
@@ -300,7 +300,7 @@ export default function WikiPage() {
                   aria-current={on ? 'true' : undefined}
                   onClick={() => document.getElementById(h.slug)?.scrollIntoView({ block: 'start' })}
                   className={[
-                    'text-[11px] transition-colors',
+                    'shrink-0 text-[11px] transition-colors',
                     on
                       ? 'text-[var(--accent-text)]'
                       : h.level === 3

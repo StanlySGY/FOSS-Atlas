@@ -32,7 +32,7 @@ export default function Markdown({ children }) {
   }
 
   return (
-    <div className="md">
+    <div className="md max-w-[78ch]">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{

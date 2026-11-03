@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { categoryColor } from '../lib/categoryColor.js'
 import { navTree, resourceById } from '../lib/data.js'
+import { countWikiNavTools, filterWikiNavTree } from '../lib/wikiNavFilter.js'
 
 const has = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key)
 
@@ -28,6 +29,10 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
   const [catOverrides, setCatOverrides] = useState({})
   const [subOverrides, setSubOverrides] = useState({})
   const [seenId, setSeenId] = useState(activeId)
+  const [query, setQuery] = useState('')
+  const filteredTree = useMemo(() => filterWikiNavTree(navTree, query), [query])
+  const matchedTools = useMemo(() => countWikiNavTools(filteredTree), [filteredTree])
+  const searching = Boolean(query.trim())
 
   // Adjusting state during render (React's documented alternative to an effect)
   // when the tool being viewed changes.
@@ -49,8 +54,8 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
     }
   }
 
-  const isCatOpen = (id) => catOverrides[id] ?? id === activeCat
-  const isSubOpen = (id) => subOverrides[id] ?? id === activeSub
+  const isCatOpen = (id) => searching || (catOverrides[id] ?? id === activeCat)
+  const isSubOpen = (id) => searching || (subOverrides[id] ?? id === activeSub)
 
   const toggleCat = (id) =>
     setCatOverrides((prev) => ({ ...prev, [id]: !(prev[id] ?? id === activeCat) }))
@@ -71,7 +76,29 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
 
   return (
     <nav ref={containerRef} aria-label="工具目录" className="space-y-0.5">
-      {navTree.map((cat) => {
+      <div className="sticky top-0 z-10 -mx-1 space-y-1.5 bg-[var(--ink-raised)] px-1 pb-2 pt-1">
+        <label className="relative block">
+          <span className="sr-only">搜索 Wiki 目录</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--text-faint)]" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" strokeLinecap="round" />
+          </svg>
+          <input
+            type="text"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="搜索工具 / 分类…"
+            aria-label="搜索 Wiki 目录"
+            className="w-full rounded-[4px] border border-[var(--line)] bg-[var(--ink-sunken)] py-2 pl-8 pr-8 text-[11px] text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--accent)]/70 focus:outline-none"
+          />
+          {query ? (
+            <button type="button" onClick={() => setQuery('')} aria-label="清除目录搜索" className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-1 text-[10px] text-[var(--text-faint)] hover:text-[var(--text-strong)]">×</button>
+          ) : null}
+        </label>
+        <p className="px-1 text-[10px] text-[var(--text-faint)]">
+          {searching ? `匹配 ${matchedTools} 个条目` : `${resourceById.size} 个工具 · 输入名称快速定位`}
+        </p>
+      </div>
+      {filteredTree.map((cat) => {
         const catOpen = isCatOpen(cat.id)
         const catPanelId = `nav-cat-${cat.id}`
         /*
@@ -199,6 +226,12 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
           </div>
         )
       })}
+      {searching && matchedTools === 0 ? (
+        <div className="px-2 py-6 text-center">
+          <p className="text-xs text-[var(--text-dim)]">没有匹配的工具</p>
+          <button type="button" onClick={() => setQuery('')} className="mt-2 text-[11px] text-[var(--accent-text)] hover:underline">清除搜索</button>
+        </div>
+      ) : null}
     </nav>
   )
 }

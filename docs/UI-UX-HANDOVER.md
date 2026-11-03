@@ -155,3 +155,12 @@ git log -1 --oneline
 - Geo 只在用户触发时查询；继续保留全站一秒一请求的 Durable Object 限速、队列上限、缓存和 OpenStreetMap attribution。不得把实时 Geo 请求加到每日 smoke。
 - Meta 仍不是任意 URL 代理；现有主机/IP/重定向校验不等于完整抵御 DNS rebinding。
 - 根目录本地 HANDOVER.md 保持未跟踪，仅供私人 selfhost 交接，不提交到 FOSS-Atlas。
+
+## 本轮追加交付：核心场景体验打磨（2026-11-03）
+
+1. **图谱列表状态连续性**：新增 node_q / node_type URL 状态，切换图谱 / 列表及进入 Wiki 后可保留搜索上下文；未知类型安全回退到全部，更新参数时保留 cat / focus 等其他深链接参数。
+2. **Wiki 导航搜索**：左侧工具目录和移动端抽屉共用即时搜索，支持工具名 / ID、子类名 / ID、分类名 / ID，并保留命中项的分类层级；有匹配计数和空结果清除状态。
+3. **Wiki 阅读体验**：本页目录调整为站点头部下方的吸顶横向导航；长目录在自己的滚动区域内浏览。正文最大宽度限制为 78ch，标题锚点偏移同步避让吸顶导航。
+4. **首页资源密度**：资源卡片超宽屏增加到四列，桌面保留三列，小屏两列、手机单列；不增加图片装饰或依赖。
+5. **验证证据**：npm test 22/22；npm run lint 68 个文件、0 警告 / 错误；npm run views:check 通过（283 全图节点、106 部署节点、11 分类）；GitHub Pages base 与 Cloudflare base 均构建成功，189 页面预渲染。WSL Headless Chrome/CDP 实测图谱搜索 / 类型筛选 / Wiki / 浏览器返回，Wiki 桌面与抽屉搜索、吸顶目录；1440px 首页四列，390px / 320px 页面无横向溢出。
+6. 详细设计取舍与验证记录见 docs/UI-UX-ITERATION-2026-11-03.md。

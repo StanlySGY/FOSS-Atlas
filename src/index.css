@@ -272,7 +272,7 @@ kbd,
   margin: 2rem 0 0.75rem;
   letter-spacing: -0.01em;
   /* The header is sticky: without this a jumped-to section lands under it. */
-  scroll-margin-top: 4.5rem;
+  scroll-margin-top: 7rem;
 }
 .md h1 {
   font-size: 1.6rem;

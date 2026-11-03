@@ -24,6 +24,7 @@ import { categoryColor } from '../lib/categoryColor.js'
 import { countByType, toolsInCategory, visibleNodeIds } from '../lib/graphFilter.js'
 import { setCategoryFocusParams, setDeployedOnlyParams } from '../lib/graphFilterState.js'
 import { graphViewModeFromParams, setGraphViewModeParams } from '../lib/graphViewState.js'
+import { graphNodeListStateFromParams, setGraphNodeListStateParams } from '../lib/graphNodeListState.js'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 
 const ALL_EDGES = Object.keys(EDGE_META)
@@ -95,6 +96,7 @@ export default function GraphPage() {
    */
   const deployedOnly = searchParams.get('deployed') === '1'
   const viewMode = graphViewModeFromParams(searchParams)
+  const { query: nodeQuery, typeFilter: nodeTypeFilter } = graphNodeListStateFromParams(searchParams)
 
   /*
    * The half that was missing. Picking (or clearing) a category drops
@@ -121,6 +123,15 @@ export default function GraphPage() {
       setSelected(null)
       setSearchParams((prev) => setGraphViewModeParams(prev, next), { replace: true })
     },
+    [setSearchParams],
+  )
+
+  const setNodeQuery = useCallback(
+    (query) => setSearchParams((prev) => setGraphNodeListStateParams(prev, { query }), { replace: true }),
+    [setSearchParams],
+  )
+  const setNodeTypeFilter = useCallback(
+    (typeFilter) => setSearchParams((prev) => setGraphNodeListStateParams(prev, { typeFilter }), { replace: true }),
     [setSearchParams],
   )
 
@@ -488,7 +499,18 @@ export default function GraphPage() {
 
       <div className={viewMode === 'list' ? 'grid grid-cols-1 gap-4' : 'grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_280px]'}>
         {viewMode === 'list' ? (
-          <GraphNodeList graph={graph} visibleIds={viewIds} enabledEdges={enabledEdges} focusId={focusId} focusedCategory={focusedCategory} onFocusCategory={setCategoryFocus} />
+          <GraphNodeList
+            graph={graph}
+            visibleIds={viewIds}
+            enabledEdges={enabledEdges}
+            focusId={focusId}
+            focusedCategory={focusedCategory}
+            onFocusCategory={setCategoryFocus}
+            query={nodeQuery}
+            onQueryChange={setNodeQuery}
+            typeFilter={nodeTypeFilter}
+            onTypeFilterChange={setNodeTypeFilter}
+          />
         ) : (
         <div className="h-[62vh] min-h-[420px] overflow-hidden rounded-[6px] border border-[var(--line)] bg-[var(--ink-sunken)] md:h-[min(72vh,820px)]">
           <Suspense

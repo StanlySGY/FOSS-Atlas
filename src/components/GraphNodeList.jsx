@@ -1,13 +1,14 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { categoryColor } from '../lib/categoryColor.js'
 import { categories, hostFor, resourceById } from '../lib/data.js'
 import { TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
+import { GRAPH_NODE_TYPE_FILTERS } from '../lib/graphNodeListState.js'
 
-const TYPE_FILTERS = [{ id: 'all', label: '全部' }, ...TYPE_ORDER.map((id) => ({
+const TYPE_FILTERS = GRAPH_NODE_TYPE_FILTERS.map((id) => ({
   id,
-  label: TYPE_META[id]?.label ?? id,
-}))]
+  label: id === 'all' ? '全部' : TYPE_META[id]?.label ?? id,
+}))
 
 function categoryForNode(node) {
   const id = node.type === 'category' ? node.id.replace(/^cat:/, '') : node.category
@@ -48,9 +49,18 @@ function NodeAction({ node, focusedCategory, onFocusCategory }) {
 }
 
 /** A searchable companion to the canvas for exact lookup, keyboard use and small screens. */
-export default function GraphNodeList({ graph, visibleIds, enabledEdges, focusId, focusedCategory, onFocusCategory }) {
-  const [query, setQuery] = useState('')
-  const [typeFilter, setTypeFilter] = useState('all')
+export default function GraphNodeList({
+  graph,
+  visibleIds,
+  enabledEdges,
+  focusId,
+  focusedCategory,
+  onFocusCategory,
+  query,
+  onQueryChange,
+  typeFilter,
+  onTypeFilterChange,
+}) {
 
   const candidates = useMemo(
     () => graph.nodes.filter((node) => !visibleIds || visibleIds.has(node.id)),
@@ -100,8 +110,8 @@ export default function GraphNodeList({ graph, visibleIds, enabledEdges, focusId
           <svg aria-hidden="true" viewBox="0 0 24 24" className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-faint)]" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" strokeLinecap="round" />
           </svg>
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索节点…" aria-label="搜索图谱节点" className="w-full rounded-[var(--radius-sm)] border border-[var(--line)] bg-[var(--ink-sunken)] py-2 pl-9 pr-16 text-xs text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--accent)]/70 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/15" />
-          {query ? <button type="button" onClick={() => setQuery('')} className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-1.5 py-0.5 text-[10px] text-[var(--text-faint)] hover:text-[var(--text-strong)]">清空</button> : null}
+          <input value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder="搜索节点…" aria-label="搜索图谱节点" className="w-full rounded-[var(--radius-sm)] border border-[var(--line)] bg-[var(--ink-sunken)] py-2 pl-9 pr-16 text-xs text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--accent)]/70 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/15" />
+          {query ? <button type="button" onClick={() => onQueryChange('')} className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-1.5 py-0.5 text-[10px] text-[var(--text-faint)] hover:text-[var(--text-strong)]">清空</button> : null}
         </label>
       </div>
 
@@ -110,7 +120,7 @@ export default function GraphNodeList({ graph, visibleIds, enabledEdges, focusId
           const active = typeFilter === type.id
           const count = type.id === 'all' ? candidates.length : candidates.filter((node) => node.type === type.id).length
           return (
-            <button key={type.id} type="button" aria-pressed={active} onClick={() => setTypeFilter(type.id)} className={[
+            <button key={type.id} type="button" aria-pressed={active} onClick={() => onTypeFilterChange(type.id)} className={[
               'rounded-full border px-2.5 py-1 text-[11px] transition-colors',
               active ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent-text)]' : 'border-[var(--line)] text-[var(--text-faint)] hover:border-[var(--line-strong)] hover:text-[var(--text-dim)]',
             ].join(' ')}>
@@ -175,7 +185,7 @@ export default function GraphNodeList({ graph, visibleIds, enabledEdges, focusId
         <div className="px-5 py-12 text-center">
           <p className="text-sm text-[var(--text-dim)]">没有匹配的节点</p>
           <p className="mt-1 text-xs text-[var(--text-faint)]">试试更短的关键词，或切换上方类型筛选。</p>
-          <button type="button" onClick={() => { setQuery(''); setTypeFilter('all') }} className="mt-3 text-xs text-[var(--accent-text)] hover:underline">清除搜索与类型筛选</button>
+          <button type="button" onClick={() => { onQueryChange(''); onTypeFilterChange('all') }} className="mt-3 text-xs text-[var(--accent-text)] hover:underline">清除搜索与类型筛选</button>
         </div>
       )}
     </section>
