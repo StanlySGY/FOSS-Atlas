@@ -22,6 +22,7 @@ import {
   resourceById,
 } from '../lib/data.js'
 import { categoryColor } from '../lib/categoryColor.js'
+import { GRAPH_LABEL_MODES, graphLabelModeFromParams, setGraphLabelModeParams } from '../lib/graphLabel.js'
 import { countByType, toolsInCategory, visibleNodeIds } from '../lib/graphFilter.js'
 import { setCategoryFocusParams, setDeployedOnlyParams, setLocalGraphDepthParams, setLocalGraphParams } from '../lib/graphFilterState.js'
 import { graphViewModeFromParams, setGraphViewModeParams } from '../lib/graphViewState.js'
@@ -64,6 +65,7 @@ export default function GraphPage() {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const [enabledEdges, setEnabledEdges] = useState(ALL_EDGES)
+  const [emphasizeTagEdges, setEmphasizeTagEdges] = useState(false)
   // Below md the three control rows fold behind one button: on a phone they
   // would otherwise eat ~340px of the screen before the canvas even starts.
   const [filtersOpen, setFiltersOpen] = useState(false)
@@ -100,6 +102,7 @@ export default function GraphPage() {
   const localNode = localParam ? graph.nodes.find((node) => node.id === localParam) ?? null : null
   const localDepth = searchParams.get('depth') === '2' ? 2 : 1
   const viewMode = graphViewModeFromParams(searchParams)
+  const labelMode = graphLabelModeFromParams(searchParams)
   const { query: nodeQuery, typeFilter: nodeTypeFilter } = graphNodeListStateFromParams(searchParams)
 
   /*
@@ -126,6 +129,10 @@ export default function GraphPage() {
   )
   const setLocalDepth = useCallback(
     (depth) => setSearchParams((prev) => setLocalGraphDepthParams(prev, depth), { replace: true }),
+    [setSearchParams],
+  )
+  const setLabelMode = useCallback(
+    (mode) => setSearchParams((prev) => setGraphLabelModeParams(prev, mode), { replace: true }),
     [setSearchParams],
   )
   const clearLocalGraph = useCallback(() => setLocalGraph(null), [setLocalGraph])
@@ -358,6 +365,16 @@ export default function GraphPage() {
           <p className="mt-1 text-xs text-[var(--text-faint)]">单击节点看速览 · 拖动画布平移 · 滚轮缩放；列表可搜索并键盘浏览。</p>
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2">
+          {viewMode === 'graph' ? (
+            <button
+              type="button"
+              onClick={() => setEmphasizeTagEdges((value) => !value)}
+              aria-pressed={emphasizeTagEdges}
+              className="fa-control"
+            >
+              标签关系：{emphasizeTagEdges ? '强调中' : '已弱化'}
+            </button>
+          ) : null}
           <button
             type="button"
             onClick={() => setFiltersOpen((v) => !v)}
@@ -549,6 +566,30 @@ export default function GraphPage() {
           )
         })}
       </div>
+      {viewMode === 'graph' ? (
+        <div className="fa-graph-filter-group fa-graph-filter-group--labels flex flex-wrap items-center gap-2">
+          <span className="text-[11px] text-[var(--text-faint)]">节点标签</span>
+          <div role="group" aria-label="节点标签密度" className="flex flex-wrap items-center gap-1.5">
+            {GRAPH_LABEL_MODES.map((mode) => (
+              <button
+                key={mode.value}
+                type="button"
+                aria-pressed={labelMode === mode.value}
+                onClick={() => setLabelMode(mode.value)}
+                className={[
+                  'rounded-[var(--radius-sm)] border px-2.5 py-1 text-[11px] transition-colors',
+                  labelMode === mode.value
+                    ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent-text)]'
+                    : 'border-[var(--line)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
+                ].join(' ')}
+              >
+                {mode.label}
+              </button>
+            ))}
+          </div>
+          <span className="text-[11px] text-[var(--text-faint)]">工具与标签名称可在悬停时查看；选择会保存在链接中。</span>
+        </div>
+      ) : null}
       </div>
       </div>
 
@@ -591,6 +632,8 @@ export default function GraphPage() {
             deployedOnly={deployedOnly}
             localNodeId={localNode?.id ?? null}
             localDepth={localDepth}
+            labelMode={labelMode}
+            emphasizeTagEdges={emphasizeTagEdges}
           >
             {popoverModel && (
               <GraphNodePopover

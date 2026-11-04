@@ -54,6 +54,8 @@ export default function GraphView({
   deployedOnly,
   localNodeId,
   localDepth,
+  labelMode = 'category',
+  emphasizeTagEdges = false,
   onNodeClick,
   onNodeDoubleClick,
   onDismiss,
@@ -254,7 +256,7 @@ export default function GraphView({
           // removes it, while keeping the series' coordinate extent intact.
           opacity: hidden ? 0 : 1,
         },
-        label: shouldShowGraphLabel(n, { hidden, focused: isFocused, selected: isSelected })
+        label: shouldShowGraphLabel(n, { hidden, focused: isFocused, selected: isSelected, mode: labelMode })
           ? {
               show: true,
               ...(isFocused ? { color: FOCUS_RING, fontSize: 12, fontWeight: 600, fontFamily: GRAPH_FONT } : {}),
@@ -274,9 +276,9 @@ export default function GraphView({
           target: e.target,
           lineStyle: {
             color: meta.color,
-            width: meta.width,
+            width: e.type === 'tagged' && !emphasizeTagEdges ? 0.65 : meta.width,
             curveness: meta.curveness,
-            opacity: meta.opacity,
+            opacity: e.type === 'tagged' && !emphasizeTagEdges ? 0.2 : meta.opacity,
           },
         }
       })
@@ -376,7 +378,7 @@ export default function GraphView({
         },
       ],
     }
-  }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout, visibleIds, categoryFrame, posOf, reduceMotion])
+  }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout, visibleIds, categoryFrame, posOf, reduceMotion, labelMode, emphasizeTagEdges])
 
   /*
    * The handlers are read through a ref so that the chart is initialised exactly

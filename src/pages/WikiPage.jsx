@@ -170,6 +170,7 @@ export default function WikiPage() {
   // 本页目录的当前节：IntersectionObserver 挑出视口顶部附近最近的标题，TOC
   // 给它点亮。只监听当前页的 slug，切页自动重建。
   const [activeHeading, setActiveHeading] = useState(null)
+  const desktopTocRef = useRef(null)
   useEffect(() => {
     if (!toc.length) return undefined
     const targets = toc.map((h) => document.getElementById(h.slug)).filter(Boolean)
@@ -185,6 +186,11 @@ export default function WikiPage() {
           // 页面上最先出现的那一个：按文档顺序而不是 entry 顺序。
           const first = targets.find((t) => visible.has(t.id))
           if (first) setActiveHeading(first.id)
+        } else {
+          // 长章节之间可能出现一个没有标题进入观察带的空档；
+          // 此时仍以视口上方最近的标题作为当前章节。
+          const passed = targets.filter((target) => target.getBoundingClientRect().top <= 112)
+          setActiveHeading((passed[passed.length - 1] ?? targets[0]).id)
         }
       },
       {
@@ -197,6 +203,25 @@ export default function WikiPage() {
     targets.forEach((t) => observer.observe(t))
     return () => observer.disconnect()
   }, [toc])
+
+  // 当前章节超出目录可视区域时，只滚动目录容器，不带动正文或整页。
+  useEffect(() => {
+    const container = desktopTocRef.current
+    if (!container || !activeHeading || container.getClientRects().length === 0) return
+    const activeLink = Array.from(container.querySelectorAll('a'))
+      .find((link) => link.getAttribute('href') === '#' + activeHeading)
+    if (!activeLink) return
+    const containerRect = container.getBoundingClientRect()
+    const linkRect = activeLink.getBoundingClientRect()
+    const inset = 8
+    if (linkRect.top < containerRect.top + inset) {
+      container.scrollTop += linkRect.top - containerRect.top - inset
+    } else if (linkRect.bottom > containerRect.bottom - inset) {
+      container.scrollTop += linkRect.bottom - containerRect.bottom + inset
+    }
+  }, [activeHeading, id])
+
+  const activeHeadingIndex = toc.findIndex((heading) => heading.slug === activeHeading)
 
   const articleRef = useRef(null)
   const [readingProgress, setReadingProgress] = useState(0)
@@ -412,7 +437,10 @@ export default function WikiPage() {
       <aside className="fa-wiki-meta pb-8 pt-2">
         {toc.length >= 3 ? (
           <Panel title="本页目录" className="fa-wiki-page-toc-panel">
-            <nav aria-label="本页目录（桌面）" className="fa-wiki-toc-list">
+            <p className="fa-wiki-toc-position">
+              {activeHeadingIndex >= 0 ? `第 ${activeHeadingIndex + 1} / ${toc.length} 节` : `共 ${toc.length} 节`}
+            </p>
+            <nav ref={desktopTocRef} aria-label="本页目录（桌面）" className="fa-wiki-toc-list">
               <ol className="space-y-1">
                 {toc.map((h) => (
                   <li key={h.slug} className={h.level === 3 ? 'pl-3' : ''}>

@@ -1,6 +1,11 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
+import {
+  graphLabelModeFromParams,
+  setGraphLabelModeParams,
+  shouldShowGraphLabel,
+} from '../../src/lib/graphLabel.js'
 
 const read = (path) => readFileSync(new URL('../../' + path, import.meta.url), 'utf8')
 const css = read('src/index.css')
@@ -150,6 +155,7 @@ test('Wiki code fences expose copy feedback without changing Markdown content', 
 })
 test('graph filters are collapsed by default at every viewport while remaining explicit and accessible', () => {
   const graph = read('src/pages/GraphPage.jsx')
+  const graphView = read('src/components/GraphView.jsx')
   const redesign = read('src/redesign.css')
   assert.match(graph, /const \[filtersOpen, setFiltersOpen\] = useState\(false\)/)
   assert.match(graph, /aria-controls="graph-filter-panel"/)
@@ -165,6 +171,13 @@ test('graph filters are collapsed by default at every viewport while remaining e
   assert.match(graph, /fa-graph-filter-group--categories/)
   assert.match(graph, /fa-graph-filter-group--deployed/)
   assert.match(graph, /fa-graph-filter-group--relations/)
+  assert.match(graph, /fa-graph-filter-group--labels/)
+  assert.match(graph, /GRAPH_LABEL_MODES/)
+  assert.match(graph, /graphLabelModeFromParams/)
+  assert.match(graph, /emphasizeTagEdges/)
+  assert.match(graphView, /mode: labelMode/)
+  assert.match(graphView, /emphasizeTagEdges \? 0\.65 : meta\.width/)
+  assert.match(redesign, /\.fa-graph-filter-group--labels\{grid-column:1\/-1/)
   assert.match(graph, /fa-graph-workspace/)
   assert.match(graph, /fa-graph-aside/)
   assert.match(redesign, /min-width:1920px\)[\s\S]*?\.fa-graph-filter-groups\{grid-template-columns/)
@@ -206,9 +219,42 @@ test('Wiki reading layout gives medium-width screens a full article before metad
   assert.match(wiki, /下一篇/)
   assert.match(css, /\.fa-wiki-page-toc-panel/)
   assert.match(css, /\.fa-wiki-page-nav-links/)
+  assert.match(wiki, /desktopTocRef/)
+  assert.match(wiki, /fa-wiki-toc-position/)
+  assert.match(wiki, /container\.scrollTop/)
+  assert.match(css, /\.fa-wiki-toc-position/)
   assert.match(css, /\.fa-wiki-meta[\s\S]*?max-height: calc\(100vh - var\(--header-h\) - 32px\)/)
   assert.match(css, /\.fa-wiki-meta[\s\S]*?overflow-y: auto/)
   const redesign = read('src/redesign.css')
   assert.match(redesign, /min-width:1920px\)[\s\S]*?\.fa-wiki-rail\{width:280px;flex-basis:280px\}/)
   assert.match(redesign, /min-width:2560px\)[\s\S]*?\.fa-wiki-content-grid\{grid-template-columns:minmax\(0,1fr\) 360px/)
+})
+
+test('graph label density modes are deterministic and URL-backed', () => {
+  assert.equal(shouldShowGraphLabel({ type: 'category' }), true)
+  assert.equal(shouldShowGraphLabel({ type: 'tool' }), false)
+  assert.equal(shouldShowGraphLabel({ type: 'tool' }, { focused: true }), true)
+  assert.equal(shouldShowGraphLabel({ type: 'tool' }, { hidden: true, focused: true }), false)
+
+  for (const type of ['category', 'subcategory', 'own', 'external']) {
+    assert.equal(shouldShowGraphLabel({ type }, { mode: 'key' }), true)
+  }
+  for (const type of ['tool', 'tag']) {
+    assert.equal(shouldShowGraphLabel({ type }, { mode: 'key' }), false)
+    assert.equal(shouldShowGraphLabel({ type }, { mode: 'all' }), true)
+  }
+
+  const original = new URLSearchParams()
+  original.set('cat', 'ai')
+  original.set('focus', 'resource-1')
+  const key = setGraphLabelModeParams(original, 'key')
+  assert.equal(graphLabelModeFromParams(key), 'key')
+  assert.equal(key.get('cat'), 'ai')
+  assert.equal(key.get('focus'), 'resource-1')
+  assert.equal(graphLabelModeFromParams(new URLSearchParams('labels=unknown')), 'category')
+
+  const reset = setGraphLabelModeParams(key, 'category')
+  assert.equal(reset.has('labels'), false)
+  assert.equal(reset.get('cat'), 'ai')
+  assert.equal(original.has('labels'), false)
 })

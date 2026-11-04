@@ -925,6 +925,12 @@ kbd,
   transition: width 120ms linear;
 }
 .fa-wiki-page-toc-panel { display: none; }
+.fa-wiki-toc-position {
+  margin: -3px 0 8px;
+  color: var(--text-faint);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
 .fa-wiki-toc-list {
   max-height: min(44vh, 420px);
   overflow: auto;

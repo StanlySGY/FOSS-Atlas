@@ -167,6 +167,7 @@ footer{border-color:var(--line)!important}footer p,footer a{color:var(--text-fai
  .fa-graph-filter-groups{grid-template-columns:minmax(0,1.55fr) minmax(300px,.8fr);column-gap:24px;row-gap:14px}
  .fa-graph-filter-group--categories{grid-column:1/-1;padding-bottom:12px;border-bottom:1px solid var(--line-soft)}
  .fa-graph-filter-group--deployed,.fa-graph-filter-group--relations{align-content:start}
+ .fa-graph-filter-group--labels{grid-column:1/-1;padding-top:10px;border-top:1px solid var(--line-soft)}
  .fa-wiki-layout{gap:28px}
  .fa-wiki-rail{width:280px;flex-basis:280px}
  .fa-wiki-content-grid{grid-template-columns:minmax(0,1fr) 320px;gap:36px}
