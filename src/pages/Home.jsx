@@ -66,16 +66,17 @@ export default function Home() {
   useEffect(()=>{
     const shortcut=(event)=>{
       if(event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)&&!document.activeElement?.isContentEditable){event.preventDefault();searchRef.current?.focus()}
-      if(event.key==='Escape'&&compareOpen)setCompareOpen(false)
     }
     window.addEventListener('keydown',shortcut)
     return()=>window.removeEventListener('keydown',shortcut)
-  },[compareOpen])
+  },[])
 
   useEffect(()=>{
     if(!compareOpen)return undefined
     const previousFocus=document.activeElement
     const returnFocusTarget=compareTriggerRef.current??previousFocus
+    const previousBodyOverflow=document.body.style.overflow
+    document.body.style.overflow='hidden'
     compareCloseRef.current?.focus()
     const onKeyDown=(event)=>{
       if(event.key==='Escape'){
@@ -88,12 +89,19 @@ export default function Home() {
       if(!focusable?.length){event.preventDefault();compareDialogRef.current?.focus();return}
       const first=focusable[0]
       const last=focusable[focusable.length-1]
+      if(!compareDialogRef.current?.contains(document.activeElement)){
+        event.preventDefault()
+        const edge=event.shiftKey?last:first
+        edge.focus()
+        return
+      }
       if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
       else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
     }
     document.addEventListener('keydown',onKeyDown)
     return()=>{
       document.removeEventListener('keydown',onKeyDown)
+      document.body.style.overflow=previousBodyOverflow
       requestAnimationFrame(()=>{
         if(returnFocusTarget instanceof HTMLElement&&returnFocusTarget.isConnected)returnFocusTarget.focus()
       })
@@ -145,7 +153,8 @@ export default function Home() {
   const showFeaturedBuilds=!query.trim()&&activeCategory==='all'&&activeSub==='all'&&!deployedOnly&&activeOffer==='all'&&!favoritesOnly
 
   return (
-    <div className="fa-page-stack fa-discovery-page">
+    <div className="fa-discovery-shell">
+    <div className="fa-page-stack fa-discovery-page" inert={compareOpen}>
       <section className="fa-discovery-hero">
         <PageHeader className="fa-discovery-heading" eyebrow="FOSS ATLAS / DISCOVER" title={<>找到真正值得用的<br/><span>开源工具与免费服务。</span></>} description="免费额度、公开 API、自部署软件。先找到合适的工具，再沿着 Wiki 和知识图谱深入了解。"/>
         <div className="fa-discovery-search-area">
@@ -210,6 +219,7 @@ export default function Home() {
       <p className="fa-discovery-footer">想探索工具之间的联系？<Link to="/graph/">打开知识图谱 →</Link></p>
       {toast?<div className="fa-discovery-toast" role="status">{toast}</div>:null}
       {compareIds.length?<div className="fa-compare-tray"><span><strong>{compareIds.length}</strong> / 3 个资源已选</span><div><button type="button" onClick={()=>setCompareIds([])}>清空</button><button ref={compareTriggerRef} type="button" className="fa-compare-primary" disabled={compareIds.length<2} onClick={()=>setCompareOpen(true)}>比较所选 →</button></div></div>:null}
+    </div>
       {compareOpen?<div className="fa-compare-overlay">
         <button type="button" tabIndex={-1} aria-hidden="true" className="fa-compare-backdrop" onClick={()=>setCompareOpen(false)}/>
         <section ref={compareDialogRef} tabIndex={-1} className="fa-compare-dialog" role="dialog" aria-modal="true" aria-labelledby="fa-compare-title" aria-describedby="fa-compare-description">
