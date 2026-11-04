@@ -39,6 +39,7 @@ const SHAPE = [
 export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [query, setQuery] = useState(() => queryFromSearchParams(searchParams))
+  const [visibleCount, setVisibleCount] = useState(24)
   /*
    * 分类与子类跟 q / deployed 一样住在 URL 里：面包屑（Wiki 页的分类 /
    * 子类）、卡片上的子类标签和标签链回这里时，地址要能直接说出「哪个分类、
@@ -118,6 +119,10 @@ export default function Home() {
     })
   }, [query, activeCategory, activeSub, deployedOnly, activeOffer])
 
+  useEffect(() => {
+    setVisibleCount(window.matchMedia('(max-width: 639px)').matches ? 8 : 24)
+  }, [query, activeCategory, activeSub, deployedOnly, activeOffer])
+
   const pickCategory = (id) =>
     patchParams((p) => {
       if (id === 'all') p.delete('cat')
@@ -147,6 +152,7 @@ export default function Home() {
     <div className="fa-page-stack">
       {/* Hero: title + one-line pitch + hard numbers. */}
       <PageHeader
+        className="fa-page-header--home"
         eyebrow="资源目录 / DISCOVER"
         title={<>开源<span className="text-[var(--accent)]">白嫖</span>资源图鉴</>}
         description="免费额度、开源自部署方案与公开 API，一站搜索、Wiki 深挖、图谱看关系；带「已自部署」标记的资源可直接打开实际服务。"
@@ -192,7 +198,7 @@ export default function Home() {
       ) : null}
 
       {/* Toolbar: search + live result count, then the category rail. */}
-      <section className="space-y-3">
+      <section className="fa-catalog-tools">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1">
             <svg
@@ -211,7 +217,7 @@ export default function Home() {
               value={query}
               onChange={(e) => handleQuery(e.target.value)}
               placeholder="搜索名称 / 描述 / 标签 / 域名，例如 ollama、密码、免费额度"
-              className="w-full rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] py-2.5 pl-9 pr-16 text-xs text-[var(--text)] placeholder:text-[var(--text-faint)] transition-colors focus:border-[var(--accent)]/60 focus:outline-none"
+              className="fa-catalog-search w-full rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-sunken)] py-3 pl-10 pr-16 text-[13px] text-[var(--text-strong)] placeholder:text-[var(--text-faint)] transition-colors focus:border-[var(--accent)]/70 focus:outline-none"
             />
             {query ? (
               <button
@@ -237,7 +243,7 @@ export default function Home() {
          * The rail scrolls sideways on a phone instead of wrapping into a wall
          * of pills; from `sm:` up there is room to wrap again.
          */}
-        <div className="-mx-4 flex gap-1.5 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
+        <div className="fa-category-rail -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
           <CategoryTab
             active={activeCategory === 'all'}
             onClick={() => pickCategory('all')}
@@ -249,15 +255,15 @@ export default function Home() {
               key={cat.id}
               active={activeCategory === cat.id}
               onClick={() => pickCategory(cat.id)}
-              label={`${cat.icon} ${cat.name}`}
+              label={cat.name}
               count={countByCategory[cat.id] ?? 0}
               color={categoryColor(cat.id)}
             />
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center gap-1.5 border-b border-[var(--line-soft)] pb-3">
-          <span className="mr-1 text-[10px] text-[var(--text-faint)]">方案类型</span>
+        <div className="fa-offer-rail flex flex-wrap items-center gap-2 border-t border-[var(--line-soft)] pt-3">
+          <span className="mr-1 text-[11px] font-medium text-[var(--text-dim)]">费用类型</span>
           {OFFER_FILTERS.map((filter) => {
             const count = filter.id === 'all' ? resources.length : countOfferFilter(resources, filter.id)
             const active = activeOffer === filter.id
@@ -268,8 +274,8 @@ export default function Home() {
                 aria-pressed={active}
                 onClick={() => setOfferFilter(filter.id)}
                 className={[
-                  'rounded-full border px-2.5 py-1 text-[11px] transition-colors',
-                  active ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent-text)]' : 'border-[var(--line)] text-[var(--text-faint)] hover:border-[var(--line-strong)] hover:text-[var(--text-dim)]',
+                  'fa-filter-chip rounded-full border px-3 py-2 text-xs transition-colors',
+                  active ? 'border-[var(--accent)]/65 bg-[var(--accent)]/10 text-[var(--accent-text)]' : 'border-[var(--line)] bg-[var(--ink-card)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
                 ].join(' ')}
               >
                 {filter.label}<span className="mono ml-1.5 text-[10px] opacity-70">{count}</span>
@@ -313,8 +319,6 @@ export default function Home() {
         ) : null}
       </section>
 
-      {showFeaturedBuilds ? <FeaturedBuilds /> : null}
-
       {hasActiveFilters ? (
         <div className="mb-3 flex flex-wrap items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--line-soft)] bg-[var(--ink-card)] px-3 py-2.5">
           <span className="mr-1 text-[10px] text-[var(--text-faint)]">当前筛选</span>
@@ -334,10 +338,22 @@ export default function Home() {
             meta={filtered.length + ' 项'}
             description={hasActiveFilters ? '当前筛选结果；可继续组合搜索、分类、费用类型与部署状态。' : '按分类浏览，或直接搜索名称、用途、额度与技术栈。'}
           />
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filtered.map((r, i) => (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            {filtered.slice(0, visibleCount).map((r, i) => (
               <ResourceCard key={r.id} resource={r} index={i} />
             ))}
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <p className="mono text-[11px] text-[var(--text-faint)]">已显示 {Math.min(visibleCount, filtered.length)} / {filtered.length}</p>
+            {filtered.length > visibleCount ? (
+              <button
+                type="button"
+                onClick={() => setVisibleCount((count) => count + (window.matchMedia('(max-width: 639px)').matches ? 8 : 24))}
+                className="fa-control"
+              >
+                加载更多资源 <span className="mono text-[10px]">+{Math.min(24, filtered.length - visibleCount)}</span>
+              </button>
+            ) : null}
           </div>
         </section>
       ) : (
@@ -352,6 +368,8 @@ export default function Home() {
           </button>
         </div>
       )}
+
+      {showFeaturedBuilds ? <FeaturedBuilds /> : null}
 
       <p className="text-center text-[11px] text-[var(--text-faint)]">
         想要更立体地浏览？试试{' '}
@@ -383,11 +401,10 @@ export default function Home() {
  * itself stays 1.107–1.190:1 against the ground: tinted, not painted.
  */
 function CategoryTab({ active, onClick, label, count, color }) {
-  const tint = color
+  const tint = color && active
     ? {
-        color,
-        borderColor: `color-mix(in srgb, ${color} ${active ? 70 : 35}%, transparent)`,
-        background: `color-mix(in srgb, ${color} ${active ? 10 : 8}%, transparent)`,
+        borderColor: `color-mix(in srgb, ${color} 60%, transparent)`,
+        background: `color-mix(in srgb, ${color} 9%, var(--ink-card))`,
       }
     : undefined
   return (
@@ -398,13 +415,14 @@ function CategoryTab({ active, onClick, label, count, color }) {
       style={tint}
       className={[
         'shrink-0 rounded-full border px-3 py-1.5 text-xs transition-colors',
-        color
-          ? ''
+        active && !color
+          ? 'border-[var(--accent)]/65 bg-[var(--accent)]/10 text-[var(--accent-text)]'
           : 'border-[var(--line)] bg-[var(--ink-card)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
       ].join(' ')}
     >
+      {color ? <span aria-hidden="true" className="mr-1.5 inline-block h-2 w-2 rounded-full" style={{ background: color }} /> : null}
       {label}
-      <span className="mono ml-1.5 text-[10px] text-[var(--text-mute)]">{count}</span>
+      <span className="mono ml-1.5 text-[10px] text-[var(--text-faint)]">{count}</span>
     </button>
   )
 }
@@ -416,10 +434,10 @@ function SubChip({ active, onClick, label }) {
       onClick={onClick}
       aria-pressed={active}
       className={[
-        'mono rounded-full px-2.5 py-1 text-[11px] transition-colors',
+        'fa-filter-chip rounded-full border px-3 py-2 text-xs transition-colors',
         active
-          ? 'bg-[var(--accent)]/15 text-[var(--accent-text)]'
-          : 'text-[var(--text-faint)] hover:text-[var(--text-strong)]',
+          ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent-text)]'
+          : 'border-[var(--line)] bg-[var(--ink-card)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
       ].join(' ')}
     >
       {label}

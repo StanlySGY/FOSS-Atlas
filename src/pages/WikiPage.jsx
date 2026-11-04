@@ -217,7 +217,7 @@ export default function WikiPage() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_260px] xl:grid-cols-[minmax(0,1fr)_300px]">
+    <div className="fa-wiki-content-grid">
       <article className="min-w-0 space-y-6 py-2">
         {/*
          * Every crumb above the current page is a link into the catalogue,
@@ -353,7 +353,7 @@ export default function WikiPage() {
       </article>
 
       {/* Hugs the right viewport edge: no right gutter beyond a modest pad. */}
-      <aside className="space-y-5 pb-8 pt-2 lg:sticky lg:top-[4.5rem] lg:self-start">
+      <aside className="fa-wiki-meta pb-8 pt-2">
         <Panel title="元数据">
           <dl className="space-y-2 text-xs">
             <Row label="分类" value={resource.category_name} />

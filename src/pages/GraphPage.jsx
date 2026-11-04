@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import GraphNodePopover from '../components/GraphNodePopover.jsx'
-import { PageHeader, SectionHeading } from '../components/PageHeader.jsx'
+import { PageHeader } from '../components/PageHeader.jsx'
 import GraphNodeList from '../components/GraphNodeList.jsx'
 /*
  * The one route-level split in the app: ECharts is about a third of the shipped
@@ -326,44 +326,44 @@ export default function GraphPage() {
         )}
       />
 
-      <div className="fa-surface flex flex-wrap items-center justify-between gap-3 px-3.5 py-3">
-        <div>
-          <SectionHeading
-            title="探索方式"
-            description="图谱适合看关系，列表适合搜索、键盘浏览与精确跳转。"
-          />
+      <div className="fa-graph-toolbar fa-surface">
+        <div className="min-w-0">
+          <p className="text-sm font-semibold text-[var(--text-strong)]">关系探索</p>
+          <p className="mt-1 text-xs text-[var(--text-faint)]">单击节点看速览 · 拖动画布平移 · 滚轮缩放；列表可搜索并键盘浏览。</p>
         </div>
-        <div role="group" aria-label="图谱显示方式" className="flex rounded-[var(--radius-sm)] border border-[var(--line)] bg-[var(--ink-sunken)] p-0.5">
-          <button type="button" aria-pressed={viewMode === 'graph'} onClick={() => setViewMode('graph')} className={[
-            'rounded-[3px] px-3 py-1.5 text-[11px] transition-colors',
-            viewMode === 'graph' ? 'bg-[var(--ink-tab)] text-[var(--text-strong)]' : 'text-[var(--text-faint)] hover:text-[var(--text-dim)]',
-          ].join(' ')}>
-            ◉ 图谱
+        <div className="flex shrink-0 flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setFiltersOpen((v) => !v)}
+            aria-expanded={filtersOpen}
+            aria-controls="graph-filter-panel"
+            className="fa-control"
+          >
+            {filtersOpen ? '收起筛选' : '筛选与聚焦'}
+            {focusedCategory
+              ? ` · ${categories.find((c) => c.id === focusedCategory)?.name ?? ''}`
+              : deployedOnly
+                ? ' · 已部署'
+                : ''}
           </button>
-          <button type="button" aria-pressed={viewMode === 'list'} onClick={() => setViewMode('list')} className={[
-            'rounded-[3px] px-3 py-1.5 text-[11px] transition-colors',
-            viewMode === 'list' ? 'bg-[var(--ink-tab)] text-[var(--text-strong)]' : 'text-[var(--text-faint)] hover:text-[var(--text-dim)]',
-          ].join(' ')}>
-            ☷ 列表
-          </button>
+          <div role="group" aria-label="图谱显示方式" className="flex rounded-[var(--radius-sm)] border border-[var(--line)] bg-[var(--ink-sunken)] p-0.5">
+            <button type="button" aria-pressed={viewMode === 'graph'} onClick={() => setViewMode('graph')} className={[
+              'rounded-[3px] px-3 py-1.5 text-[11px] transition-colors',
+              viewMode === 'graph' ? 'bg-[var(--ink-tab)] text-[var(--text-strong)]' : 'text-[var(--text-faint)] hover:text-[var(--text-dim)]',
+            ].join(' ')}>
+              ◉ 图谱
+            </button>
+            <button type="button" aria-pressed={viewMode === 'list'} onClick={() => setViewMode('list')} className={[
+              'rounded-[3px] px-3 py-1.5 text-[11px] transition-colors',
+              viewMode === 'list' ? 'bg-[var(--ink-tab)] text-[var(--text-strong)]' : 'text-[var(--text-faint)] hover:text-[var(--text-dim)]',
+            ].join(' ')}>
+              ☷ 列表
+            </button>
+          </div>
         </div>
       </div>
 
-      <button
-        type="button"
-        onClick={() => setFiltersOpen((v) => !v)}
-        aria-expanded={filtersOpen}
-        className="self-start rounded-[var(--radius-sm)] border border-[var(--line)] px-2 py-1 text-[11px] text-[var(--text-dim)] md:hidden"
-      >
-        筛选与聚焦
-        {focusedCategory
-          ? ` · ${categories.find((c) => c.id === focusedCategory)?.name ?? ''}`
-          : deployedOnly
-            ? ' · 只看我部署了的'
-            : ''}
-      </button>
-
-      <div className={`${filtersOpen ? 'flex' : 'hidden'} flex-col gap-2 md:flex`}>
+      <div id="graph-filter-panel" className={`${filtersOpen ? 'flex' : 'hidden'} fa-graph-filter-panel flex-col gap-3`}>
       {/* 一级分类聚焦：选一个分类，只留下它的子图（分类节点 + 子类 + 工具），
           其余节点整体收起，并自动框选居中。 */}
       <div className="flex flex-wrap items-center gap-2">

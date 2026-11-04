@@ -42,3 +42,32 @@ test('full-width and Wiki workspaces align to the shared max-width frame', () =>
   assert.match(css, /\.fa-wiki-layout[\s\S]*?width: min\(100%, var\(--page-max\)\)/)
   assert.match(css, /\.fa-wiki-rail[\s\S]*?width: 252px/)
 })
+
+test('catalogue prioritizes search, normalizes filters, and progressively reveals results', () => {
+  const home = read('src/pages/Home.jsx')
+  assert.match(home, /className="fa-catalog-tools"/)
+  assert.match(home, /className="fa-catalog-search/)
+  assert.match(home, /useState\(24\)/)
+  assert.match(home, /window\.matchMedia\('\(max-width: 639px\)'\)\.matches \? 8 : 24/)
+  assert.match(home, /filtered\.slice\(0, visibleCount\)/)
+  assert.match(home, /加载更多资源/)
+  assert.ok(home.lastIndexOf('{showFeaturedBuilds ?') > home.indexOf('filtered.slice(0, visibleCount)'), 'featured builds should follow the resource results')
+  assert.match(css, /\.fa-category-chip,[\s\S]*?\.fa-filter-chip[\s\S]*?min-height: 36px/)
+})
+
+test('graph filters are collapsed by default at every viewport while remaining explicit and accessible', () => {
+  const graph = read('src/pages/GraphPage.jsx')
+  assert.match(graph, /const \[filtersOpen, setFiltersOpen\] = useState\(false\)/)
+  assert.match(graph, /aria-controls="graph-filter-panel"/)
+  assert.match(graph, /id="graph-filter-panel" className=\{`\$\{filtersOpen \? 'flex' : 'hidden'\}/)
+  assert.doesNotMatch(graph, /filtersOpen \? 'flex' : 'hidden'\}\s+flex-col gap-2 md:flex/)
+  assert.match(graph, /单击节点看速览 · 拖动画布平移 · 滚轮缩放/)
+})
+
+test('Wiki reading layout gives medium-width screens a full article before metadata', () => {
+  const wiki = read('src/pages/WikiPage.jsx')
+  assert.match(wiki, /className="fa-wiki-content-grid"/)
+  assert.match(wiki, /className="fa-wiki-meta pb-8 pt-2"/)
+  assert.match(css, /@media \(min-width: 1280px\)[\s\S]*?\.fa-wiki-content-grid[\s\S]*?grid-template-columns: minmax\(0, 1fr\) 280px/)
+  assert.match(css, /@media \(min-width: 768px\) and \(max-width: 1279px\)[\s\S]*?\.fa-wiki-rail[\s\S]*?flex-basis: 220px/)
+})
