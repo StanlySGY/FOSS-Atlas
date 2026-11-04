@@ -1,7 +1,33 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import { graphNodeListStateFromParams, setGraphNodeListStateParams } from '../../src/lib/graphNodeListState.js'
 import { countWikiNavTools, filterWikiNavTree } from '../../src/lib/wikiNavFilter.js'
+import { scrollRestorationAction } from '../../src/lib/scrollRestoration.js'
+
+test('cross-page navigation preserves filter scroll, restores POP entries, and prioritizes hash anchors', () => {
+  assert.deepEqual(scrollRestorationAction({ isInitial: true, pathname: '/', previousPathname: '/' }), { type: 'top' })
+  assert.deepEqual(scrollRestorationAction({ navigationType: 'PUSH', previousPathname: '/', pathname: '/wiki/ollama' }), { type: 'top' })
+  assert.deepEqual(scrollRestorationAction({ navigationType: 'REPLACE', previousPathname: '/', pathname: '/' }), { type: 'preserve' })
+  assert.deepEqual(scrollRestorationAction({ navigationType: 'PUSH', previousPathname: '/graph', pathname: '/graph' }), { type: 'preserve' })
+  assert.deepEqual(scrollRestorationAction({ navigationType: 'POP', previousPathname: '/wiki/ollama', pathname: '/', savedY: 1240 }), { type: 'restore', top: 1240 })
+  assert.deepEqual(scrollRestorationAction({ navigationType: 'POP', previousPathname: '/wiki/ollama', pathname: '/', savedY: -8 }), { type: 'restore', top: 0 })
+  assert.deepEqual(scrollRestorationAction({ isInitial: true, pathname: '/deployed', previousPathname: '/deployed', hash: '#atlas-tools' }), { type: 'anchor' })
+  assert.deepEqual(scrollRestorationAction({ navigationType: 'POP', previousPathname: '/wiki/ollama', pathname: '/deployed', hash: '#atlas-tools', savedY: 880 }), { type: 'anchor' })
+  assert.deepEqual(scrollRestorationAction({ navigationType: 'REPLACE', previousPathname: '/deployed', pathname: '/deployed', previousHash: '#atlas-tools', hash: '' }), { type: 'preserve' })
+})
+
+test('the shared route shell owns scroll restoration and Wiki pages do not override browser Back', () => {
+  const layout = readFileSync(new URL('../../src/components/Layout.jsx', import.meta.url), 'utf8')
+  const wiki = readFileSync(new URL('../../src/pages/WikiPage.jsx', import.meta.url), 'utf8')
+  assert.match(layout, /useNavigationType\(\)/)
+  assert.match(layout, /scrollRestorationAction\(/)
+  assert.match(layout, /scrollPositions = useRef\(new Map\(\)\)/)
+  assert.match(layout, /savedPositions\.set\(location\.key, window\.scrollY\)/)
+  assert.match(layout, /window\.history\.scrollRestoration = 'manual'/)
+  assert.match(layout, /action\.type === 'restore' \|\| action\.type === 'top'/)
+  assert.doesNotMatch(wiki, /window\.scrollTo\(\{ top: 0 \}\)/)
+})
 
 test('graph node-list search and type filters survive navigation and preserve graph context', () => {
   const initial = new URLSearchParams('view=list&cat=ai&focus=ollama&campaign=weekly')

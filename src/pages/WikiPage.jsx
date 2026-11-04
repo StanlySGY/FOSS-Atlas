@@ -105,10 +105,6 @@ export default function WikiPage() {
     }
   }, [id, slug])
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 })
-  }, [id])
-
   const loading = Boolean(slug) && fetched?.id !== id
   const hasWiki = Boolean(slug && fetched?.id === id && fetched.content)
   const data = !loading && fetched?.id === id ? fetched.data : {}

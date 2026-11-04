@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
-import { NavLink, Outlet, Link, useLocation } from 'react-router-dom'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { NavLink, Outlet, Link, useLocation, useNavigationType } from 'react-router-dom'
 import BackToTop from './BackToTop.jsx'
 import CommandPalette from './CommandPalette.jsx'
 import { graphStats, RECENT_RESOURCES_KEY, resourceById } from '../lib/data.js'
 import { documentTitleForLocation } from '../lib/documentTitle.js'
+import { scrollRestorationAction } from '../lib/scrollRestoration.js'
 
 const navItems = [
   { to: '/', label: '导航', end: true },
@@ -74,7 +75,11 @@ function rememberWikiVisit(id) {
 
 export default function Layout() {
   const location = useLocation()
+  const navigationType = useNavigationType()
   const [paletteOpen, setPaletteOpen] = useState(false)
+  const scrollPositions = useRef(new Map())
+  const previousLocation = useRef({ pathname: location.pathname, hash: location.hash })
+  const initialNavigation = useRef(true)
 
   // Static HTML ships the right title on direct loads; SPA route changes must
   // update it too, or the tab and assistive technology keep announcing the old page.
@@ -87,23 +92,63 @@ export default function Layout() {
     if (match && resourceById.has(match[1])) rememberWikiVisit(match[1])
   }, [location.pathname])
 
-  /*
-   * Route changes reset the scroll — but a hash link (/deployed/#joplin, handed
-   * out by the graph bubble and the wiki's 我的实例 panel) must land on its
-   * anchor instead, below the sticky header. react-router does neither on its
-   * own for a nested-<Outlet> app like this one.
-   */
+  // Keep scroll restoration under the router rather than letting the browser
+  // and page-level effects compete. A POP restores the exact history entry;
+  // in-place filter changes preserve the viewport; new pages start at the top.
   useEffect(() => {
-    if (location.hash) {
-      const target = document.getElementById(decodeURIComponent(location.hash.slice(1)))
-      if (target) {
-        target.scrollIntoView({ block: 'start' })
-        return
-      }
-    }
-    window.scrollTo({ top: 0 })
-  }, [location.pathname, location.hash])
+    const savedPositions = scrollPositions.current
+    const previous = previousLocation.current
+    const action = scrollRestorationAction({
+      isInitial: initialNavigation.current,
+      navigationType,
+      previousPathname: previous.pathname,
+      previousHash: previous.hash,
+      pathname: location.pathname,
+      hash: location.hash,
+      savedY: savedPositions.get(location.key),
+    })
 
+    let frame = 0
+    if (action.type === 'anchor') {
+      frame = window.requestAnimationFrame(() => {
+        let id = location.hash.slice(1)
+        try { id = decodeURIComponent(id) } catch { /* keep the raw fragment */ }
+        const target = document.getElementById(id)
+        if (target) target.scrollIntoView({ block: 'start' })
+        else window.scrollTo({ top: 0 })
+      })
+    } else if (action.type === 'restore' || action.type === 'top') {
+      frame = window.requestAnimationFrame(() => {
+        window.scrollTo({ top: action.type === 'restore' ? action.top : 0 })
+      })
+    }
+
+    previousLocation.current = { pathname: location.pathname, hash: location.hash }
+    initialNavigation.current = false
+
+    return () => {
+      // The cleanup runs before the next location is applied, so this captures
+      // the outgoing entry's actual position (including long Wiki reading).
+      savedPositions.set(location.key, window.scrollY)
+      if (savedPositions.size > 100) {
+        const oldest = savedPositions.keys().next().value
+        savedPositions.delete(oldest)
+      }
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [location.key, location.pathname, location.hash, navigationType])
+
+  useEffect(() => {
+    const previous = window.history.scrollRestoration
+    window.history.scrollRestoration = 'manual'
+    return () => { window.history.scrollRestoration = previous }
+  }, [])
+
+  /*
+   * A hash link (for example /deployed/#atlas-tools) takes precedence over a
+   * saved position. Deployed expands its matching group first when necessary,
+   * then performs the final scroll once that row exists in the DOM.
+   */
   /*
    * 全局热键：⌘K / Ctrl+K 任何时刻可开（输入框里也一样——那是它存在的意义）；
    * 裸 `/` 只在非输入场景开，避免和首页搜索框抢按键。Esc 交给面板自己处理。
