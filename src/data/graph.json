@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T01:31:06.337Z",
+  "generated_at": "2026-11-04T01:57:02.076Z",
   "stats": {
     "tools": 187,
     "categories": 11,
@@ -141,7 +141,7 @@
     },
     {
       "id": "api-free",
-      "name": "免费 API 服务",
+      "name": "公开 API 服务",
       "category": "api"
     },
     {
@@ -333,7 +333,7 @@
     },
     {
       "id": "sub:api-free",
-      "name": "免费 API 服务",
+      "name": "公开 API 服务",
       "type": "subcategory",
       "category": "api"
     },

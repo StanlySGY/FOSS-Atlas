@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import DeployedBadge from './DeployedBadge.jsx'
 import { categoryColor, categoryRing, categorySoft } from '../lib/categoryColor.js'
-import { hostFor, iconFor, initialFor } from '../lib/data.js'
+import { iconFor, initialFor } from '../lib/data.js'
 import { getOffering } from '../lib/offerings.js'
 
 /**
@@ -40,14 +40,13 @@ function SiteIcon({ resource }) {
 }
 
 export default function ResourceCard({ resource, index = 0 }) {
-  const { id, name, url, description, tags, category, sub_category, sub_category_name } = resource
-  const host = hostFor(resource)
+  const { id, name, url, description, category, sub_category, sub_category_name } = resource
   const offering = getOffering(id)
 
   return (
     <article
       style={{ animationDelay: `${Math.min(index * 22, 260)}ms` }}
-      className="fa-card-in fa-lift group relative flex flex-col gap-3 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-4 hover:bg-[var(--ink-card-hover)]"
+      className="fa-card-in fa-lift group relative flex flex-col gap-2.5 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5 hover:bg-[var(--ink-card-hover)]"
     >
       <div className="flex items-start gap-3">
         <SiteIcon resource={resource} />
@@ -58,26 +57,11 @@ export default function ResourceCard({ resource, index = 0 }) {
               {name}
             </h3>
           </Link>
-          <p className="mono mt-0.5 truncate text-[11px] text-[var(--text-faint)]">{host}</p>
         </div>
       </div>
 
-      <p className="line-clamp-2 text-xs leading-relaxed text-[var(--text-dim)]">{description}</p>
+      <p className="line-clamp-2 min-h-[2.5rem] text-xs leading-relaxed text-[var(--text-dim)]">{description}</p>
       {offering ? <span className="-mt-1 w-fit rounded-[4px] border border-[var(--line)] bg-[var(--ink-sunken)] px-1.5 py-0.5 text-[10px] text-[var(--text-faint)]">{offering.shortLabel}</span> : null}
-
-      {tags?.length ? (
-        <div className="flex flex-wrap gap-1.5">
-          {tags.slice(0, 3).map((tag) => (
-            <Link
-              key={tag}
-              to={`/?q=${encodeURIComponent(tag)}`}
-              className="rounded-full bg-[var(--ink-tint)] px-2 py-0.5 text-[10px] text-[var(--text-dim)] transition-colors hover:bg-[var(--ink-tint-hover)] hover:text-[var(--accent-text)]"
-            >
-              {tag}
-            </Link>
-          ))}
-        </div>
-      ) : null}
 
       <div className="mt-auto flex items-center justify-between gap-2 border-t border-[var(--line-soft)] pt-3">
         <span className="flex min-w-0 items-center gap-2">

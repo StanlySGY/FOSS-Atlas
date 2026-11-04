@@ -2776,7 +2776,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准",
     "tags": [
       "API",
@@ -2792,7 +2792,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺",
     "tags": [
       "API",
@@ -2808,7 +2808,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "Gemini 官方开发者 API",
     "tags": [
       "API",
@@ -2824,7 +2824,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "开源模型推理 API",
     "tags": [
       "API",
@@ -2840,7 +2840,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "托管开源模型，部分模型免费试用",
     "tags": [
       "API",
@@ -2855,7 +2855,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "天气数据 API，1000 次/天免费",
     "tags": [
       "API",
@@ -2871,7 +2871,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "IPinfo Lite 需 Token，country-level Geo / basic ASN 查询不设日月请求数上限；Legacy 公共 API 另有共享 IP 限制",
     "tags": [
       "API",
@@ -2887,7 +2887,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "翻译 API，5000 字/天免费",
     "tags": [
       "API",
@@ -2903,7 +2903,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "免费高清图片 API",
     "tags": [
       "API",
@@ -2919,7 +2919,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "免费图片与视频 API；默认每小时 200 次、每月 20,000 次请求，需遵守署名和 API 使用规范",
     "tags": [
       "API",
@@ -2935,7 +2935,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "二维码生成 / 解码 API；文档未公布固定请求上限，但保留拒绝滥用请求的权利",
     "tags": [
       "API",
@@ -2950,7 +2950,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "临时邮箱与邮箱校验 API",
     "tags": [
       "API",
@@ -2966,7 +2966,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "短信 API；共享演示 Key 每日 1 条免费短信，更多需使用付费 Key",
     "tags": [
       "API",
@@ -2981,7 +2981,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "免费代理列表 API",
     "tags": [
       "API",
@@ -2997,7 +2997,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "免费短链接服务",
     "tags": [
       "短链",
@@ -3012,7 +3012,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "免费短链接服务",
     "tags": [
       "短链",
@@ -3027,7 +3027,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "非商业免费的人机验证服务",
     "tags": [
       "验证码",
@@ -3043,7 +3043,7 @@
     "category": "api",
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
-    "sub_category_name": "免费 API 服务",
+    "sub_category_name": "公开 API 服务",
     "description": "OSM 公共地理编码服务最多每秒 1 次请求，需署名并遵守禁止自动补全和批量查询政策",
     "tags": [
       "API",

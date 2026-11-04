@@ -20,6 +20,7 @@ import {
 } from '../lib/data.js'
 import { fetchWiki, headingsFromMarkdown, parseFrontmatter, stripLeadingChrome, transformWikilinks } from '../lib/wiki.js'
 import { readWikiPrefill } from '../lib/wikiPrefill.js'
+import { presentWikiMarkdown } from '../lib/wikiPresentation.js'
 
 function fallbackMarkdown(resource) {
   return [
@@ -120,9 +121,19 @@ export default function WikiPage() {
     [content],
   )
 
-  // The article's own sections. On a phone the drawer lists tools, not sections,
-  // so without this the only way to a late heading is one long scroll.
-  const toc = useMemo(() => (isFallback ? [] : headingsFromMarkdown(rendered)), [rendered, isFallback])
+  // Keep the actionable steps / API examples / cautions visible while moving
+  // generic feature and scenario lists into a progressive-disclosure section.
+  const { overviewMarkdown, practicalMarkdown, hasActionableGuide } = useMemo(
+    () => presentWikiMarkdown(rendered, !isFallback && data.generated === 'true'),
+    [rendered, isFallback, data.generated],
+  )
+
+  // Only headings in the visible reading flow are indexed; collapsed background
+  // sections never create dead TOC jumps.
+  const toc = useMemo(
+    () => (isFallback ? [] : headingsFromMarkdown(practicalMarkdown)),
+    [practicalMarkdown, isFallback],
+  )
 
   const related = useMemo(() => {
     const fromGraph = relatedResources(id)
@@ -288,6 +299,23 @@ export default function WikiPage() {
         </header>
 
         <OfferingPanel resourceId={id} />
+
+        {data.generated === 'true' && !hasActionableGuide ? (
+          <p className="rounded-[6px] border border-[var(--line-soft)] bg-[var(--ink-card)] px-3.5 py-3 text-xs leading-relaxed text-[var(--text-faint)]">
+            <span className="font-semibold text-[var(--text-dim)]">上手提示：</span>
+            目前整理的是功能与适用场景概览，尚无经过整理的逐步操作或 API 示例。可先打开官方入口，核对注册资格、权限、价格和使用条款。
+          </p>
+        ) : null}
+
+        {overviewMarkdown ? (
+          <details className="fa-disclosure rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] px-3.5 py-3 sm:px-4">
+            <summary className="cursor-pointer text-sm font-semibold text-[var(--text-strong)]">展开功能特点与适用场景</summary>
+            <div className="mt-3 border-t border-[var(--line-soft)] pt-2">
+              <Markdown>{overviewMarkdown}</Markdown>
+            </div>
+          </details>
+        ) : null}
+
         <RepositoryPanel resourceId={id} />
 
         {toc.length >= 3 ? (
@@ -320,33 +348,30 @@ export default function WikiPage() {
         ) : null}
 
         {loading ? (
-          <WikiSkeleton />        ) : (
-          <Markdown>{rendered}</Markdown>
-        )}
+          <WikiSkeleton />
+        ) : practicalMarkdown ? (
+          <Markdown>{practicalMarkdown}</Markdown>
+        ) : null}
 
         {related.length ? (
-          <section className="space-y-3 border-t border-[var(--line)] pt-6">
-            <h2 className="text-[1.05rem] font-semibold tracking-tight text-[var(--text-strong)]">图谱关联</h2>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <details className="fa-disclosure border-t border-[var(--line)] pt-4">
+            <summary className="cursor-pointer text-sm font-semibold text-[var(--text-strong)]">图谱关联与相近资源（{related.length}）</summary>
+            <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
               {related.map((r) => (
                 <Link
                   key={r.id}
-                  to={`/wiki/${r.id}/`}
+                  to={'/wiki/' + r.id + '/'}
                   className="flex items-center justify-between gap-3 rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 transition-colors hover:border-[var(--line-strong)]"
                 >
                   <span className="min-w-0">
-                    <span className="block truncate text-xs font-semibold text-[var(--text-strong)]">
-                      {r.name}
-                    </span>
-                    <span className="block truncate text-[11px] text-[var(--text-faint)]">
-                      {r.description}
-                    </span>
+                    <span className="block truncate text-xs font-semibold text-[var(--text-strong)]">{r.name}</span>
+                    <span className="block truncate text-[11px] text-[var(--text-faint)]">{r.description}</span>
                   </span>
                   <span className="shrink-0 text-[var(--text-mute)]">→</span>
                 </Link>
               ))}
             </div>
-          </section>
+          </details>
         ) : null}
       </article>
 

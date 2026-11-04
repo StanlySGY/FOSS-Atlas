@@ -52,6 +52,13 @@ test('offering record keeps separate free, trial, and legacy caveats', () => {
   assert.equal(getOffering('missing'), null)
 })
 
+test('public API subcategory does not imply every API is free', () => {
+  const openai = resources.find((resource) => resource.id === 'openai-api')
+  assert.equal(openai?.sub_category_name, '公开 API 服务')
+  assert.ok(!openai?.sub_category_name.includes('免费'))
+  assert.ok(getOffering('openai-api').types.includes('paid-usage'))
+})
+
 test('second credibility batch distinguishes free limits, promotional credits, and paid API usage', () => {
   assert.equal(getOffering('nextdns').limits[0][1], '300,000 次')
   assert.ok(getOffering('huggingface-spaces').conditions.some((item) => item.includes('Static Spaces')))

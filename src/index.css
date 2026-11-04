@@ -253,6 +253,27 @@ kbd,
   border-radius: 4px;
 }
 
+.fa-disclosure > summary {
+  list-style: none;
+}
+.fa-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.fa-disclosure > summary::after {
+  content: '+';
+  float: right;
+  margin-left: 0.75rem;
+  color: var(--text-faint);
+  font-weight: 500;
+}
+.fa-disclosure[open] > summary::after {
+  content: '−';
+}
+.fa-disclosure > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 /* ---------------------------------------------------------------- *
  * Markdown rendering (no typography plugin, hand-rolled to match)
  * ---------------------------------------------------------------- */

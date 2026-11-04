@@ -267,7 +267,7 @@ const CATEGORIES = [
     subs: [
       {
         id: 'api-free',
-        name: '免费 API 服务',
+        name: '公开 API 服务',
         items: [
           ['openai-api', 'OpenAI API', 'https://platform.openai.com', 'API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准', ['API', 'LLM', 'OpenAI']],
           ['anthropic-api', 'Anthropic API', 'https://docs.anthropic.com', 'Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺', ['API', 'LLM', 'Anthropic']],
