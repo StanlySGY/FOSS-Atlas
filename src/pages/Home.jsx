@@ -33,9 +33,11 @@ export default function Home() {
   const navigate = useNavigate()
   const [searchParams,setSearchParams]=useSearchParams()
   const searchRef=useRef(null)
+  const catalogRef=useRef(null)
   const compareTriggerRef=useRef(null)
   const compareDialogRef=useRef(null)
   const compareCloseRef=useRef(null)
+  const comparePreviousOverflowRef=useRef(null)
   const [query,setQuery]=useState(()=>queryFromSearchParams(searchParams))
   const [visibleCount,setVisibleCount]=useState(24)
   const [filtersOpen,setFiltersOpen]=useState(false)
@@ -75,8 +77,7 @@ export default function Home() {
     if(!compareOpen)return undefined
     const previousFocus=document.activeElement
     const returnFocusTarget=compareTriggerRef.current??previousFocus
-    const previousBodyOverflow=document.body.style.overflow
-    document.body.style.overflow='hidden'
+    const catalogElement=catalogRef.current
     compareCloseRef.current?.focus()
     const onKeyDown=(event)=>{
       if(event.key==='Escape'){
@@ -103,12 +104,23 @@ export default function Home() {
     document.addEventListener('keydown',onKeyDown)
     return()=>{
       document.removeEventListener('keydown',onKeyDown)
-      document.body.style.overflow=previousBodyOverflow
-      requestAnimationFrame(()=>{
-        if(returnFocusTarget instanceof HTMLElement&&returnFocusTarget.isConnected)returnFocusTarget.focus()
-      })
+      document.body.style.overflow=comparePreviousOverflowRef.current??''
+      comparePreviousOverflowRef.current=null
+      catalogElement?.removeAttribute('inert')
+      catalogElement?.removeAttribute('aria-hidden')
+      if(returnFocusTarget instanceof HTMLElement&&returnFocusTarget.isConnected){
+        try { returnFocusTarget.focus({preventScroll:true}) } catch { returnFocusTarget.focus() }
+      }
     }
   },[compareOpen])
+
+  const openComparison=()=>{
+    comparePreviousOverflowRef.current=document.body.style.overflow
+    document.body.style.overflow='hidden'
+    catalogRef.current?.setAttribute('inert','')
+    catalogRef.current?.setAttribute('aria-hidden','true')
+    setCompareOpen(true)
+  }
 
   const patchParams=(mutate)=>setSearchParams((previous)=>{const next=new URLSearchParams(previous);mutate(next);return next},{replace:true})
   const handleQuery=(value)=>{setQuery(value);patchParams((params)=>{if(value)params.set('q',value);else params.delete('q')})}
@@ -156,7 +168,7 @@ export default function Home() {
 
   return (
     <div className="fa-discovery-shell">
-    <div className="fa-page-stack fa-discovery-page" inert={compareOpen}>
+    <div ref={catalogRef} className="fa-page-stack fa-discovery-page" inert={compareOpen} aria-hidden={compareOpen||undefined}>
       <section className="fa-discovery-hero">
         <PageHeader className="fa-discovery-heading" eyebrow="FOSS ATLAS / DISCOVER" title={<>找到真正值得用的<br/><span>开源工具与免费服务。</span></>} description="免费额度、公开 API、自部署软件。先找到合适的工具，再沿着 Wiki 和知识图谱深入了解。"/>
         <div className="fa-discovery-search-area">
@@ -221,7 +233,7 @@ export default function Home() {
       <p className="fa-discovery-footer">想探索工具之间的联系？<Link to="/graph/">打开知识图谱 →</Link></p>
       {toast?<div className="fa-discovery-toast" role="status">{toast}</div>:null}
     </div>
-      {compareIds.length?<div className="fa-compare-tray"><span><strong>{compareIds.length}</strong> / 3 个资源已选</span><div><button type="button" onClick={()=>setCompareIds([])}>清空</button><button ref={compareTriggerRef} type="button" className="fa-compare-primary" disabled={compareIds.length<2} onClick={()=>setCompareOpen(true)}>比较所选 →</button></div></div>:null}
+      {compareIds.length?<div className="fa-compare-tray"><span><strong>{compareIds.length}</strong> / 3 个资源已选</span><div><button type="button" onClick={()=>setCompareIds([])}>清空</button><button ref={compareTriggerRef} type="button" className="fa-compare-primary" disabled={compareIds.length<2} onClick={openComparison}>比较所选 →</button></div></div>:null}
       {compareOpen?<div className="fa-compare-overlay">
         <button type="button" tabIndex={-1} aria-hidden="true" className="fa-compare-backdrop" onClick={()=>setCompareOpen(false)}/>
         <section ref={compareDialogRef} tabIndex={-1} className="fa-compare-dialog" role="dialog" aria-modal="true" aria-labelledby="fa-compare-title" aria-describedby="fa-compare-description">
