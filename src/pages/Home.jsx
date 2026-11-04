@@ -85,18 +85,20 @@ export default function Home() {
         return
       }
       if(event.key!=='Tab')return
-      const focusable=compareDialogRef.current?.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')
-      if(!focusable?.length){event.preventDefault();compareDialogRef.current?.focus();return}
-      const first=focusable[0]
-      const last=focusable[focusable.length-1]
-      if(!compareDialogRef.current?.contains(document.activeElement)){
+      const focusable=Array.from(compareDialogRef.current?.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')??[]).filter((element)=>
+        element instanceof HTMLElement &&
+        !element.hasAttribute('disabled') &&
+        element.getAttribute('aria-hidden')!=='true' &&
+        element.getClientRects().length>0 &&
+        getComputedStyle(element).visibility!=='hidden'
+      )
+      if(!focusable.length){event.preventDefault();compareDialogRef.current?.focus();return}
+      const activeIndex=focusable.indexOf(document.activeElement)
+      if(activeIndex===-1 || (event.shiftKey&&activeIndex===0) || (!event.shiftKey&&activeIndex===focusable.length-1)){
         event.preventDefault()
-        const edge=event.shiftKey?last:first
+        const edge=event.shiftKey?focusable[focusable.length-1]:focusable[0]
         edge.focus()
-        return
       }
-      if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
-      else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
     }
     document.addEventListener('keydown',onKeyDown)
     return()=>{
@@ -218,8 +220,8 @@ export default function Home() {
       {showFeaturedBuilds?<section className="fa-discovery-featured"><FeaturedBuilds/></section>:null}
       <p className="fa-discovery-footer">想探索工具之间的联系？<Link to="/graph/">打开知识图谱 →</Link></p>
       {toast?<div className="fa-discovery-toast" role="status">{toast}</div>:null}
-      {compareIds.length?<div className="fa-compare-tray"><span><strong>{compareIds.length}</strong> / 3 个资源已选</span><div><button type="button" onClick={()=>setCompareIds([])}>清空</button><button ref={compareTriggerRef} type="button" className="fa-compare-primary" disabled={compareIds.length<2} onClick={()=>setCompareOpen(true)}>比较所选 →</button></div></div>:null}
     </div>
+      {compareIds.length?<div className="fa-compare-tray"><span><strong>{compareIds.length}</strong> / 3 个资源已选</span><div><button type="button" onClick={()=>setCompareIds([])}>清空</button><button ref={compareTriggerRef} type="button" className="fa-compare-primary" disabled={compareIds.length<2} onClick={()=>setCompareOpen(true)}>比较所选 →</button></div></div>:null}
       {compareOpen?<div className="fa-compare-overlay">
         <button type="button" tabIndex={-1} aria-hidden="true" className="fa-compare-backdrop" onClick={()=>setCompareOpen(false)}/>
         <section ref={compareDialogRef} tabIndex={-1} className="fa-compare-dialog" role="dialog" aria-modal="true" aria-labelledby="fa-compare-title" aria-describedby="fa-compare-description">
