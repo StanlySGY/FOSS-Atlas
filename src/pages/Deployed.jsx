@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { PageHeader } from '../components/PageHeader.jsx'
 import deployed from '../data/deployed.json'
 import { resourceById } from '../lib/data.js'
 import { deploymentStatusKind, isUnreachable, matchesDeploymentStatus, probeStatusPresentation, summarizeProbeRows } from '../lib/probeStatus.js'
+import { deployedFiltersFromSearchParams, resetDeployedFiltersParams, setDeployedFilterParam } from '../lib/catalogFilterState.js'
 
 /*
  * A row's catalogue entry, resolved through the `resource` field the generator
@@ -137,6 +138,7 @@ function ServiceRow({ item, result }) {
 }
 
 export default function Deployed() {
+  const [searchParams, setSearchParams] = useSearchParams()
   const probe = useProbe()
   const probeRows = probe?.rows ?? EMPTY_PROBE_ROWS
   const probeSummary = summarizeProbeRows(probeRows)
@@ -145,9 +147,7 @@ export default function Deployed() {
     [probeRows],
   )
   const instanceTotal = deployed.groups.reduce((sum, group) => sum + group.items.length, 0)
-  const [query, setQuery] = useState('')
-  const [statusFilter, setStatusFilter] = useState('all')
-  const [groupFilter, setGroupFilter] = useState('all')
+  const { query, statusFilter, groupFilter } = deployedFiltersFromSearchParams(searchParams, deployed.groups.map((group) => group.id))
   const [expandedGroups, setExpandedGroups] = useState(() => new Set())
   const [fragmentTarget, setFragmentTarget] = useState(null)
 
@@ -216,11 +216,8 @@ export default function Deployed() {
     return next
   })
 
-  const clearFilters = () => {
-    setQuery('')
-    setStatusFilter('all')
-    setGroupFilter('all')
-  }
+  const setFilter = (key, value) => setSearchParams((previous) => setDeployedFilterParam(previous, key, value), { replace: true })
+  const clearFilters = () => setSearchParams((previous) => resetDeployedFiltersParams(previous), { replace: true })
   /*
    * The GitHub Pages mirror count, computed from the data instead of written
    * down. Scoped to the github group on purpose: the 运维 note below describes
@@ -328,7 +325,7 @@ export default function Deployed() {
             <input
               type="search"
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => setFilter('q', event.target.value)}
               placeholder="搜索服务、域名、技术栈…"
               aria-label="搜索自部署服务"
               className="fa-catalog-search w-full rounded-[6px] border bg-[var(--ink-sunken)] py-3 pl-10 pr-3 text-sm text-[var(--text-strong)] placeholder:text-[var(--text-faint)]"
@@ -346,7 +343,7 @@ export default function Deployed() {
                   key={value}
                   type="button"
                   aria-pressed={statusFilter === value}
-                  onClick={() => setStatusFilter(value)}
+                  onClick={() => setFilter('status', value)}
                   className={statusFilter === value ? 'fa-filter-chip rounded-full border border-[var(--accent)]/55 bg-[var(--accent)]/10 px-3 py-1.5 text-[11px] text-[var(--accent-text)]' : 'fa-filter-chip rounded-full border border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]'}
                 >
                   {label} <span className="mono ml-1 text-[10px] opacity-70">{statusCounts[value]}</span>
@@ -358,11 +355,11 @@ export default function Deployed() {
           <div className="space-y-2">
             <span className="text-[10px] font-semibold tracking-wide text-[var(--text-faint)]">按部署位置</span>
             <div className="flex flex-wrap gap-1.5" role="group" aria-label="按部署位置筛选">
-              <button type="button" aria-pressed={groupFilter === 'all'} onClick={() => setGroupFilter('all')} className={groupFilter === 'all' ? 'fa-filter-chip rounded-full border border-[var(--accent)]/55 bg-[var(--accent)]/10 px-3 py-1.5 text-[11px] text-[var(--accent-text)]' : 'fa-filter-chip rounded-full border border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--text-dim)]'}>
+              <button type="button" aria-pressed={groupFilter === 'all'} onClick={() => setFilter('group', 'all')} className={groupFilter === 'all' ? 'fa-filter-chip rounded-full border border-[var(--accent)]/55 bg-[var(--accent)]/10 px-3 py-1.5 text-[11px] text-[var(--accent-text)]' : 'fa-filter-chip rounded-full border border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--text-dim)]'}>
                 全部位置
               </button>
               {deployed.groups.map((group) => (
-                <button key={group.id} type="button" aria-pressed={groupFilter === group.id} onClick={() => setGroupFilter(group.id)} className={groupFilter === group.id ? 'fa-filter-chip rounded-full border border-[var(--accent)]/55 bg-[var(--accent)]/10 px-3 py-1.5 text-[11px] text-[var(--accent-text)]' : 'fa-filter-chip rounded-full border border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--text-dim)]'}>
+                <button key={group.id} type="button" aria-pressed={groupFilter === group.id} onClick={() => setFilter('group', group.id)} className={groupFilter === group.id ? 'fa-filter-chip rounded-full border border-[var(--accent)]/55 bg-[var(--accent)]/10 px-3 py-1.5 text-[11px] text-[var(--accent-text)]' : 'fa-filter-chip rounded-full border border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--text-dim)]'}>
                   {group.name} <span className="mono ml-1 text-[10px] opacity-70">{group.items.length}</span>
                 </button>
               ))}

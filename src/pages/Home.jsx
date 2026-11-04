@@ -4,7 +4,17 @@ import ResourceCard from '../components/ResourceCard.jsx'
 import { PageHeader, SectionHeading } from '../components/PageHeader.jsx'
 import FeaturedBuilds from '../components/FeaturedBuilds.jsx'
 import { OFFER_FILTERS, getOffering, matchesOfferFilter } from '../lib/offerings.js'
-import { queryFromSearchParams, resetCatalogFiltersParams } from '../lib/catalogFilterState.js'
+import {
+  catalogSortFromSearchParams,
+  catalogViewFromSearchParams,
+  queryFromSearchParams,
+  resetCatalogFiltersParams,
+  savedOnlyFromSearchParams,
+  setCatalogSortParams,
+  setCatalogViewParams,
+  setDeployedOnlyParams,
+  setSavedOnlyParams,
+} from '../lib/catalogFilterState.js'
 import { categories, countByCategory, countBySubCategory, deployedStats, resources, subCategoriesByCategory } from '../lib/data.js'
 
 const FAVORITES_KEY = 'foss-atlas:favorites'
@@ -26,14 +36,15 @@ export default function Home() {
   const [visibleCount,setVisibleCount]=useState(24)
   const [filtersOpen,setFiltersOpen]=useState(false)
   const [favorites,setFavorites]=useState(readFavorites)
-  const [favoritesOnly,setFavoritesOnly]=useState(false)
-  const [view,setView]=useState(readView)
-  const [sort,setSort]=useState('recommended')
+  const [viewFallback,setViewFallback]=useState(readView)
+  const view=catalogViewFromSearchParams(searchParams,viewFallback)
+  const sort=catalogSortFromSearchParams(searchParams)
   const [compareIds,setCompareIds]=useState([])
   const [compareOpen,setCompareOpen]=useState(false)
   const [toast,setToast]=useState('')
 
   const deployedOnly=searchParams.get('deployed')==='1'
+  const favoritesOnly=savedOnlyFromSearchParams(searchParams)
   const offerParam=searchParams.get('offer')
   const activeOffer=OFFER_FILTERS.some((item)=>item.id===offerParam)?offerParam:'all'
   const catParam=searchParams.get('cat')
@@ -62,8 +73,11 @@ export default function Home() {
   const pickCategory=(id)=>patchParams((params)=>{if(id==='all')params.delete('cat');else params.set('cat',id);params.delete('sub')})
   const setOffer=(id)=>patchParams((params)=>{if(id==='all')params.delete('offer');else params.set('offer',id)})
   const pickSub=(id)=>patchParams((params)=>{if(id==='all')params.delete('sub');else params.set('sub',id)})
-  const setDeployed=(enabled)=>patchParams((params)=>{if(enabled)params.set('deployed','1');else params.delete('deployed')})
-  const resetFilters=()=>{setQuery('');setFavoritesOnly(false);setSearchParams((previous)=>resetCatalogFiltersParams(previous),{replace:true})}
+  const setDeployed=(enabled)=>setSearchParams((previous)=>setDeployedOnlyParams(previous,enabled),{replace:true})
+  const setSavedOnly=(enabled)=>setSearchParams((previous)=>setSavedOnlyParams(previous,enabled),{replace:true})
+  const changeSort=(value)=>setSearchParams((previous)=>setCatalogSortParams(previous,value),{replace:true})
+  const changeView=(value)=>{setViewFallback(value);setSearchParams((previous)=>setCatalogViewParams(previous,value),{replace:true})}
+  const resetFilters=()=>{setQuery('');setSearchParams((previous)=>resetCatalogFiltersParams(previous),{replace:true})}
 
   const filtered=useMemo(()=>{
     const normalized=query.trim().toLowerCase()
@@ -91,7 +105,7 @@ export default function Home() {
   })
   const comparisons=compareIds.map((id)=>resources.find((resource)=>resource.id===id)).filter(Boolean)
   const hasActiveFilters=Boolean(query.trim()||activeCategory!=='all'||activeSub!=='all'||deployedOnly||activeOffer!=='all'||favoritesOnly)
-  const filterCount=Number(activeCategory!=='all')+Number(activeSub!=='all')+Number(activeOffer!=='all')
+  const filterCount=Number(activeCategory!=='all')+Number(activeSub!=='all')+Number(activeOffer!=='all')+Number(deployedOnly)+Number(favoritesOnly)
   const showFeaturedBuilds=!query.trim()&&activeCategory==='all'&&activeSub==='all'&&!deployedOnly&&activeOffer==='all'&&!favoritesOnly
 
   return (
@@ -111,19 +125,19 @@ export default function Home() {
 
       <section className="fa-discovery-toolbar" aria-label="目录工具栏">
         <div className="fa-quick-views">
-          <button type="button" className={!deployedOnly&&!favoritesOnly?'is-active':''} onClick={resetFilters}>全部资源 <span>{resources.length}</span></button>
-          <button type="button" className={deployedOnly?'is-active':''} onClick={()=>{setDeployed(!deployedOnly);setFavoritesOnly(false)}}>已部署 <span>{deployedStats.resources}</span></button>
-          <button type="button" className={favoritesOnly?'is-active':''} onClick={()=>{setFavoritesOnly(!favoritesOnly);setDeployed(false)}}>我的收藏 <span>{favorites.length}</span></button>
+          <button type="button" aria-pressed={!hasActiveFilters} className={!hasActiveFilters?'is-active':''} onClick={resetFilters}>全部资源 <span>{resources.length}</span></button>
+          <button type="button" aria-pressed={deployedOnly} className={deployedOnly?'is-active':''} onClick={()=>setDeployed(!deployedOnly)}>已部署 <span>{deployedStats.resources}</span></button>
+          <button type="button" aria-pressed={favoritesOnly} className={favoritesOnly?'is-active':''} onClick={()=>setSavedOnly(!favoritesOnly)}>我的收藏 <span>{favorites.length}</span></button>
         </div>
         <div className="fa-discovery-controls">
           <button type="button" className={filtersOpen||filterCount?'fa-filter-trigger is-active':'fa-filter-trigger'} aria-expanded={filtersOpen} aria-controls="catalog-filters" onClick={()=>setFiltersOpen(!filtersOpen)}>
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M3 5h14M5.5 10h9M8 15h4" strokeLinecap="round"/></svg>
             筛选{filterCount?<span>{filterCount}</span>:''}
           </button>
-          <label className="fa-sort-control"><span>排序</span><select value={sort} onChange={(event)=>setSort(event.target.value)}><option value="recommended">推荐</option><option value="name">名称 A–Z</option><option value="deployed">已部署优先</option></select></label>
+          <label className="fa-sort-control"><span>排序</span><select value={sort} onChange={(event)=>changeSort(event.target.value)}><option value="recommended">推荐</option><option value="name">名称 A–Z</option><option value="deployed">已部署优先</option></select></label>
           <div className="fa-view-switch" role="group" aria-label="显示方式">
-            <button type="button" aria-label="卡片视图" aria-pressed={view==='grid'} className={view==='grid'?'is-active':''} onClick={()=>setView('grid')}>▦</button>
-            <button type="button" aria-label="列表视图" aria-pressed={view==='list'} className={view==='list'?'is-active':''} onClick={()=>setView('list')}>☷</button>
+            <button type="button" aria-label="卡片视图" title="卡片视图" aria-pressed={view==='grid'} className={view==='grid'?'is-active':''} onClick={()=>changeView('grid')}>▦</button>
+            <button type="button" aria-label="列表视图" title="列表视图" aria-pressed={view==='list'} className={view==='list'?'is-active':''} onClick={()=>changeView('list')}>☷</button>
           </div>
           <Link to="/graph/" className="fa-discovery-graph-link">关系图 ↗</Link>
         </div>
@@ -142,7 +156,7 @@ export default function Home() {
         {activeSub!=='all'?<button type="button" onClick={()=>pickSub('all')}>{subs.find((item)=>item.id===activeSub)?.name??activeSub} ×</button>:null}
         {deployedOnly?<button type="button" onClick={()=>setDeployed(false)}>只看已部署 ×</button>:null}
         {activeOffer!=='all'?<button type="button" onClick={()=>setOffer('all')}>{OFFER_FILTERS.find((item)=>item.id===activeOffer)?.label} ×</button>:null}
-        {favoritesOnly?<button type="button" onClick={()=>setFavoritesOnly(false)}>我的收藏 ×</button>:null}
+        {favoritesOnly?<button type="button" onClick={()=>setSavedOnly(false)}>我的收藏 ×</button>:null}
         <button type="button" className="fa-clear-all" onClick={resetFilters}>清除全部</button>
       </div>:null}
 

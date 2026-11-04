@@ -5,7 +5,20 @@ import { isUnreachable, probeStatusPresentation, summarizeProbeRows } from '../.
 import { shouldShowGraphLabel } from '../../src/lib/graphLabel.js'
 import { setCategoryFocusParams, setDeployedOnlyParams, setLocalGraphDepthParams, setLocalGraphParams } from '../../src/lib/graphFilterState.js'
 import { visibleNodeIds } from '../../src/lib/graphFilter.js'
-import { queryFromSearchParams, resetCatalogFiltersParams } from '../../src/lib/catalogFilterState.js'
+import {
+  catalogSortFromSearchParams,
+  catalogViewFromSearchParams,
+  deployedFiltersFromSearchParams,
+  queryFromSearchParams,
+  resetCatalogFiltersParams,
+  resetDeployedFiltersParams,
+  savedOnlyFromSearchParams,
+  setCatalogSortParams,
+  setCatalogViewParams,
+  setDeployedFilterParam,
+  setDeployedOnlyParams as setCatalogDeployedOnlyParams,
+  setSavedOnlyParams,
+} from '../../src/lib/catalogFilterState.js'
 import { graphViewModeFromParams, setGraphViewModeParams } from '../../src/lib/graphViewState.js'
 
 test('probe chips distinguish responses, redirects, access restrictions, and unreachable endpoints', () => {
@@ -62,6 +75,44 @@ test('catalogue query sync treats a missing q as empty and reset clears every ac
   assert.equal(reset.has('deployed'), false)
   assert.equal(reset.has('offer'), false)
   assert.equal(reset.get('campaign'), 'test')
+})
+
+test('catalogue quick views, sort, and layout are shareable URL state', () => {
+  const original = new URLSearchParams('q=ollama&cat=ai&campaign=keep')
+  const list = setCatalogViewParams(original, 'list')
+  assert.equal(catalogViewFromSearchParams(list), 'list')
+  const named = setCatalogSortParams(list, 'name')
+  assert.equal(catalogSortFromSearchParams(named), 'name')
+  const saved = setSavedOnlyParams(named, true)
+  assert.equal(savedOnlyFromSearchParams(saved), true)
+  assert.equal(saved.has('deployed'), false)
+  const deployed = setCatalogDeployedOnlyParams(saved, true)
+  assert.equal(deployed.get('deployed'), '1')
+  assert.equal(savedOnlyFromSearchParams(deployed), false)
+  const reset = resetCatalogFiltersParams(deployed)
+  for (const key of ['q', 'cat', 'sub', 'deployed', 'saved', 'offer']) assert.equal(reset.has(key), false)
+  assert.equal(reset.get('view'), 'list')
+  assert.equal(reset.get('sort'), 'name')
+  assert.equal(reset.get('campaign'), 'keep')
+  assert.equal(catalogSortFromSearchParams(new URLSearchParams('sort=unknown')), 'recommended')
+})
+
+test('deployment search, status, and location filters restore from shareable URL state', () => {
+  const groups = ['github', 'cloudflare', 'home']
+  const original = new URLSearchParams('q=ollama&status=down&group=github&focus=kept')
+  assert.deepEqual(deployedFiltersFromSearchParams(original, groups), {
+    query: 'ollama', statusFilter: 'down', groupFilter: 'github',
+  })
+  const restricted = setDeployedFilterParam(original, 'status', 'restricted')
+  assert.equal(restricted.get('status'), 'restricted')
+  assert.equal(restricted.get('group'), 'github')
+  const location = setDeployedFilterParam(restricted, 'group', 'cloudflare')
+  assert.equal(location.get('group'), 'cloudflare')
+  assert.equal(setDeployedFilterParam(location, 'q', 'ollama ').get('q'), 'ollama ')
+  assert.equal(deployedFiltersFromSearchParams(new URLSearchParams('group=unknown&status=bad'), groups).groupFilter, 'all')
+  const reset = resetDeployedFiltersParams(location)
+  for (const key of ['q', 'status', 'group']) assert.equal(reset.has(key), false)
+  assert.equal(reset.get('focus'), 'kept')
 })
 
 test('graph view mode is deep-linkable and preserves active filters and focus', () => {

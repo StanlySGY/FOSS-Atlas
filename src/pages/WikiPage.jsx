@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import DeployedBadge from '../components/DeployedBadge.jsx'
 import Markdown from '../components/Markdown.jsx'
@@ -16,6 +16,7 @@ import {
   resourceById,
   relatedResources,
   resolveTarget,
+  resources,
   wikiSlugFor,
 } from '../lib/data.js'
 import { fetchWiki, headingsFromMarkdown, parseFrontmatter, stripLeadingChrome, transformWikilinks } from '../lib/wiki.js'
@@ -160,6 +161,16 @@ export default function WikiPage() {
   // disagrees with the 自部署服务 page or with the graph node.
   const instances = instancesFor(id)
 
+  // Keep reading order inside the same subcategory. A next/previous link is a
+  // useful continuation; jumping across unrelated categories is not.
+  const readingSequence = useMemo(
+    () => resources.filter((item) => item.category === resource?.category && item.sub_category === resource?.sub_category),
+    [resource?.category, resource?.sub_category],
+  )
+  const readingIndex = readingSequence.findIndex((item) => item.id === id)
+  const previousResource = readingIndex > 0 ? readingSequence[readingIndex - 1] : null
+  const nextResource = readingIndex >= 0 ? readingSequence[readingIndex + 1] ?? null : null
+
   // 本页目录的当前节：IntersectionObserver 挑出视口顶部附近最近的标题，TOC
   // 给它点亮。只监听当前页的 slug，切页自动重建。
   const [activeHeading, setActiveHeading] = useState(null)
@@ -191,6 +202,36 @@ export default function WikiPage() {
     return () => observer.disconnect()
   }, [toc])
 
+  const articleRef = useRef(null)
+  const [readingProgress, setReadingProgress] = useState(0)
+  useEffect(() => {
+    const update = () => {
+      const article = articleRef.current
+      if (!article) return
+      const rect = article.getBoundingClientRect()
+      const articleTop = window.scrollY + rect.top
+      const distance = Math.max(1, rect.height - window.innerHeight)
+      const next = Math.round(Math.min(100, Math.max(0, (window.scrollY - articleTop) / distance * 100)))
+      setReadingProgress((current) => current === next ? current : next)
+    }
+    let frame = 0
+    const scheduleUpdate = () => {
+      if (frame) return
+      frame = window.requestAnimationFrame(() => {
+        frame = 0
+        update()
+      })
+    }
+    update()
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [id, practicalMarkdown, overviewMarkdown])
+
   // 复制分享链接：落成「已复制 ✓」一秒半，不弹 toast 不打断阅读。
   const [copied, setCopied] = useState(false)
   const copyLink = async () => {
@@ -218,7 +259,18 @@ export default function WikiPage() {
 
   return (
     <div className="fa-wiki-content-grid">
-      <article className="min-w-0 space-y-6 py-2">
+      <article ref={articleRef} className="min-w-0 space-y-6 py-2">
+        <div
+          className="fa-wiki-reading-progress"
+          role="progressbar"
+          aria-label="阅读进度"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={readingProgress}
+          aria-valuetext={`已阅读 ${readingProgress}%`}
+        >
+          <span style={{ width: `${readingProgress}%` }} />
+        </div>
         {/*
          * Every crumb above the current page is a link into the catalogue,
          * pre-filtered to that slice — 分类 lands on its chips, 子类 on the
@@ -296,32 +348,20 @@ export default function WikiPage() {
         <RepositoryPanel resourceId={id} />
 
         {toc.length >= 3 ? (
-          <nav
-            aria-label="本页目录"
-            className="sticky top-[var(--header-h)] z-20 -mx-4 flex max-w-[calc(100%+2rem)] flex-nowrap items-center gap-x-4 overflow-x-auto whitespace-nowrap border-y border-[var(--line-soft)] bg-[rgba(61,57,77,0.96)] px-4 py-2.5 shadow-[0_5px_14px_rgba(0,0,0,0.12)] backdrop-blur-md sm:-mx-6 sm:max-w-[calc(100%+3rem)] sm:px-6"
-          >
-            <span className="shrink-0 text-[11px] font-semibold text-[var(--text-faint)]">本页目录</span>
-            {toc.map((h) => {
-              const on = activeHeading === h.slug
-              return (
-                <button
-                  key={h.slug}
-                  type="button"
-                  aria-current={on ? 'true' : undefined}
-                  onClick={() => document.getElementById(h.slug)?.scrollIntoView({ block: 'start' })}
-                  className={[
-                    'shrink-0 text-[11px] transition-colors',
-                    on
-                      ? 'text-[var(--accent-text)]'
-                      : h.level === 3
-                        ? 'text-[var(--text-faint)] hover:text-[var(--accent-text)]'
-                        : 'text-[var(--text-dim)] hover:text-[var(--accent-text)]',
-                  ].join(' ')}
-                >
-                  {h.level === 3 ? `› ${h.text}` : h.text}
-                </button>
-              )
-            })}          </nav>
+          <details className="fa-wiki-toc-compact">
+            <summary>本页目录 <span>{toc.length} 个章节</span></summary>
+            <nav aria-label="本页目录（移动与窄屏）" className="mt-2">
+              <ol className="space-y-1.5">
+                {toc.map((h) => (
+                  <li key={h.slug} className={h.level === 3 ? 'pl-3' : ''}>
+                    <a href={`#${h.slug}`} aria-current={activeHeading === h.slug ? 'location' : undefined} className={activeHeading === h.slug ? 'is-active' : ''}>
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </details>
         ) : null}
 
         {loading ? (
@@ -350,10 +390,45 @@ export default function WikiPage() {
             </div>
           </details>
         ) : null}
+
+        {previousResource || nextResource ? (
+          <nav className="fa-wiki-page-nav" aria-label="继续阅读">
+            <span className="fa-wiki-page-nav-heading">继续阅读 <span>同一细分领域</span></span>
+            <div className="fa-wiki-page-nav-links">
+              {previousResource ? (
+                <Link to={`/wiki/${previousResource.id}/`} className="fa-wiki-page-nav-link">
+                  <span>← 上一篇</span>
+                  <strong>{previousResource.name}</strong>
+                </Link>
+              ) : <span className="fa-wiki-page-nav-placeholder">已是本组第一篇</span>}
+              {nextResource ? (
+                <Link to={`/wiki/${nextResource.id}/`} className="fa-wiki-page-nav-link is-next">
+                  <span>下一篇 →</span>
+                  <strong>{nextResource.name}</strong>
+                </Link>
+              ) : <span className="fa-wiki-page-nav-placeholder is-next">已是本组最后一篇</span>}
+            </div>
+          </nav>
+        ) : null}
       </article>
 
       {/* Hugs the right viewport edge: no right gutter beyond a modest pad. */}
       <aside className="fa-wiki-meta pb-8 pt-2">
+        {toc.length >= 3 ? (
+          <Panel title="本页目录" className="fa-wiki-page-toc-panel">
+            <nav aria-label="本页目录（桌面）" className="fa-wiki-toc-list">
+              <ol className="space-y-1">
+                {toc.map((h) => (
+                  <li key={h.slug} className={h.level === 3 ? 'pl-3' : ''}>
+                    <a href={`#${h.slug}`} aria-current={activeHeading === h.slug ? 'location' : undefined} className={activeHeading === h.slug ? 'is-active' : ''}>
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </Panel>
+        ) : null}
         <Panel title="元数据">
           <dl className="space-y-2 text-xs">
             <Row label="分类" value={resource.category_name} />
@@ -493,9 +568,9 @@ function WikiIcon({ resource }) {
   )
 }
 
-function Panel({ title, children }) {
+function Panel({ title, children, className = '' }) {
   return (
-    <section className="fa-surface p-3.5">
+    <section className={['fa-surface p-3.5', className].filter(Boolean).join(' ')}>
       <h3 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">{title}</h3>
       {children}
     </section>
