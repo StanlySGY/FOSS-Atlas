@@ -64,7 +64,10 @@ export default function Markdown({ children }) {
   const seen = new Map()
   const Heading = ({ level, ...props }) => {
     const Tag = level === 2 ? 'h2' : 'h3'
-    return <Tag id={headingSlug(textOf(props.children), seen)}>{props.children}</Tag>
+    // Fragment targets must be programmatically focusable. This moves the
+    // reading cursor to the section when a reader follows the TOC, instead of
+    // leaving keyboard / assistive-technology focus behind on the TOC link.
+    return <Tag id={headingSlug(textOf(props.children), seen)} tabIndex={-1}>{props.children}</Tag>
   }
 
   return (

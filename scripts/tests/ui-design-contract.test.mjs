@@ -108,6 +108,8 @@ test('global switcher keeps recent Wiki visits locally and supports random disco
 
 test('Wiki code fences expose copy feedback without changing Markdown content', () => {
   const markdown = read('src/components/Markdown.jsx')
+  assert.match(markdown, /tabIndex=\{-1\}/, 'Wiki heading anchors must receive programmatic focus after TOC navigation')
+  assert.match(markdown, /headingSlug\(textOf\(props\.children\), seen\)/)
   assert.match(markdown, /navigator\.clipboard\.writeText\(source\)/)
   assert.match(markdown, /fa-code-copy/)
   assert.match(markdown, /复制失败/)
