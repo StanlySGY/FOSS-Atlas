@@ -408,6 +408,10 @@ export default function GraphView({
         handlersRef.current.onDismiss?.()
         return
       }
+      // Give the non-modal node preview a meaningful return target. Without
+      // this, the preview restores focus to <body> because ECharts' canvas
+      // host is not focusable, leaving keyboard users at the start of the page.
+      containerRef.current?.focus({ preventScroll: true })
       const box = containerRef.current.getBoundingClientRect()
       handlersRef.current.onNodeClick?.(raw, {
         // zrender always fills `offsetX/offsetY`; the centre is only a guard for
@@ -512,7 +516,13 @@ export default function GraphView({
    */
   return (
     <div className="relative h-full w-full">
-      <div ref={containerRef} className="h-full w-full" />
+      <div
+        ref={containerRef}
+        className="h-full w-full"
+        tabIndex={-1}
+        role="group"
+        aria-label="知识图谱画布。点击节点查看速览，双击工具打开 Wiki；键盘用户可切换到列表视图浏览。"
+      />
       {children}
     </div>
   )

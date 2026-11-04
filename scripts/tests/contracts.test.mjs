@@ -203,3 +203,16 @@ test('graph Local Graph URL state is shareable and mutually exclusive with other
   assert.equal(setCategoryFocusParams(local, 'ai').has('local'), false)
   assert.equal(setDeployedOnlyParams(local, true).has('local'), false)
 })
+
+test('graph node preview restores focus to the canvas instead of dropping it on the document body', () => {
+  const graphView = readFileSync(new URL('../../src/components/GraphView.jsx', import.meta.url), 'utf8')
+  const popover = readFileSync(new URL('../../src/components/GraphNodePopover.jsx', import.meta.url), 'utf8')
+
+  assert.match(graphView, /containerRef\.current\?\.focus\(\{ preventScroll: true \}\)/)
+  assert.match(graphView, /ref=\{containerRef\}[\s\S]*?tabIndex=\{-1\}[\s\S]*?role="group"/)
+  assert.match(graphView, /aria-label="知识图谱画布。点击节点查看速览/)
+  assert.match(popover, /const restoreTo = document\.activeElement/)
+  assert.match(popover, /bubbleRef\.current\?\.focus\(\{ preventScroll: true \}\)/)
+  assert.match(popover, /restoreTo\.focus\(\{ preventScroll: true \}\)/)
+  assert.match(popover, /\}, \[node\.id\]\)/, 'selecting another node must move focus into its updated preview')
+})

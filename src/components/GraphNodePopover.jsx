@@ -48,11 +48,9 @@ export default function GraphNodePopover({
     setBubbleHeight((prev) => (Math.abs(prev - next) > 0.5 ? next : prev))
   }, [node, description, tags, instances, actionLabel])
 
-  /*
-   * A non-modal dialog still owes the reader somewhere for focus to land, and
-   * somewhere for it to return to. The element that opened the bubble is the
-   * canvas, so focus normally goes back to `<body>` — harmless.
-   */
+  // The canvas host is focused immediately before this preview opens. Restoring
+  // to it keeps the keyboard position stable after close; when another node is
+  // selected, re-run this effect so focus enters the updated preview as well.
   useEffect(() => {
     const restoreTo = document.activeElement
     bubbleRef.current?.focus({ preventScroll: true })
@@ -61,7 +59,7 @@ export default function GraphNodePopover({
         restoreTo.focus({ preventScroll: true })
       }
     }
-  }, [])
+  }, [node.id])
 
   const left = Math.min(Math.max(x + GAP, MARGIN), Math.max(MARGIN, width - POPOVER_WIDTH - MARGIN))
   const flip = (bubbleHeight || ESTIMATED_HEIGHT) + y + GAP > height
