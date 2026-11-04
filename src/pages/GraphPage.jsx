@@ -550,7 +550,7 @@ export default function GraphPage() {
       </div>
       </div>
 
-      <div className={viewMode === 'list' ? 'grid grid-cols-1 gap-4' : 'grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_280px]'}>
+      <div className={viewMode === 'list' ? 'grid grid-cols-1 gap-4' : 'grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_280px] 2xl:grid-cols-[minmax(0,1fr)_320px]'}>
         {viewMode === 'list' ? (
           <GraphNodeList
             graph={graph}
@@ -566,7 +566,7 @@ export default function GraphPage() {
             onTypeFilterChange={setNodeTypeFilter}
           />
         ) : (
-        <div className="fa-surface-muted h-[62vh] min-h-[420px] overflow-hidden md:h-[min(72vh,820px)]">
+        <div className="fa-surface-muted h-[62vh] min-h-[420px] overflow-hidden md:h-[min(72vh,820px)] 2xl:h-[min(80vh,1280px)]">
           <Suspense
             fallback={
               <div

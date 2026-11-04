@@ -20,8 +20,8 @@ test('all four routed views use the shared page header component', () => {
 })
 
 test('the shared frame defines common title, section, surface and control tokens', () => {
+  const redesign = read('src/redesign.css')
   for (const token of [
-    '--page-max: 1840px',
     '--page-gutter:',
     '--page-gap:',
     '.fa-page-header {',
@@ -32,6 +32,7 @@ test('the shared frame defines common title, section, surface and control tokens
     '.fa-control {',
     '.fa-stat-tile {',
   ]) assert.ok(css.includes(token), 'missing design-system token: ' + token)
+  assert.match(redesign, /--page-max:100%/, 'the app frame must use the available browser width')
   assert.match(header, /className=\{\['fa-page-header'/)
   assert.match(header, /className=\{\['fa-section-heading'/)
 })
@@ -41,6 +42,26 @@ test('full-width and Wiki workspaces align to the shared max-width frame', () =>
   assert.match(read('src/layouts/SidebarLayout.jsx'), /fa-wiki-layout/)
   assert.match(css, /\.fa-wiki-layout[\s\S]*?width: min\(100%, var\(--page-max\)\)/)
   assert.match(css, /\.fa-wiki-rail[\s\S]*?width: 252px/)
+})
+
+test('large displays expand the workspace without widening long-form reading measure', () => {
+  const redesign = read('src/redesign.css')
+  const layout = read('src/components/Layout.jsx')
+  const graph = read('src/pages/GraphPage.jsx')
+  const deployed = read('src/pages/Deployed.jsx')
+  const markdown = read('src/components/Markdown.jsx')
+
+  assert.match(redesign, /--page-max:100%;--page-gutter:clamp\(18px,1\.6vw,36px\)/)
+  assert.match(redesign, /\.fa-discovery-page\{width:100%;max-width:none/)
+  assert.match(redesign, /\.fa-wiki-layout\{width:100%;max-width:none/)
+  assert.match(layout, /w-full max-w-none/)
+  assert.match(redesign, /min-width:1440px\).*fa-discovery-grid/)
+  assert.match(redesign, /min-width:1920px\).*fa-discovery-grid/)
+  assert.match(redesign, /min-width:2560px\).*fa-discovery-grid/)
+  assert.match(graph, /2xl:h-\[min\(80vh,1280px\)\]/)
+  assert.match(graph, /2xl:grid-cols-\[minmax\(0,1fr\)_320px\]/)
+  assert.match(deployed, /lg:grid-cols-2 2xl:grid-cols-3/)
+  assert.match(markdown, /max-w-\[78ch\]/, 'long-form Wiki text must retain a readable line length')
 })
 
 test('catalogue prioritizes search, discloses filters on demand, and progressively reveals results', () => {

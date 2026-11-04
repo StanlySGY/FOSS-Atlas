@@ -422,7 +422,7 @@ export default function Deployed() {
             </button>
             <div id={panelId} hidden={!isExpanded} className="border-t border-[var(--line-soft)] p-3.5">
               {isExpanded ? (
-                <ul className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
+                <ul className="grid grid-cols-1 gap-2.5 lg:grid-cols-2 2xl:grid-cols-3">
                   {group.items.map((item) => (
                     <ServiceRow key={item.id} item={item} result={probeByKey.get(`${group.id}:${item.id}`)} />
                   ))}

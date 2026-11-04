@@ -193,7 +193,7 @@ export default function Layout() {
             link parked until sm: at 390px those three nav labels and the logo are
             the whole row, and without them the labels wrap onto two lines and the
             row overflows the viewport sideways. */}
-        <div className="mx-auto flex h-[var(--header-h)] w-full max-w-[1840px] items-center gap-3 px-4 sm:gap-6 sm:px-6">
+        <div className="mx-auto flex h-[var(--header-h)] w-full max-w-none items-center gap-3 px-4 sm:gap-6 sm:px-6 xl:px-8">
           <Link to="/" className="group flex shrink-0 items-center gap-2 whitespace-nowrap">
             <span className="grid h-6 w-6 place-items-center rounded-[var(--radius-sm)] border border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[11px] font-bold text-[var(--accent-text)]">
               FA
@@ -289,7 +289,7 @@ export default function Layout() {
       <Outlet />
 
       <footer className="border-t border-[var(--line)]">
-        <div className="mx-auto flex w-full max-w-[1840px] flex-col gap-3 px-4 py-6 text-xs text-[var(--text-faint)] sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto flex w-full max-w-none flex-col gap-3 px-4 py-6 text-xs text-[var(--text-faint)] sm:flex-row sm:items-center sm:justify-between sm:px-6 xl:px-8">
           <p>
             FOSS-Atlas · 收录 {graphStats.tools} 个免费 / 开源资源，数据源自社区整理的
             「GitHub 精选白P资源清单」。
