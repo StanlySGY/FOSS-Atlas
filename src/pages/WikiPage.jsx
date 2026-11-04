@@ -167,58 +167,61 @@ export default function WikiPage() {
   const previousResource = readingIndex > 0 ? readingSequence[readingIndex - 1] : null
   const nextResource = readingIndex >= 0 ? readingSequence[readingIndex + 1] ?? null : null
 
-  // 本页目录的当前节：IntersectionObserver 挑出视口顶部附近最近的标题，TOC
-  // 给它点亮。只监听当前页的 slug，切页自动重建。
+  // Track the last heading that crossed the reading threshold. Unlike the
+  // previous observer set, this cannot retain stale visibility after long jumps.
   const [activeHeading, setActiveHeading] = useState(null)
   const desktopTocRef = useRef(null)
   useEffect(() => {
     if (!toc.length) return undefined
     const targets = toc.map((h) => document.getElementById(h.slug)).filter(Boolean)
     if (!targets.length) return undefined
-    const visible = new Set()
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) visible.add(e.target.id)
-          else visible.delete(e.target.id)
-        }
-        if (visible.size) {
-          // 页面上最先出现的那一个：按文档顺序而不是 entry 顺序。
-          const first = targets.find((t) => visible.has(t.id))
-          if (first) setActiveHeading(first.id)
-        } else {
-          // 长章节之间可能出现一个没有标题进入观察带的空档；
-          // 此时仍以视口上方最近的标题作为当前章节。
-          const passed = targets.filter((target) => target.getBoundingClientRect().top <= 112)
-          setActiveHeading((passed[passed.length - 1] ?? targets[0]).id)
-        }
-      },
-      {
-        // rootMargin 只认 px / percent（rem 在这里会直接抛
-        // "rootMargin must be specified in pixels or percent"，把整棵树炸掉）：
-        // -112px accounts for the sticky site header plus the compact sticky TOC.
-        rootMargin: '-112px 0px -60% 0px',
-      },
-    )
-    targets.forEach((t) => observer.observe(t))
-    return () => observer.disconnect()
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const passed = targets.filter((target) => target.getBoundingClientRect().top <= 112)
+      const next = (passed[passed.length - 1] ?? targets[0]).id
+      setActiveHeading((current) => current === next ? current : next)
+    }
+    const scheduleUpdate = () => {
+      if (frame) return
+      frame = window.requestAnimationFrame(update)
+    }
+    scheduleUpdate()
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
   }, [toc])
 
   // 当前章节超出目录可视区域时，只滚动目录容器，不带动正文或整页。
   useEffect(() => {
     const container = desktopTocRef.current
-    if (!container || !activeHeading || container.getClientRects().length === 0) return
-    const activeLink = Array.from(container.querySelectorAll('a'))
-      .find((link) => link.getAttribute('href') === '#' + activeHeading)
-    if (!activeLink) return
-    const containerRect = container.getBoundingClientRect()
-    const linkRect = activeLink.getBoundingClientRect()
-    const inset = 8
-    if (linkRect.top < containerRect.top + inset) {
-      container.scrollTop += linkRect.top - containerRect.top - inset
-    } else if (linkRect.bottom > containerRect.bottom - inset) {
-      container.scrollTop += linkRect.bottom - containerRect.bottom + inset
-    }
+    if (!container || !activeHeading) return undefined
+    // Run after the active class and article layout have both been committed.
+    // This matters when the active chapter changes as a result of a long scroll.
+    const frame = window.requestAnimationFrame(() => {
+      if (container.getClientRects().length === 0) return
+      const activeLink = Array.from(container.querySelectorAll('a'))
+        .find((link) => link.getAttribute('href') === '#' + activeHeading)
+      if (!activeLink) return
+      const containerRect = container.getBoundingClientRect()
+      const linkRect = activeLink.getBoundingClientRect()
+      const visibleTop = containerRect.top + container.clientTop
+      const visibleBottom = visibleTop + container.clientHeight
+      const inset = 8
+      let nextTop = container.scrollTop
+      if (linkRect.top < visibleTop + inset) {
+        nextTop += linkRect.top - visibleTop - inset
+      } else if (linkRect.bottom > visibleBottom - inset) {
+        nextTop += linkRect.bottom - visibleBottom + inset
+      }
+      nextTop = Math.max(0, Math.min(nextTop, container.scrollHeight - container.clientHeight))
+      if (Math.abs(nextTop - container.scrollTop) > 1) container.scrollTop = nextTop
+    })
+    return () => window.cancelAnimationFrame(frame)
   }, [activeHeading, id])
 
   const activeHeadingIndex = toc.findIndex((heading) => heading.slug === activeHeading)
