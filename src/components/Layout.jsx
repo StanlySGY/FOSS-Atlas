@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { NavLink, Outlet, Link, useLocation } from 'react-router-dom'
 import BackToTop from './BackToTop.jsx'
 import CommandPalette from './CommandPalette.jsx'
-import { graphStats, resourceById } from '../lib/data.js'
+import { graphStats, RECENT_RESOURCES_KEY, resourceById } from '../lib/data.js'
 import { documentTitleForLocation } from '../lib/documentTitle.js'
 
 const navItems = [
@@ -61,6 +61,16 @@ function NavIcon({ name }) {
 }
 
 const MOBILE_ICONS = { '/': 'home', '/graph/': 'graph', '/deployed/': 'server' }
+function rememberWikiVisit(id) {
+  try {
+    const stored = JSON.parse(localStorage.getItem(RECENT_RESOURCES_KEY) || '[]')
+    const previous = Array.isArray(stored) ? stored : []
+    const next = [id, ...previous.filter((value) => typeof value === 'string' && value !== id && resourceById.has(value))].slice(0, 6)
+    localStorage.setItem(RECENT_RESOURCES_KEY, JSON.stringify(next))
+  } catch {
+    // Recent history is a convenience only; private browsing/storage denial must not break navigation.
+  }
+}
 
 export default function Layout() {
   const location = useLocation()
@@ -70,6 +80,11 @@ export default function Layout() {
   // update it too, or the tab and assistive technology keep announcing the old page.
   useEffect(() => {
     document.title = documentTitleForLocation(location.pathname, resourceById)
+  }, [location.pathname])
+
+  useEffect(() => {
+    const match = location.pathname.match(/^\/wiki\/([^/]+)\/?$/)
+    if (match && resourceById.has(match[1])) rememberWikiVisit(match[1])
   }, [location.pathname])
 
   /*
@@ -101,7 +116,9 @@ export default function Layout() {
         setPaletteOpen((v) => !v)
         return
       }
-      if (event.key === '/' && !event.metaKey && !event.ctrlKey && !event.altKey) {
+      // Home owns `/` and focuses its catalogue field. Other pages use it as a
+      // quick switcher shortcut; don't open two competing search surfaces.
+      if (event.key === '/' && !event.metaKey && !event.ctrlKey && !event.altKey && location.pathname !== '/') {
         const target = event.target
         const typing =
           target instanceof HTMLElement &&
@@ -117,7 +134,7 @@ export default function Layout() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [])
+  }, [location.pathname])
 
   return (
     <div className="flex min-h-screen flex-col">

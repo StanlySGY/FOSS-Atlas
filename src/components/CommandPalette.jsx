@@ -1,6 +1,15 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { deployedStats, graphStats, resources } from '../lib/data.js'
+import { deployedStats, graphStats, pickRandomResource, RECENT_RESOURCES_KEY, resourceById, resources } from '../lib/data.js'
+
+function readRecentIds() {
+  try {
+    const value = JSON.parse(localStorage.getItem(RECENT_RESOURCES_KEY) || '[]')
+    return Array.isArray(value) ? [...new Set(value.filter((id) => typeof id === 'string' && resourceById.has(id)))].slice(0, 6) : []
+  } catch {
+    return []
+  }
+}
 
 /*
  * 全站命令面板 — ⌘K / Ctrl+K 或 `/` 唤起，IT-Tools 的搜索优先 + Dashy 的键盘
@@ -18,6 +27,7 @@ const QUICK_ACTIONS = [
     hint: `${deployedStats.resources} 个在跑 · ${deployedStats.instances} 个实例`,
     to: '/deployed/',
   },
+  { id: 'action:random', label: '随机探索', hint: '从资源库抽取一项，发现新工具', action: 'random' },
   { id: 'page:github', label: 'GitHub 仓库', hint: '提 issue / 贡献', href: 'https://github.com/StanlySGY/FOSS-Atlas' },
 ]
 
@@ -28,13 +38,23 @@ const QUICK_ACTIONS = [
  */
 function scoreResource(r, q) {
   const name = r.name.toLowerCase()
-  if (name.startsWith(q)) return 100
-  if (name.includes(q)) return 80
-  if (r.tags.some((t) => t.toLowerCase().includes(q))) return 60
-  if (hostOf(r).includes(q)) return 55
-  if (r.description.toLowerCase().includes(q)) return 40
-  if ((r.category_name ?? '').toLowerCase().includes(q)) return 30
-  return -1
+  const terms = q.split(/\s+/).filter(Boolean)
+  const fields = [
+    name,
+    r.description.toLowerCase(),
+    hostOf(r).toLowerCase(),
+    (r.category_name ?? '').toLowerCase(),
+    (r.sub_category_name ?? '').toLowerCase(),
+    ...r.tags.map((tag) => tag.toLowerCase()),
+  ]
+  if (!terms.every((term) => fields.some((field) => field.includes(term)))) return -1
+  if (name.startsWith(q)) return 110
+  if (name.includes(q)) return 90
+  if (terms.every((term) => name.includes(term))) return 85
+  if (r.tags.some((tag) => terms.every((term) => tag.toLowerCase().includes(term)))) return 70
+  if (terms.every((term) => hostOf(r).toLowerCase().includes(term))) return 65
+  if (terms.every((term) => r.description.toLowerCase().includes(term))) return 50
+  return 35
 }
 
 function hostOf(r) {
@@ -54,8 +74,10 @@ export default function CommandPalette({ onClose }) {
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
+  const [recentIds] = useState(readRecentIds)
   const inputRef = useRef(null)
   const listRef = useRef(null)
+  const dialogRef = useRef(null)
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow
@@ -72,8 +94,18 @@ export default function CommandPalette({ onClose }) {
   const items = useMemo(() => {
     const q = query.trim().toLowerCase()
     if (!q) {
-      // 空查询：三个页面 + GitHub，下面不再铺 187 张卡——那是首页的工作。
-      return QUICK_ACTIONS
+      // Keep the empty state useful: quick actions first, then recently read Wiki pages.
+      const actions = QUICK_ACTIONS.map((item) => ({ ...item, section: '快速操作' }))
+      const recent = recentIds.map((id) => resourceById.get(id)).filter(Boolean).map((resource) => ({
+        id: `recent:${resource.id}`,
+        label: resource.name,
+        hint: resource.description,
+        meta: '最近阅读',
+        recent: true,
+        to: `/wiki/${resource.id}/`,
+        section: '最近阅读',
+      }))
+      return [...actions, ...recent]
     }
     const matched = resources
       .map((r) => ({ r, s: scoreResource(r, q) }))
@@ -92,8 +124,8 @@ export default function CommandPalette({ onClose }) {
     const pages = QUICK_ACTIONS.filter((a) => `${a.label} ${a.hint}`.toLowerCase().includes(q)).map(
       (a) => ({ ...a, page: true }),
     )
-    return [...pages, ...matched]
-  }, [query])
+    return [...pages.map((item) => ({ ...item, section: '快速操作' })), ...matched.map((item) => ({ ...item, section: '资源' }))]
+  }, [query, recentIds])
 
   /*
    * 选中的下标在渲染期收进结果集边界：过滤把列表收窄后，旧下标自然落回最后
@@ -109,12 +141,27 @@ export default function CommandPalette({ onClose }) {
 
   const run = (item) => {
     onClose()
-    if (item.href) window.open(item.href, '_blank', 'noopener,noreferrer')
+    if (item.action === 'random') {
+      const picked = pickRandomResource(recentIds)
+      if (picked) navigate(`/wiki/${picked.id}/`)
+    } else if (item.href) window.open(item.href, '_blank', 'noopener,noreferrer')
     else if (item.to) navigate(item.to)
   }
 
   const onKey = (event) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Tab') {
+      const focusable = [...(dialogRef.current?.querySelectorAll('input:not([disabled]), button:not([disabled]):not([tabindex="-1"])') ?? [])]
+      if (!focusable.length) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && (document.activeElement === first || !dialogRef.current?.contains(document.activeElement))) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    } else if (event.key === 'Escape') {
       event.preventDefault()
       onClose()
     } else if (event.key === 'ArrowDown') {
@@ -131,7 +178,7 @@ export default function CommandPalette({ onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-label="命令面板">
+    <div ref={dialogRef} className="fa-command-palette fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-label="命令面板" onKeyDown={onKey}>
       <button
         type="button"
         tabIndex={-1}
@@ -139,11 +186,7 @@ export default function CommandPalette({ onClose }) {
         onClick={onClose}
         className="absolute inset-0 h-full w-full cursor-default bg-black/55"
       />
-      <div
-        role="document"
-        onKeyDown={onKey}
-        className="fa-page absolute inset-x-3 top-[12vh] mx-auto max-w-xl overflow-hidden rounded-[10px] border border-[var(--line-strong)] bg-[var(--ink-raised)] shadow-[0_24px_64px_rgba(0,0,0,0.55)]"
-      >
+      <div className="fa-command-panel fa-page absolute inset-x-3 top-[12vh] mx-auto max-w-xl overflow-hidden rounded-[10px] border border-[var(--line-strong)] bg-[var(--ink-raised)] shadow-[0_24px_64px_rgba(0,0,0,0.55)]">
         <div className="flex items-center gap-2.5 border-b border-[var(--line)] px-3.5">
           <svg
             aria-hidden="true"
@@ -164,9 +207,11 @@ export default function CommandPalette({ onClose }) {
               setActive(0)
             }}
             placeholder="搜索资源，或输入页面名跳转…"
+            aria-label="搜索资源与页面"
             role="combobox"
             aria-expanded="true"
             aria-controls="fa-palette-list"
+            aria-activedescendant={items.length ? `fa-palette-option-${clampedActive}` : undefined}
             className="w-full bg-transparent py-3 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none"
           />
           <kbd className="mono shrink-0 rounded-[3px] border border-[var(--line)] px-1.5 py-0.5 text-[10px] text-[var(--text-faint)]">
@@ -174,19 +219,25 @@ export default function CommandPalette({ onClose }) {
           </kbd>
         </div>
 
-        <ul id="fa-palette-list" ref={listRef} role="listbox" className="max-h-[52vh] overflow-y-auto p-1.5">
+        <ul id="fa-palette-list" ref={listRef} role="listbox" aria-label="搜索结果" className="max-h-[52vh] overflow-y-auto p-1.5">
           {items.length === 0 ? (
             <li className="px-3 py-6 text-center text-xs text-[var(--text-faint)]">
               没有匹配的资源或页面。
             </li>
           ) : (
             items.map((item, i) => (
-              <li key={item.id} role="option" aria-selected={i === clampedActive}>
+              <Fragment key={item.id}>
+              {i === 0 || items[i - 1].section !== item.section ? <li role="presentation" className="px-2.5 pb-1 pt-2 text-[9px] font-semibold tracking-wide text-[var(--text-faint)]">{item.section}</li> : null}
+              <li role="presentation">
                 <button
+                  id={`fa-palette-option-${i}`}
+                  role="option"
+                  aria-selected={i === clampedActive}
                   type="button"
                   data-index={i}
                   data-active={i === clampedActive}
                   onMouseMove={() => setActive(i)}
+                  onFocus={() => setActive(i)}
                   onClick={() => run(item)}
                   className={[
                     'flex w-full items-center gap-3 rounded-[6px] px-2.5 py-2 text-left transition-colors',
@@ -195,7 +246,9 @@ export default function CommandPalette({ onClose }) {
                       : 'text-[var(--text-dim)]',
                   ].join(' ')}
                 >
-                  {item.page ? (
+                  {item.action === 'random' ? (
+                    <span aria-hidden="true" className="grid h-6 w-6 shrink-0 place-items-center rounded-[4px] border border-[var(--accent)]/55 bg-[var(--accent)]/8 text-[13px] text-[var(--accent-text)]">✦</span>
+                  ) : item.page ? (
                     <span
                       aria-hidden="true"
                       className="grid h-6 w-6 shrink-0 place-items-center rounded-[4px] border border-[var(--accent)]/60 text-[10px] text-[var(--accent-text)]"
@@ -230,6 +283,7 @@ export default function CommandPalette({ onClose }) {
                   ) : null}
                 </button>
               </li>
+              </Fragment>
             ))
           )}
         </ul>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import ResourceCard from '../components/ResourceCard.jsx'
 import { PageHeader, SectionHeading } from '../components/PageHeader.jsx'
 import FeaturedBuilds from '../components/FeaturedBuilds.jsx'
@@ -15,7 +15,7 @@ import {
   setDeployedOnlyParams,
   setSavedOnlyParams,
 } from '../lib/catalogFilterState.js'
-import { categories, countByCategory, countBySubCategory, deployedStats, resources, subCategoriesByCategory } from '../lib/data.js'
+import { categories, countByCategory, countBySubCategory, deployedStats, pickRandomResource, resources, subCategoriesByCategory } from '../lib/data.js'
 
 const FAVORITES_KEY = 'foss-atlas:favorites'
 const VIEW_KEY = 'foss-atlas:catalog-view'
@@ -30,6 +30,7 @@ const matchesSearch = (resource,query) => {
 }
 
 export default function Home() {
+  const navigate = useNavigate()
   const [searchParams,setSearchParams]=useSearchParams()
   const searchRef=useRef(null)
   const [query,setQuery]=useState(()=>queryFromSearchParams(searchParams))
@@ -61,7 +62,7 @@ export default function Home() {
   useEffect(()=>{if(!toast)return undefined;const timer=setTimeout(()=>setToast(''),1800);return()=>clearTimeout(timer)},[toast])
   useEffect(()=>{
     const shortcut=(event)=>{
-      if(event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){event.preventDefault();searchRef.current?.focus()}
+      if(event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)&&!document.activeElement?.isContentEditable){event.preventDefault();searchRef.current?.focus()}
       if(event.key==='Escape'&&compareOpen)setCompareOpen(false)
     }
     window.addEventListener('keydown',shortcut)
@@ -78,6 +79,10 @@ export default function Home() {
   const changeSort=(value)=>setSearchParams((previous)=>setCatalogSortParams(previous,value),{replace:true})
   const changeView=(value)=>{setViewFallback(value);setSearchParams((previous)=>setCatalogViewParams(previous,value),{replace:true})}
   const resetFilters=()=>{setQuery('');setSearchParams((previous)=>resetCatalogFiltersParams(previous),{replace:true})}
+  const exploreRandom=()=>{
+    const picked=pickRandomResource(favorites)
+    if(picked)navigate(`/wiki/${picked.id}/`)
+  }
 
   const filtered=useMemo(()=>{
     const normalized=query.trim().toLowerCase()
@@ -118,7 +123,7 @@ export default function Home() {
             <input id="catalog-search" ref={searchRef} aria-label="搜索资源" value={query} onChange={(event)=>handleQuery(event.target.value)} placeholder="搜索工具、用途、技术栈或域名…"/>
             {query?<button type="button" onClick={()=>handleQuery('')} aria-label="清空搜索">×</button>:<kbd>/</kbd>}
           </label>
-          <p className="fa-search-caption">搜索名称、描述、标签与免费方案 · 按 <kbd>/</kbd> 快速定位</p>
+          <p className="fa-search-caption"><span>搜索名称、描述、标签与免费方案 · 按 <kbd>/</kbd> 快速定位</span><button type="button" onClick={exploreRandom}>随便逛逛 <span aria-hidden="true">✦</span></button></p>
           <div className="fa-discovery-summary"><span><strong>{resources.length}</strong> 个资源</span><i/><span><strong>{deployedStats.resources}</strong> 个已自部署</span><i/><span><strong>{favorites.length}</strong> 个已收藏</span></div>
         </div>
       </section>

@@ -8,6 +8,15 @@ export const categories = graph.categories
 export const subCategories = graph.sub_categories
 
 export const resourceById = new Map(resources.map((r) => [r.id, r]))
+export const RECENT_RESOURCES_KEY = 'foss-atlas:recent-resources'
+
+/** Pick on an explicit user action, preferring resources outside the supplied history/favorites. */
+export function pickRandomResource(excludedIds = []) {
+  const excluded = new Set(excludedIds)
+  const available = resources.filter((resource) => !excluded.has(resource.id))
+  const pool = available.length ? available : resources
+  return pool[Math.floor(Math.random() * pool.length)] ?? null
+}
 
 export const subCategoriesByCategory = subCategories.reduce((acc, sub) => {
   ;(acc[sub.category] ||= []).push(sub)

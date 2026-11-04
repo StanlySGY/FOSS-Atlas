@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import remarkGfm from 'remark-gfm'
 import { headingSlug } from '../lib/wiki.js'
@@ -10,6 +11,41 @@ function textOf(node) {
   if (Array.isArray(node)) return node.map(textOf).join('')
   if (typeof node === 'object' && node.props) return textOf(node.props.children)
   return ''
+}
+
+function MarkdownCodeBlock({ children, ...props }) {
+  const [copyState, setCopyState] = useState('idle')
+  const resetTimer = useRef(null)
+  const source = textOf(children)
+
+  useEffect(() => () => clearTimeout(resetTimer.current), [])
+
+  const copyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(source)
+      setCopyState('copied')
+    } catch {
+      setCopyState('failed')
+    }
+    clearTimeout(resetTimer.current)
+    resetTimer.current = setTimeout(() => setCopyState('idle'), 1600)
+  }
+
+  return (
+    <div className="fa-markdown-code">
+      <button
+        type="button"
+        className="fa-code-copy"
+        onClick={copyCode}
+        aria-label={copyState === 'copied' ? '代码已复制' : copyState === 'failed' ? '代码复制失败' : '复制代码块'}
+        aria-live="polite"
+        title={copyState === 'copied' ? '已复制到剪贴板' : '复制代码'}
+      >
+        {copyState === 'copied' ? '已复制 ✓' : copyState === 'failed' ? '复制失败' : '复制代码'}
+      </button>
+      <pre {...props}>{children}</pre>
+    </div>
+  )
 }
 
 /**
@@ -56,6 +92,9 @@ export default function Markdown({ children }) {
           },
           h3({ node: _node, ...props }) {
             return <Heading level={3} {...props} />
+          },
+          pre({ node: _node, children: code, ...props }) {
+            return <MarkdownCodeBlock {...props}>{code}</MarkdownCodeBlock>
           },
         }}
       >

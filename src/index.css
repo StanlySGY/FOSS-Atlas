@@ -719,6 +719,36 @@ kbd,
   padding: 0;
   color: var(--text);
 }
+.md .fa-markdown-code {
+  position: relative;
+  margin: 0.85rem 0;
+}
+.md .fa-markdown-code pre {
+  margin: 0;
+  padding-top: 2.65rem;
+}
+.fa-code-copy {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  z-index: 1;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--ink-card);
+  padding: 4px 8px;
+  color: var(--text-faint);
+  font-size: 10px;
+  line-height: 1.3;
+  opacity: 0.72;
+  transition: border-color 120ms ease, color 120ms ease, opacity 120ms ease;
+}
+.fa-code-copy:hover,
+.fa-code-copy:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent-text);
+  opacity: 1;
+}
+.fa-code-copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .md blockquote {
   border-left: 2px solid var(--accent-dim);
   padding-left: 0.9rem;
@@ -1000,4 +1030,52 @@ kbd,
   .fa-wiki-reading-progress > span,
   .fa-wiki-toc-list a,
   .fa-wiki-toc-compact a { transition: none; }
+}
+
+/* Small moments of feedback: quick switcher, saved star and code copy. */
+@keyframes fa-command-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fa-command-rise {
+  from { opacity: 0; transform: translateY(-7px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes fa-favorite-pop {
+  0% { transform: scale(0.72) rotate(-12deg); }
+  65% { transform: scale(1.18) rotate(5deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+.fa-command-palette { animation: fa-command-fade 120ms ease-out; }
+.fa-command-panel { animation: fa-command-rise 160ms cubic-bezier(.2,.8,.2,1); }
+.fa-favorite-button.is-saved { animation: fa-favorite-pop 220ms cubic-bezier(.2,.8,.2,1); }
+.fa-search-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.fa-search-caption > button {
+  flex: none;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 3px 6px;
+  color: var(--accent-text);
+  font-size: 10px;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+.fa-search-caption > button:hover {
+  border-color: #d9e3ff;
+  background: #f2f5ff;
+}
+@media (max-width: 767px) {
+  .fa-code-copy { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fa-command-palette,
+  .fa-command-panel,
+  .fa-favorite-button.is-saved { animation: none; }
+  .fa-code-copy,
+  .fa-search-caption > button { transition: none; }
 }
