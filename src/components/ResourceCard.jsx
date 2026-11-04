@@ -5,95 +5,47 @@ import { categoryColor, categoryRing, categorySoft } from '../lib/categoryColor.
 import { iconFor, initialFor } from '../lib/data.js'
 import { getOffering } from '../lib/offerings.js'
 
-/**
- * Site icon. Renders a lettered tile underneath and layers the favicon on top,
- * so a slow or 404 favicon degrades to something intentional instead of a
- * broken-image glyph. The tile carries its category's hue — the same colour the
- * category chip wears when active — so the grid reads by colour before text.
- */
 function SiteIcon({ resource }) {
   const [failed, setFailed] = useState(false)
   const src = iconFor(resource)
-  const tint = categorySoft(resource.category)
-  const ring = categoryRing(resource.category)
   return (
-    <span
-      style={{ background: tint, borderColor: ring }}
-      className="relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-[8px] border text-[13px] font-semibold"
-    >
-      <span aria-hidden="true" style={{ color: categoryColor(resource.category) }}>
-        {initialFor(resource)}
-      </span>
-      {!src || failed ? null : (
-        <img
-          src={src}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          referrerPolicy="no-referrer"
-          onError={() => setFailed(true)}
-          className="absolute inset-0 h-full w-full rounded-[7px] object-contain p-1"
-        />
-      )}
+    <span className="fa-resource-icon" style={{ background: categorySoft(resource.category), borderColor: categoryRing(resource.category), '--resource-hue': categoryColor(resource.category) }}>
+      <span aria-hidden="true">{initialFor(resource)}</span>
+      {src && !failed ? <img src={src} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={() => setFailed(true)} /> : null}
     </span>
   )
 }
 
-export default function ResourceCard({ resource, index = 0 }) {
+export default function ResourceCard({
+  resource, index = 0, isFavorite = false, isCompared = false,
+  onFavorite = () => {}, onCompare = () => {}, view = 'grid',
+}) {
   const { id, name, url, description, category, sub_category, sub_category_name } = resource
   const offering = getOffering(id)
+  let host = url
+  try { host = new URL(url).hostname.replace(/^www\./, '') } catch { /* preserve original URL */ }
 
   return (
-    <article
-      style={{ animationDelay: `${Math.min(index * 22, 260)}ms` }}
-      className="fa-card-in fa-lift fa-surface group relative flex flex-col gap-2.5 p-3.5"
-    >
-      <div className="flex items-start gap-3">
+    <article className={view === 'list' ? 'fa-resource-card fa-discovery-card is-list' : 'fa-resource-card fa-discovery-card'} style={{ animationDelay: Math.min(index * 16, 160) + 'ms' }}>
+      <div className="fa-discovery-card-top">
         <SiteIcon resource={resource} />
-
-        <div className="min-w-0 flex-1">
-          <Link to={`/wiki/${id}/`} className="block">
-            <h3 className="truncate text-sm font-semibold text-[var(--text-strong)] transition-colors group-hover:text-[var(--accent-text)]">
-              {name}
-            </h3>
-          </Link>
+        <div className="fa-discovery-card-heading">
+          <Link to={'/wiki/' + id + '/'} className="fa-resource-title">{name}</Link>
+          <span className="fa-resource-host">{host}</span>
         </div>
+        <button type="button" className={isFavorite ? 'fa-favorite-button is-saved' : 'fa-favorite-button'} onClick={onFavorite} aria-label={isFavorite ? '取消收藏 ' + name : '收藏 ' + name} aria-pressed={isFavorite} title={isFavorite ? '取消收藏' : '加入收藏'}>{isFavorite ? '★' : '☆'}</button>
       </div>
-
-      <p className="line-clamp-2 min-h-[2.5rem] text-xs leading-relaxed text-[var(--text-dim)]">{description}</p>
-      {offering ? <span className="-mt-1 w-fit rounded-[4px] border border-[var(--line)] bg-[var(--ink-sunken)] px-1.5 py-0.5 text-[10px] text-[var(--text-faint)]">{offering.shortLabel}</span> : null}
-
-      <div className="mt-auto flex items-center justify-between gap-2 border-t border-[var(--line-soft)] pt-3">
-        <span className="flex min-w-0 items-center gap-2">
-          {/*
-           * The sub-category is a wayfinding link, not a caption: it opens the
-           * catalogue narrowed to the same 分类 → 子类 slice, with the URL that
-           * a breadcrumb on the wiki side can hand back.
-           */}
-          <Link
-            to={`/?cat=${encodeURIComponent(category)}&sub=${encodeURIComponent(sub_category)}`}
-            className="truncate text-[10px] text-[var(--text-faint)] transition-colors hover:text-[var(--accent-text)]"
-          >
-            {sub_category_name}
-          </Link>
-          <DeployedBadge resource={resource} to={`/deployed/#${(resource.instances?.[0]?.id) ?? ''}`} />
-        </span>
-        {/*
-         * Was amber on all 187 cards, which is the same colour as every active
-         * chip on the page — so "interactive" had one meaning site-wide and the
-         * grid read as one flat field of available actions. The link is not what
-         * a card is *for* (the Wiki is, and the card title is the amber path to
-         * it); it is an escape hatch, so it sits in the quiet tier and takes the
-         * accent only when you are actually on it.
-         */}
-        <a
-          href={url}
-          target="_blank"
-          rel="noreferrer"
-          className="shrink-0 text-[11px] text-[var(--text-dim)] transition-colors hover:text-[var(--accent-text)] hover:underline"
-        >
-          访问 ↗
-        </a>
+      <p className="fa-resource-description">{description}</p>
+      <div className="fa-discovery-card-bottom">
+        <div className="fa-discovery-card-meta">
+          <Link to={'/?cat=' + encodeURIComponent(category) + '&sub=' + encodeURIComponent(sub_category || '')} className="fa-resource-category">{sub_category_name || resource.category_name}</Link>
+          {offering?.shortLabel ? <span className="fa-resource-plan">{offering.shortLabel}</span> : null}
+          <DeployedBadge resource={resource} to={'/deployed/#' + (resource.instances?.[0]?.id || '')} />
+        </div>
+        <div className="fa-resource-actions">
+          <button type="button" className={isCompared ? 'fa-compare-action is-selected' : 'fa-compare-action'} onClick={onCompare} aria-pressed={isCompared}>{isCompared ? '已加入' : '比较 +'}</button>
+          <a className="fa-visit-action" href={url} target="_blank" rel="noreferrer">访问 ↗</a>
+        </div>
       </div>
     </article>
   )

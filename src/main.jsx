@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import { readPrerenderPayload } from './lib/wikiPrefill.js'
 import './index.css'
+import './redesign.css'
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '')
 const container = document.getElementById('root')

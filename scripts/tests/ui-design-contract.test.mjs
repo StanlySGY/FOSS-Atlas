@@ -43,18 +43,25 @@ test('full-width and Wiki workspaces align to the shared max-width frame', () =>
   assert.match(css, /\.fa-wiki-rail[\s\S]*?width: 252px/)
 })
 
-test('catalogue prioritizes search, normalizes filters, and progressively reveals results', () => {
+test('catalogue prioritizes search, discloses filters on demand, and progressively reveals results', () => {
   const home = read('src/pages/Home.jsx')
-  assert.match(home, /className="fa-catalog-tools"/)
-  assert.match(home, /className="fa-catalog-search/)
+  const card = read('src/components/ResourceCard.jsx')
+  const redesign = read('src/redesign.css')
+  assert.match(home, /fa-discovery-search/)
+  assert.match(home, /fa-discovery-toolbar/)
+  assert.match(home, /aria-expanded=\{filtersOpen\}/)
+  assert.match(home, /id="catalog-filters"/)
   assert.match(home, /useState\(24\)/)
-  assert.match(home, /window\.matchMedia\('\(max-width: 639px\)'\)\.matches \? 8 : 24/)
-  assert.match(home, /filtered\.slice\(0, visibleCount\)/)
+  assert.ok(home.includes("matchMedia('(max-width: 639px)').matches"))
+  assert.match(home, /filtered\.slice\(0,visibleCount\)/)
   assert.match(home, /加载更多资源/)
-  assert.ok(home.lastIndexOf('{showFeaturedBuilds ?') > home.indexOf('filtered.slice(0, visibleCount)'), 'featured builds should follow the resource results')
-  assert.match(css, /\.fa-category-chip,[\s\S]*?\.fa-filter-chip[\s\S]*?min-height: 36px/)
+  assert.ok(home.lastIndexOf('{showFeaturedBuilds?') > home.indexOf('filtered.slice(0,visibleCount)'), 'featured builds should follow resource results')
+  assert.match(redesign, /\.fa-discovery-hero/)
+  assert.match(redesign, /\.fa-discovery-grid/)
+  assert.match(card, /onFavorite/)
+  assert.match(card, /onCompare/)
+  assert.match(card, /DeployedBadge/)
 })
-
 test('graph filters are collapsed by default at every viewport while remaining explicit and accessible', () => {
   const graph = read('src/pages/GraphPage.jsx')
   assert.match(graph, /const \[filtersOpen, setFiltersOpen\] = useState\(false\)/)

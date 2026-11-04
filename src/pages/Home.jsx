@@ -1,446 +1,180 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import ResourceCard from '../components/ResourceCard.jsx'
 import { PageHeader, SectionHeading } from '../components/PageHeader.jsx'
 import FeaturedBuilds from '../components/FeaturedBuilds.jsx'
-import { categoryColor } from '../lib/categoryColor.js'
-import { OFFER_FILTERS, countOfferFilter, getOffering, matchesOfferFilter } from '../lib/offerings.js'
+import { OFFER_FILTERS, getOffering, matchesOfferFilter } from '../lib/offerings.js'
 import { queryFromSearchParams, resetCatalogFiltersParams } from '../lib/catalogFilterState.js'
-import {
-  categories,
-  countByCategory,
-  countBySubCategory,
-  deployedStats,
-  graphStats,
-  resources,
-  subCategoriesByCategory,
-} from '../lib/data.js'
+import { categories, countByCategory, countBySubCategory, deployedStats, resources, subCategoriesByCategory } from '../lib/data.js'
 
-/**
- * Top-of-page counters. Each tile is a live reflection of the catalogue so the
- * numbers can never drift from the data.
- */
-/*
- * Two numbers get a tile: how much is here, and how much of it I run. The other
- * three (一级分类 / 标签 / 关系边) describe the *shape* of the same dataset
- * rather than its size, and as tiles of identical weight they competed with the
- * two that a reader actually acts on — five boxes reading as one flat row said
- * "these are all equally worth knowing", which is not true of 11.
- *
- * They stay on the page as a mono line under the pitch, the way the graph page
- * already states its counts, so the two views agree.
- */
-const SHAPE = [
-  { key: 'categories', label: '一级分类', value: graphStats.categories },
-  { key: 'tags', label: '标签', value: graphStats.tags },
-  { key: 'edges', label: '关系边', value: graphStats.edges },
-]
+const FAVORITES_KEY = 'foss-atlas:favorites'
+const VIEW_KEY = 'foss-atlas:catalog-view'
+const readFavorites = () => {
+  try { const value=JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]'); return Array.isArray(value)?value.filter((id)=>typeof id==='string'):[] } catch { return [] }
+}
+const readView = () => { try { return localStorage.getItem(VIEW_KEY)==='list'?'list':'grid' } catch { return 'grid' } }
+const matchesSearch = (resource,query) => {
+  if (!query) return true
+  const offer=getOffering(resource.id)
+  return [resource.name,resource.description,resource.url,resource.category_name,resource.sub_category_name,...(resource.tags||[]),offer?.label,offer?.summary,...(offer?.conditions||[])].filter(Boolean).join(' ').toLowerCase().includes(query)
+}
 
 export default function Home() {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const [query, setQuery] = useState(() => queryFromSearchParams(searchParams))
-  const [visibleCount, setVisibleCount] = useState(24)
-  /*
-   * 分类与子类跟 q / deployed 一样住在 URL 里：面包屑（Wiki 页的分类 /
-   * 子类）、卡片上的子类标签和标签链回这里时，地址要能直接说出「哪个分类、
-   * 哪个子类」。未知分类回退到 all；子类必须属于当前分类，否则一并回退。
-   */
-  /*
-   * 只看我部署了的 — in the URL, for the same reason the graph keeps it there:
-   * the 自部署服务 page and a deployed row need to be able to hand the reader a
-   * link that says "the catalogue, narrowed to what runs". `deployed=1` is the
-   * same parameter name on /graph and here, so the two views agree on the address.
-   */
-  const deployedOnly = searchParams.get('deployed') === '1'
-  const offerParam = searchParams.get('offer')
-  const activeOffer = OFFER_FILTERS.some((filter) => filter.id === offerParam) ? offerParam : 'all'
+  const [searchParams,setSearchParams]=useSearchParams()
+  const searchRef=useRef(null)
+  const [query,setQuery]=useState(()=>queryFromSearchParams(searchParams))
+  const [visibleCount,setVisibleCount]=useState(24)
+  const [filtersOpen,setFiltersOpen]=useState(false)
+  const [favorites,setFavorites]=useState(readFavorites)
+  const [favoritesOnly,setFavoritesOnly]=useState(false)
+  const [view,setView]=useState(readView)
+  const [sort,setSort]=useState('recommended')
+  const [compareIds,setCompareIds]=useState([])
+  const [compareOpen,setCompareOpen]=useState(false)
+  const [toast,setToast]=useState('')
 
-  const catParam = searchParams.get('cat')
-  const activeCategory = categories.some((c) => c.id === catParam) ? catParam : 'all'
-  const subParam = searchParams.get('sub')
-  const subs = activeCategory === 'all' ? [] : subCategoriesByCategory[activeCategory] ?? []
-  const activeSub = subs.some((s) => s.id === subParam) ? subParam : 'all'
+  const deployedOnly=searchParams.get('deployed')==='1'
+  const offerParam=searchParams.get('offer')
+  const activeOffer=OFFER_FILTERS.some((item)=>item.id===offerParam)?offerParam:'all'
+  const catParam=searchParams.get('cat')
+  const activeCategory=categories.some((item)=>item.id===catParam)?catParam:'all'
+  const subs=activeCategory==='all'?[]:subCategoriesByCategory[activeCategory]??[]
+  const subParam=searchParams.get('sub')
+  const activeSub=subs.some((sub)=>sub.id===subParam)?subParam:'all'
+  const activeCategoryName=categories.find((item)=>item.id===activeCategory)?.name
 
-  const patchParams = (mutate) => {
-    setSearchParams(
-      (prev) => {
-        const p = new URLSearchParams(prev)
-        mutate(p)
-        return p
-      },
-      { replace: true },
-    )
+  useEffect(()=>{const next=queryFromSearchParams(searchParams);if(next!==query)setQuery(next);/* eslint-disable-next-line react-hooks/exhaustive-deps */},[searchParams])
+  useEffect(()=>{try{localStorage.setItem(FAVORITES_KEY,JSON.stringify(favorites))}catch{/* optional */}},[favorites])
+  useEffect(()=>{try{localStorage.setItem(VIEW_KEY,view)}catch{/* optional */}},[view])
+  useEffect(()=>{setVisibleCount(matchMedia('(max-width: 639px)').matches?8:24)},[query,activeCategory,activeSub,deployedOnly,activeOffer,favoritesOnly])
+  useEffect(()=>{if(!toast)return undefined;const timer=setTimeout(()=>setToast(''),1800);return()=>clearTimeout(timer)},[toast])
+  useEffect(()=>{
+    const shortcut=(event)=>{
+      if(event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){event.preventDefault();searchRef.current?.focus()}
+      if(event.key==='Escape'&&compareOpen)setCompareOpen(false)
+    }
+    window.addEventListener('keydown',shortcut)
+    return()=>window.removeEventListener('keydown',shortcut)
+  },[compareOpen])
+
+  const patchParams=(mutate)=>setSearchParams((previous)=>{const next=new URLSearchParams(previous);mutate(next);return next},{replace:true})
+  const handleQuery=(value)=>{setQuery(value);patchParams((params)=>{if(value)params.set('q',value);else params.delete('q')})}
+  const pickCategory=(id)=>patchParams((params)=>{if(id==='all')params.delete('cat');else params.set('cat',id);params.delete('sub')})
+  const setOffer=(id)=>patchParams((params)=>{if(id==='all')params.delete('offer');else params.set('offer',id)})
+  const pickSub=(id)=>patchParams((params)=>{if(id==='all')params.delete('sub');else params.set('sub',id)})
+  const setDeployed=(enabled)=>patchParams((params)=>{if(enabled)params.set('deployed','1');else params.delete('deployed')})
+  const resetFilters=()=>{setQuery('');setFavoritesOnly(false);setSearchParams((previous)=>resetCatalogFiltersParams(previous),{replace:true})}
+
+  const filtered=useMemo(()=>{
+    const normalized=query.trim().toLowerCase()
+    const result=resources.filter((resource)=>{
+      if(deployedOnly&&!resource.deployed)return false
+      if(favoritesOnly&&!favorites.includes(resource.id))return false
+      if(activeCategory!=='all'&&resource.category!==activeCategory)return false
+      if(activeSub!=='all'&&resource.sub_category!==activeSub)return false
+      return matchesOfferFilter(resource.id,activeOffer)&&matchesSearch(resource,normalized)
+    })
+    if(sort==='name')result.sort((a,b)=>a.name.localeCompare(b.name,'zh-CN'))
+    if(sort==='deployed')result.sort((a,b)=>Number(Boolean(b.deployed))-Number(Boolean(a.deployed)))
+    return result
+  },[query,deployedOnly,favoritesOnly,favorites,activeCategory,activeSub,activeOffer,sort])
+
+  const toggleFavorite=(id)=>{
+    const saved=favorites.includes(id)
+    setFavorites((previous)=>saved?previous.filter((value)=>value!==id):[...previous,id])
+    setToast(saved?'已从收藏中移除':'已加入收藏')
   }
-  const setOfferFilter = (next) =>
-    patchParams((p) => {
-      if (!next || next === 'all') p.delete('offer')
-      else p.set('offer', next)
-    })
-
-  const setDeployedOnly = (next) =>
-    patchParams((p) => {
-      if (next) p.set('deployed', '1')
-      else p.delete('deployed')
-    })
-
-  // Keep the input in sync when arriving via a /?q=... link.
-  useEffect(() => {
-    const q = queryFromSearchParams(searchParams)
-    if (q !== query) setQuery(q)
-    // A missing `q` is meaningful too: tag/category links must not leave a stale query in the input.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams])
-
-  const handleQuery = (value) => {
-    setQuery(value)
-    patchParams((p) => {
-      if (value) p.set('q', value)
-      else p.delete('q')
-    })
-  }
-
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    return resources.filter((r) => {
-      if (deployedOnly && !r.deployed) return false
-      if (!matchesOfferFilter(r.id, activeOffer)) return false
-      if (activeCategory !== 'all' && r.category !== activeCategory) return false
-      if (activeSub !== 'all' && r.sub_category !== activeSub) return false
-      if (!q) return true
-      return (
-        r.name.toLowerCase().includes(q) ||
-        r.description.toLowerCase().includes(q) ||
-        r.url.toLowerCase().includes(q) ||
-        (r.category_name ?? '').toLowerCase().includes(q) ||
-        (r.sub_category_name ?? '').toLowerCase().includes(q) ||
-        r.tags.some((t) => t.toLowerCase().includes(q)) ||
-        [getOffering(r.id)?.label, getOffering(r.id)?.summary, ...(getOffering(r.id)?.conditions ?? [])].filter(Boolean).join(' ').toLowerCase().includes(q)
-      )
-    })
-  }, [query, activeCategory, activeSub, deployedOnly, activeOffer])
-
-  useEffect(() => {
-    setVisibleCount(window.matchMedia('(max-width: 639px)').matches ? 8 : 24)
-  }, [query, activeCategory, activeSub, deployedOnly, activeOffer])
-
-  const pickCategory = (id) =>
-    patchParams((p) => {
-      if (id === 'all') p.delete('cat')
-      else p.set('cat', id)
-      p.delete('sub')
-    })
-
-  const pickSub = (id) =>
-    patchParams((p) => {
-      if (id === 'all') p.delete('sub')
-      else p.set('sub', id)
-    })
-
-  const activeCategoryName =
-    activeCategory === 'all'
-      ? null
-      : categories.find((c) => c.id === activeCategory)?.name ?? null
-
-  const resetFilters = () => {
-    setQuery('')
-    setSearchParams((prev) => resetCatalogFiltersParams(prev), { replace: true })
-  }
-  const hasActiveFilters = Boolean(query.trim() || activeCategory !== 'all' || activeSub !== 'all' || deployedOnly || activeOffer !== 'all')
-  const showFeaturedBuilds = !query.trim() && activeCategory === 'all' && activeSub === 'all' && !deployedOnly && activeOffer === 'all'
+  const toggleCompare=(id)=>setCompareIds((previous)=>{
+    if(previous.includes(id))return previous.filter((value)=>value!==id)
+    if(previous.length>=3){setToast('最多同时比较 3 个资源');return previous}
+    return [...previous,id]
+  })
+  const comparisons=compareIds.map((id)=>resources.find((resource)=>resource.id===id)).filter(Boolean)
+  const hasActiveFilters=Boolean(query.trim()||activeCategory!=='all'||activeSub!=='all'||deployedOnly||activeOffer!=='all'||favoritesOnly)
+  const filterCount=Number(activeCategory!=='all')+Number(activeSub!=='all')+Number(activeOffer!=='all')
+  const showFeaturedBuilds=!query.trim()&&activeCategory==='all'&&activeSub==='all'&&!deployedOnly&&activeOffer==='all'&&!favoritesOnly
 
   return (
-    <div className="fa-page-stack">
-      {/* Hero: title + one-line pitch + hard numbers. */}
-      <PageHeader
-        className="fa-page-header--home"
-        eyebrow="资源目录 / DISCOVER"
-        title={<>开源<span className="text-[var(--accent)]">白嫖</span>资源图鉴</>}
-        description="免费额度、开源自部署方案与公开 API，一站搜索、Wiki 深挖、图谱看关系；带「已自部署」标记的资源可直接打开实际服务。"
-        aside={(
-          <div className="space-y-2.5">
-            <div className="mono flex flex-wrap items-baseline gap-x-4 gap-y-1 text-[10px] text-[var(--text-faint)]">
-              {SHAPE.map((item) => (
-                <span key={item.key}>
-                  <span className="text-[var(--text-dim)]">{item.value}</span> {item.label}
-                </span>
-              ))}
-            </div>
-            <div className="grid grid-cols-2 gap-2.5">
-              <div className="fa-stat-tile">
-                <span className="fa-stat-value mono">{graphStats.tools}</span>
-                <span className="fa-stat-label">资源条目</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setDeployedOnly(!deployedOnly)}
-                aria-pressed={deployedOnly}
-                title={deployedStats.instances + ' 个实例 · ' + deployedStats.own + ' 个 Atlas 自建'}
-                className="fa-stat-tile fa-stat-tile--interactive"
-              >
-                <span className="fa-stat-value mono">{deployedStats.resources}</span>
-                <span className="fa-stat-label" style={{ color: 'var(--own-text)' }}>
-                  已自部署{deployedOnly ? ' · 只看这些' : ''}
-                </span>
-              </button>
-            </div>
-          </div>
-        )}
-      />
-
-      {deployedOnly ? (
-        <p className="text-[11px] text-[var(--text-faint)]">
-          卡片已收窄到我在跑的条目（<span className="mono text-[var(--own-text)]">{filtered.length}</span> 条）。
-          再点一次上面那格退回全部，或者
-          <Link to="/graph/?deployed=1" className="ml-1 text-[var(--own-text)] hover:underline">
-            在图谱里看这一部分 →
-          </Link>
-        </p>
-      ) : null}
-
-      {/* Toolbar: search + live result count, then the category rail. */}
-      <section className="fa-catalog-tools">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <div className="relative flex-1">
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-faint)]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3.2-3.2" strokeLinecap="round" />
-            </svg>
-            <input
-              aria-label="搜索资源目录"
-              value={query}
-              onChange={(e) => handleQuery(e.target.value)}
-              placeholder="搜索名称 / 描述 / 标签 / 域名，例如 ollama、密码、免费额度"
-              className="fa-catalog-search w-full rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-sunken)] py-3 pl-10 pr-16 text-[13px] text-[var(--text-strong)] placeholder:text-[var(--text-faint)] transition-colors focus:border-[var(--accent)]/70 focus:outline-none"
-            />
-            {query ? (
-              <button
-                type="button"
-                onClick={() => handleQuery('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-[3px] px-1.5 py-0.5 text-xs text-[var(--text-faint)] transition-colors hover:text-[var(--text-strong)]"
-              >
-                清空
-              </button>
-            ) : null}
-          </div>
-          <span
-            className="mono shrink-0 text-xs text-[var(--text-faint)] sm:min-w-[7rem] sm:text-right"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <span className="text-[var(--text-strong)]">{filtered.length}</span> / {resources.length} 条
-          </span>
+    <div className="fa-page-stack fa-discovery-page">
+      <section className="fa-discovery-hero">
+        <PageHeader className="fa-discovery-heading" eyebrow="FOSS ATLAS / DISCOVER" title={<>找到真正值得用的<br/><span>开源工具与免费服务。</span></>} description="免费额度、公开 API、自部署软件。先找到合适的工具，再沿着 Wiki 和知识图谱深入了解。"/>
+        <div className="fa-discovery-search-area">
+          <label className="fa-discovery-search" htmlFor="catalog-search">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="11" cy="11" r="7.2"/><path d="m16.4 16.4 4.1 4.1" strokeLinecap="round"/></svg>
+            <input id="catalog-search" ref={searchRef} aria-label="搜索资源" value={query} onChange={(event)=>handleQuery(event.target.value)} placeholder="搜索工具、用途、技术栈或域名…"/>
+            {query?<button type="button" onClick={()=>handleQuery('')} aria-label="清空搜索">×</button>:<kbd>/</kbd>}
+          </label>
+          <p className="fa-search-caption">搜索名称、描述、标签与免费方案 · 按 <kbd>/</kbd> 快速定位</p>
+          <div className="fa-discovery-summary"><span><strong>{resources.length}</strong> 个资源</span><i/><span><strong>{deployedStats.resources}</strong> 个已自部署</span><i/><span><strong>{favorites.length}</strong> 个已收藏</span></div>
         </div>
-
-        {/*
-         * The rail scrolls sideways on a phone instead of wrapping into a wall
-         * of pills; from `sm:` up there is room to wrap again.
-         */}
-        <div className="fa-category-rail -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
-          <CategoryTab
-            active={activeCategory === 'all'}
-            onClick={() => pickCategory('all')}
-            label="全部"
-            count={resources.length}
-          />
-          {categories.map((cat) => (
-            <CategoryTab
-              key={cat.id}
-              active={activeCategory === cat.id}
-              onClick={() => pickCategory(cat.id)}
-              label={cat.name}
-              count={countByCategory[cat.id] ?? 0}
-              color={categoryColor(cat.id)}
-            />
-          ))}
-        </div>
-
-        <div className="fa-offer-rail flex flex-wrap items-center gap-2 border-t border-[var(--line-soft)] pt-3">
-          <span className="mr-1 text-[11px] font-medium text-[var(--text-dim)]">费用类型</span>
-          {OFFER_FILTERS.map((filter) => {
-            const count = filter.id === 'all' ? resources.length : countOfferFilter(resources, filter.id)
-            const active = activeOffer === filter.id
-            return (
-              <button
-                key={filter.id}
-                type="button"
-                aria-pressed={active}
-                onClick={() => setOfferFilter(filter.id)}
-                className={[
-                  'fa-filter-chip rounded-full border px-3 py-2 text-xs transition-colors',
-                  active ? 'border-[var(--accent)]/65 bg-[var(--accent)]/10 text-[var(--accent-text)]' : 'border-[var(--line)] bg-[var(--ink-card)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
-                ].join(' ')}
-              >
-                {filter.label}<span className="mono ml-1.5 text-[10px] opacity-70">{count}</span>
-              </button>
-            )
-          })}
-        </div>
-
-        {subs.length > 1 ? (
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-[var(--line-soft)] pt-3">
-            <div className="flex flex-wrap items-center gap-1.5">
-              <span className="mr-1 text-[11px] text-[var(--text-faint)]">
-                {activeCategoryName} · 子类
-              </span>
-              <SubChip
-                active={activeSub === 'all'}
-                onClick={() => pickSub('all')}
-                label="全部"
-              />
-              {subs.map((sub) => (
-                <SubChip
-                  key={sub.id}
-                  active={activeSub === sub.id}
-                  onClick={() => pickSub(sub.id)}
-                  label={`${sub.name} (${countBySubCategory[sub.id] ?? 0})`}
-                />
-              ))}
-            </div>
-            {/*
-             * One hop from a filtered catalogue to the same slice of the graph:
-             * `?cat=` is the graph's category-focus deep link, so the address
-             * that says "these tools" keeps saying it on the other page.
-             */}
-            <Link
-              to={`/graph/?cat=${encodeURIComponent(activeCategory)}`}
-              className="text-[11px] text-[var(--text-dim)] transition-colors hover:text-[var(--accent-text)]"
-            >
-              在知识图谱中聚焦 {activeCategoryName} →
-            </Link>
-          </div>
-        ) : null}
       </section>
 
-      {hasActiveFilters ? (
-        <div className="mb-3 flex flex-wrap items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--line-soft)] bg-[var(--ink-card)] px-3 py-2.5">
-          <span className="mr-1 text-[10px] text-[var(--text-faint)]">当前筛选</span>
-          {query.trim() ? <button type="button" onClick={() => handleQuery('')} className="rounded-full border border-[var(--line)] px-2 py-1 text-[10px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]">搜索：{query.trim()} ×</button> : null}
-          {activeCategoryName ? <button type="button" onClick={() => pickCategory('all')} className="rounded-full border border-[var(--line)] px-2 py-1 text-[10px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]">分类：{activeCategoryName} ×</button> : null}
-          {activeSub !== 'all' ? <button type="button" onClick={() => pickSub('all')} className="rounded-full border border-[var(--line)] px-2 py-1 text-[10px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]">子类：{subs.find((sub) => sub.id === activeSub)?.name ?? activeSub} ×</button> : null}
-          {deployedOnly ? <button type="button" onClick={() => setDeployedOnly(false)} className="rounded-full border border-[var(--own-text)]/50 bg-[var(--own-well)] px-2 py-1 text-[10px] text-[var(--own-text)]">只看已部署 ×</button> : null}
-          {activeOffer !== 'all' ? <button type="button" onClick={() => setOfferFilter('all')} className="rounded-full border border-[var(--accent)]/50 bg-[var(--accent)]/8 px-2 py-1 text-[10px] text-[var(--accent-text)]">方案：{OFFER_FILTERS.find((filter) => filter.id === activeOffer)?.label} ×</button> : null}
-          <button type="button" onClick={resetFilters} className="ml-auto text-[10px] text-[var(--accent-text)] hover:underline">清除全部</button>
+      <section className="fa-discovery-toolbar" aria-label="目录工具栏">
+        <div className="fa-quick-views">
+          <button type="button" className={!deployedOnly&&!favoritesOnly?'is-active':''} onClick={resetFilters}>全部资源 <span>{resources.length}</span></button>
+          <button type="button" className={deployedOnly?'is-active':''} onClick={()=>{setDeployed(!deployedOnly);setFavoritesOnly(false)}}>已部署 <span>{deployedStats.resources}</span></button>
+          <button type="button" className={favoritesOnly?'is-active':''} onClick={()=>{setFavoritesOnly(!favoritesOnly);setDeployed(false)}}>我的收藏 <span>{favorites.length}</span></button>
         </div>
-      ) : null}
-
-      {filtered.length ? (
-        <section className="space-y-3">
-          <SectionHeading
-            title={activeCategoryName ?? '全部资源'}
-            meta={filtered.length + ' 项'}
-            description={hasActiveFilters ? '当前筛选结果；可继续组合搜索、分类、费用类型与部署状态。' : '按分类浏览，或直接搜索名称、用途、额度与技术栈。'}
-          />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {filtered.slice(0, visibleCount).map((r, i) => (
-              <ResourceCard key={r.id} resource={r} index={i} />
-            ))}
-          </div>
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-            <p className="mono text-[11px] text-[var(--text-faint)]">已显示 {Math.min(visibleCount, filtered.length)} / {filtered.length}</p>
-            {filtered.length > visibleCount ? (
-              <button
-                type="button"
-                onClick={() => setVisibleCount((count) => count + (window.matchMedia('(max-width: 639px)').matches ? 8 : 24))}
-                className="fa-control"
-              >
-                加载更多资源 <span className="mono text-[10px]">+{Math.min(24, filtered.length - visibleCount)}</span>
-              </button>
-            ) : null}
-          </div>
-        </section>
-      ) : (
-        <div className="fa-surface p-10 text-center">
-          <p className="text-sm text-[var(--text-dim)]">没有匹配的资源，换个关键词试试。</p>
-          <button
-            type="button"
-            onClick={resetFilters}
-            className="mt-3 text-xs text-[var(--text-dim)] transition-colors hover:text-[var(--text-strong)] hover:underline"
-          >
-            重置筛选
+        <div className="fa-discovery-controls">
+          <button type="button" className={filtersOpen||filterCount?'fa-filter-trigger is-active':'fa-filter-trigger'} aria-expanded={filtersOpen} aria-controls="catalog-filters" onClick={()=>setFiltersOpen(!filtersOpen)}>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M3 5h14M5.5 10h9M8 15h4" strokeLinecap="round"/></svg>
+            筛选{filterCount?<span>{filterCount}</span>:''}
           </button>
+          <label className="fa-sort-control"><span>排序</span><select value={sort} onChange={(event)=>setSort(event.target.value)}><option value="recommended">推荐</option><option value="name">名称 A–Z</option><option value="deployed">已部署优先</option></select></label>
+          <div className="fa-view-switch" role="group" aria-label="显示方式">
+            <button type="button" aria-label="卡片视图" aria-pressed={view==='grid'} className={view==='grid'?'is-active':''} onClick={()=>setView('grid')}>▦</button>
+            <button type="button" aria-label="列表视图" aria-pressed={view==='list'} className={view==='list'?'is-active':''} onClick={()=>setView('list')}>☷</button>
+          </div>
+          <Link to="/graph/" className="fa-discovery-graph-link">关系图 ↗</Link>
         </div>
-      )}
+      </section>
 
-      {showFeaturedBuilds ? <FeaturedBuilds /> : null}
+      {filtersOpen?<section id="catalog-filters" className="fa-discovery-filter-panel" aria-label="筛选资源">
+        <label><span>资源分类</span><select value={activeCategory} onChange={(event)=>pickCategory(event.target.value)}><option value="all">全部分类</option>{categories.map((category)=><option key={category.id} value={category.id}>{category.name}（{countByCategory[category.id]??0}）</option>)}</select></label>
+        <label><span>免费方案</span><select value={activeOffer} onChange={(event)=>setOffer(event.target.value)}>{OFFER_FILTERS.map((filter)=><option key={filter.id} value={filter.id}>{filter.label}</option>)}</select></label>
+        {subs.length?<label><span>细分领域</span><select value={activeSub} onChange={(event)=>pickSub(event.target.value)}><option value="all">全部子类</option>{subs.map((sub)=><option key={sub.id} value={sub.id}>{sub.name}（{countBySubCategory[sub.id]??0}）</option>)}</select></label>:null}
+        <button type="button" className="fa-reset-filters" onClick={resetFilters}>清除条件</button>
+      </section>:null}
 
-      <p className="text-center text-[11px] text-[var(--text-faint)]">
-        想要更立体地浏览？试试{' '}
-        <Link to="/graph/" className="text-[var(--text-dim)] transition-colors hover:text-[var(--text-strong)] hover:underline">
-          知识图谱 →
-        </Link>
-      </p>
+      {hasActiveFilters?<div className="fa-active-filters"><span>当前条件</span>
+        {query.trim()?<button type="button" onClick={()=>handleQuery('')}>搜索：{query.trim()} ×</button>:null}
+        {activeCategory!=='all'?<button type="button" onClick={()=>pickCategory('all')}>{activeCategoryName} ×</button>:null}
+        {activeSub!=='all'?<button type="button" onClick={()=>pickSub('all')}>{subs.find((item)=>item.id===activeSub)?.name??activeSub} ×</button>:null}
+        {deployedOnly?<button type="button" onClick={()=>setDeployed(false)}>只看已部署 ×</button>:null}
+        {activeOffer!=='all'?<button type="button" onClick={()=>setOffer('all')}>{OFFER_FILTERS.find((item)=>item.id===activeOffer)?.label} ×</button>:null}
+        {favoritesOnly?<button type="button" onClick={()=>setFavoritesOnly(false)}>我的收藏 ×</button>:null}
+        <button type="button" className="fa-clear-all" onClick={resetFilters}>清除全部</button>
+      </div>:null}
+
+      <section className="fa-discovery-results">
+        <SectionHeading eyebrow={activeCategoryName??(favoritesOnly?'SAVED RESOURCES':deployedOnly?'RUNNING SERVICES':'RESOURCE LIBRARY')} title={query.trim()?'搜索结果':activeCategoryName??(favoritesOnly?'我的收藏':deployedOnly?'已部署资源':'探索资源')} meta={filtered.length+' 项'} description={hasActiveFilters?'当前条件下的匹配结果。可以继续组合筛选，或打开 Wiki 查看详细信息。':'每张卡片都可以进入 Wiki 深入了解，也可以直接访问原始项目。'}/>
+        {filtered.length?<>
+          <div className={view==='grid'?'fa-resource-grid fa-discovery-grid':'fa-resource-grid fa-discovery-grid is-list'}>
+            {filtered.slice(0,visibleCount).map((resource,index)=><ResourceCard key={resource.id} resource={resource} index={index} isFavorite={favorites.includes(resource.id)} isCompared={compareIds.includes(resource.id)} onFavorite={()=>toggleFavorite(resource.id)} onCompare={()=>toggleCompare(resource.id)} view={view}/>)}
+          </div>
+          <div className="fa-discovery-load-more"><span>已显示 {Math.min(visibleCount,filtered.length)} / {filtered.length}</span>{filtered.length>visibleCount?<button type="button" onClick={()=>setVisibleCount((count)=>count+(matchMedia('(max-width: 639px)').matches?8:24))}>加载更多资源 <span>+{Math.min(24,filtered.length-visibleCount)}</span></button>:<span>已显示全部</span>}</div>
+        </>:<div className="fa-discovery-empty"><strong>{favoritesOnly?'还没有收藏资源':'没有匹配的资源'}</strong><p>{favoritesOnly?'点击卡片上的星标，把常用工具留在这里。':'换个关键词，或者清除部分筛选条件再试试。'}</p><button type="button" onClick={resetFilters}>清除筛选</button></div>}
+      </section>
+
+      {showFeaturedBuilds?<section className="fa-discovery-featured"><FeaturedBuilds/></section>:null}
+      <p className="fa-discovery-footer">想探索工具之间的联系？<Link to="/graph/">打开知识图谱 →</Link></p>
+      {toast?<div className="fa-discovery-toast" role="status">{toast}</div>:null}
+      {compareIds.length?<div className="fa-compare-tray"><span><strong>{compareIds.length}</strong> / 3 个资源已选</span><div><button type="button" onClick={()=>setCompareIds([])}>清空</button><button type="button" className="fa-compare-primary" disabled={compareIds.length<2} onClick={()=>setCompareOpen(true)}>比较所选 →</button></div></div>:null}
+      {compareOpen?<div className="fa-compare-overlay" role="dialog" aria-modal="true" aria-labelledby="fa-compare-title">
+        <button type="button" className="fa-compare-backdrop" aria-label="关闭比较" onClick={()=>setCompareOpen(false)}/>
+        <section className="fa-compare-dialog">
+          <header><div><p>RESOURCE COMPARISON</p><h2 id="fa-compare-title">资源比较</h2></div><button type="button" aria-label="关闭" onClick={()=>setCompareOpen(false)}>×</button></header>
+          <div className="fa-compare-table-wrap"><table className="fa-compare-table"><tbody>
+            <tr><th>对比项目</th>{comparisons.map((resource)=><th key={resource.id}><Link to={'/wiki/'+resource.id+'/'} onClick={()=>setCompareOpen(false)}>{resource.name}</Link></th>)}</tr>
+            <tr><td>分类</td>{comparisons.map((resource)=><td key={resource.id}>{resource.category_name}</td>)}</tr>
+            <tr><td>免费方案</td>{comparisons.map((resource)=><td key={resource.id}>{getOffering(resource.id)?.label??'未标注'}</td>)}</tr>
+            <tr><td>方案说明</td>{comparisons.map((resource)=><td key={resource.id}>{getOffering(resource.id)?.summary??'查看服务商说明'}</td>)}</tr>
+            <tr><td>自部署</td>{comparisons.map((resource)=><td key={resource.id}>{resource.deployed?'已部署':'未部署'}</td>)}</tr>
+            <tr><td>官网</td>{comparisons.map((resource)=><td key={resource.id}><a href={resource.url} target="_blank" rel="noreferrer">访问 ↗</a></td>)}</tr>
+          </tbody></table></div>
+          <footer><span>免费额度与可用条件以服务商当前政策为准。</span><button type="button" onClick={()=>setCompareOpen(false)}>完成</button></footer>
+        </section>
+      </div>:null}
     </div>
-  )
-}
-
-/*
- * The rail is where the 11 category hues are supposed to do their work, and
- * until now only the *active* one had a hue — the other ten were grey pills,
- * so the rail read as one undifferentiated row plus a highlighted one. Every
- * chip now carries its own category at rest (8% fill, 35% border, the hue as
- * its own label) so the row says "these are eleven different things" before
- * anything is clicked.
- *
- * Rest vs active is a change of *concentration*, not of hue: fill 8% → 10%,
- * border 35% → 70%. Measured at the worst place a chip can sit — over the
- * body's warm halo, where the ground is brightest (#3b333a, L* 22.3) — every
- * label clears AA on its own wash: 4.78:1 worst (cn-ai) to 6.35 best at rest,
- * 4.60–6.78 active. The border is 1.83–2.09:1 at rest and **3.07–3.65:1**
- * active: at rest it is a container line, when active it is a mark, which is
- * the point of the 35% → 70% step. The two concentrations were solved for
- * those two floors, not chosen — 12% fill would have put the active label at
- * 4.42:1, under AA, and 65% border at 2.79:1, under the mark floor. The wash
- * itself stays 1.107–1.190:1 against the ground: tinted, not painted.
- */
-function CategoryTab({ active, onClick, label, count, color }) {
-  const tint = color && active
-    ? {
-        borderColor: `color-mix(in srgb, ${color} 60%, transparent)`,
-        background: `color-mix(in srgb, ${color} 9%, var(--ink-card))`,
-      }
-    : undefined
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      style={tint}
-      className={[
-        'shrink-0 rounded-full border px-3 py-1.5 text-xs transition-colors',
-        active && !color
-          ? 'border-[var(--accent)]/65 bg-[var(--accent)]/10 text-[var(--accent-text)]'
-          : 'border-[var(--line)] bg-[var(--ink-card)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
-      ].join(' ')}
-    >
-      {color ? <span aria-hidden="true" className="mr-1.5 inline-block h-2 w-2 rounded-full" style={{ background: color }} /> : null}
-      {label}
-      <span className="mono ml-1.5 text-[10px] text-[var(--text-faint)]">{count}</span>
-    </button>
-  )
-}
-
-function SubChip({ active, onClick, label }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={[
-        'fa-filter-chip rounded-full border px-3 py-2 text-xs transition-colors',
-        active
-          ? 'border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent-text)]'
-          : 'border-[var(--line)] bg-[var(--ink-card)] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]',
-      ].join(' ')}
-    >
-      {label}
-    </button>
   )
 }
