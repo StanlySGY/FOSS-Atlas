@@ -58,7 +58,7 @@ export default function FeaturedBuilds() {
         {featured.map((resource) => (
           <article
             key={resource.id}
-            className="flex w-[min(82vw,310px)] shrink-0 snap-start flex-col gap-3 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5 transition-colors hover:border-[var(--own-text)]/45 hover:bg-[var(--ink-card-hover)] sm:w-auto"
+            className="fa-surface flex w-[min(82vw,310px)] shrink-0 snap-start flex-col gap-3 p-3.5 transition-colors hover:border-[var(--own-text)]/45 hover:bg-[var(--ink-card-hover)] sm:w-auto"
           >
             <div className="flex min-w-0 items-center gap-3">
               <BuildIcon resource={resource} />

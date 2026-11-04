@@ -1,6 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import GraphNodePopover from '../components/GraphNodePopover.jsx'
+import { PageHeader, SectionHeading } from '../components/PageHeader.jsx'
 import GraphNodeList from '../components/GraphNodeList.jsx'
 /*
  * The one route-level split in the app: ECharts is about a third of the shipped
@@ -308,27 +309,29 @@ export default function GraphPage() {
   }, [selected, contained, focusedCategory, deployedOnly])
 
   return (
-    <div className="space-y-4">
-      <header className="space-y-2">
-        <h1 className="text-xl font-semibold tracking-tight text-[var(--text-strong)]">知识图谱</h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-[var(--text-dim)]">
-          <span className="mono text-[var(--text-strong)]">{graphStats.tools}</span> 个工具 ·
-          <span className="mono text-[var(--text-strong)]"> {graphStats.categories} </span> 个分类 ·
-          <span className="mono text-[var(--text-strong)]"> {graphStats.tags} </span> 个标签 ·
-          <span className="mono text-[var(--text-strong)]"> {graphStats.externals} </span> 个外部服务，
-          <span className="mono text-[var(--text-strong)]">{graphStats.edges}</span> 条关系。
-          其中
-          <span className="mono text-[var(--own-text)]"> {deployedStats.resources} </span> 个工具我已经在跑
-          （<span className="mono">{deployedStats.instances}</span> 个实例，含
-          <span className="mono"> {deployedStats.own} </span> 个 Atlas 自建），下面可以只看这一部分。
-          可拖拽节点、滚轮缩放、拖动空白平移。
-        </p>
-      </header>
+    <div className="fa-page-stack">
+      <PageHeader
+        eyebrow="探索关系 / GRAPH"
+        title="知识图谱"
+        description={(
+          <>
+            <span className="mono text-[var(--text-strong)]">{graphStats.tools}</span> 个工具 ·
+            <span className="mono text-[var(--text-strong)]"> {graphStats.categories} </span> 个分类 ·
+            <span className="mono text-[var(--text-strong)]"> {graphStats.tags} </span> 个标签 ·
+            <span className="mono text-[var(--text-strong)]"> {graphStats.externals} </span> 个外部服务，
+            <span className="mono text-[var(--text-strong)]">{graphStats.edges}</span> 条关系。
+            其中 <span className="mono text-[var(--own-text)]">{deployedStats.resources}</span> 个工具正在运行，
+            共 <span className="mono">{deployedStats.instances}</span> 个实例；可拖动、缩放画布，也可切换列表精确查找。
+          </>
+        )}
+      />
 
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[var(--radius-sm)] border border-[var(--line-soft)] bg-[var(--ink-card)] px-3 py-2.5">
+      <div className="fa-surface flex flex-wrap items-center justify-between gap-3 px-3.5 py-3">
         <div>
-          <p className="text-xs font-medium text-[var(--text-strong)]">探索方式</p>
-          <p className="mt-0.5 text-[10px] text-[var(--text-faint)]">图谱适合看关系，列表适合搜索、键盘浏览与精确跳转。</p>
+          <SectionHeading
+            title="探索方式"
+            description="图谱适合看关系，列表适合搜索、键盘浏览与精确跳转。"
+          />
         </div>
         <div role="group" aria-label="图谱显示方式" className="flex rounded-[var(--radius-sm)] border border-[var(--line)] bg-[var(--ink-sunken)] p-0.5">
           <button type="button" aria-pressed={viewMode === 'graph'} onClick={() => setViewMode('graph')} className={[
@@ -512,7 +515,7 @@ export default function GraphPage() {
             onTypeFilterChange={setNodeTypeFilter}
           />
         ) : (
-        <div className="h-[62vh] min-h-[420px] overflow-hidden rounded-[6px] border border-[var(--line)] bg-[var(--ink-sunken)] md:h-[min(72vh,820px)]">
+        <div className="fa-surface-muted h-[62vh] min-h-[420px] overflow-hidden md:h-[min(72vh,820px)]">
           <Suspense
             fallback={
               <div
@@ -552,7 +555,7 @@ export default function GraphPage() {
         )}
 
         <aside className={viewMode === 'list' ? 'hidden' : 'space-y-4 lg:sticky lg:top-[4.5rem] lg:self-start'}>
-          <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
+          <section className="fa-surface p-3.5">
             <h2 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">
               图例
               <span className="mono ml-2 text-[11px] font-normal text-[var(--text-faint)]">
@@ -598,7 +601,7 @@ export default function GraphPage() {
           </section>
 
           {asideSection ? (
-            <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
+            <section className="fa-surface p-3.5">
               <h2 className="text-[13px] font-semibold text-[var(--text-strong)]">{asideSection.title}</h2>
               <p className="mono mt-1 text-[11px] text-[var(--text-faint)]">{asideSection.meta}</p>
               <ul className="mt-3 max-h-72 space-y-1 overflow-y-auto pr-1">
@@ -615,7 +618,7 @@ export default function GraphPage() {
               </ul>
             </section>
           ) : (
-            <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
+            <section className="fa-surface p-3.5">
               <h2 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">怎么逛</h2>
               <ul className="space-y-2 text-xs leading-relaxed text-[var(--text-dim)]">
                 <li>

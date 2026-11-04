@@ -19,7 +19,7 @@ export default function OfferingPanel({ resourceId }) {
   const extraLimits = offering.limits?.slice(2) ?? []
 
   return (
-    <section className="space-y-3 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5 sm:p-4">
+    <section className="fa-surface space-y-3 p-3.5 sm:p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-sm font-semibold text-[var(--text-strong)]">使用成本与额度</h2>
         <span className="rounded-full border border-[var(--line)] bg-[var(--ink-sunken)] px-2 py-1 text-[10px] text-[var(--accent-text)]">

@@ -99,7 +99,7 @@ export default function GraphNodeList({
   }, [candidates, query, typeFilter])
 
   return (
-    <section className="min-w-0 overflow-hidden rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)]">
+    <section className="fa-surface min-w-0 overflow-hidden">
       <div className="flex flex-col gap-3 border-b border-[var(--line)] p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4">
         <div>
           <h2 className="text-sm font-semibold text-[var(--text-strong)]">节点列表</h2>

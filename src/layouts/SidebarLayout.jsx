@@ -6,8 +6,6 @@ const FOCUSABLE = 'a[href], button:not([disabled])'
 
 /* Height of the sticky top bar (`h-14` in Layout). The rail hangs below it so
  * the bar never covers the first rows of the tree. */
-const HEADER = '3.5rem'
-
 /**
  * App-like reading shell for wiki pages:
  *
@@ -98,26 +96,25 @@ export default function SidebarLayout() {
   }, [drawerOpen])
 
   return (
-    <div className="flex w-full flex-1 items-start">
+    <div className="fa-wiki-layout">
       {/* Flush against the viewport edge: no container margin, no rounded card.
           `sticky` + own overflow keeps the tree pinned while the page scrolls. */}
       <aside
         ref={railRef}
-        style={{ top: HEADER, height: `calc(100vh - ${HEADER})` }}
-        className="sticky hidden w-[280px] shrink-0 overflow-y-auto overscroll-contain border-r border-[var(--line)] bg-[var(--ink-sunken)] px-3 py-4 md:block"
+        className="fa-wiki-rail"
       >
         <p className="mb-2 px-2 text-[11px] font-semibold text-[var(--text-dim)]">工具目录</p>
         <WikiNavSidebar activeId={id} scrollRef={railRef} />
       </aside>
 
-      <main id="main" className="min-w-0 flex-1">
+      <main id="main" className="fa-wiki-main">
         <button
           ref={triggerRef}
           type="button"
           onClick={openDrawer}
           aria-haspopup="dialog"
           aria-expanded={drawerOpen}
-          className="mono ml-4 mt-4 inline-flex items-center gap-2 rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2 text-xs text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/50 hover:text-[var(--accent-text)] sm:ml-6 md:hidden"
+          className="fa-wiki-drawer-trigger md:hidden"
         >
           <DrawerIcon />
           目录
@@ -142,7 +139,7 @@ export default function SidebarLayout() {
           <div
             ref={panelRef}
             tabIndex={-1}
-            className="fa-drawer absolute inset-y-0 left-0 flex w-[280px] max-w-[85vw] flex-col border-r border-[var(--line)] bg-[var(--ink)] outline-none"
+            className="fa-drawer absolute inset-y-0 left-0 flex w-[296px] max-w-[88vw] flex-col border-r border-[var(--line)] bg-[var(--ink)] outline-none"
           >
             <div className="flex items-center justify-between border-b border-[var(--line)] px-3 py-3">
               <span className="text-[13px] font-semibold text-[var(--text-strong)]">工具目录</span>

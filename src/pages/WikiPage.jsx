@@ -21,6 +21,7 @@ import {
 import { fetchWiki, headingsFromMarkdown, parseFrontmatter, stripLeadingChrome, transformWikilinks } from '../lib/wiki.js'
 import { readWikiPrefill } from '../lib/wikiPrefill.js'
 import { presentWikiMarkdown } from '../lib/wikiPresentation.js'
+import { PageHeader } from '../components/PageHeader.jsx'
 
 function fallbackMarkdown(resource) {
   return [
@@ -216,14 +217,14 @@ export default function WikiPage() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_260px] xl:grid-cols-[minmax(0,1fr)_300px]">
-      <article className="min-w-0 space-y-6 px-4 pb-10 pt-2 sm:px-6">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_260px] xl:grid-cols-[minmax(0,1fr)_300px]">
+      <article className="min-w-0 space-y-6 py-2">
         {/*
          * Every crumb above the current page is a link into the catalogue,
          * pre-filtered to that slice — 分类 lands on its chips, 子类 on the
          * narrowed grid. The trail is a way back, not a caption.
          */}
-        <nav className="flex flex-wrap items-center gap-2 text-xs text-[var(--text-faint)]">
+        <nav className="fa-breadcrumb flex flex-wrap items-center gap-2 text-[11px] text-[var(--text-faint)]">
           <Link to="/" className="transition-colors hover:text-[var(--text-strong)]">
             导航
           </Link>
@@ -245,58 +246,34 @@ export default function WikiPage() {
           <span className="text-[var(--text-dim)]">{resource.name}</span>
         </nav>
 
-        <header className="space-y-3 border-b border-[var(--line)] pb-5">
-          <div className="flex items-center gap-3">
-            <WikiIcon resource={resource} />
-            <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)]">
-              {data.title ?? resource.name}
-            </h1>
-          </div>
-          <p className="text-sm leading-relaxed text-[var(--text-dim)]">{resource.description}</p>
-          <div className="flex flex-wrap items-center gap-2 pt-1">
-            <a
-              href={resource.url}
-              target="_blank"
-              rel="noreferrer"
-              /* accent at 50% measured 2.62:1 on the card this button sits on — a
-               * border you read as "the primary action" has to clear 3:1, so it is
-               * 60% (3.16:1); --accent-text on the /10 hover wash is 6.10:1. */
-              className="rounded-[var(--radius-sm)] border border-[var(--accent)]/60 px-2.5 py-1 text-xs text-[var(--accent-text)] transition-colors hover:bg-[var(--accent)]/10"
-            >
-              访问官网 ↗
-            </a>
-            {data.repo ? (
-              <a
-                href={data.repo}
-                target="_blank"
-                rel="noreferrer"
-                className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-dim)] transition-colors hover:border-[var(--line-strong)]"
-              >
-                源码仓库
+        <PageHeader
+          className="fa-page-header--wiki"
+          title={(
+            <>
+              <WikiIcon resource={resource} />
+              <span>{data.title ?? resource.name}</span>
+            </>
+          )}
+          description={resource.description}
+          actions={(
+            <>
+              <a href={resource.url} target="_blank" rel="noreferrer" className="fa-control fa-control--primary">
+                访问官网 ↗
               </a>
-            ) : null}
-            {data.license ? (
-              <span className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-faint)]">
-                {data.license}
-              </span>
-            ) : null}
-            {instances.length ? (
-              <DeployedBadge resource={resource} showGroups to={`/deployed/#${instances[0].id}`} />
-            ) : null}
-            <button
-              type="button"
-              onClick={copyLink}
-              className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-faint)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--text-dim)]"
-            >
-              {copied ? '已复制 ✓' : '复制链接'}
-            </button>
-            {isFallback ? (
-              <span className="mono rounded-[var(--radius-sm)] border border-[var(--line)] px-2.5 py-1 text-xs text-[var(--text-faint)]">
-                暂无独立 Wiki
-              </span>
-            ) : null}
-          </div>
-        </header>
+              {data.repo ? (
+                <a href={data.repo} target="_blank" rel="noreferrer" className="fa-control mono">
+                  源码仓库
+                </a>
+              ) : null}
+              {data.license ? <span className="fa-control mono">{data.license}</span> : null}
+              {instances.length ? <DeployedBadge resource={resource} showGroups to={'/deployed/#' + instances[0].id} /> : null}
+              <button type="button" onClick={copyLink} className="fa-control mono">
+                {copied ? '已复制 ✓' : '复制链接'}
+              </button>
+              {isFallback ? <span className="fa-control mono">暂无独立 Wiki</span> : null}
+            </>
+          )}
+        />
 
         <OfferingPanel resourceId={id} />
 
@@ -308,7 +285,7 @@ export default function WikiPage() {
         ) : null}
 
         {overviewMarkdown ? (
-          <details className="fa-disclosure rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] px-3.5 py-3 sm:px-4">
+          <details className="fa-disclosure fa-surface px-3.5 py-3 sm:px-4">
             <summary className="cursor-pointer text-sm font-semibold text-[var(--text-strong)]">展开功能特点与适用场景</summary>
             <div className="mt-3 border-t border-[var(--line-soft)] pt-2">
               <Markdown>{overviewMarkdown}</Markdown>
@@ -376,7 +353,7 @@ export default function WikiPage() {
       </article>
 
       {/* Hugs the right viewport edge: no right gutter beyond a modest pad. */}
-      <aside className="space-y-5 px-4 pb-10 lg:sticky lg:top-[4.5rem] lg:self-start lg:pl-0 lg:pr-4">
+      <aside className="space-y-5 pb-8 pt-2 lg:sticky lg:top-[4.5rem] lg:self-start">
         <Panel title="元数据">
           <dl className="space-y-2 text-xs">
             <Row label="分类" value={resource.category_name} />
@@ -541,7 +518,7 @@ function WikiIcon({ resource }) {
 
 function Panel({ title, children }) {
   return (
-    <section className="rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] p-3.5">
+    <section className="fa-surface p-3.5">
       <h3 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">{title}</h3>
       {children}
     </section>

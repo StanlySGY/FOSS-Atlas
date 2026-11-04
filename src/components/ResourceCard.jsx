@@ -46,7 +46,7 @@ export default function ResourceCard({ resource, index = 0 }) {
   return (
     <article
       style={{ animationDelay: `${Math.min(index * 22, 260)}ms` }}
-      className="fa-card-in fa-lift group relative flex flex-col gap-2.5 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5 hover:bg-[var(--ink-card-hover)]"
+      className="fa-card-in fa-lift fa-surface group relative flex flex-col gap-2.5 p-3.5"
     >
       <div className="flex items-start gap-3">
         <SiteIcon resource={resource} />

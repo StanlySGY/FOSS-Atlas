@@ -31,7 +31,7 @@ export default function RepositoryPanel({ resourceId }) {
   if (repository.pushedAt) summaryParts.push('最近推送 ' + repository.pushedAt.slice(0, 10))
 
   return (
-    <details className="fa-disclosure rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] px-3.5 py-3 sm:px-4">
+    <details className="fa-disclosure fa-surface px-3.5 py-3 sm:px-4">
       <summary className="cursor-pointer text-xs font-semibold text-[var(--text-strong)]">
         开源仓库快照 <span className="ml-2 font-normal text-[var(--text-faint)]">{summaryParts.join(' · ')}</span>
       </summary>

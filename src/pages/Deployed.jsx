@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { PageHeader, SectionHeading } from '../components/PageHeader.jsx'
 import deployed from '../data/deployed.json'
 import { resourceById } from '../lib/data.js'
 import { isUnreachable, probeStatusPresentation, summarizeProbeRows } from '../lib/probeStatus.js'
@@ -81,7 +82,7 @@ function ServiceRow({ item, result }) {
      */
     <li
       id={item.id}
-      className="group flex scroll-mt-20 flex-col gap-2 rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-3.5 transition-colors duration-150 hover:border-[var(--line-strong)] hover:bg-[var(--ink-card-hover)] sm:flex-row sm:items-center sm:gap-4"
+      className="fa-surface fa-lift group flex scroll-mt-20 flex-col gap-2 p-3.5 sm:flex-row sm:items-center sm:gap-4"
     >
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
@@ -180,66 +181,50 @@ export default function Deployed() {
     .reduce((n, g) => n + g.items.filter((i) => i.kind === 'mirror').length, 0)
 
   return (
-    <div className="space-y-8">
-      <section className="max-w-3xl space-y-3 pt-2">
-        <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-strong)] sm:text-[2rem]">
-          自部署服务
-        </h1>
-        <p className="text-sm leading-relaxed text-[var(--text-dim)]">
-          把图鉴里那些「能自己跑起来」的资源,真的部署成可访问的服务:知识库与静态站点放在
-          <span className="text-[var(--text-strong)]"> Cloudflare 边缘</span>,
-          上游仓库镜像交给 <span className="text-[var(--text-strong)]">GitHub Pages</span>,
-          其余经 <span className="text-[var(--text-strong)]">cloudflared 隧道</span> 从本机 Docker
-          暴露成 HTTPS 域名。Cloudflare 与 Docker 服务在{' '}
-          <span className="mono">{deployed.host}</span> 之下,GitHub Pages 镜像在各自的{' '}
-          <span className="mono">tanlysgy.github.io/仓库名/</span> 路径下,更新于 {deployed.updated}。
-        </p>
-        {/*
-         * 已上线 is a claim about the deployment list, not an observation. The
-         * build-time probe is the observation: the same {total} URLs fetched from
-         * the public internet when this build was published, one row per result
-         * below. No snapshot, no line — a dev server has nothing to show.
-         */}
-        {probe ? (
-          /*
-           * The snapshot used to be one mono line at the bottom of the intro,
-           * under a pill that said 81/81 live. When 31 of the 81 are not
-           * reachable, that line is the most important thing on the page and it
-           * was the smallest text on it. Now it is a block of its own, grouped
-           * the way the sections below are grouped, because the failure has a
-           * shape: it is the Docker tunnel, not "some services".
-           */
-          <div className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-sunken)] p-3.5">
-            <p className="text-[13px] leading-relaxed text-[var(--text-dim)]">
-              最近一次发布时从公网探测（{utcStamp(probe.ranAt)} UTC），共{' '}
-              <span className="font-semibold text-[var(--text-strong)]">{probeSummary.total}</span> 个实例。
-              这是发布快照，不是实时监控，也不代表已完成登录或完整用户流程。
-            </p>
-            <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5 text-[11px]">
-              <li className="text-[var(--accent-text)]">2xx 正常响应 <span className="mono">{probeSummary.ok}</span></li>
-              <li className="text-[var(--text-dim)]">3xx 重定向 <span className="mono">{probeSummary.redirect}</span></li>
-              <li className="text-[var(--accent-text)]">4xx 访问受限/客户端错误 <span className="mono">{probeSummary.restricted}</span></li>
-              <li className={probeSummary.unreachable ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>
-                不可达/连接失败 <span className="mono">{probeSummary.unreachable}</span>
-              </li>
-              {probeSummary.other ? <li className="text-[var(--text-dim)]">其他 <span className="mono">{probeSummary.other}</span></li> : null}
-            </ul>
-            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5 text-[11px]">
-              {probeGroups.map((g) => (
-                <li key={g.id} className="flex flex-wrap items-baseline gap-1.5">
-                  <span className={g.down ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>
-                    {g.name}
-                  </span>
-                  <span className="mono text-[var(--text-faint)]">
-                    2xx {g.counts.ok} · 3xx {g.counts.redirect} · 4xx {g.counts.restricted} · 不可达 {g.counts.unreachable}
-                    {g.worst ? ' · ' + g.worst : ''}
-                  </span>
-                </li>
-              ))}
-            </ul>
+    <div className="fa-page-stack">
+      <PageHeader
+        eyebrow="运行实例 / DEPLOYED"
+        title="自部署服务"
+        description={(
+          <>
+            我把图鉴里能自己运行的资源部署为可访问的服务：知识库与静态站点位于
+            <span className="text-[var(--text-strong)]"> Cloudflare 边缘</span>，
+            仓库镜像由 <span className="text-[var(--text-strong)]">GitHub Pages</span> 托管，
+            其余经 <span className="text-[var(--text-strong)]">cloudflared 隧道</span> 从本机 Docker 暴露。
+            更新于 <span className="mono">{deployed.updated}</span>。
+          </>
+        )}
+      />
+
+      {probe ? (
+        <section className="fa-surface-muted space-y-2.5 p-4">
+          <p className="text-[13px] leading-relaxed text-[var(--text-dim)]">
+            最近一次发布时从公网探测（{utcStamp(probe.ranAt)} UTC），共{' '}
+            <span className="font-semibold text-[var(--text-strong)]">{probeSummary.total}</span> 个实例。
+            这是发布快照，不是实时监控，也不代表已完成登录或完整用户流程。
+          </p>
+          <ul className="flex flex-wrap gap-x-4 gap-y-1.5 text-[11px]">
+            <li className="text-[var(--accent-text)]">2xx 正常响应 <span className="mono">{probeSummary.ok}</span></li>
+            <li className="text-[var(--text-dim)]">3xx 重定向 <span className="mono">{probeSummary.redirect}</span></li>
+            <li className="text-[var(--accent-text)]">4xx 访问受限/客户端错误 <span className="mono">{probeSummary.restricted}</span></li>
+            <li className={probeSummary.unreachable ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>
+              不可达/连接失败 <span className="mono">{probeSummary.unreachable}</span>
+            </li>
+            {probeSummary.other ? <li className="text-[var(--text-dim)]">其他 <span className="mono">{probeSummary.other}</span></li> : null}
+          </ul>
+          <div className="grid grid-cols-1 gap-x-5 gap-y-1.5 border-t border-[var(--line-soft)] pt-2 sm:grid-cols-3">
+            {probeGroups.map((g) => (
+              <div key={g.id} className="flex flex-wrap items-baseline gap-1.5 text-[11px]">
+                <span className={g.down ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>{g.name}</span>
+                <span className="mono text-[var(--text-faint)]">
+                  2xx {g.counts.ok} · 3xx {g.counts.redirect} · 4xx {g.counts.restricted} · 不可达 {g.counts.unreachable}
+                  {g.worst ? ' · ' + g.worst : ''}
+                </span>
+              </div>
+            ))}
           </div>
-        ) : null}
-      </section>
+        </section>
+      ) : null}
 
       {/*
        * A 部署分组 header wears no hue, and that is a measurement rather than an
@@ -259,15 +244,11 @@ export default function Deployed() {
        */}
       {deployed.groups.map((group) => (
         <section key={group.id} className="space-y-3">
-          <div className="flex flex-col gap-1 border-b border-[var(--line-soft)] pb-2 sm:flex-row sm:items-baseline sm:justify-between">
-            <h2 className="text-base font-semibold tracking-tight text-[var(--text-strong)]">
-              {group.name}
-              <span className="mono ml-2 text-[11px] font-normal text-[var(--text-faint)]">
-                {group.items.length}
-              </span>
-            </h2>
-            <p className="text-[11px] text-[var(--text-faint)]">{group.note}</p>
-          </div>
+          <SectionHeading
+            title={group.name}
+            meta={group.items.length + ' 个实例'}
+            description={group.note}
+          />
           <ul className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
             {group.items.map((item) => (
               <ServiceRow
@@ -280,9 +261,9 @@ export default function Deployed() {
         </section>
       ))}
 
-      <section className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-sunken)] p-4">
+      <section className="fa-surface-muted p-4">
         <h2 className="text-[13px] font-semibold text-[var(--text-strong)]">运维说明</h2>
-        <ul className="mt-2 space-y-1 text-[11px] leading-relaxed text-[var(--text-dim)]">
+        <ul className="fa-wrap-anywhere mt-2 space-y-1 text-[11px] leading-relaxed text-[var(--text-dim)]">
           <li>· Docker 编排文件与隧道配置存放在本机 <span className="mono">~/workspace/selfhost</span>,全部 <span className="mono">restart: unless-stopped</span>。</li>
           <li>· 隧道由用户级 systemd 服务 <span className="mono">foss-labs-tunnel.service</span> 常驻,开机自启;新增域名用 <span className="mono">cloudflared tunnel route dns</span> 注册。</li>
           <li>· Cloudflare 侧的静态站与知识库镜像用 <span className="mono">wrangler</span> 部署到 Workers/Pages,自定义域直接绑在同一个 zone 上。</li>

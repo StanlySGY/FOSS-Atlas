@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import ResourceCard from '../components/ResourceCard.jsx'
+import { PageHeader, SectionHeading } from '../components/PageHeader.jsx'
 import FeaturedBuilds from '../components/FeaturedBuilds.jsx'
 import { categoryColor } from '../lib/categoryColor.js'
 import { OFFER_FILTERS, countOfferFilter, getOffering, matchesOfferFilter } from '../lib/offerings.js'
@@ -143,80 +144,52 @@ export default function Home() {
   const showFeaturedBuilds = !query.trim() && activeCategory === 'all' && activeSub === 'all' && !deployedOnly && activeOffer === 'all'
 
   return (
-    <div className="space-y-8">
+    <div className="fa-page-stack">
       {/* Hero: title + one-line pitch + hard numbers. */}
-      <section className="space-y-5 pt-2">
-        <div className="max-w-3xl space-y-3">
-          <h1 className="text-[1.7rem] font-bold leading-tight tracking-tight text-[var(--text-strong)] sm:text-[2.4rem]">
-            开源<span className="text-[var(--accent)]">白嫖</span>资源图鉴
-          </h1>
-          <p className="text-sm leading-relaxed text-[var(--text-dim)]">
-            免费额度、开源自部署方案与公开 API，一站搜索、Wiki 深挖、图谱看关系；带「已自部署」标记的资源可直接打开实际服务。
-          </p>
-        </div>
-
-        <div className="max-w-xl space-y-2">
-          <div className="mono flex flex-wrap items-baseline gap-x-4 gap-y-1 text-[11px] text-[var(--text-faint)]">
-            {SHAPE.map((s) => (
-              <span key={s.key}>
-                <span className="text-[var(--text-dim)]">{s.value}</span> {s.label}
-              </span>
-            ))}
-          </div>
-
-          {/*
-           * A <div> grid rather than a <dl>: the second cell is a button, and a
-           * button is not a permitted child of <dl>. The label sits under its
-           * number the same way either would have.
-           */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] px-4 py-3">
-              <span className="mono block text-2xl font-semibold text-[var(--text-strong)]">
-                {graphStats.tools}
-              </span>
-              <span className="mt-0.5 block text-[11px] text-[var(--text-faint)]">资源条目</span>
+      <PageHeader
+        eyebrow="资源目录 / DISCOVER"
+        title={<>开源<span className="text-[var(--accent)]">白嫖</span>资源图鉴</>}
+        description="免费额度、开源自部署方案与公开 API，一站搜索、Wiki 深挖、图谱看关系；带「已自部署」标记的资源可直接打开实际服务。"
+        aside={(
+          <div className="space-y-2.5">
+            <div className="mono flex flex-wrap items-baseline gap-x-4 gap-y-1 text-[10px] text-[var(--text-faint)]">
+              {SHAPE.map((item) => (
+                <span key={item.key}>
+                  <span className="text-[var(--text-dim)]">{item.value}</span> {item.label}
+                </span>
+              ))}
             </div>
-
-          {/*
-           * The second tile is not a catalogue fact — it is how much of the
-           * catalogue I actually run, and it is a control: pressing it narrows the
-           * card grid below to those entries. It wears the 自建 hue rather than
-           * the accent so it reads as "mine", not as another count of the same
-           * kind as the one beside it.
-           */}
-          <button
-            type="button"
-            onClick={() => setDeployedOnly(!deployedOnly)}
-            aria-pressed={deployedOnly}
-            title={`${deployedStats.instances} 个实例 · ${deployedStats.own} 个 Atlas 自建`}
-            className={[
-              'rounded-[var(--radius)] border px-4 py-3 text-left transition-colors',
-              deployedOnly
-                ? 'border-[var(--own-text)]/65 bg-[var(--own-well)]'
-                : 'border-[var(--line)] bg-[var(--ink-card)] hover:border-[var(--own-text)]/65',
-            ].join(' ')}
-          >
-            <span className="mono block text-2xl font-semibold text-[var(--text-strong)]">
-              {deployedStats.resources}
-            </span>
-            <span className="mt-0.5 block text-[11px] text-[var(--own-text)]">
-              已自部署{deployedOnly ? ' · 只看这些' : ''}
-            </span>
-          </button>
+            <div className="grid grid-cols-2 gap-2.5">
+              <div className="fa-stat-tile">
+                <span className="fa-stat-value mono">{graphStats.tools}</span>
+                <span className="fa-stat-label">资源条目</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setDeployedOnly(!deployedOnly)}
+                aria-pressed={deployedOnly}
+                title={deployedStats.instances + ' 个实例 · ' + deployedStats.own + ' 个 Atlas 自建'}
+                className="fa-stat-tile fa-stat-tile--interactive"
+              >
+                <span className="fa-stat-value mono">{deployedStats.resources}</span>
+                <span className="fa-stat-label" style={{ color: 'var(--own-text)' }}>
+                  已自部署{deployedOnly ? ' · 只看这些' : ''}
+                </span>
+              </button>
+            </div>
           </div>
-        </div>
+        )}
+      />
 
-        {deployedOnly ? (
-          <p className="text-[11px] text-[var(--text-faint)]">
-            卡片已收窄到我在跑的条目（<span className="mono text-[var(--own-text)]">{filtered.length}</span> 条）。
-            再点一次上面那格退回全部，或者
-            <Link to="/graph/?deployed=1" className="ml-1 text-[var(--own-text)] hover:underline">
-              在图谱里看这一部分 →
-            </Link>
-          </p>
-        ) : null}
-
-      </section>
+      {deployedOnly ? (
+        <p className="text-[11px] text-[var(--text-faint)]">
+          卡片已收窄到我在跑的条目（<span className="mono text-[var(--own-text)]">{filtered.length}</span> 条）。
+          再点一次上面那格退回全部，或者
+          <Link to="/graph/?deployed=1" className="ml-1 text-[var(--own-text)] hover:underline">
+            在图谱里看这一部分 →
+          </Link>
+        </p>
+      ) : null}
 
       {/* Toolbar: search + live result count, then the category rail. */}
       <section className="space-y-3">
@@ -355,13 +328,20 @@ export default function Home() {
       ) : null}
 
       {filtered.length ? (
-        <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((r, i) => (
-            <ResourceCard key={r.id} resource={r} index={i} />
-          ))}
+        <section className="space-y-3">
+          <SectionHeading
+            title={activeCategoryName ?? '全部资源'}
+            meta={filtered.length + ' 项'}
+            description={hasActiveFilters ? '当前筛选结果；可继续组合搜索、分类、费用类型与部署状态。' : '按分类浏览，或直接搜索名称、用途、额度与技术栈。'}
+          />
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {filtered.map((r, i) => (
+              <ResourceCard key={r.id} resource={r} index={i} />
+            ))}
+          </div>
         </section>
       ) : (
-        <div className="rounded-[var(--radius)] border border-[var(--line)] bg-[var(--ink-card)] p-10 text-center">
+        <div className="fa-surface p-10 text-center">
           <p className="text-sm text-[var(--text-dim)]">没有匹配的资源，换个关键词试试。</p>
           <button
             type="button"
