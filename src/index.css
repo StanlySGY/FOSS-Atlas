@@ -497,6 +497,22 @@ kbd,
   background: color-mix(in srgb, var(--ink-card) 52%, transparent);
   padding: 14px 16px;
 }
+.fa-graph-filter-groups {
+  display: grid;
+  min-width: 0;
+  gap: 12px;
+}
+.fa-graph-filter-group {
+  min-width: 0;
+}
+.fa-graph-canvas {
+  min-width: 0;
+}
+.fa-graph-aside {
+  min-width: 0;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
 .fa-wiki-layout {
   display: flex;
   width: min(100%, var(--page-max));
@@ -546,6 +562,10 @@ kbd,
     display: flex;
     flex-direction: column;
     gap: 16px;
+    max-height: calc(100vh - var(--header-h) - 32px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
   }
 }
 @media (min-width: 768px) and (max-width: 1279px) {

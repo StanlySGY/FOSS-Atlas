@@ -158,3 +158,24 @@ footer{border-color:var(--line)!important}footer p,footer a{color:var(--text-fai
 @media(min-width:1920px){.fa-discovery-grid:not(.is-list){grid-template-columns:repeat(5,minmax(0,1fr));gap:15px}}
 @media(min-width:2560px){.fa-discovery-grid:not(.is-list){grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}}
 @media(min-width:3200px){.fa-discovery-grid:not(.is-list){grid-template-columns:repeat(7,minmax(0,1fr))}}
+
+/* Knowledge workspaces: use the extra width for stable rails and deeper canvases. */
+@media(min-width:1024px){
+ .fa-graph-aside{max-height:calc(100vh - var(--header-h) - 32px);overflow-y:auto}
+}
+@media(min-width:1920px){
+ .fa-graph-filter-groups{grid-template-columns:minmax(0,1.55fr) minmax(300px,.8fr);column-gap:24px;row-gap:14px}
+ .fa-graph-filter-group--categories{grid-column:1/-1;padding-bottom:12px;border-bottom:1px solid var(--line-soft)}
+ .fa-graph-filter-group--deployed,.fa-graph-filter-group--relations{align-content:start}
+ .fa-wiki-layout{gap:28px}
+ .fa-wiki-rail{width:280px;flex-basis:280px}
+ .fa-wiki-content-grid{grid-template-columns:minmax(0,1fr) 320px;gap:36px}
+ .fa-wiki-meta{gap:18px}
+}
+@media(min-width:2560px){
+ .fa-graph-workspace{grid-template-columns:minmax(0,1fr) 360px}
+ .fa-graph-canvas{height:min(82vh,1600px)}
+ .fa-wiki-layout{gap:32px}
+ .fa-wiki-rail{width:300px;flex-basis:300px}
+ .fa-wiki-content-grid{grid-template-columns:minmax(0,1fr) 360px;gap:40px}
+}

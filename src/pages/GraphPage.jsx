@@ -414,9 +414,10 @@ export default function GraphPage() {
       ) : null}
 
       <div id="graph-filter-panel" className={`${filtersOpen ? 'flex' : 'hidden'} fa-graph-filter-panel flex-col gap-3`}>
+      <div className="fa-graph-filter-groups">
       {/* 一级分类聚焦：选一个分类，只留下它的子图（分类节点 + 子类 + 工具），
           其余节点整体收起，并自动框选居中。 */}
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="fa-graph-filter-group fa-graph-filter-group--categories flex flex-wrap items-center gap-2">
         <span className="text-[11px] text-[var(--text-faint)]">聚焦分类</span>
         <button
           type="button"
@@ -478,7 +479,7 @@ export default function GraphPage() {
         ) : null}
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="fa-graph-filter-group fa-graph-filter-group--deployed flex flex-wrap items-center gap-2">
         <span className="text-[11px] text-[var(--text-faint)]">我的基础设施</span>
         <button
           type="button"
@@ -505,7 +506,7 @@ export default function GraphPage() {
           </span>
         )}
       </div>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="fa-graph-filter-group fa-graph-filter-group--relations flex flex-wrap items-center gap-2">
         <span className="text-[11px] text-[var(--text-faint)]">关系过滤</span>
         {ALL_EDGES.map((type) => {
           const on = enabledEdges.includes(type)
@@ -549,8 +550,9 @@ export default function GraphPage() {
         })}
       </div>
       </div>
+      </div>
 
-      <div className={viewMode === 'list' ? 'grid grid-cols-1 gap-4' : 'grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_280px] 2xl:grid-cols-[minmax(0,1fr)_320px]'}>
+      <div className={viewMode === 'list' ? 'grid grid-cols-1 gap-4' : 'fa-graph-workspace grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_280px] 2xl:grid-cols-[minmax(0,1fr)_320px]'}>
         {viewMode === 'list' ? (
           <GraphNodeList
             graph={graph}
@@ -566,7 +568,7 @@ export default function GraphPage() {
             onTypeFilterChange={setNodeTypeFilter}
           />
         ) : (
-        <div className="fa-surface-muted h-[62vh] min-h-[420px] overflow-hidden md:h-[min(72vh,820px)] 2xl:h-[min(80vh,1280px)]">
+        <div className="fa-graph-canvas fa-surface-muted h-[62vh] min-h-[420px] overflow-hidden md:h-[min(72vh,820px)] 2xl:h-[min(80vh,1280px)]">
           <Suspense
             fallback={
               <div
@@ -608,7 +610,7 @@ export default function GraphPage() {
         </div>
         )}
 
-        <aside className={viewMode === 'list' ? 'hidden' : 'space-y-4 lg:sticky lg:top-[4.5rem] lg:self-start'}>
+        <aside className={viewMode === 'list' ? 'hidden' : 'fa-graph-aside space-y-4 lg:sticky lg:top-[4.5rem] lg:self-start'}>
           <section className="fa-surface p-3.5">
             <h2 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">
               图例
