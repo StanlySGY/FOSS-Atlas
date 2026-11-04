@@ -313,17 +313,7 @@ export default function GraphPage() {
       <PageHeader
         eyebrow="探索关系 / GRAPH"
         title="知识图谱"
-        description={(
-          <>
-            <span className="mono text-[var(--text-strong)]">{graphStats.tools}</span> 个工具 ·
-            <span className="mono text-[var(--text-strong)]"> {graphStats.categories} </span> 个分类 ·
-            <span className="mono text-[var(--text-strong)]"> {graphStats.tags} </span> 个标签 ·
-            <span className="mono text-[var(--text-strong)]"> {graphStats.externals} </span> 个外部服务，
-            <span className="mono text-[var(--text-strong)]">{graphStats.edges}</span> 条关系。
-            其中 <span className="mono text-[var(--own-text)]">{deployedStats.resources}</span> 个工具正在运行，
-            共 <span className="mono">{deployedStats.instances}</span> 个实例；可拖动、缩放画布，也可切换列表精确查找。
-          </>
-        )}
+        description={`把 ${graphStats.tools} 个工具、${graphStats.categories} 个分类与 ${graphStats.tags} 个标签放进一张关系地图；可探索替代关系，也可切换列表精确查找。当前收录 ${deployedStats.resources} 个自部署工具。`}
       />
 
       <div className="fa-graph-toolbar fa-surface">
@@ -618,9 +608,9 @@ export default function GraphPage() {
               </ul>
             </section>
           ) : (
-            <section className="fa-surface p-3.5">
-              <h2 className="mb-2.5 text-[13px] font-semibold text-[var(--text-strong)]">怎么逛</h2>
-              <ul className="space-y-2 text-xs leading-relaxed text-[var(--text-dim)]">
+            <details className="fa-disclosure fa-surface p-3.5">
+              <summary className="cursor-pointer text-[13px] font-semibold text-[var(--text-strong)]">操作说明 <span className="ml-2 text-[10px] font-normal text-[var(--text-faint)]">节点、筛选与关系图例</span></summary>
+              <ul className="mt-3 space-y-2 border-t border-[var(--line-soft)] pt-3 text-xs leading-relaxed text-[var(--text-dim)]">
                 <li>
                   为了让大图更容易读，默认只显示<b className="text-[var(--text-strong)]">一级分类</b>名称；悬停节点会显示具体名称，单击后可查看完整速览。
                 </li>
@@ -644,7 +634,7 @@ export default function GraphPage() {
                   <b className="text-[var(--own-text)]">只看我部署了的</b>把图收成一部分，这里同时列出那部分的工具
                 </li>
               </ul>
-            </section>
+            </details>
           )}
         </aside>
       </div>

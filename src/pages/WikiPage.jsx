@@ -363,100 +363,87 @@ export default function WikiPage() {
           </dl>
         </Panel>
 
-        {tags.length ? (
-          <Panel title="标签">
-            <div className="flex flex-wrap gap-1.5">
-              {tags.map((t) => (
-                <Link
-                  key={t}
-                  to={`/?q=${encodeURIComponent(t)}`}
-                  className="rounded-[3px] bg-[var(--ink-tint)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] hover:text-[var(--accent-text)]"
-                >
-                  {t}
-                </Link>
-              ))}
-            </div>
-          </Panel>
-        ) : null}
+        {(tags.length || instances.length || alternatives.length || backlinks.length || hasWiki) ? (
+          <details className="fa-disclosure fa-surface p-3.5">
+            <summary className="cursor-pointer text-[13px] font-semibold text-[var(--text-strong)]">
+              更多信息与关联
+              <span className="ml-2 text-[10px] font-normal text-[var(--text-faint)]">
+                {[tags.length ? `${tags.length} 个标签` : null, instances.length ? `${instances.length} 个实例` : null, alternatives.length ? `${alternatives.length} 个替代项` : null, backlinks.length ? `${backlinks.length} 个反向链接` : null].filter(Boolean).join(' · ') || '编辑此页'}
+              </span>
+            </summary>
+            <div className="mt-3 space-y-4 border-t border-[var(--line-soft)] pt-3">
+              {tags.length ? (
+                <section>
+                  <h3 className="mb-2 text-[11px] font-semibold text-[var(--text-dim)]">标签</h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {tags.map((t) => (
+                      <Link key={t} to={`/?q=${encodeURIComponent(t)}`} className="rounded-[3px] bg-[var(--ink-tint)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] hover:text-[var(--accent-text)]">
+                        {t}
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
 
-        {/* "我的实例" mirrors the graph bubble's instance list from the other
-            side: a node in the canvas and a page in the wiki are the same
-            running service, and both now say so with the same group names.
-            Only rendered when there is a deployment — the majority of entries
-            are things being catalogued, not run. */}
-        {instances.length ? (
-          <Panel title="我的实例">
-            <ul className="space-y-2 text-xs">
-              {instances.map((i) => (
-                <li key={i.id} className="min-w-0">
-                  <a
-                    href={i.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block truncate text-[var(--text-strong)] underline decoration-[var(--line-strong)] underline-offset-2 transition-colors hover:text-[var(--accent-text)]"
-                  >
-                    {i.url.replace(/^https?:\/\//, '')}
-                  </a>
-                  <p className="mono mt-0.5 flex flex-wrap items-center gap-x-2 text-[10px] text-[var(--text-faint)]">
-                    <span className="text-[var(--own-text)]">{DEPLOY_GROUP_LABEL[i.group] ?? i.group}</span>
-                    <span>{i.stack}</span>
-                    {i.id !== id ? <span className="truncate">{i.id}</span> : null}
+              {instances.length ? (
+                <section>
+                  <h3 className="mb-2 text-[11px] font-semibold text-[var(--text-dim)]">我的实例</h3>
+                  <ul className="space-y-2 text-xs">
+                    {instances.map((i) => (
+                      <li key={i.id} className="min-w-0">
+                        <a href={i.url} target="_blank" rel="noreferrer" className="block truncate text-[var(--text-strong)] underline decoration-[var(--line-strong)] underline-offset-2 transition-colors hover:text-[var(--accent-text)]">
+                          {i.url.replace(/^https?:\/\//, '')}
+                        </a>
+                        <p className="mono mt-0.5 flex flex-wrap items-center gap-x-2 text-[10px] text-[var(--text-faint)]">
+                          <span className="text-[var(--own-text)]">{DEPLOY_GROUP_LABEL[i.group] ?? i.group}</span>
+                          <span>{i.stack}</span>
+                          {i.id !== id ? <span className="truncate">{i.id}</span> : null}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-2.5 border-t border-[var(--line-soft)] pt-2 text-[10px] text-[var(--text-faint)]">
+                    <Link to="/deployed/" className="text-[var(--own-text)] hover:underline">全部自部署服务 →</Link>
                   </p>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-2.5 border-t border-[var(--line-soft)] pt-2 text-[10px] text-[var(--text-faint)]">
-              <Link to="/deployed/" className="text-[var(--own-text)] hover:underline">
-                全部自部署服务 →
-              </Link>
-            </p>
-          </Panel>
-        ) : null}
+                </section>
+              ) : null}
 
-        {alternatives.length ? (
-          <Panel title="可替代">
-            <ul className="space-y-1.5 text-xs">
-              {alternatives.map((a) => (
-                <li key={a.id} className="flex items-center gap-2">
-                  <span className="text-[var(--text-faint)]">替代</span>
-                  {a.linkId ? (
-                    <Link to={`/wiki/${a.linkId}/`} className="text-[var(--text)] hover:text-[var(--accent-text)]">
-                      {a.name}
-                    </Link>
-                  ) : a.url ? (
-                    <a
-                      href={a.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-[var(--text)] hover:text-[var(--accent-text)]"
-                    >
-                      {a.name} ↗
-                    </a>
-                  ) : (
-                    <span className="text-[var(--text-dim)]">{a.name}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </Panel>
-        ) : null}
+              {alternatives.length ? (
+                <section>
+                  <h3 className="mb-2 text-[11px] font-semibold text-[var(--text-dim)]">可替代</h3>
+                  <ul className="space-y-1.5 text-xs">
+                    {alternatives.map((a) => (
+                      <li key={a.id} className="flex items-center gap-2">
+                        <span className="text-[var(--text-faint)]">替代</span>
+                        {a.linkId ? <Link to={`/wiki/${a.linkId}/`} className="text-[var(--text)] hover:text-[var(--accent-text)]">{a.name}</Link>
+                          : a.url ? <a href={a.url} target="_blank" rel="noreferrer" className="text-[var(--text)] hover:text-[var(--accent-text)]">{a.name} ↗</a>
+                            : <span className="text-[var(--text-dim)]">{a.name}</span>}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
 
-        {/* Only rendered when it would carry information — an empty panel is
-            pure visual noise on the majority of pages. */}
-        {backlinks.length ? (
-          <Panel title="反向链接">
-            <div className="flex flex-wrap gap-1.5">
-              {backlinks.map((r) => (
-                <Link
-                  key={r.id}
-                  to={`/wiki/${r.id}/`}
-                  className="rounded-[3px] border border-[var(--line)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] hover:border-[var(--accent)]/50 hover:text-[var(--accent-text)]"
-                >
-                  {r.name}
-                </Link>
-              ))}
+              {backlinks.length ? (
+                <section>
+                  <h3 className="mb-2 text-[11px] font-semibold text-[var(--text-dim)]">反向链接</h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {backlinks.map((r) => (
+                      <Link key={r.id} to={`/wiki/${r.id}/`} className="rounded-[3px] border border-[var(--line)] px-1.5 py-0.5 text-[10px] text-[var(--text-dim)] hover:border-[var(--accent)]/50 hover:text-[var(--accent-text)]">
+                        {r.name}
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {hasWiki ? (
+                <a href={`https://github.com/StanlySGY/FOSS-Atlas/edit/main/public/wiki/${slug}.md`} target="_blank" rel="noreferrer" className="block border-t border-[var(--line-soft)] pt-3 text-xs text-[var(--text-faint)] transition-colors hover:text-[var(--text-dim)]">
+                  在 GitHub 上编辑此页 ↗
+                </a>
+              ) : null}
             </div>
-          </Panel>
+          </details>
         ) : null}
 
         <Link
@@ -470,16 +457,6 @@ export default function WikiPage() {
          * This page is a file in the repo; the link goes straight to editing
          * it on GitHub, which is how the 手写深度页 ask for corrections.
          */}
-        {hasWiki ? (
-          <a
-            href={`https://github.com/StanlySGY/FOSS-Atlas/edit/main/public/wiki/${slug}.md`}
-            target="_blank"
-            rel="noreferrer"
-            className="block rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 text-center text-xs text-[var(--text-faint)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--text-dim)]"
-          >
-            在 GitHub 上编辑此页 ↗
-          </a>
-        ) : null}
       </aside>
     </div>
   )

@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { PageHeader, SectionHeading } from '../components/PageHeader.jsx'
+import { PageHeader } from '../components/PageHeader.jsx'
 import deployed from '../data/deployed.json'
 import { resourceById } from '../lib/data.js'
-import { isUnreachable, probeStatusPresentation, summarizeProbeRows } from '../lib/probeStatus.js'
+import { deploymentStatusKind, isUnreachable, matchesDeploymentStatus, probeStatusPresentation, summarizeProbeRows } from '../lib/probeStatus.js'
 
 /*
  * A row's catalogue entry, resolved through the `resource` field the generator
@@ -17,6 +17,7 @@ import { isUnreachable, probeStatusPresentation, summarizeProbeRows } from '../l
  */
 const resourceIdFor = (item) => item.resource ?? item.id
 const graphUrlFor = (item) => `/graph/?deployed=1&focus=${encodeURIComponent(resourceIdFor(item))}`
+const EMPTY_PROBE_ROWS = []
 
 /** The snapshot `npm run probe -- --out dist/probe.json` shipped with this build. */
 function useProbe() {
@@ -137,8 +138,89 @@ function ServiceRow({ item, result }) {
 
 export default function Deployed() {
   const probe = useProbe()
-  const probeRows = probe?.rows ?? []
+  const probeRows = probe?.rows ?? EMPTY_PROBE_ROWS
   const probeSummary = summarizeProbeRows(probeRows)
+  const probeByKey = useMemo(
+    () => new Map(probeRows.map((row) => [`${row.group}:${row.id}`, row])),
+    [probeRows],
+  )
+  const instanceTotal = deployed.groups.reduce((sum, group) => sum + group.items.length, 0)
+  const [query, setQuery] = useState('')
+  const [statusFilter, setStatusFilter] = useState('all')
+  const [groupFilter, setGroupFilter] = useState('all')
+  const [expandedGroups, setExpandedGroups] = useState(() => new Set())
+  const [fragmentTarget, setFragmentTarget] = useState(null)
+
+  // Existing deep links such as /deployed/#atlas-tools still open their group
+  // before the browser tries to scroll to the matching row.
+  useEffect(() => {
+    if (!window.location.hash) return undefined
+    let id = window.location.hash.slice(1)
+    try { id = decodeURIComponent(id) } catch { /* keep the raw fragment */ }
+    const matching = deployed.groups.find((group) => group.items.some((item) => item.id === id))
+    if (!matching) return undefined
+    const frame = window.requestAnimationFrame(() => {
+      setFragmentTarget(id)
+      setExpandedGroups((current) => new Set([...current, matching.id]))
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [])
+
+  useEffect(() => {
+    if (!fragmentTarget) return undefined
+    const matching = deployed.groups.find((group) => group.items.some((item) => item.id === fragmentTarget))
+    if (!matching || !expandedGroups.has(matching.id)) return undefined
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(fragmentTarget)?.scrollIntoView({ block: 'start' })
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [expandedGroups, fragmentTarget])
+
+  const statusCounts = useMemo(() => {
+    const counts = { all: 0, down: 0, ok: 0, redirect: 0, restricted: 0, unknown: 0 }
+    for (const group of deployed.groups) {
+      for (const item of group.items) {
+        counts.all += 1
+        counts[deploymentStatusKind(probeByKey.get(`${group.id}:${item.id}`))] += 1
+      }
+    }
+    return counts
+  }, [probeByKey])
+
+  const filteredGroups = useMemo(() => deployed.groups
+    .filter((group) => groupFilter === 'all' || group.id === groupFilter)
+    .map((group) => ({
+      ...group,
+      items: group.items.filter((item) => {
+        const result = probeByKey.get(`${group.id}:${item.id}`)
+        if (!matchesDeploymentStatus(result, statusFilter)) return false
+        const resource = resourceById.get(resourceIdFor(item))
+        const haystack = [
+          item.id, item.name, item.desc, item.url, item.stack, item.kind,
+          resource?.name, resource?.category_name, resource?.sub_category_name,
+          ...(item.tags ?? []),
+        ].join(' ').toLocaleLowerCase()
+        return !query.trim() || haystack.includes(query.trim().toLocaleLowerCase())
+      }),
+    }))
+    .filter((group) => group.items.length > 0), [groupFilter, probeByKey, query, statusFilter])
+
+  const filteredCount = filteredGroups.reduce((sum, group) => sum + group.items.length, 0)
+  const hasActiveFilters = Boolean(query.trim()) || statusFilter !== 'all' || groupFilter !== 'all'
+  const allExpanded = filteredGroups.length > 0 && filteredGroups.every((group) => expandedGroups.has(group.id))
+
+  const toggleGroup = (id) => setExpandedGroups((current) => {
+    const next = new Set(current)
+    if (next.has(id)) next.delete(id)
+    else next.add(id)
+    return next
+  })
+
+  const clearFilters = () => {
+    setQuery('')
+    setStatusFilter('all')
+    setGroupFilter('all')
+  }
   /*
    * The GitHub Pages mirror count, computed from the data instead of written
    * down. Scoped to the github group on purpose: the 运维 note below describes
@@ -185,85 +267,184 @@ export default function Deployed() {
       <PageHeader
         eyebrow="运行实例 / DEPLOYED"
         title="自部署服务"
-        description={(
-          <>
-            我把图鉴里能自己运行的资源部署为可访问的服务：知识库与静态站点位于
-            <span className="text-[var(--text-strong)]"> Cloudflare 边缘</span>，
-            仓库镜像由 <span className="text-[var(--text-strong)]">GitHub Pages</span> 托管，
-            其余经 <span className="text-[var(--text-strong)]">cloudflared 隧道</span> 从本机 Docker 暴露。
-            更新于 <span className="mono">{deployed.updated}</span>。
-          </>
-        )}
+        description={`管理 ${instanceTotal} 个公开服务与镜像，按名称、域名、技术栈或可达状态快速定位。清单更新于 ${deployed.updated}。`}
       />
 
       {probe ? (
-        <section className="fa-surface-muted space-y-2.5 p-4">
-          <p className="text-[13px] leading-relaxed text-[var(--text-dim)]">
-            最近一次发布时从公网探测（{utcStamp(probe.ranAt)} UTC），共{' '}
-            <span className="font-semibold text-[var(--text-strong)]">{probeSummary.total}</span> 个实例。
-            这是发布快照，不是实时监控，也不代表已完成登录或完整用户流程。
-          </p>
-          <ul className="flex flex-wrap gap-x-4 gap-y-1.5 text-[11px]">
-            <li className="text-[var(--accent-text)]">2xx 正常响应 <span className="mono">{probeSummary.ok}</span></li>
-            <li className="text-[var(--text-dim)]">3xx 重定向 <span className="mono">{probeSummary.redirect}</span></li>
-            <li className="text-[var(--accent-text)]">4xx 访问受限/客户端错误 <span className="mono">{probeSummary.restricted}</span></li>
-            <li className={probeSummary.unreachable ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>
-              不可达/连接失败 <span className="mono">{probeSummary.unreachable}</span>
-            </li>
-            {probeSummary.other ? <li className="text-[var(--text-dim)]">其他 <span className="mono">{probeSummary.other}</span></li> : null}
-          </ul>
-          <div className="grid grid-cols-1 gap-x-5 gap-y-1.5 border-t border-[var(--line-soft)] pt-2 sm:grid-cols-3">
-            {probeGroups.map((g) => (
-              <div key={g.id} className="flex flex-wrap items-baseline gap-1.5 text-[11px]">
-                <span className={g.down ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>{g.name}</span>
-                <span className="mono text-[var(--text-faint)]">
-                  2xx {g.counts.ok} · 3xx {g.counts.redirect} · 4xx {g.counts.restricted} · 不可达 {g.counts.unreachable}
-                  {g.worst ? ' · ' + g.worst : ''}
-                </span>
-              </div>
-            ))}
+        <details className="fa-disclosure fa-surface-muted px-4 py-3">
+          <summary className="flex cursor-pointer flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--text-dim)]">
+            <span className="font-semibold text-[var(--text-strong)]">发布连通性快照</span>
+            <span>最近探测 {utcStamp(probe.ranAt)} UTC</span>
+            <span className={probeSummary.unreachable ? 'text-[var(--down-text)]' : 'text-[var(--text-faint)]'}>
+              {probeSummary.unreachable} 个不可达
+            </span>
+            <span className="ml-auto text-[10px] text-[var(--text-faint)]">展开详情</span>
+          </summary>
+          <div className="mt-3 space-y-2.5 border-t border-[var(--line-soft)] pt-3">
+            <p className="text-[11px] leading-relaxed text-[var(--text-faint)]">
+              共探测 {probeSummary.total} 个实例。这是最近一次发布时的公网快照，不是实时监控，也不代表已完成登录或完整用户流程。
+            </p>
+            <ul className="flex flex-wrap gap-x-4 gap-y-1.5 text-[11px]">
+              <li className="text-[var(--accent-text)]">2xx 正常响应 <span className="mono">{probeSummary.ok}</span></li>
+              <li className="text-[var(--text-dim)]">3xx 重定向 <span className="mono">{probeSummary.redirect}</span></li>
+              <li className="text-[var(--accent-text)]">4xx 访问受限/客户端错误 <span className="mono">{probeSummary.restricted}</span></li>
+              <li className={probeSummary.unreachable ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>
+                不可达/连接失败 <span className="mono">{probeSummary.unreachable}</span>
+              </li>
+              {probeSummary.other ? <li className="text-[var(--text-dim)]">其他 <span className="mono">{probeSummary.other}</span></li> : null}
+            </ul>
+            <div className="grid grid-cols-1 gap-x-5 gap-y-1.5 border-t border-[var(--line-soft)] pt-2 sm:grid-cols-3">
+              {probeGroups.map((g) => (
+                <div key={g.id} className="flex flex-wrap items-baseline gap-1.5 text-[11px]">
+                  <span className={g.down ? 'text-[var(--down-text)]' : 'text-[var(--text-dim)]'}>{g.name}</span>
+                  <span className="mono text-[var(--text-faint)]">
+                    2xx {g.counts.ok} · 3xx {g.counts.redirect} · 4xx {g.counts.restricted} · 不可达 {g.counts.unreachable}
+                    {g.worst ? ' · ' + g.worst : ''}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-        </section>
+        </details>
       ) : null}
 
-      {/*
-       * A 部署分组 header wears no hue, and that is a measurement rather than an
-       * omission. Everywhere else on the site a colour answers "which 分类", and
-       * these three sections are not 分类 divisions — they are *where it runs*.
-       * Counted from the shipped data: 16 rows on Cloudflare 边缘 spread over 4
-       * categories (atlas 12, security 2, gear 1, selfhost 1), 34 on GitHub Pages
-       * mirrors over 5 (selfhost 22, security 5, ai 4, gear 2, ebook 1), 40 on the
-       * Docker tunnel over 3 (selfhost 31, gear 6, ai 3). The largest category is
-       * 78% of the Docker group, so a single hue there would match most rows — and
-       * that is exactly the trap: the header would read as a 分类 claim while six
-       * gear rows and three ai rows sit underneath it, and the site has no colour
-       * that means "edge" or "docker" in the first place. The group is stated by
-       * its name and its note in type, and 自建 stays the page's one hue (the row
-       * links, the badges) because that is the claim every row on this page
-       * actually makes.
-       */}
-      {deployed.groups.map((group) => (
-        <section key={group.id} className="space-y-3">
-          <SectionHeading
-            title={group.name}
-            meta={group.items.length + ' 个实例'}
-            description={group.note}
-          />
-          <ul className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
-            {group.items.map((item) => (
-              <ServiceRow
-                key={item.id}
-                item={item}
-                result={probeRows.find((r) => r.group === group.id && r.id === item.id)}
-              />
-            ))}
-          </ul>
-        </section>
-      ))}
+      {/* Deployment groups describe hosting location, not resource category.
+          Keep their headers neutral so a group colour cannot imply every item
+          inside it belongs to one catalogue category. */}
+      <section className="fa-surface p-4">
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h2 className="text-sm font-semibold text-[var(--text-strong)]">查找服务</h2>
+              <p className="mt-1 text-[11px] text-[var(--text-faint)]">支持名称、域名、技术栈和分类关键词</p>
+            </div>
+            <span className="mono text-[11px] text-[var(--text-faint)]">{filteredCount} / {instanceTotal}</span>
+          </div>
+          <label className="relative block">
+            <span className="sr-only">搜索自部署服务</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-faint)]" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" strokeLinecap="round" />
+            </svg>
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="搜索服务、域名、技术栈…"
+              aria-label="搜索自部署服务"
+              className="fa-catalog-search w-full rounded-[6px] border bg-[var(--ink-sunken)] py-3 pl-10 pr-3 text-sm text-[var(--text-strong)] placeholder:text-[var(--text-faint)]"
+            />
+          </label>
 
-      <section className="fa-surface-muted p-4">
-        <h2 className="text-[13px] font-semibold text-[var(--text-strong)]">运维说明</h2>
-        <ul className="fa-wrap-anywhere mt-2 space-y-1 text-[11px] leading-relaxed text-[var(--text-dim)]">
+          <div className="space-y-2">
+            <span className="text-[10px] font-semibold tracking-wide text-[var(--text-faint)]">按状态</span>
+            <div className="flex flex-wrap gap-1.5" role="group" aria-label="按连通性筛选">
+              {[
+                ['all', '全部'], ['down', '不可达'], ['restricted', '需认证 / 受限'],
+                ['ok', '正常响应'], ['redirect', '重定向'], ['unknown', '未探测'],
+              ].map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed={statusFilter === value}
+                  onClick={() => setStatusFilter(value)}
+                  className={statusFilter === value ? 'fa-filter-chip rounded-full border border-[var(--accent)]/55 bg-[var(--accent)]/10 px-3 py-1.5 text-[11px] text-[var(--accent-text)]' : 'fa-filter-chip rounded-full border border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]'}
+                >
+                  {label} <span className="mono ml-1 text-[10px] opacity-70">{statusCounts[value]}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-[10px] font-semibold tracking-wide text-[var(--text-faint)]">按部署位置</span>
+            <div className="flex flex-wrap gap-1.5" role="group" aria-label="按部署位置筛选">
+              <button type="button" aria-pressed={groupFilter === 'all'} onClick={() => setGroupFilter('all')} className={groupFilter === 'all' ? 'fa-filter-chip rounded-full border border-[var(--accent)]/55 bg-[var(--accent)]/10 px-3 py-1.5 text-[11px] text-[var(--accent-text)]' : 'fa-filter-chip rounded-full border border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--text-dim)]'}>
+                全部位置
+              </button>
+              {deployed.groups.map((group) => (
+                <button key={group.id} type="button" aria-pressed={groupFilter === group.id} onClick={() => setGroupFilter(group.id)} className={groupFilter === group.id ? 'fa-filter-chip rounded-full border border-[var(--accent)]/55 bg-[var(--accent)]/10 px-3 py-1.5 text-[11px] text-[var(--accent-text)]' : 'fa-filter-chip rounded-full border border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--text-dim)]'}>
+                  {group.name} <span className="mono ml-1 text-[10px] opacity-70">{group.items.length}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {hasActiveFilters ? (
+            <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--line-soft)] pt-2">
+              <p className="text-[11px] text-[var(--text-dim)]">当前匹配 <strong className="mono text-[var(--text-strong)]">{filteredCount}</strong> 个实例</p>
+              <button type="button" onClick={clearFilters} className="text-[11px] text-[var(--accent-text)] hover:underline">清除筛选</button>
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      {!hasActiveFilters && filteredGroups.length > 1 ? (
+        <div className="flex justify-end">
+          <button type="button" onClick={() => setExpandedGroups(allExpanded ? new Set() : new Set(filteredGroups.map((group) => group.id)))} className="text-[11px] text-[var(--text-faint)] hover:text-[var(--text-strong)]">
+            {allExpanded ? '收起全部分组' : '展开全部分组'}
+          </button>
+        </div>
+      ) : null}
+
+      {filteredGroups.length ? filteredGroups.map((group) => {
+        const isExpanded = hasActiveFilters || expandedGroups.has(group.id)
+        const groupCounts = group.items.reduce((counts, item) => {
+          const kind = deploymentStatusKind(probeByKey.get(`${group.id}:${item.id}`))
+          counts[kind] += 1
+          return counts
+        }, { down: 0, ok: 0, redirect: 0, restricted: 0, unknown: 0 })
+        const panelId = `deployed-group-${group.id}`
+        return (
+          <section key={group.id} className="fa-surface overflow-hidden">
+            <button
+              type="button"
+              disabled={hasActiveFilters}
+              title={hasActiveFilters ? '筛选结果会自动展开；清除筛选后可折叠分组' : '展开或收起该分组'}
+              aria-expanded={isExpanded}
+              aria-controls={panelId}
+              onClick={() => toggleGroup(group.id)}
+              className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-[var(--ink-tint)]"
+            >
+              <span className="min-w-0 flex-1">
+                <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <span className="text-sm font-semibold text-[var(--text-strong)]">{group.name}</span>
+                  <span className="mono text-[10px] text-[var(--text-faint)]">{group.items.length} 个实例</span>
+                </span>
+                <span className="mt-1 block truncate text-[11px] text-[var(--text-faint)]">{group.note}</span>
+                <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px]">
+                  {groupCounts.down ? <span className="text-[var(--down-text)]">不可达 {groupCounts.down}</span> : null}
+                  {groupCounts.ok ? <span className="text-[var(--accent-text)]">正常 {groupCounts.ok}</span> : null}
+                  {groupCounts.restricted ? <span className="text-[var(--text-dim)]">受限 {groupCounts.restricted}</span> : null}
+                  {groupCounts.redirect ? <span className="text-[var(--text-faint)]">重定向 {groupCounts.redirect}</span> : null}
+                  {groupCounts.unknown ? <span className="text-[var(--text-faint)]">未探测 {groupCounts.unknown}</span> : null}
+                </span>
+              </span>
+              <svg aria-hidden="true" viewBox="0 0 16 16" className={`h-4 w-4 shrink-0 text-[var(--text-faint)] transition-transform ${isExpanded ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" strokeWidth="1.6">
+                <path d="m6 3 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <div id={panelId} hidden={!isExpanded} className="border-t border-[var(--line-soft)] p-3.5">
+              {isExpanded ? (
+                <ul className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
+                  {group.items.map((item) => (
+                    <ServiceRow key={item.id} item={item} result={probeByKey.get(`${group.id}:${item.id}`)} />
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          </section>
+        )
+      }) : (
+        <section className="fa-surface-muted px-5 py-10 text-center">
+          <p className="text-sm font-semibold text-[var(--text-strong)]">没有找到匹配的服务</p>
+          <p className="mt-1 text-xs text-[var(--text-faint)]">换个关键词，或清除当前筛选条件。</p>
+          <button type="button" onClick={clearFilters} className="mt-3 text-xs text-[var(--accent-text)] hover:underline">清除筛选</button>
+        </section>
+      )}
+
+      <details className="fa-disclosure fa-surface-muted p-4">
+        <summary className="cursor-pointer text-[13px] font-semibold text-[var(--text-strong)]">运行与运维说明 <span className="ml-2 text-[10px] font-normal text-[var(--text-faint)]">部署拓扑、安全边界与维护记录</span></summary>
+        <ul className="fa-wrap-anywhere mt-3 space-y-1 border-t border-[var(--line-soft)] pt-3 text-[11px] leading-relaxed text-[var(--text-dim)]">
           <li>· Docker 编排文件与隧道配置存放在本机 <span className="mono">~/workspace/selfhost</span>,全部 <span className="mono">restart: unless-stopped</span>。</li>
           <li>· 隧道由用户级 systemd 服务 <span className="mono">foss-labs-tunnel.service</span> 常驻,开机自启;新增域名用 <span className="mono">cloudflared tunnel route dns</span> 注册。</li>
           <li>· Cloudflare 侧的静态站与知识库镜像用 <span className="mono">wrangler</span> 部署到 Workers/Pages,自定义域直接绑在同一个 zone 上。</li>
@@ -286,7 +467,7 @@ export default function Deployed() {
           <li>· 这轮补上的 <span className="mono">ai</span>(Dify)与 <span className="mono">graph</span>(Langflow)各有一条内存实测,记在这里免得下次又靠猜:<span className="mono">dify</span> 那 14 个容器合计常驻 290 MiB(单个最大 49 MiB),上游 compose 那 13 个不带 profile 的服务并不贵,<span className="mono">langflow</span> 是真贵 —— 单容器常驻 1.25 GiB、cgroup 峰值顶到 1.5 GiB,<span className="mono">--memory 768m</span> 时它绑不住 7860 端口(RSS 钉在 767.9 MiB 还在跑 alembic),所以 <span className="mono">mem_limit</span> 与 <span className="mono">memswap_limit</span> 都写 1536m 且取相同值:本机交换已用 15/16 GiB,不给它靠交换分区躲过去。</li>
           <li>· 图鉴里还有 <b className="text-[var(--text-strong)]">19 个条目只有镜像、没有实例行</b>,其中 7 个是纯文档与清单(见本段末尾),另外 12 个是这轮决定不上的:<span className="mono">cowrie</span> / <span className="mono">dionaea</span> / <span className="mono">hfish</span> / <span className="mono">T-Pot</span> 要对外开几十个 TCP 加 UDP 端口, <span className="mono">rustdesk</span> 要 21115-21119 TCP 加 21116 UDP —— 这台机器的 IPv4 出口在运营商 NAT 之后 (<span className="mono">--noproxy</span> 直连探测给 <span className="mono">36.113.117.115</span>,ipinfo 落到 <span className="mono">AS137689</span> 中国电信杭州;本机 LAN 地址是 DHCP 给的,不写死),回探这个 v4 地址上的端口一律不应答 —— 不过这条测法从 <span className="mono">9d444fd</span> 起不再能证明什么:8101/8106 现在只绑 <span className="mono">127.0.0.1</span>,从外面探必然不通,分不清是 CGNAT 挡的还是自己没开放;要重测得改用仍然对外开放的 <span className="mono">2222</span> 或 <span className="mono">6881</span> 当探针。但「IPv6 侧只有 tailscale 的私有段、没有可路由的公网前缀」这句到 2026-10-29 已经不对:<span className="mono">wlp1s0</span> 拿到了可路由的公网前缀(中国电信 <span className="mono">240e:</span> 段,SLAAC 临时地址约 2 小时轮换),tailscale 的 <span className="mono">fd7a:115c:a1e0::/64</span> 不再是唯一的 v6。有公网前缀不等于端口对外开放 —— 入站能不能从外部打穿,我没从境外 v6 源验证过;这条隧道又只有 HTTPS 入口,本地 <span className="mono">cloudflared access</span> 的子命令是 <span className="mono">tcp</span> / <span className="mono">rdp</span> / <span className="mono">ssh</span> / <span className="mono">smb</span>,没有 UDP。蜜罐的镜像其实能拉(<span className="mono">cowrie/cowrie</span> 已在本地),拒绝它的理由现在只剩两条:v4 仍在 NAT 后,加上上面那句「入站没验证」—— 公网 v6 前缀把原先「v6 也没有」这半边削掉了,所以这条判定要重测才算数;只有 <span className="mono">HFish</span> 连镜像都没有(Hub 上 <span className="mono">hacklcx/hfish</span> 404)。<span className="mono">1panel</span> 在 Hub 上没有镜像(<span className="mono">1panel/1panel</span> 404),它本来以宿主二进制发行(<span className="mono">resource.1panel.pro/v2/quick_start.sh</span> 已下载核对),且与 <span className="mono">heimdall</span> / <span className="mono">homarr</span> 重叠;<span className="mono">wetty</span> 的 <span className="mono">wettyoss/terminal</span> 也不存在(404),真实镜像 <span className="mono">butlerx/wetty</span> 能拉,但它自己的 <span className="mono">--help</span> 要求 <span className="mono">--sshuser</span> / <span className="mono">--sshpass</span> —— 等于把宿主账号交给一个 web 终端,而 <span className="mono">term</span> 已经在跑同一件事。<span className="mono">nginx-proxy-manager</span> 的镜像能拉,建管理员也<strong>能</strong>无人值守(这轮实测过,原先记在这里的理由是错的):2.16.0 的 <span className="mono">setup.js</span> 在 <span className="mono">isSetup()</span> 为假时放行一个不带凭据的 <span className="mono">POST /api/users</span> 并强制授予 <span className="mono">admin</span>(实测 201,第二次 403),另一条路是 <span className="mono">INITIAL_ADMIN_EMAIL</span> / <span className="mono">INITIAL_ADMIN_PASSWORD</span> 种子(默认值不会被创建,实测 400)。真正不上它的原因是:它没有任何 cloudflared 已经给不到的能力,却要长期在 81 端口挂一个管理面板,而且建号之前的那段窗口本身就是这台机器上一个未认证的入口;附带一条坑 —— 它启动时先抓 AWS IP 段,没有出口就一直卡住,要 <span className="mono">IP_RANGES_FETCH_ENABLED=false</span> 才起得来。<span className="mono">sing-box</span> / <span className="mono">trojan-go</span> 是出口代理,把这台机器变成中继不是这次要建的东西。剩下两项是 <span className="mono">ai</span>:<span className="mono">promptfoo</span> 走 npm/CLI(没有官方镜像,Hub 404 ×2),没有服务可部署;<span className="mono">llamaindex</span> 是框架,Hub 上 <span className="mono">llamaindex</span> 名下只有 LlamaCloud 的托管组件。另有七项(<span className="mono">gtfobins</span> / <span className="mono">lolbas</span> / <span className="mono">free-programming-books</span> / <span className="mono">awesome-selfhosted</span> / <span className="mono">awesome-hacking</span> / <span className="mono">hacktricks</span> / <span className="mono">payloadsallthethings</span>)是纯文档与清单,它们的「部署」就是已经在那里的静态镜像,给它们编一个实例行就是造假。</li>
         </ul>
-      </section>
+      </details>
     </div>
   )
 }

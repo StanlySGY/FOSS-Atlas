@@ -69,6 +69,22 @@ test('graph filters are collapsed by default at every viewport while remaining e
   assert.match(graph, /id="graph-filter-panel" className=\{`\$\{filtersOpen \? 'flex' : 'hidden'\}/)
   assert.doesNotMatch(graph, /filtersOpen \? 'flex' : 'hidden'\}\s+flex-col gap-2 md:flex/)
   assert.match(graph, /单击节点看速览 · 拖动画布平移 · 滚轮缩放/)
+  assert.match(graph, /<details className="fa-disclosure fa-surface p-3\.5">/)
+  assert.match(graph, /操作说明/)
+})
+
+test('deployed services are searchable, filterable, and grouped behind progressive disclosure', () => {
+  const deployed = read('src/pages/Deployed.jsx')
+  assert.match(deployed, /aria-label="搜索自部署服务"/)
+  assert.match(deployed, /aria-label="按连通性筛选"/)
+  assert.match(deployed, /aria-label="按部署位置筛选"/)
+  assert.match(deployed, /matchesDeploymentStatus\(result, statusFilter\)/)
+  assert.match(deployed, /aria-expanded=\{isExpanded\}/)
+  assert.match(deployed, /disabled=\{hasActiveFilters\}/)
+  assert.match(deployed, /<div id=\{panelId\} hidden=\{!isExpanded\}/)
+  assert.match(deployed, /展开全部分组/)
+  assert.match(deployed, /运行与运维说明/)
+  assert.match(deployed, /setFragmentTarget\(id\)/)
 })
 
 test('Wiki reading layout gives medium-width screens a full article before metadata', () => {
@@ -77,4 +93,6 @@ test('Wiki reading layout gives medium-width screens a full article before metad
   assert.match(wiki, /className="fa-wiki-meta pb-8 pt-2"/)
   assert.match(css, /@media \(min-width: 1280px\)[\s\S]*?\.fa-wiki-content-grid[\s\S]*?grid-template-columns: minmax\(0, 1fr\) 280px/)
   assert.match(css, /@media \(min-width: 768px\) and \(max-width: 1279px\)[\s\S]*?\.fa-wiki-rail[\s\S]*?flex-basis: 220px/)
+  assert.match(wiki, /更多信息与关联/)
+  assert.match(wiki, /在知识图谱中查看/)
 })

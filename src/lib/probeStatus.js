@@ -52,3 +52,19 @@ export function summarizeProbeRows(rows = []) {
   }
   return summary
 }
+
+/** Normalize the published snapshot into the small set of actionable UI filters. */
+export function deploymentStatusKind(result) {
+  if (!result) return 'unknown'
+  if (isUnreachable(result.cls)) return 'down'
+  if (result.cls === '2xx') return 'ok'
+  if (result.cls === '3xx') {
+    return String(result.note ?? '').includes('Access login redirect') ? 'restricted' : 'redirect'
+  }
+  if (result.cls === '4xx') return 'restricted'
+  return 'unknown'
+}
+
+export function matchesDeploymentStatus(result, filter) {
+  return filter === 'all' || deploymentStatusKind(result) === filter
+}

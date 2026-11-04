@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { presentWikiMarkdown } from '../../src/lib/wikiPresentation.js'
+import { deploymentStatusKind, matchesDeploymentStatus } from '../../src/lib/probeStatus.js'
 
 const fence = String.fromCharCode(96).repeat(3)
 const generated = [
@@ -40,4 +41,23 @@ test('hand-written Wiki pages preserve their full markdown without repartitionin
     practicalMarkdown: markdown,
     hasActionableGuide: false,
   })
+})
+
+test('deployment snapshot states map to actionable filters without calling redirects healthy', () => {
+  assert.equal(deploymentStatusKind({ cls: '2xx', code: 200 }), 'ok')
+  assert.equal(deploymentStatusKind({ cls: '3xx', code: 301, note: 'Moved permanently' }), 'redirect')
+  assert.equal(deploymentStatusKind({ cls: '3xx', code: 302, note: 'Access login redirect' }), 'restricted')
+  assert.equal(deploymentStatusKind({ cls: '4xx', code: 403 }), 'restricted')
+  assert.equal(deploymentStatusKind({ cls: '530/1033', code: 530 }), 'down')
+  assert.equal(deploymentStatusKind({ cls: 'transport' }), 'down')
+  assert.equal(deploymentStatusKind(null), 'unknown')
+})
+
+test('deployment status filters distinguish unknown snapshots and retain an all superset', () => {
+  const result = { cls: '2xx', code: 200 }
+  assert.equal(matchesDeploymentStatus(null, 'unknown'), true)
+  assert.equal(matchesDeploymentStatus(null, 'ok'), false)
+  assert.equal(matchesDeploymentStatus(result, 'ok'), true)
+  assert.equal(matchesDeploymentStatus(result, 'down'), false)
+  assert.equal(matchesDeploymentStatus(result, 'all'), true)
 })
