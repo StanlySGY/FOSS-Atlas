@@ -71,6 +71,22 @@ test('catalogue prioritizes search, discloses filters on demand, and progressive
   assert.match(home, /pickRandomResource\(favorites\)/)
 })
 
+test('resource comparison dialog moves focus inside, traps Tab, and restores focus on close', () => {
+  const home = read('src/pages/Home.jsx')
+  assert.match(home, /compareTriggerRef=useRef\(null\)/)
+  assert.match(home, /compareDialogRef=useRef\(null\)/)
+  assert.match(home, /compareCloseRef=useRef\(null\)/)
+  assert.match(home, /compareCloseRef\.current\?\.focus\(\)/)
+  assert.match(home, /event\.key==='Escape'[\s\S]*?setCompareOpen\(false\)/)
+  assert.match(home, /event\.key!=='Tab'/)
+  assert.match(home, /event\.shiftKey&&document\.activeElement===first/)
+  assert.match(home, /!event\.shiftKey&&document\.activeElement===last/)
+  assert.match(home, /returnFocusTarget\.isConnected\)returnFocusTarget\.focus\(\)/)
+  assert.match(home, /role="dialog" aria-modal="true" aria-labelledby="fa-compare-title" aria-describedby="fa-compare-description"/)
+  assert.match(home, /tabIndex=\{-1\} aria-hidden="true" className="fa-compare-backdrop"/)
+  assert.match(home, /id="fa-compare-description" className="sr-only"/)
+})
+
 test('global switcher keeps recent Wiki visits locally and supports random discovery and keyboard focus management', () => {
   const layout = read('src/components/Layout.jsx')
   const palette = read('src/components/CommandPalette.jsx')
