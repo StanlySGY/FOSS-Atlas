@@ -5,7 +5,7 @@ category: cn-ai
 sub_category: cn-ai-dev
 tags: [API, 国内, GLM]
 url: https://open.bigmodel.cn
-related: [kimi, tencent-hunyuan, deepseek-api, siliconflow]
+related: [kimi, tencent-hunyuan, tencent-tokenhub, deepseek-api]
 updated: 2026-10-19
 generated: true
 ---
@@ -32,6 +32,6 @@ generated: true
 ## 同类推荐
 
 - [[Kimi]] —— 月之暗面 Kimi，长文本对话助手
-- [[腾讯混元]] —— 腾讯混元大模型对话与 API
-- [[DeepSeek API]] —— DeepSeek 开放平台 API
-- [[硅基流动]] —— 模型聚合 API 平台，含免费额度
+- [[腾讯混元]] —— 腾讯混元消费者聊天入口；开发者 API 一次性体验资源包与 TokenHub 规则需单独核对
+- [[腾讯云 TokenHub]] —— 腾讯云混元等大模型开发者 API 平台；旧混元体验资源包与模型迁移规则以 TokenHub 当前产品页为准
+- [[DeepSeek API]] —— DeepSeek API 按模型 Token 计费；赠送余额以账号实际 granted_balance 为准

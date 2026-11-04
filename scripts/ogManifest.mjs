@@ -3,7 +3,7 @@
  * The record that makes `public/og/*.png` a *claim* instead of a file.
  *
  * A card is the only artifact in this repo whose text cannot be diffed: the
- * "186" lives inside a PNG. So the build writes down, next to the images,
+ * "187" lives inside a PNG. So the build writes down, next to the images,
  * exactly what they were drawn from — the catalogue counts, the card copy, the
  * glyph walk, the font bytes — and every consumer compares that record against
  * the present state before it is allowed to reference an image.

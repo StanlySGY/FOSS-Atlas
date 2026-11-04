@@ -31,4 +31,4 @@ Hugging Face 的免费托管空间，支持用 Docker 部署并公开访问。
 
 ## 同类推荐
 
-- [[Replit]] —— 免费 5 个 Repl 项目，在线 IDE
+- [[Replit]] —— 在线 IDE / App Builder；Agent credits、部署和运行费用以当前套餐为准，不承诺固定免费项目数或免费 VPS

@@ -32,6 +32,6 @@ Cloudflare 的免费权威 DNS 解析服务，同时附带 CDN 缓存与基础�
 ## 同类推荐
 
 - [[Hurricane Electric]] —— 老牌免费 DNS 托管（HE.net）
-- [[NextDNS]] —— 30 万次查询/月免费，带过滤与隐私保护
+- [[NextDNS]] —— Free 每月 300,000 次 DNS 查询；超额后退化为传统非拦截式 DNS 响应
 - [[Bunny DNS]] —— 第一个域名免费，全球 Anycast 解析
 - [[Google Cloud]] —— 1 台 e2-micro VM（美区）、5GB 存储、1GB 出网/月

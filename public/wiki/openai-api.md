@@ -31,7 +31,7 @@ OpenAI 官方开发者平台，按用量计费调用 GPT 系列模型的能力�
 
 ## 同类推荐
 
-- [[Anthropic API]] —— Claude 系列官方 API
+- [[Anthropic API]] —— Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺
 - [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
 - [[Hugging Face Inference API]] —— 开源模型推理 API
 - [[Replicate]] —— 托管开源模型，部分模型免费试用

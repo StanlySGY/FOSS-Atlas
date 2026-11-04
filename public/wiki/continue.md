@@ -31,7 +31,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Cursor]] —— AI 优先的代码编辑器，含免费额度
+- [[Cursor]] —— Cursor Free 为 USD 0 / 月，提供受限 Agent 与 Chat 请求；不等于无限使用第三方模型
 - [[Cline]] —— VSCode 开源 AI 编程 Agent
 - [[Cody]] —— Sourcegraph 出品的 AI 编程助手
 - [[Tabby]] —— 可自部署的 AI 代码补全服务

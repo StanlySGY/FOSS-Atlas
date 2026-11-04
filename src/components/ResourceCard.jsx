@@ -95,7 +95,7 @@ export default function ResourceCard({ resource, index = 0 }) {
           <DeployedBadge resource={resource} to={`/deployed/#${(resource.instances?.[0]?.id) ?? ''}`} />
         </span>
         {/*
-         * Was amber on all 186 cards, which is the same colour as every active
+         * Was amber on all 187 cards, which is the same colour as every active
          * chip on the page — so "interactive" had one meaning site-wide and the
          * grid read as one flat field of available actions. The link is not what
          * a card is *for* (the Wiki is, and the card title is the amber path to

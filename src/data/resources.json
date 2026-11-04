@@ -149,7 +149,7 @@
     "category_name": "AI / LLM 白嫖",
     "sub_category": "ai-chat",
     "sub_category_name": "免费 AI 对话站点",
-    "description": "阿里通义大模型对话与绘画",
+    "description": "通义千问消费者聊天入口；不要与阿里云百炼开发者 API 的模型免费额度混为一谈",
     "tags": [
       "对话",
       "国内",
@@ -261,7 +261,7 @@
     "category_name": "AI / LLM 白嫖",
     "sub_category": "ai-coding",
     "sub_category_name": "AI 编程工具",
-    "description": "AI 优先的代码编辑器，含免费额度",
+    "description": "Cursor Free 为 USD 0 / 月，提供受限 Agent 与 Chat 请求；不等于无限使用第三方模型",
     "tags": [
       "编程",
       "IDE",
@@ -1106,7 +1106,7 @@
     "category_name": "免费 SaaS 开发资源",
     "sub_category": "saas-dns",
     "sub_category_name": "免费 DNS / CDN",
-    "description": "30 万次查询/月免费，带过滤与隐私保护",
+    "description": "Free 每月 300,000 次 DNS 查询；超额后退化为传统非拦截式 DNS 响应",
     "tags": [
       "DNS",
       "隐私",
@@ -2777,7 +2777,7 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "免费 API 服务",
-    "description": "GPT 系列官方 API",
+    "description": "API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准",
     "tags": [
       "API",
       "LLM",
@@ -2793,7 +2793,7 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "免费 API 服务",
-    "description": "Claude 系列官方 API",
+    "description": "Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺",
     "tags": [
       "API",
       "LLM",
@@ -2872,7 +2872,7 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "免费 API 服务",
-    "description": "IP 归属地查询，5 万次/月免费",
+    "description": "IPinfo Lite 需 Token，country-level Geo / basic ASN 查询不设日月请求数上限；Legacy 公共 API 另有共享 IP 限制",
     "tags": [
       "API",
       "IP",
@@ -2920,7 +2920,7 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "免费 API 服务",
-    "description": "免费图片与视频 API",
+    "description": "免费图片与视频 API；默认每小时 200 次、每月 20,000 次请求，需遵守署名和 API 使用规范",
     "tags": [
       "API",
       "图片",
@@ -2936,11 +2936,10 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "免费 API 服务",
-    "description": "二维码生成 API，无限免费",
+    "description": "二维码生成 / 解码 API；文档未公布固定请求上限，但保留拒绝滥用请求的权利",
     "tags": [
       "API",
-      "二维码",
-      "免费"
+      "二维码"
     ],
     "wiki": "qrserver"
   },
@@ -2968,11 +2967,10 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "免费 API 服务",
-    "description": "短信发送 API，1 条/天免费",
+    "description": "短信 API；共享演示 Key 每日 1 条免费短信，更多需使用付费 Key",
     "tags": [
       "API",
-      "短信",
-      "免费"
+      "短信"
     ],
     "wiki": "textbelt"
   },
@@ -3046,7 +3044,7 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "免费 API 服务",
-    "description": "免费地理编码与逆地理编码",
+    "description": "OSM 公共地理编码服务最多每秒 1 次请求，需署名并遵守禁止自动补全和批量查询政策",
     "tags": [
       "API",
       "地图",
@@ -3346,7 +3344,7 @@
     "category_name": "免费 VPS / 服务器",
     "sub_category": "vps-free",
     "sub_category_name": "免费服务器资源",
-    "description": "免费 CPU 实例，支持 Docker 部署",
+    "description": "Static Spaces 免费；Gradio / Docker 计算型 Space 的创建资格受计划与账户条件限制",
     "tags": [
       "VPS",
       "容器",
@@ -3362,11 +3360,10 @@
     "category_name": "免费 VPS / 服务器",
     "sub_category": "vps-free",
     "sub_category_name": "免费服务器资源",
-    "description": "免费 5 个 Repl 项目，在线 IDE",
+    "description": "在线 IDE / App Builder；Agent credits、部署和运行费用以当前套餐为准，不承诺固定免费项目数或免费 VPS",
     "tags": [
-      "VPS",
       "在线 IDE",
-      "免费"
+      "App Builder"
     ],
     "wiki": "replit"
   },
@@ -3394,13 +3391,30 @@
     "category_name": "国内免费 AI 工具",
     "sub_category": "cn-ai-dev",
     "sub_category_name": "国内 AI 开发者 API",
-    "description": "腾讯混元大模型对话与 API",
+    "description": "腾讯混元消费者聊天入口；开发者 API 一次性体验资源包与 TokenHub 规则需单独核对",
     "tags": [
       "对话",
       "国内",
       "腾讯"
     ],
     "wiki": "tencent-hunyuan"
+  },
+  {
+    "id": "tencent-tokenhub",
+    "name": "腾讯云 TokenHub",
+    "url": "https://cloud.tencent.com/product/tokenhub",
+    "category": "cn-ai",
+    "category_name": "国内免费 AI 工具",
+    "sub_category": "cn-ai-dev",
+    "sub_category_name": "国内 AI 开发者 API",
+    "description": "腾讯云混元等大模型开发者 API 平台；旧混元体验资源包与模型迁移规则以 TokenHub 当前产品页为准",
+    "tags": [
+      "API",
+      "国内",
+      "腾讯",
+      "混元"
+    ],
+    "wiki": "tencent-tokenhub"
   },
   {
     "id": "bigmodel-glm",
@@ -3410,7 +3424,7 @@
     "category_name": "国内免费 AI 工具",
     "sub_category": "cn-ai-dev",
     "sub_category_name": "国内 AI 开发者 API",
-    "description": "智谱开放平台开发者 API",
+    "description": "智谱开发者 API；活动额度和资格以当前账户权益页为准，未确认常驻免费配额",
     "tags": [
       "API",
       "国内",
@@ -3426,7 +3440,7 @@
     "category_name": "国内免费 AI 工具",
     "sub_category": "cn-ai-dev",
     "sub_category_name": "国内 AI 开发者 API",
-    "description": "DeepSeek 开放平台 API",
+    "description": "DeepSeek API 按模型 Token 计费；赠送余额以账号实际 granted_balance 为准",
     "tags": [
       "API",
       "国内",
@@ -3442,7 +3456,7 @@
     "category_name": "国内免费 AI 工具",
     "sub_category": "cn-ai-dev",
     "sub_category_name": "国内 AI 开发者 API",
-    "description": "模型聚合 API 平台，含免费额度",
+    "description": "模型聚合 API 平台；模型价格、速率和活动各异，未确认统一常驻免费 Token 池",
     "tags": [
       "API",
       "聚合",
@@ -3474,7 +3488,7 @@
     "category_name": "国内免费 AI 工具",
     "sub_category": "cn-ai-dev",
     "sub_category_name": "国内 AI 开发者 API",
-    "description": "MiniMax 海螺 AI 与开放平台",
+    "description": "API 速率按模型与接口区分；部分免费 T2T 场景为 6 RPM，不代表固定月度 Token 赠额",
     "tags": [
       "API",
       "国内",

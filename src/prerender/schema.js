@@ -4,7 +4,7 @@
  * Structured data here is limited to what the catalogue actually states. That
  * rules out the two most commonly pasted blocks:
  *
- *   - `FAQPage` — not one of the 186 Wiki pages contains a question-and-answer
+ *   - `FAQPage` — not one of the 187 Wiki pages contains a question-and-answer
  *     section, so marking one up would be a claim about content that is not on
  *     the page. Google's rich-result eligibility is also revocation-prone: an
  *     FAQ markup with no visible FAQ is exactly the mismatch it penalises.

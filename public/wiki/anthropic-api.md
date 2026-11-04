@@ -31,7 +31,7 @@ Anthropic 官方接口，用于调用 Claude 系列模型完成对话与推理�
 
 ## 同类推荐
 
-- [[OpenAI API]] —— GPT 系列官方 API
+- [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
 - [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
 - [[Hugging Face Inference API]] —— 开源模型推理 API
 - [[Replicate]] —— 托管开源模型，部分模型免费试用

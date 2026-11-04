@@ -936,45 +936,51 @@
   ],
   "kimi": [
     "腾讯混元",
+    "腾讯云 TokenHub",
     "智谱 GLM-4 API",
-    "DeepSeek API",
-    "硅基流动"
+    "DeepSeek API"
   ],
   "tencent-hunyuan": [
     "Kimi",
+    "腾讯云 TokenHub",
     "智谱 GLM-4 API",
-    "DeepSeek API",
-    "硅基流动"
+    "DeepSeek API"
+  ],
+  "tencent-tokenhub": [
+    "Kimi",
+    "腾讯混元",
+    "智谱 GLM-4 API",
+    "DeepSeek API"
   ],
   "bigmodel-glm": [
     "Kimi",
     "腾讯混元",
-    "DeepSeek API",
-    "硅基流动"
+    "腾讯云 TokenHub",
+    "DeepSeek API"
   ],
   "deepseek-api": [
     "Kimi",
     "腾讯混元",
-    "智谱 GLM-4 API",
-    "硅基流动"
+    "腾讯云 TokenHub",
+    "智谱 GLM-4 API"
   ],
   "siliconflow": [
     "Kimi",
     "腾讯混元",
-    "智谱 GLM-4 API",
-    "DeepSeek API"
+    "腾讯云 TokenHub",
+    "智谱 GLM-4 API"
   ],
   "lingyiwanwu": [
     "Kimi",
     "腾讯混元",
-    "智谱 GLM-4 API",
-    "DeepSeek API"
+    "腾讯云 TokenHub",
+    "智谱 GLM-4 API"
   ],
   "minimax": [
     "Kimi",
     "腾讯混元",
-    "智谱 GLM-4 API",
-    "DeepSeek API"
+    "腾讯云 TokenHub",
+    "智谱 GLM-4 API"
   ],
   "cloudflare-imgbed": [
     "Cloudflare Tunnel",

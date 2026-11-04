@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "verifiedAt": "2026-11-03",
+  "verifiedAt": "2026-11-04",
   "entries": [
     {
       "resourceId": "aws",
@@ -634,7 +634,7 @@
           "Lite / Legacy 字段、Token 和署名差异"
         ]
       ],
-      "verifiedAt": "2026-11-03"
+      "verifiedAt": "2026-11-04"
     },
     {
       "resourceId": "unsplash",
@@ -793,6 +793,431 @@
         ]
       ],
       "verifiedAt": "2026-11-03"
+    },
+    {
+      "resourceId": "nextdns",
+      "types": [
+        "free-tier"
+      ],
+      "label": "Free：300,000 次 DNS 查询 / 月",
+      "shortLabel": "30 万次/月",
+      "summary": "NextDNS Free 每月包含 300,000 次 DNS 查询；超过额度后仍会响应 DNS 查询，但退化为传统 non-blocking DNS 行为，不应理解为完整过滤继续免费。",
+      "limits": [
+        [
+          "DNS 查询",
+          "300,000 次",
+          "每月 / Free 计划"
+        ]
+      ],
+      "conditions": [
+        "超过月度免费额度后，NextDNS 会像传统 non-blocking DNS 服务一样继续应答；过滤能力不再等同于额度内体验。",
+        "Pro 等付费计划规则不同；不要把 Free 免费查询数描述为无限。"
+      ],
+      "sources": [
+        [
+          "NextDNS Pricing",
+          "https://nextdns.io/pricing",
+          "Free 每月 300,000 queries；超额后改为 classic non-blocking DNS 响应"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "huggingface-spaces",
+      "types": [
+        "free-tier"
+      ],
+      "label": "Static Spaces 免费；计算型 Space 受计划限制",
+      "shortLabel": "Static 免费",
+      "summary": "Hugging Face Static Spaces 对所有人免费；官方文档列出 CPU Basic 为 2 vCPU、16GB RAM、50GB 非持久化磁盘且无小时费用，但 Gradio / Docker 计算型 Space 的创建资格仍受付费计划和账户条件约束。",
+      "limits": [
+        [
+          "Static Spaces",
+          "免费",
+          "所有人"
+        ],
+        [
+          "CPU Basic",
+          "2 vCPU / 16GB RAM / 50GB 非持久化磁盘",
+          "官方硬件规格；创建资格另受计划限制"
+        ]
+      ],
+      "conditions": [
+        "Static Spaces 免费不代表 Gradio / Docker compute 均可由任意新账户无限免费创建。",
+        "默认磁盘不是持久化磁盘；GPU 硬件、升级实例和闲置休眠规则需按具体 Space 与账户核对。"
+      ],
+      "sources": [
+        [
+          "Hugging Face Spaces Overview",
+          "https://huggingface.co/docs/hub/spaces-overview",
+          "Static Spaces 免费；CPU Basic 规格和计算型 Space 计划限制"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "pexels",
+      "types": [
+        "free-tier",
+        "api-demo"
+      ],
+      "label": "免费 API：200 次/小时、20,000 次/月",
+      "shortLabel": "200 次/小时",
+      "summary": "Pexels API 免费使用；每个 API key 默认每小时 200 次、每月 20,000 次请求。额度提升需符合资格并审核，不能假定默认 key 可无限调用。",
+      "limits": [
+        [
+          "API 请求",
+          "200 次",
+          "每小时 / 每个 API key"
+        ],
+        [
+          "API 请求",
+          "20,000 次",
+          "每月 / 每个 API key"
+        ]
+      ],
+      "conditions": [
+        "必须在产品中展示 Pexels 与摄影师署名；不能用 API 复制 Pexels 核心图库功能或售卖未修改的图片 / 视频副本。",
+        "截至 2026-11-04，Pexels 官方帮助页称 API 提额申请目前暂停。"
+      ],
+      "sources": [
+        [
+          "Pexels API free usage",
+          "https://help.pexels.com/hc/en-us/articles/47677890260761-Is-the-Pexels-API-free-to-use",
+          "免费 API key 默认每小时 200 次、每月 20,000 次"
+        ],
+        [
+          "Pexels unlimited request eligibility",
+          "https://help.pexels.com/hc/en-us/articles/900005852323-How-do-I-get-unlimited-requests",
+          "提额审核、署名和禁止复制核心功能要求；提额申请暂停"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "qrserver",
+      "types": [
+        "api-demo"
+      ],
+      "label": "未公布固定请求上限（保留反滥用限制）",
+      "shortLabel": "无固定公开上限",
+      "summary": "QRServer / goQR API 可生成和读取二维码；官方文档未公布固定请求数上限，但明确保留拒绝滥用请求的权利。",
+      "limits": [
+        [
+          "请求次数",
+          "未公布固定上限",
+          "文档未给出通用 RPM / 日 / 月数值"
+        ],
+        [
+          "高频使用",
+          "超过 10,000 次/日建议联系",
+          "长期 / 规律性流量"
+        ]
+      ],
+      "conditions": [
+        "服务方会记录请求来源（Referer 与 IP），并可拒绝滥用或不当请求；不能将“未公布固定上限”宣传为无限可用。",
+        "若服务稳定产生超过 10,000 次/日请求，应先联系服务方。"
+      ],
+      "sources": [
+        [
+          "QRServer create-qr-code API",
+          "https://goqr.me/api/doc/create-qr-code/",
+          "未公布请求上限；保留拒绝滥用请求权；规律性超过 10,000 次/日应联系"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "textbelt",
+      "types": [
+        "api-demo"
+      ],
+      "label": "共享演示 Key：每日 1 条免费短信",
+      "shortLabel": "1 条/天",
+      "summary": "Textbelt 托管短信 API 的共享演示 Key 每日可发 1 条免费短信；更多短信需使用自己的付费 API key。开源 Textbelt 是另一种可自建实现，不等同于托管服务的免费短信额度。",
+      "limits": [
+        [
+          "共享演示 Key",
+          "1 条短信",
+          "每日"
+        ],
+        [
+          "自有 API key",
+          "按购买额度计费",
+          "托管短信 API"
+        ]
+      ],
+      "conditions": [
+        "共享 demo key 不适合生产调用；短信送达还受运营商和目的地网络影响。",
+        "开源仓库采用自托管 / 邮件网关配置，不能把它理解为获得托管 API 的免费发送额度或可靠送达保证。"
+      ],
+      "sources": [
+        [
+          "Textbelt free demo key",
+          "https://textbelt.com/sms-charts/",
+          "key=textbelt 每日 1 条免费消息；额外发送需购买 credits"
+        ],
+        [
+          "Textbelt Open Source",
+          "https://github.com/typpo/textbelt",
+          "开源自建实现使用独立网关配置，与托管付费服务不同"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "nominatim",
+      "types": [
+        "api-demo"
+      ],
+      "label": "公共实例最多 1 次请求/秒",
+      "shortLabel": "1 次/秒",
+      "summary": "OpenStreetMap Foundation 托管的公共 Nominatim 实例有严格使用政策：整个应用最多每秒 1 次请求，需标识应用并展示 OSM attribution。",
+      "limits": [
+        [
+          "请求速率",
+          "最多 1 次",
+          "每秒 / 整个应用合计"
+        ]
+      ],
+      "conditions": [
+        "必须提供有效 HTTP Referer 或可识别应用的 User-Agent，并展示 OpenStreetMap attribution；流量按应用所有用户合计。",
+        "禁止客户端自动补全、系统性网格查询和不合规批量抓取；公共实例只适用于符合政策的用户触发查询。",
+        "以上限制仅适用于 OSMF 公共实例，不自动适用于自托管或其他组织运营的 Nominatim。"
+      ],
+      "sources": [
+        [
+          "Nominatim Usage Policy",
+          "https://operations.osmfoundation.org/policies/nominatim/",
+          "每秒最多 1 次、应用级限速、UA/Referer、署名及禁止用途"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "openai-api",
+      "types": [
+        "paid-usage"
+      ],
+      "label": "独立 API 账单 + 预付 credits",
+      "shortLabel": "API 单独计费",
+      "summary": "OpenAI API 与 ChatGPT 订阅使用独立的计费系统；新 API 账户采用预付 credits。若账户确有 free / promotional credits，会优先抵扣 API 用量，但不代表每个 ChatGPT 订阅都附带通用 API 额度。",
+      "limits": [
+        [
+          "API 计费",
+          "按模型和实际用量",
+          "独立于 ChatGPT 订阅"
+        ],
+        [
+          "Purchased credits",
+          "购买后预付",
+          "未使用购买额度 1 年后过期"
+        ]
+      ],
+      "conditions": [
+        "ChatGPT 订阅额度不会自动转成 API credits；API 组织账单和 ChatGPT 账单分别管理。",
+        "只有账户中实际存在且有效的 promotional / free credits 才能抵扣；不要宣传为所有新用户固定赠金。"
+      ],
+      "sources": [
+        [
+          "OpenAI billing separation",
+          "https://help.openai.com/en/articles/9039756-managing-billing-for-chatgpt-and-the-api-platform",
+          "ChatGPT 与 API billing 分开，API 按模型和用量计费"
+        ],
+        [
+          "OpenAI prepaid API billing",
+          "https://help.openai.com/en/articles/8264644-setting-up-and-managing-prepaid-api-billing",
+          "新 API 账户采用预付费；free credits 存在时优先使用；购买 credits 一年后过期"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "anthropic-api",
+      "types": [
+        "paid-usage"
+      ],
+      "label": "预付 usage credits（非通用免费套餐）",
+      "shortLabel": "预付 credits",
+      "summary": "Anthropic API 与 Workbench 使用预付 usage credits，按模型和实际调用量扣减；是否存在额外账户权益或赠金需以 Console balance 为准，官方没有承诺统一的新用户赠金金额。",
+      "limits": [
+        [
+          "API / Workbench",
+          "预付 usage credits",
+          "调用前需有可用余额"
+        ],
+        [
+          "Purchased credits",
+          "购买后预付",
+          "购买后 1 年过期"
+        ]
+      ],
+      "conditions": [
+        "赠金是否发放及其金额以具体 Console organization 的余额和条款为准；不能视为 Claude App / Claude Code 的通用额外使用额度。",
+        "余额耗尽后 API / Workbench 请求会停止，除非购买 credits 或启用自动充值；自动充值会产生实际费用。"
+      ],
+      "sources": [
+        [
+          "Anthropic API billing",
+          "https://support.anthropic.com/en/articles/8977456-how-do-i-pay-for-my-api-usage",
+          "API / Workbench 采用预付 usage credits，购买额度一年后过期"
+        ],
+        [
+          "Anthropic Console API setup",
+          "https://support.anthropic.com/en/articles/8114531-i-have-created-an-account-in-console-and-i-want-to-start-using-the-api-what-should-i-do",
+          "需为 organization 添加 usage credits 后才能正常使用 API"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "deepseek-api",
+      "types": [
+        "paid-usage"
+      ],
+      "label": "按模型 Token 计费",
+      "shortLabel": "按 Token 付费",
+      "summary": "DeepSeek API 按模型输入 / 输出 Token 价格计费；账户余额接口分别返回 granted_balance（赠金余额）与 topped_up_balance（充值余额），赠金取决于该账号实际获得的额度。",
+      "limits": [
+        [
+          "计费方式",
+          "按模型输入 / 输出 Token",
+          "以官方价格表为准"
+        ],
+        [
+          "赠金余额",
+          "granted_balance",
+          "按账号发放和有效期变化"
+        ],
+        [
+          "充值余额",
+          "topped_up_balance",
+          "账号实际充值余额"
+        ]
+      ],
+      "conditions": [
+        "余额字段是账户查询结果，不等于所有新用户都有固定赠金或免费月度额度。",
+        "正式调用前应核对模型价格、余额和当前账户限额。"
+      ],
+      "sources": [
+        [
+          "DeepSeek API pricing",
+          "https://api-docs.deepseek.com/quick_start/pricing",
+          "按模型和 Token 计费"
+        ],
+        [
+          "DeepSeek get user balance",
+          "https://api-docs.deepseek.com/zh-cn/api/get-user-balance/",
+          "余额响应区分 granted_balance 与 topped_up_balance"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "tencent-tokenhub",
+      "types": [
+        "trial",
+        "credit"
+      ],
+      "label": "旧混元 API 首开一次性包（现迁移至 TokenHub）",
+      "shortLabel": "一次性包",
+      "summary": "腾讯云旧混元服务在首次开通时会自动发放一次性体验资源包；官方计费文档为指定文本模型组列出共享 100 万 tokens，Embedding 另有独立资源包，均有一年有效期。",
+      "limits": [
+        [
+          "指定文本模型组",
+          "100 万 tokens",
+          "首次开通一次性；资源包有效期 1 年"
+        ],
+        [
+          "Hunyuan-embedding",
+          "100 万 tokens",
+          "独立资源包；有效期 1 年"
+        ]
+      ],
+      "conditions": [
+        "仅适用于官方列出的模型 / 接口与符合条件的首次开通账户，不是所有混元型号的统一免费额度。",
+        "旧混元平台功能正逐步迁移到 TokenHub；新开通模型和能力应以 TokenHub 当前产品及账户权益为准。",
+        "本条描述腾讯云开发者 API 资源包，不等同于 hunyuan.tencent.com 消费者聊天网页的免费使用次数。"
+      ],
+      "sources": [
+        [
+          "Tencent Hunyuan free resource package",
+          "https://cloud.tencent.com/document/product/1729/97731",
+          "首次开通指定文本模型 100 万 tokens、Embedding 另有 100 万 tokens，资源包一年有效"
+        ],
+        [
+          "Tencent Hunyuan purchase and migration",
+          "https://cloud.tencent.com/document/product/1729/106126",
+          "首次开通自动发放免费资源包，旧平台能力逐步迁移 TokenHub"
+        ],
+        [
+          "Tencent TokenHub",
+          "https://cloud.tencent.com/product/tokenhub",
+          "新平台产品入口和当前可用模型 / 体验包信息"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "minimax",
+      "types": [
+        "api-demo"
+      ],
+      "label": "部分免费 T2T 接口 6 RPM",
+      "shortLabel": "6 RPM",
+      "summary": "MiniMax 官方 Rate Limits 文档对部分免费用户 ChatCompletion v2 / 指定 T2T 模型列出 6 RPM；这是账户与接口的请求速率上限，不是固定月度 Token 赠额。",
+      "limits": [
+        [
+          "ChatCompletion v2（指定 T2T 模型）",
+          "6 RPM",
+          "免费用户；具体模型和账户类型见限速表"
+        ]
+      ],
+      "conditions": [
+        "MiniMax 的 RPM / TPM 会随模型、接口及账户类型变化；不可将单个场景的 6 RPM 外推到所有 API。",
+        "速率限制不代表免费 Token 月度额度；按实际产品计费规则核对使用成本。"
+      ],
+      "sources": [
+        [
+          "MiniMax API Rate Limits",
+          "https://platform.minimaxi.com/document/Rate%20limits?key=66b19417290299a26b234572",
+          "免费用户 ChatCompletion v2 指定 T2T 模型列出 6 RPM；限制按接口、模型和账户类型区分"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "cursor",
+      "types": [
+        "free-tier"
+      ],
+      "label": "Free：受限 Agent / Chat 用量",
+      "shortLabel": "Free 免费计划",
+      "summary": "Cursor Free 计划价格为 USD 0 / 月，提供受限的 Agent 与 Chat 请求；官方定价页没有给出可承诺的固定请求数，不能宣传为无限 AI 编程。",
+      "limits": [
+        [
+          "套餐价格",
+          "USD 0",
+          "每月"
+        ],
+        [
+          "Agent / Chat",
+          "Limited requests",
+          "受限用量；官方未在定价页承诺固定次数"
+        ]
+      ],
+      "conditions": [
+        "Free 的 Agent 与 Chat 用量受限，具体可用量以产品内账户显示为准。",
+        "第三方模型的 API 用量可能按使用量另行计费；Cursor Free 不代表免费使用所有第三方模型。"
+      ],
+      "sources": [
+        [
+          "Cursor Pricing",
+          "https://cursor.com/pricing",
+          "Free 计划为 USD 0 / 月并提供 limited Agent / Chat requests；第三方模型费用可能另计"
+        ]
+      ],
+      "verifiedAt": "2026-11-04"
     }
   ]
 }

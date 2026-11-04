@@ -177,3 +177,14 @@ git log -1 --oneline
 7. **最终验收**：npm test 32/32；lint 76 文件、0 警告 / 错误；offers:check 20/20；views:check 通过（283 节点、部署图 106 节点、337 标签边）；og:check 4 张卡片匹配 186 tools / 642 edges / 75 deployed / 93 instances。GitHub Pages 与 Cloudflare 两目标均成功构建，预渲染 189 页面。Chrome 156 实测方案筛选 / URL 清除、AWS offering 面板、Ollama 仓库数据、404 来源提示、API 未真实调用提示；390px / 320px 无横向溢出，0 浏览器运行时错误。
 
 不要把根目录本地 HANDOVER.md（私人 selfhost 交接）纳入公开提交。
+
+
+## 本轮追加交付：资源可信度二期（2026-11-04）
+
+1. 新增 12 条免费 / API 方案证据，累计 32 条：NextDNS、Hugging Face Spaces、Pexels、QRServer、Textbelt、Nominatim、OpenAI API、Anthropic API、DeepSeek API、腾讯混元、MiniMax、Cursor。
+2. 重新区分固定免费配额、接口 RPM、一次性体验资源包和预付费 credits；明确 ChatGPT 与 OpenAI API 计费分离、Anthropic 预付余额、DeepSeek 账户赠金字段、腾讯旧混元平台向 TokenHub 迁移等边界。
+3. 修正目录中的 NextDNS、Cursor、IPinfo、Pexels、QRServer、Textbelt、Nominatim、Hugging Face Spaces、Replit、腾讯混元、腾讯云 TokenHub、智谱 GLM、DeepSeek、硅基流动和阿里通义描述；分离消费者聊天与开发者 API 资源包，移除“无限免费”“固定免费项目数”及未证实的通用额度表述。
+4. 研究来源、未纳入固定额度的候选项和限制见 docs/RESOURCE-CREDIBILITY-2026-11-04.md。本批核验不代表完成真实 API key 调用，也不代表所有地区 / 账户自动获得所列额度。
+5. 验收目标：npm run offers:check 通过 32 条记录，npm test、npm run lint、npm run views:check、双目标构建通过；提交时继续排除根目录私人 HANDOVER.md。
+
+6. 目录中消费者聊天版腾讯混元与开发者 API 入口已拆分；全站现为 187 个资源、284 个图谱节点、642 条关系边、187 篇 Wiki。预付费 OpenAI / Anthropic credits 不再误列为“赠送 credits”。

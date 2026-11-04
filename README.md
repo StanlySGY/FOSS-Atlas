@@ -24,13 +24,14 @@
 
 | 维度 | 数量 |
 | --- | --- |
-| 资源条目 | **186** |
+| 资源条目 | **187** |
 | 一级分类 | **11** |
 | 子分类 | **22** |
-| 图谱节点 | **283**（工具 / 自建 / 分类 / 子类 / 标签 / 外部服务） |
+| 图谱节点 | **284**（工具 / 自建 / 分类 / 子类 / 标签 / 外部服务） |
 | 图谱关系边 | **642**（属于 / 归类 / 标签 / 相关 / 替代） |
 | 自部署实例 | **93**（75 个资源条目在跑，其中 12 个为 Atlas 自建） |
-| Wiki 页面 | **186**（每个条目一篇，全部可读） |
+| Wiki 页面 | **187**（每个条目一篇，全部可读） |
+| 有额度证据的方案 | **32**（逐条列明额度、周期、条件与官方来源） |
 
 分类覆盖：AI / LLM 白嫖 · 免费 SaaS 开发资源 · 自部署开源神器 · 公开 API 大全 ·
 黑客 / 安全工具书 · 免费电子书 · 免费节点订阅 · 免费 VPS · 国内免费 AI · 佬友神器 ·
@@ -50,7 +51,7 @@ Wiki 右侧栏有「我的实例」列出具名实例，图谱里它是有坐标
 搜索词会同步到 URL（`/?q=密码`），因此任何筛选结果都可以直接分享。
 
 页面任意处按 <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd> 或 <kbd>/</kbd> 唤起**命令面板**：
-一个输入框同时模糊搜索全部 186 个条目直达 Wiki，也能跳转三个页面——方向键选择、
+一个输入框同时模糊搜索全部 187 个条目直达 Wiki，也能跳转三个页面——方向键选择、
 回车直达，头部搜索按钮是它的可见入口，手机上则常驻底部导航第四格。
 
 顶部五格统计里最后一格 **已自部署** 是个开关：按下后卡片收窄到我真正在跑的条目，
@@ -61,7 +62,7 @@ Wiki 右侧栏有「我的实例」列出具名实例，图谱里它是有坐标
 ### 2. Wiki 页（`/wiki/:id`）
 读取 `public/wiki/*.md`，支持 YAML Frontmatter 与 `[[双向链接]]` 语法。
 `[[Vaultwarden]]` 会被自动解析成站内跳转；解析不到的链接会退化为全站搜索。
-**186 个条目每个都有一篇独立 Wiki**：5 篇为手写深度页，其余 181 篇由
+**187 个条目每个都有一篇独立 Wiki**：5 篇为手写深度页，其余 181 篇由
 `scripts/build-wikis.mjs` 依据 `scripts/wiki-content/*.mjs` 里的散文自动生成
 （含「一句话总结 / 核心功能 / 适用场景 / 同类推荐」，推荐项用 `[[工具名]]` 互链）。
 右侧栏自动聚合**相关工具**与**反向链接（backlinks）**；没有反向链接时该面板整体隐藏。
@@ -70,7 +71,7 @@ Wiki 页使用**三栏 App-like 全宽布局**（无居中容器，撑满视口�
 
 | 栏位 | 内容 |
 | --- | --- |
-| 左（280px） | **导航树**：贴屏幕最左侧、`sticky` 吸顶、独立滚动；按 `分类 → 子分类` 折叠，列出全部 186 个条目；当前浏览的工具自动展开并高亮；点击即跳转 |
+| 左（280px） | **导航树**：贴屏幕最左侧、`sticky` 吸顶、独立滚动；按 `分类 → 子分类` 折叠，列出全部 187 个条目；当前浏览的工具自动展开并高亮；点击即跳转 |
 | 中 | 正文，`flex-1` 自适应铺开。正文开头的 `# H1` 与其后的首个 `> 引用块` 会被自动去掉，标题与副标题统一由页面头部的原生 UI 呈现，避免重复 |
 | 右（300px） | **元数据**：分类、子类、更新日期、标签、**我的实例**（只在我部署了它时出现）、可替代、反向链接；PC 端 `sticky` 吸顶跟随，贴靠视口最右侧 |
 
@@ -150,7 +151,7 @@ npm run offers:check # 免费方案证据、资源关联和来源格式校验
 npm run repositories:sync # 有 GITHUB_TOKEN 时刷新公开 GitHub 仓库元数据
 npm run probe      # 只读探测 93 个自部署 URL；CI 在 build 之后写 dist/probe.json，/deployed 页面显示这次观察
 node scripts/build-wikis.mjs   # 生成 181 篇 Wiki + src/data/backlinks.json
-npm run build      # 刷新 Wiki → vite build → 校验社交卡片 → 预渲染 189 个页面 → 404.html
+npm run build      # 刷新 Wiki → vite build → 校验社交卡片 → 预渲染 190 个页面 → 404.html
 npm run preview    # 本地预览构建产物
 npm test            # 资源状态语义与图谱标签密度回归
 npm run lint       # oxlint
@@ -163,7 +164,7 @@ npm run lint       # oxlint
 > Cloudflare Pages 自带同类兜底,打包时用
 > `SKIP_SPA_FALLBACK=1 npm run build` 跳过这一步(见下方「深链接(SPA 兜底)」)。
 
-> `npm run build` 同时把 189 个路由渲染成真正的 HTML（含 186 篇 Wiki）、生成
+> `npm run build` 同时把 190 个路由渲染成真正的 HTML（含 187 篇 Wiki）、生成
 > `sitemap.xml` / `robots.txt`，并为每个页面写好 canonical / og / JSON-LD。
 > 详见下方「搜索与分享卡片产物」。
 
@@ -178,7 +179,7 @@ FOSS-Atlas/
 │  ├─ build-wikis.mjs       # wiki-content + 目录 → public/wiki/*.md + backlinks.json
 │  ├─ build-og.mjs          # 无头 Chrome 画 public/og/*.png；--check 只校验（无需浏览器）
 │  ├─ ogManifest.mjs        # 卡片“画自哪份数据”的记录：src/data/og.json 的读写与比对
-│  ├─ prerender.mjs         # 189 个路由 → dist 下的真实 HTML + sitemap.xml + robots.txt
+│  ├─ prerender.mjs         # 190 个路由 → dist 下的真实 HTML + sitemap.xml + robots.txt
 │  ├─ glyphSet.mjs          # 扫描站点文案 → 需要留在字体子集里的字形集合
 │  ├─ fontCoverage.mjs      # 直接读 woff2 的 cmap：子集实际覆盖了哪些字形
 │  ├─ wiki-content/         # 每篇 Wiki 的散文（一句话总结 / 功能 / 场景），分组存放
@@ -188,7 +189,7 @@ FOSS-Atlas/
 │  ├─ icons/                # 121 个 host 的站点图标（构建期抓取，随包发布）
 │  ├─ fonts/                # Noto Sans SC 中文字体子集（构建期生成，随包发布）
 │  ├─ og/                   # 4 张社交卡片（1200×630，本地绘制后提交的二进制文件）
-│  └─ wiki/                 # 186 篇 Wiki（Markdown + Frontmatter）
+│  └─ wiki/                 # 187 篇 Wiki（Markdown + Frontmatter）
 │     ├─ ollama.md          # 5 篇手写深度页……
 │     ├─ cloudflare-workers.md
 │     ├─ vaultwarden.md
@@ -197,7 +198,7 @@ FOSS-Atlas/
 │     └─ …                  # 其余 181 篇由 build-wikis.mjs 生成
 ├─ src/
 │  ├─ data/
-│  │  ├─ resources.json     # 186 条资源（生成物，勿手改）
+│  │  ├─ resources.json     # 187 条资源（生成物，勿手改）
 │  │  ├─ graph.json         # 知识图谱 nodes + edges（生成物）
 │  │  ├─ deployed.json      # 我在跑的服务：唯一需要手维护的部署清单
 │  │  ├─ backlinks.json     # 反向链接索引（生成物）
@@ -210,7 +211,7 @@ FOSS-Atlas/
 │  │  └─ graphStyle.js      # 节点/边样式与语义常量
 │  ├─ prerender/            # 构建期用的文案与模板（不被浏览器加载）
 │  │  ├─ site.js            # 每个路由的 title / description / canonical
-│  │  ├─ cards.js           # 卡片上要画的文案（含 186 这类计数，来自 graph.stats）
+│  │  ├─ cards.js           # 卡片上要画的文案（含 187 这类计数，来自 graph.stats）
 │  │  ├─ ogCard.js          # 卡片排版：Chrome 能截成 PNG 的 markup
 │  │  ├─ schema.js          # schema.org JSON-LD（WebSite / Article / Breadcrumb）
 │  │  ├─ shell.js         # dist/index.html 的 head 拆解与替换
@@ -248,7 +249,7 @@ src/prerender/* + graph.json ──► scripts/build-og.mjs ──► public/og/
                     │   （npm run og：本地 Chrome 绘制；npm run build 只 --check）
                     └── 校验：卡片文案的字形必须在字体子集里，文案必须在卡片内不溢出
 
-dist/index.html + 数据 ──► scripts/prerender.mjs ──► dist/wiki/<id>/index.html ×186
+dist/index.html + 数据 ──► scripts/prerender.mjs ──► dist/wiki/<id>/index.html ×187
                                                   └► dist/graph|deployed/index.html
                                                   └► dist/sitemap.xml + robots.txt
                     └── 校验：卡片记录与当前 stats 不一致 → 构建失败
@@ -410,16 +411,16 @@ generated: true   # 生成器写下的标记：这些页面每次运行都会被
 
 ## 🔎 搜索与分享卡片产物
 
-站点的 186 篇 Wiki 正文是客户端在 effect 里 `fetch` `public/wiki/*.md` 渲染的，
+站点的 187 篇 Wiki 正文是客户端在 effect 里 `fetch` `public/wiki/*.md` 渲染的，
 所以爬虫请求 `/wiki/syncthing/` 拿到的是空的 SPA 外壳：**正文和工具名在这份 HTML 里一个字符都没有**。
 Googlebot 会执行脚本，但只在 bundle 加载完、且有时间预算之后；直接读 HTML 的二手爬虫与 AI 爬虫
-看到的就是一份 189 个 URL 里 186 个为空的站点。`scripts/prerender.mjs` 因此在构建期把每个路由渲染成真正的文件：
+看到的就是一份 190 个 URL 里 187 个为空的站点。`scripts/prerender.mjs` 因此在构建期把每个路由渲染成真正的文件：
 
 | 产物 | 内容 |
 | --- | --- |
 | `dist/index.html` / `dist/graph/index.html` / `dist/deployed/index.html` | 3 个静态路由，head 换成该路由自己的元数据 |
-| `dist/wiki/<id>/index.html` ×186 | 正文已在 HTML 里，另带 `<script id="wiki-payload">` 供前端 hydrate |
-| `dist/sitemap.xml` | 189 个 URL，全部写在主域名上 |
+| `dist/wiki/<id>/index.html` ×187 | 正文已在 HTML 里，另带 `<script id="wiki-payload">` 供前端 hydrate |
+| `dist/sitemap.xml` | 190 个 URL，全部写在主域名上 |
 | `dist/robots.txt` | `Allow: /`、`Allow: /wiki/`、`Sitemap:` 行 |
 | 每个页面的 head | `<title>` / description / `rel=canonical` / `og:*` / `twitter:*` / schema.org JSON-LD |
 
@@ -439,12 +440,12 @@ GitHub Pages 侧对已有镜像实测：目录索引正常服务，但**嵌套�
 ### 社交卡片（`og:image`）
 
 四张卡片，按**页面种类**而不是按条目：`/og/site.png`、`graph.png`、`deployed.png`、`wiki.png`。
-186 张条目卡片要么变成 186 个提交的二进制（≈12 MB，对照本仓库现有的 121 个图标），
+187 张条目卡片要么变成 187 个提交的二进制（≈12 MB，对照本仓库现有的 121 个图标），
 要么变成每次 push 都在 CI 里跑一遍的字体栅格化——两条都不值；条目自己的名字已经通过
 `og:title` 到达爬虫，那是文本。
 
 卡片是**本地绘制、提交进仓库的二进制**（`npm run og`，需要 Chrome），CI 只**校验**不绘制。
-之所以需要校验：卡片上的「186 条目」是**画进 PNG 的像素**，是整站唯一一处 diff 看不出来的断言——
+之所以需要校验：卡片上的「187 条目」是**画进 PNG 的像素**，是整站唯一一处 diff 看不出来的断言——
 加一条资源会改变 head 里的数字，却不会改变那张图，分享卡片于是宣称一个页面自己否认的计数。
 所以三段守卫都在管「过期」而不是管「好不好看」：
 

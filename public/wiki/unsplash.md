@@ -31,7 +31,7 @@ Unsplash 的图片接口，可搜索并调用其高清免费图库资源。
 
 ## 同类推荐
 
-- [[OpenAI API]] —— GPT 系列官方 API
-- [[Anthropic API]] —— Claude 系列官方 API
+- [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
+- [[Anthropic API]] —— Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺
 - [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
 - [[Hugging Face Inference API]] —— 开源模型推理 API

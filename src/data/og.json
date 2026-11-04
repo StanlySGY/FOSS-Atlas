@@ -1,16 +1,16 @@
 {
   "design": 1,
   "stats": {
-    "tools": 186,
+    "tools": 187,
     "edges": 642,
     "deployed": 75,
     "instances": 93
   },
-  "copyHash": "8fa1bce10fcc13f31df5c7d85124b640564658edbe02ea78b01fd215c5a71d44",
-  "glyphHash": "62f262b5b511fce5a6bfe0a1d1af479203bea94e51f57fcfd5962f9aa7fd4052",
+  "copyHash": "4040e6f0d8af7c44d919d0c1b9494e76ff5014238c59dbcfc60eaafe9f542762",
+  "glyphHash": "bce503204654add765b4f01b55c7f73e2262206df41faf602ff9b344892ffdc0",
   "fonts": {
-    "noto-sans-sc-400.woff2": "d81507859263ec336e17728d78ac13c111dcf08b4145bdbcfafc03356090e32e",
-    "noto-sans-sc-700.woff2": "8f487d7aa35f97e56e4370d57fdaddff65f141761ea69f1fc0ad1a81d6be347d"
+    "noto-sans-sc-400.woff2": "d70a4a31e08ff4899f428b28662ab2195840ce787625def56fc2f07c60a99db5",
+    "noto-sans-sc-700.woff2": "3cbc11cee97c023b46fcf208bc8d7466cf41351123b219443611a681d00fa48e"
   },
   "chrome": {
     "version": "Google Chrome 156.0.8078.47"

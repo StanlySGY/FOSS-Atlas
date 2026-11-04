@@ -3,7 +3,7 @@ title: Replit
 slug: replit
 category: vps
 sub_category: vps-free
-tags: [VPS, 在线 IDE, 免费]
+tags: [在线 IDE, App Builder]
 url: https://replit.com
 related: [huggingface-spaces]
 updated: 2026-10-19
@@ -31,4 +31,4 @@ generated: true
 
 ## 同类推荐
 
-- [[HuggingFace Spaces]] —— 免费 CPU 实例，支持 Docker 部署
+- [[HuggingFace Spaces]] —— Static Spaces 免费；Gradio / Docker 计算型 Space 的创建资格受计划与账户条件限制

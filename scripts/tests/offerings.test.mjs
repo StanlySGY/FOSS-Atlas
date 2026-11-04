@@ -36,8 +36,9 @@ test('offering filters count and match by explicit type, not by marketing labels
   assert.equal(matchesOfferFilter('fly-io', 'free-tier'), false)
   assert.equal(matchesOfferFilter('unknown-resource', 'free-tier'), false)
   assert.equal(matchesOfferFilter('unknown-resource', 'all'), true)
-  assert.equal(countOfferFilter(resources, 'paid-usage'), 2)
-  assert.equal(offerings.length, 20)
+  assert.equal(countOfferFilter(resources, 'paid-usage'), 5)
+  assert.equal(countOfferFilter(resources, 'credit'), 6)
+  assert.equal(offerings.length, 32)
 })
 
 test('offering record keeps separate free, trial, and legacy caveats', () => {
@@ -47,5 +48,24 @@ test('offering record keeps separate free, trial, and legacy caveats', () => {
   assert.ok(railway.conditions.some((item) => item.includes('不是持续')))
   const fly = getOffering('fly-io')
   assert.ok(fly.conditions.some((item) => item.includes('旧账户')))
+
   assert.equal(getOffering('missing'), null)
+})
+
+test('second credibility batch distinguishes free limits, promotional credits, and paid API usage', () => {
+  assert.equal(getOffering('nextdns').limits[0][1], '300,000 次')
+  assert.ok(getOffering('huggingface-spaces').conditions.some((item) => item.includes('Static Spaces')))
+  assert.ok(getOffering('pexels').limits.some((item) => item[1] === '200 次'))
+  assert.ok(getOffering('qrserver').conditions.some((item) => item.includes('拒绝滥用')))
+  assert.ok(getOffering('textbelt').limits.some((item) => item[1] === '1 条短信'))
+  assert.ok(getOffering('nominatim').summary.includes('每秒 1 次请求'))
+  assert.ok(getOffering('openai-api').conditions.some((item) => item.includes('ChatGPT')))
+  assert.ok(getOffering('anthropic-api').summary.includes('usage credits'))
+  assert.ok(getOffering('deepseek-api').summary.includes('granted_balance'))
+  assert.equal(getOffering('tencent-tokenhub').resourceId, 'tencent-tokenhub')
+  assert.ok(getOffering('tencent-tokenhub').conditions.some((item) => item.includes('TokenHub')))
+  assert.ok(!getOffering('openai-api').types.includes('credit'))
+  assert.ok(!getOffering('anthropic-api').types.includes('credit'))
+  assert.ok(getOffering('minimax').summary.includes('6 RPM'))
+  assert.ok(getOffering('cursor').summary.includes('受限'))
 })

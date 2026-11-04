@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-03T09:32:43.397Z",
+  "generated_at": "2026-11-04T01:31:06.337Z",
   "stats": {
-    "tools": 186,
+    "tools": 187,
     "categories": 11,
     "sub_categories": 22,
     "tags": 40,
@@ -2674,6 +2674,15 @@
       "wiki": "tencent-hunyuan"
     },
     {
+      "id": "tencent-tokenhub",
+      "name": "腾讯云 TokenHub",
+      "type": "tool",
+      "category": "cn-ai",
+      "sub_category": "cn-ai-dev",
+      "url": "https://cloud.tencent.com/product/tokenhub",
+      "wiki": "tencent-tokenhub"
+    },
+    {
       "id": "bigmodel-glm",
       "name": "智谱 GLM-4 API",
       "type": "tool",
@@ -4427,6 +4436,11 @@
       "type": "belongs_to"
     },
     {
+      "source": "tencent-tokenhub",
+      "target": "sub:cn-ai-dev",
+      "type": "belongs_to"
+    },
+    {
       "source": "bigmodel-glm",
       "target": "sub:cn-ai-dev",
       "type": "belongs_to"
@@ -5787,11 +5801,6 @@
       "type": "tagged"
     },
     {
-      "source": "qrserver",
-      "target": "tag:免费",
-      "type": "tagged"
-    },
-    {
       "source": "disify",
       "target": "tag:API",
       "type": "tagged"
@@ -5799,11 +5808,6 @@
     {
       "source": "textbelt",
       "target": "tag:API",
-      "type": "tagged"
-    },
-    {
-      "source": "textbelt",
-      "target": "tag:免费",
       "type": "tagged"
     },
     {
@@ -5967,11 +5971,6 @@
       "type": "tagged"
     },
     {
-      "source": "replit",
-      "target": "tag:免费",
-      "type": "tagged"
-    },
-    {
       "source": "kimi",
       "target": "tag:对话",
       "type": "tagged"
@@ -5988,6 +5987,16 @@
     },
     {
       "source": "tencent-hunyuan",
+      "target": "tag:国内",
+      "type": "tagged"
+    },
+    {
+      "source": "tencent-tokenhub",
+      "target": "tag:API",
+      "type": "tagged"
+    },
+    {
+      "source": "tencent-tokenhub",
       "target": "tag:国内",
       "type": "tagged"
     },
