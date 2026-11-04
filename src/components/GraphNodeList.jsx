@@ -56,6 +56,7 @@ export default function GraphNodeList({
   focusId,
   focusedCategory,
   onFocusCategory,
+  onLocalGraph,
   query,
   onQueryChange,
   typeFilter,
@@ -174,7 +175,20 @@ export default function GraphNodeList({
                       <span className="mt-1 block max-w-44 truncate text-[10px] text-[var(--text-faint)]">{category?.name ?? '—'}</span>
                     </td>
                     <td className="hidden whitespace-nowrap px-3 py-3 text-right sm:table-cell"><span className="mono text-xs text-[var(--text-dim)]">{relationCounts.get(node.id) ?? 0}</span></td>
-                    <td className="whitespace-nowrap px-3 py-3 text-right sm:px-4"><NodeAction node={node} focusedCategory={focusedCategory} onFocusCategory={onFocusCategory} /></td>
+                    <td className="whitespace-nowrap px-3 py-3 text-right sm:px-4">
+                      <div className="flex items-center justify-end gap-2">
+                        <NodeAction node={node} focusedCategory={focusedCategory} onFocusCategory={onFocusCategory} />
+                        <button
+                          type="button"
+                          onClick={() => onLocalGraph(node)}
+                          aria-label={`查看 ${node.name} 的局部关系图`}
+                          title="以此节点为中心查看局部关系图"
+                          className="whitespace-nowrap text-[11px] text-[var(--text-faint)] transition-colors hover:text-[var(--accent-text)]"
+                        >
+                          局部图
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                 )
               })}

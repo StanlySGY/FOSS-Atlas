@@ -52,6 +52,8 @@ export default function GraphView({
   focusId,
   focusedCategory,
   deployedOnly,
+  localNodeId,
+  localDepth,
   onNodeClick,
   onNodeDoubleClick,
   onDismiss,
@@ -113,7 +115,7 @@ export default function GraphView({
    * path ECharts honours them on (see the init effect). Relation-filter toggles
    * are deliberately *not* part of this key: they must keep the current roam.
    */
-  const viewKey = `${focusId ?? ''}|${focusedCategory ?? ''}|${deployedOnly ? 1 : 0}`
+  const viewKey = `${focusId ?? ''}|${focusedCategory ?? ''}|${deployedOnly ? 1 : 0}|${localNodeId ?? ''}|${localDepth ?? 1}`
 
   /*
    * What stays on the canvas — a 一级分类 subgraph, the running-services
@@ -123,8 +125,8 @@ export default function GraphView({
    * space the framing is expressed in never changes. See the note in `option`.
    */
   const visibleIds = useMemo(
-    () => visibleNodeIds(graph, { focusedCategory, deployedOnly }),
-    [graph, focusedCategory, deployedOnly],
+    () => visibleNodeIds(graph, { focusedCategory, deployedOnly, localNodeId, localDepth, enabledEdges }),
+    [graph, focusedCategory, deployedOnly, localNodeId, localDepth, enabledEdges],
   )
 
   /*

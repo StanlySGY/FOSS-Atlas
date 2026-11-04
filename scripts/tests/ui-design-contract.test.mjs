@@ -71,6 +71,11 @@ test('graph filters are collapsed by default at every viewport while remaining e
   assert.match(graph, /单击节点看速览 · 拖动画布平移 · 滚轮缩放/)
   assert.match(graph, /<details className="fa-disclosure fa-surface p-3\.5">/)
   assert.match(graph, /操作说明/)
+  assert.match(graph, /局部关系图深度/)
+  assert.match(graph, /返回全局图/)
+  assert.match(graph, /localNodeId: localNode\?\.id/)
+  assert.match(read('src/components/GraphNodePopover.jsx'), /查看此节点的局部关系图/)
+  assert.match(read('src/components/GraphNodeList.jsx'), /以此节点为中心查看局部关系图/)
 })
 
 test('deployed services are searchable, filterable, and grouped behind progressive disclosure', () => {

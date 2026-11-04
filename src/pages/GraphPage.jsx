@@ -23,7 +23,7 @@ import {
 } from '../lib/data.js'
 import { categoryColor } from '../lib/categoryColor.js'
 import { countByType, toolsInCategory, visibleNodeIds } from '../lib/graphFilter.js'
-import { setCategoryFocusParams, setDeployedOnlyParams } from '../lib/graphFilterState.js'
+import { setCategoryFocusParams, setDeployedOnlyParams, setLocalGraphDepthParams, setLocalGraphParams } from '../lib/graphFilterState.js'
 import { graphViewModeFromParams, setGraphViewModeParams } from '../lib/graphViewState.js'
 import { graphNodeListStateFromParams, setGraphNodeListStateParams } from '../lib/graphNodeListState.js'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
@@ -96,6 +96,9 @@ export default function GraphPage() {
    * filter can ride on top of the other.
    */
   const deployedOnly = searchParams.get('deployed') === '1'
+  const localParam = searchParams.get('local')
+  const localNode = localParam ? graph.nodes.find((node) => node.id === localParam) ?? null : null
+  const localDepth = searchParams.get('depth') === '2' ? 2 : 1
   const viewMode = graphViewModeFromParams(searchParams)
   const { query: nodeQuery, typeFilter: nodeTypeFilter } = graphNodeListStateFromParams(searchParams)
 
@@ -116,6 +119,16 @@ export default function GraphPage() {
     (next) => setSearchParams((prev) => setDeployedOnlyParams(prev, next), { replace: true }),
     [setSearchParams],
   )
+
+  const setLocalGraph = useCallback(
+    (nodeId, depth = 1) => setSearchParams((prev) => setLocalGraphParams(prev, nodeId, depth), { replace: true }),
+    [setSearchParams],
+  )
+  const setLocalDepth = useCallback(
+    (depth) => setSearchParams((prev) => setLocalGraphDepthParams(prev, depth), { replace: true }),
+    [setSearchParams],
+  )
+  const clearLocalGraph = useCallback(() => setLocalGraph(null), [setLocalGraph])
   const [popover, setPopover] = useState(null)
 
   const setViewMode = useCallback(
@@ -140,7 +153,7 @@ export default function GraphPage() {
   // the graph can centre on the tool the reader just came from. Unknown ids are
   // ignored rather than passed down.
   const focusParam = searchParams.get('focus')
-  const focusId = focusParam && resourceById.has(focusParam) ? focusParam : null
+  const focusId = localNode?.id ?? (focusParam && resourceById.has(focusParam) ? focusParam : null)
 
   const toggleEdge = (type) => {
     setEnabledEdges((prev) =>
@@ -179,6 +192,11 @@ export default function GraphPage() {
   )
 
   const handleNodeClick = useCallback((node, point) => setPopover({ node, point }), [])
+  const handleLocalGraph = useCallback((node) => {
+    setPopover(null)
+    setSelected(null)
+    setLocalGraph(node.id, 1)
+  }, [setLocalGraph])
 
   // The one-gesture shortcut, kept for people who already know the graph.
   const handleNodeDoubleClick = useCallback(
@@ -202,18 +220,19 @@ export default function GraphPage() {
     return () => window.removeEventListener('keydown', onKey)
   }, [popover])
 
-  // Escape clears whichever subgraph is narrowed — a category focus or the
-  // deployed-only view — and the listener lives as long as either is active.
+  // Escape first dismisses an open node popover; a second Escape exits the
+  // current local/category/deployed subgraph without stealing the popover's key.
   useEffect(() => {
-    if (!focusedCategory && !deployedOnly) return undefined
+    if (!focusedCategory && !deployedOnly && !localNode) return undefined
     const onKey = (event) => {
-      if (event.key !== 'Escape') return
-      setCategoryFocus(null)
-      setDeployedOnly(false)
+      if (event.key !== 'Escape' || popover) return
+      if (localNode) setLocalGraph(null)
+      else if (focusedCategory) setCategoryFocus(null)
+      else if (deployedOnly) setDeployedOnly(false)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [focusedCategory, deployedOnly, setCategoryFocus, setDeployedOnly])
+  }, [focusedCategory, deployedOnly, localNode, popover, setCategoryFocus, setDeployedOnly, setLocalGraph])
 
   const popoverModel = useMemo(() => {
     if (!popover) return null
@@ -240,8 +259,9 @@ export default function GraphPage() {
         setPopover(null)
         action.run()
       },
+      onLocalGraph: () => handleLocalGraph(node),
     }
-  }, [popover, primaryAction])
+  }, [popover, primaryAction, handleLocalGraph])
 
   const contained = useMemo(() => {
     if (!selected) return []
@@ -270,8 +290,14 @@ export default function GraphPage() {
    * the subgraph actually on screen instead of the whole graph behind it.
    */
   const viewIds = useMemo(
-    () => visibleNodeIds(graph, { focusedCategory, deployedOnly }),
-    [focusedCategory, deployedOnly],
+    () => visibleNodeIds(graph, {
+      focusedCategory,
+      deployedOnly,
+      localNodeId: localNode?.id,
+      localDepth,
+      enabledEdges,
+    }),
+    [focusedCategory, deployedOnly, localNode, localDepth, enabledEdges],
   )
   const viewCount = useMemo(() => countByType(graph, viewIds), [viewIds])
   const viewTotal = Object.values(viewCount).reduce((a, b) => a + b, 0)
@@ -290,6 +316,16 @@ export default function GraphPage() {
         items: contained,
       }
     }
+    if (localNode) {
+      const items = toResources(graph.nodes
+        .filter((node) => (node.type === 'tool' || node.type === 'own') && viewIds?.has(node.id))
+        .map((node) => node.id))
+      return {
+        title: localNode.name,
+        meta: `${localDepth} 跳关系 · ${viewTotal} 个节点 · ${items.length} 个工具`,
+        items,
+      }
+    }
     if (focusedCategory) {
       const items = toResources(toolsInCategory(graph, focusedCategory))
       return {
@@ -306,7 +342,7 @@ export default function GraphPage() {
       }
     }
     return null
-  }, [selected, contained, focusedCategory, deployedOnly])
+  }, [selected, contained, localNode, localDepth, viewIds, viewTotal, focusedCategory, deployedOnly])
 
   return (
     <div className="fa-page-stack">
@@ -330,7 +366,9 @@ export default function GraphPage() {
             className="fa-control"
           >
             {filtersOpen ? '收起筛选' : '筛选与聚焦'}
-            {focusedCategory
+            {localNode
+              ? ` · 局部关系：${localNode.name}`
+              : focusedCategory
               ? ` · ${categories.find((c) => c.id === focusedCategory)?.name ?? ''}`
               : deployedOnly
                 ? ' · 已部署'
@@ -352,6 +390,28 @@ export default function GraphPage() {
           </div>
         </div>
       </div>
+
+      {localNode ? (
+        <section className="fa-surface-muted flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-[var(--text-strong)]">局部关系图 <span className="ml-1 text-xs font-normal text-[var(--text-faint)]">以 {localNode.name} 为中心</span></p>
+            <p className="mt-1 text-[11px] text-[var(--text-faint)]">只显示当前节点周围指定跳数内的关系；关系类型筛选仍然生效。</p>
+          </div>
+          <div className="flex shrink-0 flex-wrap items-center gap-2">
+            <div role="group" aria-label="局部关系图深度" className="flex rounded-[var(--radius-sm)] border border-[var(--line)] bg-[var(--ink-sunken)] p-0.5">
+              {[1, 2].map((depth) => (
+                <button key={depth} type="button" aria-pressed={localDepth === depth} onClick={() => setLocalDepth(depth)} className={[
+                  'rounded-[3px] px-3 py-1.5 text-[11px] transition-colors',
+                  localDepth === depth ? 'bg-[var(--ink-tab)] text-[var(--text-strong)]' : 'text-[var(--text-faint)] hover:text-[var(--text-dim)]',
+                ].join(' ')}>
+                  {depth} 跳
+                </button>
+              ))}
+            </div>
+            <button type="button" onClick={clearLocalGraph} className="fa-control">返回全局图</button>
+          </div>
+        </section>
+      ) : null}
 
       <div id="graph-filter-panel" className={`${filtersOpen ? 'flex' : 'hidden'} fa-graph-filter-panel flex-col gap-3`}>
       {/* 一级分类聚焦：选一个分类，只留下它的子图（分类节点 + 子类 + 工具），
@@ -499,6 +559,7 @@ export default function GraphPage() {
             focusId={focusId}
             focusedCategory={focusedCategory}
             onFocusCategory={setCategoryFocus}
+            onLocalGraph={handleLocalGraph}
             query={nodeQuery}
             onQueryChange={setNodeQuery}
             typeFilter={nodeTypeFilter}
@@ -526,6 +587,8 @@ export default function GraphPage() {
             focusId={focusId}
             focusedCategory={focusedCategory}
             deployedOnly={deployedOnly}
+            localNodeId={localNode?.id ?? null}
+            localDepth={localDepth}
           >
             {popoverModel && (
               <GraphNodePopover
@@ -536,6 +599,7 @@ export default function GraphPage() {
                 instances={popoverModel.instances}
                 actionLabel={popoverModel.actionLabel}
                 onAction={popoverModel.onAction}
+                onLocalGraph={popoverModel.onLocalGraph}
                 onDismiss={closePopover}
               />
             )}

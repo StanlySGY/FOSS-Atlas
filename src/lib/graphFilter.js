@@ -27,7 +27,29 @@
  *
  * `null` means no filter: the whole graph is on screen.
  */
-export function visibleNodeIds(graph, { focusedCategory, deployedOnly }) {
+export function visibleNodeIds(graph, { focusedCategory, deployedOnly, localNodeId, localDepth = 1, enabledEdges }) {
+  if (localNodeId) {
+    const keep = new Set([localNodeId])
+    let frontier = new Set([localNodeId])
+    const depth = Math.max(1, Math.min(2, Number(localDepth) || 1))
+    const allowedEdges = enabledEdges ? new Set(enabledEdges) : null
+
+    // Local Graph is an undirected neighbourhood around the active node. Its
+    // depth is deliberately capped at two: larger radii quickly become the
+    // global hairball again on this 284-node catalogue.
+    for (let step = 0; step < depth && frontier.size > 0; step++) {
+      const next = new Set()
+      for (const edge of graph.edges) {
+        if (allowedEdges && !allowedEdges.has(edge.type)) continue
+        if (frontier.has(edge.source) && !keep.has(edge.target)) next.add(edge.target)
+        if (frontier.has(edge.target) && !keep.has(edge.source)) next.add(edge.source)
+      }
+      for (const id of next) keep.add(id)
+      frontier = next
+    }
+    return keep
+  }
+
   if (deployedOnly) {
     const running = new Set(graph.nodes.filter((n) => n.deployed).map((n) => n.id))
     if (running.size === 0) return null

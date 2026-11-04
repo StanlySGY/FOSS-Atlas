@@ -3,7 +3,8 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { isUnreachable, probeStatusPresentation, summarizeProbeRows } from '../../src/lib/probeStatus.js'
 import { shouldShowGraphLabel } from '../../src/lib/graphLabel.js'
-import { setCategoryFocusParams, setDeployedOnlyParams } from '../../src/lib/graphFilterState.js'
+import { setCategoryFocusParams, setDeployedOnlyParams, setLocalGraphDepthParams, setLocalGraphParams } from '../../src/lib/graphFilterState.js'
+import { visibleNodeIds } from '../../src/lib/graphFilter.js'
 import { queryFromSearchParams, resetCatalogFiltersParams } from '../../src/lib/catalogFilterState.js'
 import { graphViewModeFromParams, setGraphViewModeParams } from '../../src/lib/graphViewState.js'
 
@@ -98,4 +99,56 @@ test('graph category and deployed filters are mutually exclusive and preserve de
   assert.equal(all.has('deployed'), false)
   assert.equal(all.has('cat'), false)
   assert.equal(all.get('focus'), 'cloudflare-imgbed')
+})
+
+test('graph Local Graph follows one or two enabled relationship hops from the active node', () => {
+  const graph = {
+    nodes: [
+      { id: 'ollama', type: 'tool' }, { id: 'litellm', type: 'tool' },
+      { id: 'open-webui', type: 'tool' }, { id: 'cat:ai', type: 'category' },
+      { id: 'sub:llm', type: 'subcategory' }, { id: 'tag:local-llm', type: 'tag' },
+      { id: 'external:openai', type: 'external' },
+    ],
+    edges: [
+      { source: 'ollama', target: 'sub:llm', type: 'belongs_to' },
+      { source: 'sub:llm', target: 'cat:ai', type: 'categorized_as' },
+      { source: 'ollama', target: 'tag:local-llm', type: 'tagged' },
+      { source: 'litellm', target: 'tag:local-llm', type: 'tagged' },
+      { source: 'open-webui', target: 'tag:local-llm', type: 'tagged' },
+      { source: 'ollama', target: 'external:openai', type: 'replaces' },
+    ],
+  }
+
+  const oneHop = visibleNodeIds(graph, {
+    localNodeId: 'ollama', localDepth: 1,
+    enabledEdges: ['belongs_to', 'tagged', 'replaces'],
+  })
+  assert.deepEqual([...oneHop].sort(), ['external:openai', 'ollama', 'sub:llm', 'tag:local-llm'])
+
+  const twoHops = visibleNodeIds(graph, { localNodeId: 'ollama', localDepth: 2 })
+  assert.deepEqual([...twoHops].sort(), [
+    'cat:ai', 'external:openai', 'litellm', 'ollama', 'open-webui', 'sub:llm', 'tag:local-llm',
+  ])
+
+  const structuralOnly = visibleNodeIds(graph, {
+    localNodeId: 'ollama', localDepth: 2, enabledEdges: ['belongs_to', 'categorized_as'],
+  })
+  assert.deepEqual([...structuralOnly].sort(), ['cat:ai', 'ollama', 'sub:llm'])
+  assert.equal(visibleNodeIds(graph, { localNodeId: 'ollama', localDepth: 99 }).size, 7)
+})
+
+test('graph Local Graph URL state is shareable and mutually exclusive with other subgraph filters', () => {
+  const original = new URLSearchParams('q=ollama&cat=ai&view=list&node_q=local&node_type=tag&keep=1')
+  const local = setLocalGraphParams(original, 'ollama', 2)
+  assert.equal(local.get('local'), 'ollama')
+  assert.equal(local.get('depth'), '2')
+  assert.equal(local.get('q'), 'ollama')
+  assert.equal(local.get('keep'), '1')
+  for (const key of ['cat', 'deployed', 'focus', 'view', 'node_q', 'node_type']) assert.equal(local.has(key), false)
+  assert.equal(setLocalGraphDepthParams(local, 1).get('depth'), '1')
+  const cleared = setLocalGraphParams(local, null)
+  assert.equal(cleared.has('local'), false)
+  assert.equal(cleared.has('depth'), false)
+  assert.equal(setCategoryFocusParams(local, 'ai').has('local'), false)
+  assert.equal(setDeployedOnlyParams(local, true).has('local'), false)
 })

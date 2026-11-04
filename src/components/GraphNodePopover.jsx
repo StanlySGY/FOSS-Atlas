@@ -34,6 +34,7 @@ export default function GraphNodePopover({
   instances = [],
   actionLabel,
   onAction,
+  onLocalGraph,
   onDismiss,
 }) {
   const { x, y, width, height } = point
@@ -181,6 +182,15 @@ export default function GraphNodePopover({
         >
           {actionLabel}
         </button>
+        {onLocalGraph ? (
+          <button
+            type="button"
+            onClick={onLocalGraph}
+            className="mt-1.5 flex w-full items-center justify-center rounded-[4px] border border-[var(--line)] px-2.5 py-1.5 text-[11px] text-[var(--text-dim)] transition-colors hover:border-[var(--line-strong)] hover:bg-[var(--ink-tint)] hover:text-[var(--text-strong)]"
+          >
+            查看此节点的局部关系图
+          </button>
+        ) : null}
       </div>
     </div>
   )
