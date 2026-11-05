@@ -6,7 +6,7 @@
  * crawler receives for `/wiki/syncthing` are the empty SPA shell: the tool's
  * name appears nowhere in the document. Googlebot does run scripts, but only
  * after the bundle and only on a budget; the second-order engines and AI
- * crawlers that read HTML directly see a blank page for 187 of the site's 189
+ * crawlers that read HTML directly see a blank page for 195 of the site's 196
  * URLs. This script renders every route at build time and writes it as a real
  * file:
  *
@@ -14,7 +14,7 @@
  *   dist/graph/index.html       →  /graph/
  *   dist/deployed/index.html    →  /deployed/
  *   dist/wiki/<id>/index.html   →  /wiki/<id>/
- *   dist/sitemap.xml            →  189 urls on the primary origin
+ *   dist/sitemap.xml            →  196 urls on the primary origin
  *   dist/robots.txt
  *
  * Why the directory-index shape, and why every URL carries a trailing slash:
@@ -329,7 +329,7 @@ function checkSourceHeadMatchesSiteFile(shell) {
  * Refuse to advertise a card whose numbers no longer describe this catalogue.
  *
  * Every other claim in the build is text, so a stale one shows up in a diff.
- * `og:image` is the exception: "187 条目" is painted into a PNG, and a commit
+ * `og:image` is the exception: "193 条目" is painted into a PNG, and a commit
  * that adds an entry changes the head tags while leaving the picture behind —
  * the share card then states a count the page contradicts. `scripts/build-og.mjs`
  * records the counts the shipped PNGs were drawn from, so this compares them

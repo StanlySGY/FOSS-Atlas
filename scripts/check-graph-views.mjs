@@ -10,8 +10,8 @@
  * reason. These are the assertions that would have caught it, kept as a handful
  * of numbers rather than a harness.
  *
- * The expected values are the ones documented above the filter itself: 106 nodes,
- * 16 of 40 tags, 120 of 338 标签 edges. If the catalogue moves them, change the
+ * The expected values are the ones documented above the filter itself: 102 nodes,
+ * 12 of 40 tags, 108 of 338 标签 edges. If the catalogue moves them, change the
  * comment and this file together — the comment is the claim, this is the check.
  */
 import { readFileSync } from 'node:fs'
@@ -40,9 +40,9 @@ check(
   deployedCounts.tool + deployedCounts.own === running.length,
   `deployed view must keep exactly the ${running.length} running services, kept ${deployedCounts.tool + deployedCounts.own}`,
 )
-check(deployedView.size === 106, `deployed view: expected 106 visible nodes, got ${deployedView.size}`)
-check(deployedCounts.tag === 16, `deployed view: expected 16 of 40 tags, got ${deployedCounts.tag}`)
-check(visibleTagged === 120, `deployed view: expected 120 of ${taggedEdges.length} 标签 edges, got ${visibleTagged}`)
+check(deployedView.size === 102, `deployed view: expected 102 visible nodes, got ${deployedView.size}`)
+check(deployedCounts.tag === 12, `deployed view: expected 12 of 40 tags, got ${deployedCounts.tag}`)
+check(visibleTagged === 108, `deployed view: expected 108 of ${taggedEdges.length} 标签 edges, got ${visibleTagged}`)
 check(
   graph.nodes.some((n) => n.id === 'tag:开源' && deployedView.has(n.id)),
   '标签:开源 must survive the deployed view (see the comment in src/lib/graphFilter.js)',

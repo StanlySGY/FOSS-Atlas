@@ -99,6 +99,15 @@ const CATEGORIES = [
         ],
       },
       {
+        id: 'ai-vector',
+        name: '向量数据库 / 检索',
+        items: [
+          ['qdrant', 'Qdrant', 'https://github.com/qdrant/qdrant', '专用向量数据库，支持相似度检索、元数据过滤与混合检索', ['向量数据库', '向量检索', 'RAG', '语义搜索', 'Apache-2.0']],
+          ['milvus', 'Milvus', 'https://github.com/milvus-io/milvus', '面向大规模相似度检索的云原生向量数据库，支持独立部署与分布式扩展', ['向量数据库', 'ANN 检索', 'RAG', '混合检索', 'Apache-2.0']],
+          ['pgvector', 'pgvector', 'https://github.com/pgvector/pgvector', 'PostgreSQL 向量扩展，在关系型数据旁存储向量并执行相似度检索', ['PostgreSQL', '向量检索', '向量数据库', 'RAG', 'SQL']],
+        ],
+      },
+      {
         id: 'ai-prompt',
         name: 'AI 提示词资源',
         items: [
@@ -179,6 +188,14 @@ const CATEGORIES = [
           ['sentry', 'Sentry', 'https://sentry.io', '5000 错误事件/月免费，异常追踪', ['错误追踪', '可观测性', '免费']],
         ],
       },
+      {
+        id: 'saas-email',
+        name: '事务邮件 API',
+        items: [
+          ['resend', 'Resend', 'https://resend.com', '面向开发者的事务邮件 API，Free 每月 3,000 封且每天最多 100 封', ['事务邮件', '邮件发送 API', 'SMTP', '开发者工具']],
+          ['brevo', 'Brevo', 'https://www.brevo.com', '提供事务邮件 API 的云端邮件平台，Free 每天最多发送 300 封', ['事务邮件', '邮件发送 API', 'SMTP', '邮件服务']],
+        ],
+      },
     ],
   },
   {
@@ -233,6 +250,13 @@ const CATEGORIES = [
           ['authentik', 'Authentik', 'https://goauthentik.io', '自建身份认证与单点登录（IdP）', ['身份认证', 'SSO', '开源']],
           ['heimdall', 'Heimdall', 'https://github.com/linuxserver/Heimdall', '自建服务导航与应用仪表盘', ['导航', '面板', '开源']],
           ['awesome-selfhosted', 'awesome-selfhosted', 'https://awesome-selfhosted.net', '自托管服务大全，按类目收录的上游清单', ['自托管', '资源列表', '开源']],
+        ],
+      },
+      {
+        id: 'selfhost-mail',
+        name: '邮件投递自部署',
+        items: [
+          ['postal', 'Postal', 'https://github.com/postalserver/postal', '自托管邮件投递平台，为网站和应用发送及接收电子邮件', ['邮件投递', 'SMTP', '事务邮件', '邮件 API', '自托管', 'MIT']],
         ],
       },
       {

@@ -13,7 +13,7 @@ const DEPLOYED_INSTANCE_IDS = new Set(resources.flatMap((resource) => (resource.
  * 全站命令面板 — ⌘K / Ctrl+K 或 `/` 唤起，IT-Tools 的搜索优先 + Dashy 的键盘
  * 导航：一个输入框同时是站点搜索（名称 / 描述 / 标签 / 域名，模糊匹配）和页面
  * 跳转器（前三条是三个页面本身），方向键选择、回车直达、Esc 关闭。没有依赖，
- * 没有虚拟列表——187 条过滤后渲染前 12 条，DOM 小到不值得优化。
+ * 没有虚拟列表——193 条过滤后渲染前 12 条，DOM 小到不值得优化。
  */
 
 const QUICK_ACTIONS = [

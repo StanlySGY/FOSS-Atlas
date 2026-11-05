@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-04T01:57:02.076Z",
+  "generated_at": "2026-11-05T07:12:34.181Z",
   "stats": {
-    "tools": 187,
+    "tools": 193,
     "categories": 11,
-    "sub_categories": 22,
+    "sub_categories": 25,
     "tags": 40,
     "externals": 24,
     "own": 12,
     "deployed": 75,
     "instances": 93,
-    "edges": 642
+    "edges": 653
   },
   "categories": [
     {
@@ -90,6 +90,11 @@
       "category": "ai"
     },
     {
+      "id": "ai-vector",
+      "name": "向量数据库 / 检索",
+      "category": "ai"
+    },
+    {
       "id": "ai-prompt",
       "name": "AI 提示词资源",
       "category": "ai"
@@ -125,8 +130,18 @@
       "category": "saas"
     },
     {
+      "id": "saas-email",
+      "name": "事务邮件 API",
+      "category": "saas"
+    },
+    {
       "id": "selfhost-core",
       "name": "佬友首选自部署",
+      "category": "selfhost"
+    },
+    {
+      "id": "selfhost-mail",
+      "name": "邮件投递自部署",
       "category": "selfhost"
     },
     {
@@ -272,6 +287,12 @@
       "category": "ai"
     },
     {
+      "id": "sub:ai-vector",
+      "name": "向量数据库 / 检索",
+      "type": "subcategory",
+      "category": "ai"
+    },
+    {
       "id": "sub:ai-prompt",
       "name": "AI 提示词资源",
       "type": "subcategory",
@@ -314,8 +335,20 @@
       "category": "saas"
     },
     {
+      "id": "sub:saas-email",
+      "name": "事务邮件 API",
+      "type": "subcategory",
+      "category": "saas"
+    },
+    {
       "id": "sub:selfhost-core",
       "name": "佬友首选自部署",
+      "type": "subcategory",
+      "category": "selfhost"
+    },
+    {
+      "id": "sub:selfhost-mail",
+      "name": "邮件投递自部署",
       "type": "subcategory",
       "category": "selfhost"
     },
@@ -847,6 +880,33 @@
       ]
     },
     {
+      "id": "qdrant",
+      "name": "Qdrant",
+      "type": "tool",
+      "category": "ai",
+      "sub_category": "ai-vector",
+      "url": "https://github.com/qdrant/qdrant",
+      "wiki": "qdrant"
+    },
+    {
+      "id": "milvus",
+      "name": "Milvus",
+      "type": "tool",
+      "category": "ai",
+      "sub_category": "ai-vector",
+      "url": "https://github.com/milvus-io/milvus",
+      "wiki": "milvus"
+    },
+    {
+      "id": "pgvector",
+      "name": "pgvector",
+      "type": "tool",
+      "category": "ai",
+      "sub_category": "ai-vector",
+      "url": "https://github.com/pgvector/pgvector",
+      "wiki": "pgvector"
+    },
+    {
       "id": "awesome-chatgpt-prompts",
       "name": "awesome-chatgpt-prompts (prompts.chat)",
       "type": "tool",
@@ -1133,6 +1193,24 @@
       "sub_category": "saas-monitor",
       "url": "https://sentry.io",
       "wiki": "sentry"
+    },
+    {
+      "id": "resend",
+      "name": "Resend",
+      "type": "tool",
+      "category": "saas",
+      "sub_category": "saas-email",
+      "url": "https://resend.com",
+      "wiki": "resend"
+    },
+    {
+      "id": "brevo",
+      "name": "Brevo",
+      "type": "tool",
+      "category": "saas",
+      "sub_category": "saas-email",
+      "url": "https://www.brevo.com",
+      "wiki": "brevo"
     },
     {
       "id": "nextcloud",
@@ -2097,6 +2175,15 @@
           "kind": "mirror"
         }
       ]
+    },
+    {
+      "id": "postal",
+      "name": "Postal",
+      "type": "tool",
+      "category": "selfhost",
+      "sub_category": "selfhost-mail",
+      "url": "https://github.com/postalserver/postal",
+      "wiki": "postal"
     },
     {
       "id": "xray-reality",
@@ -3240,6 +3327,11 @@
       "type": "tag"
     },
     {
+      "id": "tag:RAG",
+      "name": "RAG",
+      "type": "tag"
+    },
+    {
       "id": "tag:云厂商",
       "name": "云厂商",
       "type": "tag"
@@ -3335,6 +3427,11 @@
       "type": "tag"
     },
     {
+      "id": "tag:向量数据库",
+      "name": "向量数据库",
+      "type": "tag"
+    },
+    {
       "id": "tag:合集",
       "name": "合集",
       "type": "tag"
@@ -3360,23 +3457,13 @@
       "type": "tag"
     },
     {
-      "id": "tag:笔记",
-      "name": "笔记",
+      "id": "tag:事务邮件",
+      "name": "事务邮件",
       "type": "tag"
     },
     {
-      "id": "tag:看板",
-      "name": "看板",
-      "type": "tag"
-    },
-    {
-      "id": "tag:任务管理",
-      "name": "任务管理",
-      "type": "tag"
-    },
-    {
-      "id": "tag:终端",
-      "name": "终端",
+      "id": "tag:SMTP",
+      "name": "SMTP",
       "type": "tag"
     },
     {
@@ -3546,6 +3633,11 @@
       "type": "in_category"
     },
     {
+      "source": "sub:ai-vector",
+      "target": "cat:ai",
+      "type": "in_category"
+    },
+    {
       "source": "sub:ai-prompt",
       "target": "cat:ai",
       "type": "in_category"
@@ -3581,7 +3673,17 @@
       "type": "in_category"
     },
     {
+      "source": "sub:saas-email",
+      "target": "cat:saas",
+      "type": "in_category"
+    },
+    {
       "source": "sub:selfhost-core",
+      "target": "cat:selfhost",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:selfhost-mail",
       "target": "cat:selfhost",
       "type": "in_category"
     },
@@ -3836,6 +3938,21 @@
       "type": "belongs_to"
     },
     {
+      "source": "qdrant",
+      "target": "sub:ai-vector",
+      "type": "belongs_to"
+    },
+    {
+      "source": "milvus",
+      "target": "sub:ai-vector",
+      "type": "belongs_to"
+    },
+    {
+      "source": "pgvector",
+      "target": "sub:ai-vector",
+      "type": "belongs_to"
+    },
+    {
       "source": "awesome-chatgpt-prompts",
       "target": "sub:ai-prompt",
       "type": "belongs_to"
@@ -3993,6 +4110,16 @@
     {
       "source": "sentry",
       "target": "sub:saas-monitor",
+      "type": "belongs_to"
+    },
+    {
+      "source": "resend",
+      "target": "sub:saas-email",
+      "type": "belongs_to"
+    },
+    {
+      "source": "brevo",
+      "target": "sub:saas-email",
       "type": "belongs_to"
     },
     {
@@ -4208,6 +4335,11 @@
     {
       "source": "awesome-selfhosted",
       "target": "sub:selfhost-core",
+      "type": "belongs_to"
+    },
+    {
+      "source": "postal",
+      "target": "sub:selfhost-mail",
       "type": "belongs_to"
     },
     {
@@ -4822,6 +4954,11 @@
     },
     {
       "source": "llamaindex",
+      "target": "tag:RAG",
+      "type": "tagged"
+    },
+    {
+      "source": "llamaindex",
       "target": "tag:开源",
       "type": "tagged"
     },
@@ -4877,6 +5014,11 @@
     },
     {
       "source": "fastgpt",
+      "target": "tag:RAG",
+      "type": "tagged"
+    },
+    {
+      "source": "fastgpt",
       "target": "tag:知识库",
       "type": "tagged"
     },
@@ -4913,6 +5055,36 @@
     {
       "source": "axonhub",
       "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "qdrant",
+      "target": "tag:向量数据库",
+      "type": "tagged"
+    },
+    {
+      "source": "qdrant",
+      "target": "tag:RAG",
+      "type": "tagged"
+    },
+    {
+      "source": "milvus",
+      "target": "tag:向量数据库",
+      "type": "tagged"
+    },
+    {
+      "source": "milvus",
+      "target": "tag:RAG",
+      "type": "tagged"
+    },
+    {
+      "source": "pgvector",
+      "target": "tag:向量数据库",
+      "type": "tagged"
+    },
+    {
+      "source": "pgvector",
+      "target": "tag:RAG",
       "type": "tagged"
     },
     {
@@ -5286,6 +5458,26 @@
       "type": "tagged"
     },
     {
+      "source": "resend",
+      "target": "tag:事务邮件",
+      "type": "tagged"
+    },
+    {
+      "source": "resend",
+      "target": "tag:SMTP",
+      "type": "tagged"
+    },
+    {
+      "source": "brevo",
+      "target": "tag:事务邮件",
+      "type": "tagged"
+    },
+    {
+      "source": "brevo",
+      "target": "tag:SMTP",
+      "type": "tagged"
+    },
+    {
       "source": "nextcloud",
       "target": "tag:开源",
       "type": "tagged"
@@ -5297,17 +5489,7 @@
     },
     {
       "source": "joplin",
-      "target": "tag:笔记",
-      "type": "tagged"
-    },
-    {
-      "source": "joplin",
       "target": "tag:开源",
-      "type": "tagged"
-    },
-    {
-      "source": "trilium",
-      "target": "tag:笔记",
       "type": "tagged"
     },
     {
@@ -5318,11 +5500,6 @@
     {
       "source": "trilium",
       "target": "tag:开源",
-      "type": "tagged"
-    },
-    {
-      "source": "memos",
-      "target": "tag:笔记",
       "type": "tagged"
     },
     {
@@ -5472,27 +5649,7 @@
     },
     {
       "source": "kanboard",
-      "target": "tag:看板",
-      "type": "tagged"
-    },
-    {
-      "source": "kanboard",
-      "target": "tag:任务管理",
-      "type": "tagged"
-    },
-    {
-      "source": "kanboard",
       "target": "tag:开源",
-      "type": "tagged"
-    },
-    {
-      "source": "focalboard",
-      "target": "tag:看板",
-      "type": "tagged"
-    },
-    {
-      "source": "focalboard",
-      "target": "tag:任务管理",
       "type": "tagged"
     },
     {
@@ -5537,17 +5694,7 @@
     },
     {
       "source": "wetty",
-      "target": "tag:终端",
-      "type": "tagged"
-    },
-    {
-      "source": "wetty",
       "target": "tag:开源",
-      "type": "tagged"
-    },
-    {
-      "source": "ttyd",
-      "target": "tag:终端",
       "type": "tagged"
     },
     {
@@ -5563,16 +5710,6 @@
     {
       "source": "syncthing",
       "target": "tag:开源",
-      "type": "tagged"
-    },
-    {
-      "source": "vikunja",
-      "target": "tag:任务管理",
-      "type": "tagged"
-    },
-    {
-      "source": "vikunja",
-      "target": "tag:看板",
       "type": "tagged"
     },
     {
@@ -5598,6 +5735,16 @@
     {
       "source": "awesome-selfhosted",
       "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "postal",
+      "target": "tag:SMTP",
+      "type": "tagged"
+    },
+    {
+      "source": "postal",
+      "target": "tag:事务邮件",
       "type": "tagged"
     },
     {
@@ -6238,11 +6385,6 @@
     {
       "source": "atlas-tools",
       "target": "tag:自建",
-      "type": "tagged"
-    },
-    {
-      "source": "edgessh",
-      "target": "tag:终端",
       "type": "tagged"
     },
     {

@@ -8,15 +8,15 @@
  * length is a layout question — two lines inside 1200px, no ellipsis.
  *
  * Counts are arguments, not literals, for the same reason `site.js` takes the
- * catalogue as arguments: a "187" painted into a PNG is a claim that goes stale
+ * catalogue as arguments: a "193" painted into a PNG is a claim that goes stale
  * on the next commit to the data, and nothing about the diff says so — the
  * number is inside a binary. `scripts/build-og.mjs` fills them from
  * `graph.stats`, writes the values it used next to the PNGs, and
  * `scripts/prerender.mjs` fails the build when the current stats disagree with
  * the ones the shipped cards were drawn from.
  *
- * Why one card per page *kind* rather than one per entry: 187 cards is either
- * 187 committed binaries (≈12 MB against this repo's 58 tracked icons) or a font
+ * Why one card per page *kind* rather than one per entry: 193 cards is either
+ * 193 committed binaries (≈12 MB against this repo's 58 tracked icons) or a font
  * rasteriser running inside CI on every push. The entry's own name already
  * arrives through `og:title`, which every crawler reads as text.
  *

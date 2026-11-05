@@ -38,7 +38,7 @@ test('offering filters count and match by explicit type, not by marketing labels
   assert.equal(matchesOfferFilter('unknown-resource', 'all'), true)
   assert.equal(countOfferFilter(resources, 'paid-usage'), 5)
   assert.equal(countOfferFilter(resources, 'credit'), 6)
-  assert.equal(offerings.length, 32)
+  assert.equal(offerings.length, 34)
 })
 
 test('offering record keeps separate free, trial, and legacy caveats', () => {

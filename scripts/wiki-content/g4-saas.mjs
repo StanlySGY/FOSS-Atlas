@@ -356,4 +356,33 @@ export default {
       '给团队或新人整理学习资料',
     ],
   },
+  resend: {
+    summary: '面向开发者的事务邮件服务，提供 REST API、SMTP relay 和 SDK，用于从应用发送验证、通知和业务触发邮件。',
+    features: ['通过 REST API 或 SMTP relay 发送应用邮件，并提供官方 SDK', '支持独立验证发信域名，可用子域名隔离不同业务的发信信誉', '提供投递事件与域名管理能力，适合接入应用后端'],
+    scenarios: ['为 SaaS / Web 应用发送注册验证、密码重置和订单通知', '希望用 API 或 SMTP 快速接入发信，不自行维护 SMTP 投递服务器'],
+    usage: ['创建 Resend 账户并添加自己拥有的发信域名；未验证至少一个域名无法发送邮件。', '按域名页面提供的 DNS 记录完成验证，再生成 API Key 并放入后端密钥管理。', '用 API 或 SMTP 发送测试邮件，先验证退信、送达和事件回调处理。'],
+    cautions: ['Free 方案每月 3,000 封、每天最多 100 封，另有 3 个自定义域名限制；月额度和日上限必须同时满足。', '发送邮件需要使用自有且通过验证的域名；不要把 Resend 当作收件箱或完整邮箱托管服务。', '事务邮件和营销邮件的发信域名宜分开管理，避免营销退信影响账号验证和密码重置等关键邮件。'],
+    keywords: ['邮件服务', '邮件发送', '邮件发送 API', '事务邮件', '应用邮件', '注册验证邮件', '密码重置邮件', '邮件 API', 'SMTP relay'],
+    updated: '2026-11-05',
+    verifiedAt: '2026-11-05',
+    sources: [
+      { title: 'Resend Pricing', url: 'https://resend.com/pricing', scope: 'Free 方案每月 3,000 封、每天 100 封和 3 个域名的当前额度' },
+      { title: 'Resend Verified Domains', url: 'https://resend.com/docs/dashboard/domains/introduction', scope: '发送前必须验证自有域名以及子域名隔离发信信誉的建议' },
+    ],
+  },
+  brevo: {
+    summary: '云端邮件与客户沟通平台，提供独立的事务邮件 API，可通过接口或 SDK 发送由应用事件触发的邮件。',
+    features: ['通过 POST /v3/smtp/email 发送 HTML、纯文本或模板事务邮件', '提供发送结果 messageId 和事务邮件事件 Webhook', '除事务邮件外还包含营销邮件、联系人管理等产品能力'],
+    scenarios: ['为网站发送注册确认、订单通知、账单提醒等非营销邮件', '希望在一个服务中管理应用邮件，并按需使用其联系人和营销工具'],
+    usage: ['创建 Brevo 账户和 API Key，登记发件人并验证发信域名。', '调用 POST /v3/smtp/email，传入 sender、to、subject 与 htmlContent、textContent 或 templateId。', '根据返回的 messageId 和 Webhook 事件记录投递状态，并监测退信、投诉和错误。'],
+    cautions: ['Free 方案每天最多发送 300 封，未使用的当日额度不会结转；最多 100,000 个联系人不代表每天能发送 100,000 封。', '发件人必须登记并验证，域名还需完成认证；调用 API 前先核对账户额度、发信身份和收件人限制。', 'Brevo 同时包含营销邮件能力，本目录将其放在事务邮件 API 分类只表示开发者接口用途，不代表营销群发规则与事务邮件相同。'],
+    keywords: ['邮件服务', '邮件发送', '邮件发送 API', '事务邮件', '应用邮件', '邮件通知', 'SMTP API', '邮件 API', 'Brevo API'],
+    updated: '2026-11-05',
+    verifiedAt: '2026-11-05',
+    sources: [
+      { title: 'Brevo Pricing Plans', url: 'https://help.brevo.com/hc/en-us/articles/208589409-About-Brevo-s-pricing-plans', scope: 'Free 方案每日 300 封与最多 100,000 个联系人；未用发送额度不结转' },
+      { title: 'Brevo Send a Transactional Email', url: 'https://developers.brevo.com/docs/send-a-transactional-email', scope: '事务邮件 API、POST /v3/smtp/email、HTML/文本/模板与 Webhook 事件' },
+      { title: 'Brevo Senders and Domains', url: 'https://developers.brevo.com/docs/getting-started-with-senders-and-domains', scope: '发件人验证和域名认证前置要求' },
+    ],
+  },
 };

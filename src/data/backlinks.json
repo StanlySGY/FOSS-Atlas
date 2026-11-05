@@ -243,6 +243,24 @@
     "Langfuse",
     "LiteLLM"
   ],
+  "qdrant": [
+    "Milvus",
+    "pgvector",
+    "Poe",
+    "HuggingChat"
+  ],
+  "milvus": [
+    "Qdrant",
+    "pgvector",
+    "Poe",
+    "HuggingChat"
+  ],
+  "pgvector": [
+    "Qdrant",
+    "Milvus",
+    "Poe",
+    "HuggingChat"
+  ],
   "awesome-chatgpt-prompts": [
     "Prompt 工程指南（OpenAI）",
     "DeepLearning.AI 提示词课",
@@ -434,6 +452,18 @@
     "Better Stack",
     "Logtail",
     "Google Cloud"
+  ],
+  "resend": [
+    "Brevo",
+    "Google Cloud",
+    "AWS",
+    "Microsoft Azure"
+  ],
+  "brevo": [
+    "Resend",
+    "Google Cloud",
+    "AWS",
+    "Microsoft Azure"
   ],
   "nextcloud": [
     "Immich",
@@ -687,6 +717,12 @@
     "Trilium"
   ],
   "awesome-selfhosted": [
+    "Nextcloud",
+    "Seafile",
+    "Joplin",
+    "Trilium"
+  ],
+  "postal": [
     "Nextcloud",
     "Seafile",
     "Joplin",

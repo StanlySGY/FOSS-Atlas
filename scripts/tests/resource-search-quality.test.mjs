@@ -78,9 +78,17 @@ test('local-model intent ranks actual model runners, while Continue stays in cod
   assert.ok(search('AI 代码补全').some((item) => item.resource.id === 'continue'))
 })
 
-test('catalogue gaps stay empty instead of mapping unrelated resources to unsupported intents', () => {
-  assert.deepEqual(search('向量数据库'), [])
-  assert.deepEqual(search('邮件服务'), [])
+test('new vector database coverage maps distinct deployment models to the intended task', () => {
+  assert.deepEqual(search('向量数据库').map((item) => item.resource.id).sort(), ['milvus', 'pgvector', 'qdrant'])
+  assert.deepEqual(search('PostgreSQL 向量检索').map((item) => item.resource.id), ['pgvector'])
+  assert.ok(search('RAG 向量库').some((item) => item.resource.id === 'qdrant'))
+  assert.ok(search('大规模向量检索').some((item) => item.resource.id === 'milvus'))
+})
+
+test('email delivery search distinguishes self-hosted Postal from managed transactional APIs', () => {
+  assert.deepEqual(search('邮件发送').map((item) => item.resource.id).sort(), ['brevo', 'postal', 'resend'])
+  assert.deepEqual(search('SMTP 自建').map((item) => item.resource.id), ['postal'])
+  assert.deepEqual(search('事务邮件 API').map((item) => item.resource.id).sort(), ['brevo', 'postal', 'resend'])
 })
 
 test('all generated search entries retain their schema and authored aliases or keywords resolve to catalogue ids', () => {

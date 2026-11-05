@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "verifiedAt": "2026-11-04",
+  "verifiedAt": "2026-11-05",
   "entries": [
     {
       "resourceId": "aws",
@@ -1185,6 +1185,49 @@
         ]
       ],
       "verifiedAt": "2026-11-04"
+    },
+    {
+      "resourceId": "resend",
+      "types": ["free-tier"],
+      "label": "Free：每月 3,000 封，日上限 100 封",
+      "shortLabel": "3,000 封/月",
+      "summary": "Resend Free 为 USD 0 / 月，每月最多 3,000 封、每天最多 100 封，并可验证 3 个自定义域名。月度额度和每日上限需要同时满足。",
+      "limits": [
+        ["邮件发送量", "3,000 封", "每月"],
+        ["每日上限", "100 封", "每天"],
+        ["自定义域名", "3 个", "Free 方案"]
+      ],
+      "conditions": [
+        "必须先添加并验证至少一个自有域名才能发送邮件。",
+        "月度发送额度与每日发送上限同时生效；不能把每月 3,000 封理解为任意一天都可发送 3,000 封。",
+        "超过 Free 方案额度需要升级或按当前付费方案计费。"
+      ],
+      "sources": [
+        ["Resend Pricing", "https://resend.com/pricing", "Free 计划 USD 0 / 月、3,000 封/月、100 封/日和 3 个域名"],
+        ["Resend Verified Domains", "https://resend.com/docs/dashboard/domains/introduction", "发送邮件前必须添加并验证至少一个自有域名"]
+      ],
+      "verifiedAt": "2026-11-05"
+    },
+    {
+      "resourceId": "brevo",
+      "types": ["free-tier"],
+      "label": "Free：每天最多 300 封",
+      "shortLabel": "300 封/日",
+      "summary": "Brevo Free 为 USD 0 / 月，每天最多发送 300 封，账户最多存储 100,000 个联系人。联系人容量不是邮件发送额度，未使用的当日发送量不会结转。",
+      "limits": [
+        ["邮件发送量", "300 封", "每天；未使用额度不结转"],
+        ["联系人存储", "最多 100,000 个", "账户容量，不是发送额度"]
+      ],
+      "conditions": [
+        "需登记发件人并完成发件域名认证后再用于真实业务邮件。",
+        "每日邮件额度不能跨日累积；联系人数量不等于可发送邮件数量。",
+        "事务邮件 API 另受账户状态、API 限制、收件人和反滥用规则约束。"
+      ],
+      "sources": [
+        ["Brevo Pricing Plans", "https://help.brevo.com/hc/en-us/articles/208589409-About-Brevo-s-pricing-plans", "Free 计划每天 300 封，最多 100,000 个联系人，未使用的每日发送量不结转"],
+        ["Brevo Senders and Domains", "https://developers.brevo.com/docs/getting-started-with-senders-and-domains", "发送前登记发件人并完成域名认证"]
+      ],
+      "verifiedAt": "2026-11-05"
     },
     {
       "resourceId": "cursor",

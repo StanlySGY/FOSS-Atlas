@@ -1,13 +1,13 @@
 {
   "design": 1,
   "stats": {
-    "tools": 187,
-    "edges": 642,
+    "tools": 193,
+    "edges": 653,
     "deployed": 75,
     "instances": 93
   },
-  "copyHash": "4040e6f0d8af7c44d919d0c1b9494e76ff5014238c59dbcfc60eaafe9f542762",
-  "glyphHash": "1ed248dea44cbc50afda1b6d3133bd274101d1fcd117f2fda53548e09e263d40",
+  "copyHash": "74b932a75ff60029fdb7d3b246d6aa607725d6c3ee6e39f93be2b22168d0cf4d",
+  "glyphHash": "1a4b91487fec0b07576c8902f8699cfed502e6d28185771228ed04f132a11fac",
   "fonts": {
     "noto-sans-sc-400.woff2": "f81fda73040eb2254f62adcdcad4dcd19dda7f5746167779afafaafffd01267f",
     "noto-sans-sc-700.woff2": "a876bf59943d509762bd1df18670a1bb3c26cfb56b59b5bb3fbdefa08b532284"

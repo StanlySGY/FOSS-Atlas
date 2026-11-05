@@ -647,6 +647,84 @@
     "aliases": [],
     "keywords": []
   },
+  "qdrant": {
+    "summary": "专用的开源向量数据库与向量搜索引擎，用于保存 Embedding 并按相似度检索，同时可按 payload 元数据过滤。",
+    "features": [
+      "支持向量相似度检索、payload 元数据过滤与组合查询",
+      "提供 Docker 部署、HTTP API 和多语言客户端",
+      "可用于 RAG 检索、语义搜索、推荐与多模态相似度查询"
+    ],
+    "scenarios": [
+      "给 RAG 应用单独部署向量检索服务，不把向量索引塞进业务表结构",
+      "需要按用户、文档版本或业务字段过滤相似度检索结果"
+    ],
+    "usage": [
+      "官方 Docker 安装方式启动 qdrant/qdrant，并把 /qdrant/storage 映射到持久化目录。",
+      "通过本机 6333 端口访问 REST API；生产环境先配置鉴权、网络边界和备份。",
+      "由应用侧生成 Embedding，再写入 collection 并按向量及 payload 条件检索。"
+    ],
+    "aliases": [],
+    "keywords": [
+      "向量数据库",
+      "向量检索",
+      "RAG 向量库",
+      "Embedding 检索",
+      "语义搜索",
+      "相似度搜索"
+    ]
+  },
+  "milvus": {
+    "summary": "LF AI & Data Foundation 下的开源云原生向量数据库，面向高规模 ANN 检索、RAG 和混合检索场景。",
+    "features": [
+      "保存 Embedding 与结构化元数据，支持向量相似度和混合搜索",
+      "可从 Milvus Lite / Standalone 起步，再按规模扩展到分布式集群",
+      "支持 Docker Compose 和 Kubernetes 部署路径"
+    ],
+    "scenarios": [
+      "向量数据量较大，需要专用检索引擎和后续横向扩展能力",
+      "需要把稠密向量、稀疏向量和关键词检索组合用于 RAG"
+    ],
+    "usage": [
+      "对照目标 Milvus 版本的安装文档选择 Lite、Standalone 或 Distributed。",
+      "PoC 可从官方 Quick Start 开始；Standalone 按官方硬件要求预留 CPU、内存和 SSD。",
+      "上线前压测导入、索引构建、过滤和并发查询，并明确数据备份与升级策略。"
+    ],
+    "aliases": [],
+    "keywords": [
+      "向量数据库",
+      "大规模向量检索",
+      "ANN 检索",
+      "RAG 向量库",
+      "混合检索",
+      "Embedding 数据库"
+    ]
+  },
+  "pgvector": {
+    "summary": "PostgreSQL 的开源向量扩展，可把 Embedding 和业务数据放在同一数据库中，并用 SQL 做精确或近似近邻检索。",
+    "features": [
+      "支持精确最近邻查询及 HNSW、IVFFlat 近似索引",
+      "支持多种向量类型与距离度量，可直接使用 SQL、JOIN 和事务",
+      "以 PostgreSQL 扩展形式安装，不需要额外维护一套独立向量数据库"
+    ],
+    "scenarios": [
+      "业务已经使用 PostgreSQL，只需要为现有数据增加向量相似度检索",
+      "中小规模 RAG 项目希望减少独立服务和数据同步链路"
+    ],
+    "usage": [
+      "确认 PostgreSQL 版本与扩展安装方式；官方 README 当前示例支持 PostgreSQL 13+。",
+      "安装 pgvector 后启用 CREATE EXTENSION vector，再按查询需求选择 HNSW 或 IVFFlat。",
+      "为 IVFFlat 和 HNSW 分别评估召回率、索引构建耗时、内存和查询计划。"
+    ],
+    "aliases": [],
+    "keywords": [
+      "向量数据库",
+      "PostgreSQL 向量扩展",
+      "Postgres 向量检索",
+      "SQL 向量检索",
+      "RAG 向量存储",
+      "Embedding 检索"
+    ]
+  },
   "awesome-chatgpt-prompts": {
     "summary": "社区维护的提示词合集，把各种角色和用途的提示词整理成清单。",
     "features": [
@@ -1174,6 +1252,64 @@
     "usage": [],
     "aliases": [],
     "keywords": []
+  },
+  "resend": {
+    "summary": "面向开发者的事务邮件服务，提供 REST API、SMTP relay 和 SDK，用于从应用发送验证、通知和业务触发邮件。",
+    "features": [
+      "通过 REST API 或 SMTP relay 发送应用邮件，并提供官方 SDK",
+      "支持独立验证发信域名，可用子域名隔离不同业务的发信信誉",
+      "提供投递事件与域名管理能力，适合接入应用后端"
+    ],
+    "scenarios": [
+      "为 SaaS / Web 应用发送注册验证、密码重置和订单通知",
+      "希望用 API 或 SMTP 快速接入发信，不自行维护 SMTP 投递服务器"
+    ],
+    "usage": [
+      "创建 Resend 账户并添加自己拥有的发信域名；未验证至少一个域名无法发送邮件。",
+      "按域名页面提供的 DNS 记录完成验证，再生成 API Key 并放入后端密钥管理。",
+      "用 API 或 SMTP 发送测试邮件，先验证退信、送达和事件回调处理。"
+    ],
+    "aliases": [],
+    "keywords": [
+      "邮件服务",
+      "邮件发送",
+      "邮件发送 API",
+      "事务邮件",
+      "应用邮件",
+      "注册验证邮件",
+      "密码重置邮件",
+      "邮件 API",
+      "SMTP relay"
+    ]
+  },
+  "brevo": {
+    "summary": "云端邮件与客户沟通平台，提供独立的事务邮件 API，可通过接口或 SDK 发送由应用事件触发的邮件。",
+    "features": [
+      "通过 POST /v3/smtp/email 发送 HTML、纯文本或模板事务邮件",
+      "提供发送结果 messageId 和事务邮件事件 Webhook",
+      "除事务邮件外还包含营销邮件、联系人管理等产品能力"
+    ],
+    "scenarios": [
+      "为网站发送注册确认、订单通知、账单提醒等非营销邮件",
+      "希望在一个服务中管理应用邮件，并按需使用其联系人和营销工具"
+    ],
+    "usage": [
+      "创建 Brevo 账户和 API Key，登记发件人并验证发信域名。",
+      "调用 POST /v3/smtp/email，传入 sender、to、subject 与 htmlContent、textContent 或 templateId。",
+      "根据返回的 messageId 和 Webhook 事件记录投递状态，并监测退信、投诉和错误。"
+    ],
+    "aliases": [],
+    "keywords": [
+      "邮件服务",
+      "邮件发送",
+      "邮件发送 API",
+      "事务邮件",
+      "应用邮件",
+      "邮件通知",
+      "SMTP API",
+      "邮件 API",
+      "Brevo API"
+    ]
   },
   "nextcloud": {
     "summary": "自建网盘与协作套件，替代 Google Drive",
@@ -1868,6 +2004,33 @@
     "usage": [],
     "aliases": [],
     "keywords": []
+  },
+  "postal": {
+    "summary": "自托管邮件投递平台，为网站和应用管理邮件服务器、SMTP/API 凭据以及出站邮件投递。",
+    "features": [
+      "为不同应用或业务建立独立 mail server 与 SMTP / API 凭据",
+      "支持发信域名验证、SPF / DKIM 检查、退信路径及投递状态管理",
+      "提供 Docker 安装流程、Web 管理界面和 API"
+    ],
+    "scenarios": [
+      "希望自管应用通知、注册验证、订单通知等事务邮件投递链路",
+      "有域名 DNS 和服务器运维能力，希望减少对第三方邮件投递平台的依赖"
+    ],
+    "usage": [
+      "按官方安装指南准备主机、Docker、数据库和 Postal 主机名，再运行 bootstrap 与初始化流程。",
+      "创建组织和 mail server，添加发信域名，按管理界面生成的记录配置 SPF、DKIM 与 Return-Path。",
+      "创建 SMTP 或 API 凭据，先向自己的测试邮箱发送测试邮件并检查退信与投递状态。"
+    ],
+    "aliases": [],
+    "keywords": [
+      "邮件服务",
+      "邮件发送",
+      "自建邮件投递",
+      "SMTP 服务器",
+      "事务邮件自托管",
+      "邮件投递平台",
+      "应用邮件通知"
+    ]
   },
   "xray-reality": {
     "summary": "基于 Xray 内核的 Reality 代理方案，借真实网站 SNI 伪装流量，抗封锁能力较强。",

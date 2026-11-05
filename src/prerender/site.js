@@ -38,7 +38,7 @@ export const PRIMARY_ORIGIN = 'https://atlas.sgyyyds.qzz.io'
  * measured 1032px and would have been cut mid-sentence.
  */
 export const HOME_DESCRIPTION =
-  '免费额度、自部署方案、公开 API 收进一张可搜索、可漫游的图：187 个开源条目，导航、Wiki、知识图谱三合一。'
+  '免费额度、自部署方案、公开 API 收进一张可搜索、可漫游的图：193 个开源条目，导航、Wiki、知识图谱三合一。'
 
 export const SITE_NAME = 'FOSS-Atlas'
 export const SITE_TAGLINE = '开源白嫖资源图鉴'
@@ -68,7 +68,7 @@ export const STATIC_ROUTES = [
     path: '/graph/',
     title: '知识图谱 · FOSS-Atlas',
     description:
-      '187 个条目、642 条关系边的可拖拽图谱：同类、替代、分类、自建实例一目了然，可只看已自部署的部分。',
+      '193 个条目、653 条关系边的可拖拽图谱：同类、替代、分类、自建实例一目了然，可只看已自部署的部分。',
     kind: 'WebPage',
   },
   {
@@ -92,7 +92,7 @@ export function primaryUrl(path) {
  * at roughly 600px on desktop, and a CJK glyph is about twice as wide as a
  * Latin one (measured on this catalogue: median pattern below is 382px at
  * 33 characters, 90th percentile 480px). `name · 子分类 | 站名` therefore stays
- * inside the cut for all but two of the 187 entries, while the same pattern
+ * inside the cut for all but two of the 193 entries, while the same pattern
  * against the *top-level* category name would be cut for eleven of them.
  */
 export function wikiTitle(resource) {
@@ -127,8 +127,8 @@ export function wikiDescription(resource, instances) {
  * this site's own subsetted font (`scripts/build-og.mjs`, `src/prerender/ogCard.js`),
  * so a crawler's font set never touches the card and the usual "CJK in an og
  * image renders as tofu on some networks" objection does not apply — the glyphs
- * are already pixels. That is also what makes 187 per-entry cards the wrong
- * trade rather than an impossible one: 187 committed binaries for a picture
+ * are already pixels. That is also what makes 193 per-entry cards the wrong
+ * trade rather than an impossible one: 193 committed binaries for a picture
  * whose only extra content is a name the crawler already gets as text from
  * `og:title`.
  *

@@ -747,6 +747,60 @@
     "deployed": true
   },
   {
+    "id": "qdrant",
+    "name": "Qdrant",
+    "url": "https://github.com/qdrant/qdrant",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-vector",
+    "sub_category_name": "向量数据库 / 检索",
+    "description": "专用向量数据库，支持相似度检索、元数据过滤与混合检索",
+    "tags": [
+      "向量数据库",
+      "向量检索",
+      "RAG",
+      "语义搜索",
+      "Apache-2.0"
+    ],
+    "wiki": "qdrant"
+  },
+  {
+    "id": "milvus",
+    "name": "Milvus",
+    "url": "https://github.com/milvus-io/milvus",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-vector",
+    "sub_category_name": "向量数据库 / 检索",
+    "description": "面向大规模相似度检索的云原生向量数据库，支持独立部署与分布式扩展",
+    "tags": [
+      "向量数据库",
+      "ANN 检索",
+      "RAG",
+      "混合检索",
+      "Apache-2.0"
+    ],
+    "wiki": "milvus"
+  },
+  {
+    "id": "pgvector",
+    "name": "pgvector",
+    "url": "https://github.com/pgvector/pgvector",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-vector",
+    "sub_category_name": "向量数据库 / 检索",
+    "description": "PostgreSQL 向量扩展，在关系型数据旁存储向量并执行相似度检索",
+    "tags": [
+      "PostgreSQL",
+      "向量检索",
+      "向量数据库",
+      "RAG",
+      "SQL"
+    ],
+    "wiki": "pgvector"
+  },
+  {
     "id": "awesome-chatgpt-prompts",
     "name": "awesome-chatgpt-prompts (prompts.chat)",
     "url": "https://github.com/f/prompts.chat",
@@ -1257,6 +1311,40 @@
       "免费"
     ],
     "wiki": "sentry"
+  },
+  {
+    "id": "resend",
+    "name": "Resend",
+    "url": "https://resend.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-email",
+    "sub_category_name": "事务邮件 API",
+    "description": "面向开发者的事务邮件 API，Free 每月 3,000 封且每天最多 100 封",
+    "tags": [
+      "事务邮件",
+      "邮件发送 API",
+      "SMTP",
+      "开发者工具"
+    ],
+    "wiki": "resend"
+  },
+  {
+    "id": "brevo",
+    "name": "Brevo",
+    "url": "https://www.brevo.com",
+    "category": "saas",
+    "category_name": "免费 SaaS 开发资源",
+    "sub_category": "saas-email",
+    "sub_category_name": "事务邮件 API",
+    "description": "提供事务邮件 API 的云端邮件平台，Free 每天最多发送 300 封",
+    "tags": [
+      "事务邮件",
+      "邮件发送 API",
+      "SMTP",
+      "邮件服务"
+    ],
+    "wiki": "brevo"
   },
   {
     "id": "nextcloud",
@@ -2515,6 +2603,25 @@
       "mirror"
     ],
     "deployed": true
+  },
+  {
+    "id": "postal",
+    "name": "Postal",
+    "url": "https://github.com/postalserver/postal",
+    "category": "selfhost",
+    "category_name": "自部署开源神器",
+    "sub_category": "selfhost-mail",
+    "sub_category_name": "邮件投递自部署",
+    "description": "自托管邮件投递平台，为网站和应用发送及接收电子邮件",
+    "tags": [
+      "邮件投递",
+      "SMTP",
+      "事务邮件",
+      "邮件 API",
+      "自托管",
+      "MIT"
+    ],
+    "wiki": "postal"
   },
   {
     "id": "xray-reality",

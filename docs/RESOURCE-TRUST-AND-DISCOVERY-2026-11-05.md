@@ -32,7 +32,7 @@ verifiedAt 必须与至少一个明确的 HTTPS 来源同时存在；每条来�
 
 ## 官网链接巡检
 
-npm run probe:links 检查 src/data/resources.json 中的 187 个官网 URL，以及 src/data/repository-metadata.json 中为目录资源收录的 GitHub 仓库 URL（当前 62 个仓库目标），并输出 JSON 快照。部署流程写到 dist/resource-links.json，每次部署都会重新采集；单个目标的异常不会阻断发布。目标数随目录和仓库元数据变化，不写死在应用逻辑中。
+npm run probe:links 检查 src/data/resources.json 中的 193 个官网 URL，以及 src/data/repository-metadata.json 中为目录资源收录的 GitHub 仓库 URL（当前 62 个仓库目标），并输出 JSON 快照。部署流程写到 dist/resource-links.json，每次部署都会重新采集；单个目标的异常不会阻断发布。目标数随目录和仓库元数据变化，不写死在应用逻辑中。
 
 可选参数：
 
@@ -60,7 +60,7 @@ dist/probe.json 是发布时对自部署实例的只读探测。清单更新时�
 
 首页与全局命令面板共享同一套字段相关性评分，搜索名称、别名、分类/子类、标签、官网域名、免费方案，以及作者维护的任务关键词、功能、适用场景和快速上手文本。优先级按精确名称/别名、名称前缀、标签与任务关键词、摘要/功能/场景逐层降低；多词查询要求每个词都命中，并对同一字段内的组合命中加权，减少“GitHub 替代”这类跨字段偶然命中。拉丁字符资源名/别名支持有限拼写容错（短词不启用，8 个字符以内最多容忍 1 次编辑，9 个及以上最多 2 次）；中文不做编辑距离模糊匹配，较长单词的弱正文命中会被抑制。
 
-搜索索引由 scripts/wiki-content/*.mjs 的 summary、features、scenarios、usage、aliases、keywords 生成。五篇手写 Wiki 可在 frontmatter 中维护 searchAliases 与 searchKeywords，生成索引时一并读取；不把整篇 Markdown 正文直接加入索引，避免“某篇提到 TLS”就被误认为证书服务。别名只收录真实旧名/产品名；任务关键词按资源页面明确记载的能力维护。目录没有向量数据库、邮件发送服务时，对应查询应保持无结果，而不是把不相关工具塞进来。
+搜索索引由 scripts/wiki-content/*.mjs 的 summary、features、scenarios、usage、aliases、keywords 生成。五篇手写 Wiki 可在 frontmatter 中维护 searchAliases 与 searchKeywords，生成索引时一并读取；不把整篇 Markdown 正文直接加入索引，避免“某篇提到 TLS”就被误认为证书服务。别名只收录真实旧名/产品名；任务关键词按资源页面明确记载的能力维护。2026-11-05 完成目录覆盖审计后，向量数据库由 Qdrant、Milvus、pgvector 覆盖，邮件投递由自托管 Postal 与云端 Resend、Brevo 覆盖；邮件校验、临时邮箱、邮件投递和事务邮件 API 仍按不同任务分别归类，不能互相替代。审计方法、入选理由和暂缓候选见 `docs/CATALOGUE-COVERAGE-AUDIT-2026-11-05.md`。
 
 资源比较使用已有的仓库元数据和方案证据：许可证、Stars/Forks、归档状态、免费方案类型及核验日期、个人部署记录、最近官网链接巡检结果。没有数据时显示“暂无数据”；仓库存在但未声明许可证时显示“仓库未声明许可”，不猜测许可证。仓库与官网快照均有采集时间，不能当作实时信息。
 

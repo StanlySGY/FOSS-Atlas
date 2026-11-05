@@ -18,9 +18,9 @@
  *   services need to be read: the sub-category and category each one hangs
  *   off, and a tag only when it joins *two or more* of them. A tag touching a
  *   single running tool links it to nothing the filter kept, so it would add
- *   visual weight and no information; with that rule 16 of the 40 tags and
- *   120 of the 336 标签 edges survive, over ~106 visible nodes instead of all
- *   284. 标签:开源 survives with 59 of those edges — kept deliberately: it is
+ *   visual weight and no information; with that rule 12 of the 40 tags and
+ *   108 of the 338 标签 edges survive, over 102 visible nodes instead of all
+ *   293. 标签:开源 survives with 59 of those edges — kept deliberately: it is
  *   a real node with real coordinates in the frozen layout, not a hub minted
  *   for this view, and dropping it would make the subgraph read as if the
  *   services running here were not open source.
@@ -36,7 +36,7 @@ export function visibleNodeIds(graph, { focusedCategory, deployedOnly, localNode
 
     // Local Graph is an undirected neighbourhood around the active node. Its
     // depth is deliberately capped at two: larger radii quickly become the
-    // global hairball again on this 284-node catalogue.
+    // global hairball again on this 293-node catalogue.
     for (let step = 0; step < depth && frontier.size > 0; step++) {
       const next = new Set()
       for (const edge of graph.edges) {
