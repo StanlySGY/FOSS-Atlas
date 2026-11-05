@@ -160,23 +160,27 @@ export default function Deployed() {
   // Deep links work on first load and on in-app hash changes. A target takes
   // precedence over old filters, then its group is expanded before scrolling.
   useEffect(() => {
-    if (!location.hash) {
+    const fragment = location.hash
+    if (!fragment) {
       handledFragmentRef.current = null
       const frame = window.requestAnimationFrame(() => setFragmentTarget(null))
       return () => window.cancelAnimationFrame(frame)
     }
-    let id = location.hash.slice(1)
+    let id = fragment.slice(1)
     try { id = decodeURIComponent(id) } catch { /* keep the raw fragment */ }
-    if (handledFragmentRef.current === location.hash) return undefined
+    if (handledFragmentRef.current === fragment) return undefined
     const matching = deployed.groups.find((group) => group.items.some((item) => item.id === id))
     if (!matching) return undefined
-    handledFragmentRef.current = location.hash
-    rememberDeployedInstance(id, DEPLOYED_INSTANCE_IDS)
     const nextSearch = resetDeployedFiltersParams(searchParams).toString()
     if (nextSearch !== searchParams.toString()) {
-      navigate({ pathname: location.pathname, search: nextSearch ? '?' + nextSearch : '', hash: location.hash }, { replace: true })
+      navigate({ pathname: location.pathname, search: nextSearch ? '?' + nextSearch : '', hash: fragment }, { replace: true })
     }
     const frame = window.requestAnimationFrame(() => {
+      // StrictMode replays effects and cancels the first frame. Mark this hash
+      // handled only after the surviving frame runs, or the replay will skip
+      // expanding the group and the target row will never mount.
+      handledFragmentRef.current = fragment
+      rememberDeployedInstance(id, DEPLOYED_INSTANCE_IDS)
       setFragmentTarget(id)
       setExpandedGroups((current) => new Set([...current, matching.id]))
     })
