@@ -107,7 +107,7 @@ export default function SidebarLayout() {
         <WikiNavSidebar activeId={id} scrollRef={railRef} />
       </aside>
 
-      <main id="main" className="fa-wiki-main">
+      <main id="main" tabIndex={-1} className="fa-wiki-main">
         <button
           ref={triggerRef}
           type="button"

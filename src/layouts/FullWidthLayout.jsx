@@ -13,7 +13,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 export default function FullWidthLayout() {
   const location = useLocation()
   return (
-    <main id="main" className="fa-page-main">
+    <main id="main" tabIndex={-1} className="fa-page-main">
       <div className="fa-page-frame">
         <div key={location.pathname} className="fa-page">
           <Outlet />

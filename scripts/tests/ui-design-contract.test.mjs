@@ -24,6 +24,16 @@ test('all four routed views use the shared page header component', () => {
   }
 })
 
+test('skip navigation moves keyboard focus to the main content in both route shells', () => {
+  const layout = read('src/components/Layout.jsx')
+  const fullWidth = read('src/layouts/FullWidthLayout.jsx')
+  const wiki = read('src/layouts/SidebarLayout.jsx')
+
+  assert.match(layout, /href="#main" className="fa-skip"/)
+  assert.match(fullWidth, /<main id="main" tabIndex=\{-1\}/)
+  assert.match(wiki, /<main id="main" tabIndex=\{-1\}/)
+})
+
 test('the shared frame defines common title, section, surface and control tokens', () => {
   const redesign = read('src/redesign.css')
   for (const token of [
