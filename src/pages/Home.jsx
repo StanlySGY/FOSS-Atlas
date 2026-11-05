@@ -18,7 +18,7 @@ import {
   setSavedOnlyParams,
 } from '../lib/catalogFilterState.js'
 import { categories, countByCategory, countBySubCategory, deployedStats, pickRandomResource, resources, resourceSearchTextFor, searchAliasesFor, subCategoriesByCategory } from '../lib/data.js'
-import { matchesFuzzySearchTerm, matchesSearchTerm } from '../lib/resourceSearch.js'
+import { hasFuzzySearchMatch, matchesFuzzySearchTerm, matchesSearchTerm } from '../lib/resourceSearch.js'
 import useResourceLinkSnapshot from '../hooks/useResourceLinkSnapshot.js'
 import { formatSnapshotAge, resourceLinkFreshness, resourceLinkPresentation, resourceLinkRowsByTarget, resourceLinksNeedReview, summarizeResourceLinks } from '../lib/resourceLinkStatus.js'
 
@@ -45,7 +45,7 @@ const scoreSearch = (resource,query) => {
   if(name.includes(query))return 86
   if(aliases.some((alias)=>alias.includes(query)))return 82
   if(resourceSearchTextFor(resource.id).toLowerCase().includes(query))return 64
-  if(matchesFuzzySearchTerm(query,[resource.name,...aliases]))return 24
+  if(matchesFuzzySearchTerm(query,[resource.name,...aliases])||hasFuzzySearchMatch(query,fields,[resource.name,...aliases]))return 24
   return fields.some((field)=>field.includes(query))?45:0
 }
 

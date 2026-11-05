@@ -40,3 +40,12 @@ export function matchesSearchTerm(term, fields = [], fuzzyCandidates = []) {
   if (fields.some((field) => normalize(field).includes(query))) return true
   return matchesFuzzySearchTerm(query, fuzzyCandidates)
 }
+
+/** True when at least one query token needed a fuzzy name/alias match. */
+export function hasFuzzySearchMatch(query, fields = [], fuzzyCandidates = []) {
+  const terms = normalize(query).split(/\s+/).filter(Boolean)
+  return terms.some((term) =>
+    !fields.some((field) => normalize(field).includes(term)) &&
+    matchesFuzzySearchTerm(term, fuzzyCandidates),
+  )
+}

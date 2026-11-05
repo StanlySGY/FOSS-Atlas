@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { deployedStats, graphStats, pickRandomResource, resourceById, resources, resourceSearchTextFor, searchAliasesFor } from '../lib/data.js'
-import { matchesFuzzySearchTerm, matchesSearchTerm } from '../lib/resourceSearch.js'
+import { hasFuzzySearchMatch, matchesFuzzySearchTerm, matchesSearchTerm } from '../lib/resourceSearch.js'
 import useUserJourney from '../hooks/useUserJourney.js'
 import { readLastDeployedInstance, readLastGraphUrl, readLastWikiReading } from '../lib/userJourney.js'
 
@@ -57,7 +57,7 @@ function scoreResource(r, q) {
   if (r.tags.some((tag) => terms.every((term) => tag.toLowerCase().includes(term)))) return 78
   if (terms.every((term) => hostOf(r).toLowerCase().includes(term))) return 65
   if (terms.every((term) => r.description.toLowerCase().includes(term))) return 50
-  if (matchesFuzzySearchTerm(q,[r.name,...aliases])) return 24
+  if (matchesFuzzySearchTerm(q,[r.name,...aliases]) || hasFuzzySearchMatch(q,fields,[r.name,...aliases])) return 24
   return 35
 }
 
