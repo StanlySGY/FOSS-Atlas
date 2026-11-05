@@ -334,15 +334,15 @@ export default function Deployed() {
           Keep their headers neutral so a group colour cannot imply every item
           inside it belongs to one catalogue category. */}
       <section className="fa-surface p-4">
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="fa-deployed-filter-content flex flex-col gap-3">
+          <div className="fa-deployed-filter-header flex flex-wrap items-center justify-between gap-2">
             <div>
               <h2 className="text-sm font-semibold text-[var(--text-strong)]">查找服务</h2>
               <p className="mt-1 text-[11px] text-[var(--text-faint)]">支持名称、域名、技术栈和分类关键词</p>
             </div>
             <span className="mono text-[11px] text-[var(--text-faint)]">{filteredCount} / {instanceTotal}</span>
           </div>
-          <label className="relative block">
+          <label className="fa-deployed-search relative block">
             <span className="sr-only">搜索自部署服务</span>
             <svg aria-hidden="true" viewBox="0 0 24 24" className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-faint)]" fill="none" stroke="currentColor" strokeWidth="1.8">
               <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" strokeLinecap="round" />
@@ -357,7 +357,7 @@ export default function Deployed() {
             />
           </label>
 
-          <div className="space-y-2">
+          <div className="fa-deployed-filter-group fa-deployed-filter-group--status space-y-2">
             <span className="text-[10px] font-semibold tracking-wide text-[var(--text-faint)]">按状态</span>
             <div className="flex flex-wrap gap-1.5" role="group" aria-label="按连通性筛选">
               {[
@@ -377,7 +377,7 @@ export default function Deployed() {
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="fa-deployed-filter-group fa-deployed-filter-group--location space-y-2">
             <span className="text-[10px] font-semibold tracking-wide text-[var(--text-faint)]">按部署位置</span>
             <div className="flex flex-wrap gap-1.5" role="group" aria-label="按部署位置筛选">
               <button type="button" aria-pressed={groupFilter === 'all'} onClick={() => setFilter('group', 'all')} className={groupFilter === 'all' ? 'fa-filter-chip rounded-full border border-[var(--accent)]/55 bg-[var(--accent)]/10 px-3 py-1.5 text-[11px] text-[var(--accent-text)]' : 'fa-filter-chip rounded-full border border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--text-dim)]'}>
@@ -392,7 +392,7 @@ export default function Deployed() {
           </div>
 
           {hasActiveFilters ? (
-            <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--line-soft)] pt-2">
+            <div className="fa-deployed-filter-footer flex flex-wrap items-center justify-between gap-2 border-t border-[var(--line-soft)] pt-2">
               <p className="text-[11px] text-[var(--text-dim)]">当前匹配 <strong className="mono text-[var(--text-strong)]">{filteredCount}</strong> 个实例</p>
               <button type="button" onClick={clearFilters} className="text-[11px] text-[var(--accent-text)] hover:underline">清除筛选</button>
             </div>

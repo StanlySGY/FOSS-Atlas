@@ -180,3 +180,15 @@ footer{border-color:var(--line)!important}footer p,footer a{color:var(--text-fai
  .fa-wiki-rail{width:300px;flex-basis:300px}
  .fa-wiki-content-grid{grid-template-columns:minmax(0,1fr) 360px;gap:40px}
 }
+
+/* Deployment search workspace: trade ultra-wide horizontal room for less filter-stack height. */
+@media(min-width:1920px){
+ .fa-deployed-filter-content{display:grid;grid-template-columns:minmax(320px,.85fr) minmax(500px,1.15fr) minmax(420px,1fr);align-items:start;column-gap:clamp(18px,1.3vw,28px);row-gap:12px}
+ .fa-deployed-filter-header,.fa-deployed-filter-footer{grid-column:1/-1}
+ .fa-deployed-search{min-width:0;align-self:start}
+ .fa-deployed-filter-group{min-width:0;align-self:start}
+ .fa-deployed-filter-group [role=group]{align-content:start}
+}
+@media(min-width:2560px){
+ .fa-deployed-filter-content{grid-template-columns:minmax(360px,.85fr) minmax(600px,1.15fr) minmax(480px,1fr)}
+}

@@ -205,6 +205,25 @@ test('deployed services are searchable, filterable, and grouped behind progressi
   assert.match(deployed, /setDeployedFilterParam/)
 })
 
+test('ultra-wide deployed filters use a three-column workspace while narrower screens retain the stacked layout', () => {
+  const deployed = read('src/pages/Deployed.jsx')
+  const redesign = read('src/redesign.css')
+
+  for (const className of [
+    'fa-deployed-filter-content',
+    'fa-deployed-filter-header',
+    'fa-deployed-search',
+    'fa-deployed-filter-group--status',
+    'fa-deployed-filter-group--location',
+    'fa-deployed-filter-footer',
+  ]) assert.ok(deployed.includes(className), 'missing deployed filter layout hook: ' + className)
+
+  assert.match(redesign, /@media\(min-width:1920px\)[\s\S]*?\.fa-deployed-filter-content\{display:grid;grid-template-columns:minmax\(320px,.85fr\) minmax\(500px,1.15fr\) minmax\(420px,1fr\)/)
+  assert.match(redesign, /\.fa-deployed-filter-group\{min-width:0;align-self:start\}/)
+  assert.match(redesign, /\.fa-deployed-filter-header,\.fa-deployed-filter-footer\{grid-column:1\/-1\}/)
+  assert.match(redesign, /@media\(min-width:2560px\)[\s\S]*?\.fa-deployed-filter-content\{grid-template-columns:minmax\(360px,.85fr\) minmax\(600px,1.15fr\) minmax\(480px,1fr\)/)
+})
+
 test('Wiki reading layout gives medium-width screens a full article before metadata', () => {
   const wiki = read('src/pages/WikiPage.jsx')
   assert.match(wiki, /className="fa-wiki-content-grid"/)
