@@ -92,6 +92,6 @@ export function resetDeployedFiltersParams(searchParams) {
 
 export function resetCatalogFiltersParams(searchParams) {
   const params = new URLSearchParams(searchParams)
-  for (const key of ['q', 'cat', 'sub', 'deployed', 'saved', 'offer']) params.delete(key)
+  for (const key of ['q', 'cat', 'sub', 'deployed', 'saved', 'offer', 'link']) params.delete(key)
   return params
 }

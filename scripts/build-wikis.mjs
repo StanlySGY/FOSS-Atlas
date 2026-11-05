@@ -118,6 +118,22 @@ const bullets = (items) => items.map((x) => `- ${x}`).join('\n')
 function renderPage(resource, entry) {
   const related = relatedFor(resource.id)
   const alternatives = alternativeNames.get(resource.id) ?? []
+  const sources = entry.sources ?? []
+  const verifiedAt = entry.verifiedAt ?? null
+
+  if (verifiedAt && !/^\d{4}-\d{2}-\d{2}$/.test(verifiedAt)) {
+    throw new Error("invalid verifiedAt for " + resource.id)
+  }
+  if (verifiedAt && !sources.length) {
+    throw new Error("verifiedAt requires source evidence for " + resource.id)
+  }
+  for (const source of sources) {
+    if (!source.title || !source.scope || !/^https:\/\//.test(source.url ?? "")) {
+      throw new Error("invalid source evidence for " + resource.id)
+    }
+    const parsed = new URL(source.url)
+    if (parsed.protocol !== "https:") throw new Error("Wiki sources must use HTTPS: " + resource.id)
+  }
 
   const frontmatter = [
     '---',
@@ -130,6 +146,9 @@ function renderPage(resource, entry) {
     alternatives.length ? `alternatives: [${alternatives.join(', ')}]` : null,
     related.length ? `related: [${related.join(', ')}]` : null,
     `updated: ${entry.updated ?? CONTENT_REVISION}`,
+    verifiedAt ? `verifiedAt: ${verifiedAt}` : null,
+    sources.length ? "sources:" : null,
+    ...sources.map((source) => "  - " + JSON.stringify({ title: source.title, url: source.url, type: source.type ?? "official", scope: source.scope })),
     // Marks the file as machine-owned: this script rewrites generated pages
     // unconditionally, so an edit made here is gone on the next run.
     'generated: true',
@@ -246,6 +265,21 @@ for (const resource of resources) {
 }
 
 writeFileSync(resolve(DATA_DIR, 'backlinks.json'), JSON.stringify(backlinks, null, 2) + '\n')
+
+// Search-only projection: authored usage/scenario prose is available to the
+// catalogue without bundling every full Markdown document on the Home page.
+const resourceSearchIndex = Object.fromEntries(resources.map((resource) => {
+  const entry = content.get(resource.id) ?? {}
+  return [resource.id, {
+    summary: entry.summary ?? resource.description,
+    features: entry.features ?? [],
+    scenarios: entry.scenarios ?? [],
+    usage: entry.usage ?? [],
+    aliases: entry.aliases ?? [],
+    keywords: entry.keywords ?? [],
+  }]
+}))
+writeFileSync(resolve(DATA_DIR, 'resource-search-index.json'), JSON.stringify(resourceSearchIndex, null, 2) + '\n')
 
 /* ------------------------------------------------------------------ *
  * Report

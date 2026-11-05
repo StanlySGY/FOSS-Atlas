@@ -7,6 +7,7 @@ import { categoryColor } from '../lib/categoryColor.js'
 import { CANVAS, EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 import { visibleNodeIds } from '../lib/graphFilter.js'
 import { shouldShowGraphLabel } from '../lib/graphLabel.js'
+import { graphWalkEdgeKey } from '../lib/graphWalk.js'
 
 echarts.use([GraphChart, TooltipComponent, LegendComponent, CanvasRenderer])
 
@@ -56,6 +57,8 @@ export default function GraphView({
   localDepth,
   labelMode = 'category',
   emphasizeTagEdges = false,
+  walkNodeIds = [],
+  walkEdgeKeys = [],
   onNodeClick,
   onNodeDoubleClick,
   onDismiss,
@@ -193,6 +196,8 @@ export default function GraphView({
       const hidden = visibleIds ? !visibleIds.has(n.id) : false
       const isSelected = n.id === selectedId
       const isFocused = n.id === focusId
+      const isWalkNode = walkNodeIds.includes(n.id)
+      const hasWalk = walkNodeIds.length > 0
       const pos = posOf(n.id)
       return {
         id: n.id,
@@ -202,7 +207,7 @@ export default function GraphView({
         x: pos?.[0],
         y: pos?.[1],
         category: TYPE_ORDER.indexOf(n.type),
-        symbolSize: hidden ? 0 : isFocused ? meta.size * 2 : isSelected ? meta.size * 1.5 : meta.size,
+        symbolSize: hidden ? 0 : isFocused ? meta.size * 2 : isSelected ? meta.size * 1.5 : isWalkNode ? meta.size * 1.4 : meta.size,
         itemStyle: {
           /*
            * Tools and external services are hollow — they are entries in a
@@ -249,14 +254,14 @@ export default function GraphView({
               : meta.color,
           borderWidth: isFocused ? 3.5 : isSelected ? 3 : 1.6,
           // A halo so the focused node reads as "you are here" even at a glance.
-          shadowBlur: isFocused ? 18 : 0,
-          shadowColor: 'rgba(240, 180, 41, 0.8)',
+          shadowBlur: isFocused ? 18 : isWalkNode ? 12 : 0,
+          shadowColor: isFocused ? 'rgba(240, 180, 41, 0.8)' : 'rgba(79, 179, 165, 0.75)',
           // Category focus: ECharts clamps symbolSize to a minimum, so a
           // zero-sized node still draws a dot — opacity 0 is what actually
           // removes it, while keeping the series' coordinate extent intact.
-          opacity: hidden ? 0 : 1,
+          opacity: hidden ? 0 : hasWalk && !isWalkNode ? 0.14 : 1,
         },
-        label: shouldShowGraphLabel(n, { hidden, focused: isFocused, selected: isSelected, mode: labelMode })
+        label: shouldShowGraphLabel(n, { hidden, focused: isFocused || isWalkNode, selected: isSelected, mode: labelMode })
           ? {
               show: true,
               ...(isFocused ? { color: FOCUS_RING, fontSize: 12, fontWeight: 600, fontFamily: GRAPH_FONT } : {}),
@@ -267,7 +272,7 @@ export default function GraphView({
     })
 
     const edges = graph.edges
-      .filter((e) => enabledEdges.includes(e.type))
+      .filter((e) => enabledEdges.includes(e.type) || walkEdgeKeys.includes(graphWalkEdgeKey(e)))
       .filter((e) => !visibleIds || (visibleIds.has(e.source) && visibleIds.has(e.target)))
       .map((e) => {
         const meta = EDGE_META[e.type] ?? EDGE_META.belongs_to
@@ -276,9 +281,9 @@ export default function GraphView({
           target: e.target,
           lineStyle: {
             color: meta.color,
-            width: e.type === 'tagged' && !emphasizeTagEdges ? 0.65 : meta.width,
+            width: walkEdgeKeys.includes(graphWalkEdgeKey(e)) ? 3.2 : e.type === 'tagged' && !emphasizeTagEdges ? 0.65 : meta.width,
             curveness: meta.curveness,
-            opacity: e.type === 'tagged' && !emphasizeTagEdges ? 0.2 : meta.opacity,
+            opacity: walkEdgeKeys.includes(graphWalkEdgeKey(e)) ? 1 : walkNodeIds.length ? 0.045 : e.type === 'tagged' && !emphasizeTagEdges ? 0.2 : meta.opacity,
           },
         }
       })
@@ -378,7 +383,7 @@ export default function GraphView({
         },
       ],
     }
-  }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout, visibleIds, categoryFrame, posOf, reduceMotion, labelMode, emphasizeTagEdges])
+  }, [graph, enabledEdges, selectedId, focusId, focusPos, frozenLayout, visibleIds, categoryFrame, posOf, reduceMotion, labelMode, emphasizeTagEdges, walkNodeIds, walkEdgeKeys])
 
   /*
    * The handlers are read through a ref so that the chart is initialised exactly

@@ -17,6 +17,7 @@ export default function GraphNodePopover({
   actionLabel,
   onAction,
   onLocalGraph,
+  onExploreFrom,
   onDismiss,
 }) {
   const bubbleRef = useRef(null)
@@ -180,6 +181,15 @@ export default function GraphNodePopover({
         >
           {actionLabel}
         </button>
+        {onExploreFrom ? (
+          <button
+            type="button"
+            onClick={onExploreFrom}
+            className="mt-1.5 flex w-full items-center justify-center rounded-[4px] border border-[var(--accent)]/45 bg-[var(--accent)]/8 px-2.5 py-1.5 text-[11px] text-[var(--accent-text)] transition-colors hover:bg-[var(--accent)]/12"
+          >
+            从这里开始漫游
+          </button>
+        ) : null}
         {onLocalGraph ? (
           <button
             type="button"

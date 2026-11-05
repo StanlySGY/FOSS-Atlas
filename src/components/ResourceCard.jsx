@@ -4,6 +4,7 @@ import DeployedBadge from './DeployedBadge.jsx'
 import { categoryColor, categoryRing, categorySoft } from '../lib/categoryColor.js'
 import { iconFor, initialFor } from '../lib/data.js'
 import { getOffering } from '../lib/offerings.js'
+import { resourceLinkPresentation } from '../lib/resourceLinkStatus.js'
 
 function SiteIcon({ resource }) {
   const [failed, setFailed] = useState(false)
@@ -18,10 +19,13 @@ function SiteIcon({ resource }) {
 
 export default function ResourceCard({
   resource, index = 0, isFavorite = false, isCompared = false,
-  onFavorite = () => {}, onCompare = () => {}, view = 'grid',
+  onFavorite = () => {}, onCompare = () => {}, view = 'grid', linkResult = null, repositoryLinkResult = null, linkFreshness = null,
 }) {
   const { id, name, url, description, category, sub_category, sub_category_name } = resource
   const offering = getOffering(id)
+  const linkPresentation = resourceLinkPresentation(linkResult)
+  const repositoryLinkPresentation = resourceLinkPresentation(repositoryLinkResult)
+  const oldSnapshot = linkFreshness?.state === 'aging' || linkFreshness?.state === 'stale'
   let host = url
   try { host = new URL(url).hostname.replace(/^www\./, '') } catch { /* preserve original URL */ }
 
@@ -40,6 +44,8 @@ export default function ResourceCard({
         <div className="fa-discovery-card-meta">
           <Link to={'/?cat=' + encodeURIComponent(category) + '&sub=' + encodeURIComponent(sub_category || '')} className="fa-resource-category">{sub_category_name || resource.category_name}</Link>
           {offering?.shortLabel ? <span className="fa-resource-plan">{offering.shortLabel}</span> : null}
+          {linkResult && linkPresentation.kind !== 'ok' ? <span className="fa-resource-plan" title={linkPresentation.note + (oldSnapshot?' · 巡检快照偏旧':'')}>官网 · {linkPresentation.label}{oldSnapshot?' · 旧快照':''}</span> : null}
+          {repositoryLinkResult && repositoryLinkPresentation.kind !== 'ok' ? <span className="fa-resource-plan" title={repositoryLinkPresentation.note + (oldSnapshot?' · 巡检快照偏旧':'')}>仓库 · {repositoryLinkPresentation.label}{oldSnapshot?' · 旧快照':''}</span> : null}
           <DeployedBadge resource={resource} to={'/deployed/#' + (resource.instances?.[0]?.id || '')} />
         </div>
         <div className="fa-resource-actions">

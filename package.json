@@ -17,7 +17,8 @@
     "views:check": "node scripts/check-graph-views.mjs",
     "probe": "node scripts/probe-deployed.mjs",
     "offers:check": "node scripts/check-offerings.mjs",
-    "repositories:sync": "node scripts/sync-repository-metadata.mjs"
+    "repositories:sync": "node scripts/sync-repository-metadata.mjs",
+    "probe:links": "node scripts/probe-resource-links.mjs"
   },
   "dependencies": {
     "echarts": "^6.1.0",

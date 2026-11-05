@@ -1,4 +1,4 @@
-const BASE = import.meta.env.BASE_URL
+const BASE = import.meta.env?.BASE_URL ?? '/'
 
 /**
  * Minimal YAML frontmatter parser.
@@ -35,7 +35,11 @@ export function parseFrontmatter(raw) {
       const items = []
       let j = i + 1
       while (j < lines.length && /^\s*-\s+/.test(lines[j])) {
-        items.push(lines[j].replace(/^\s*-\s+/, '').trim().replace(/^["']|["']$/g, ''))
+        const item = lines[j].replace(/^\s*-\s+/, '').trim().replace(/^["']|["']$/g, '')
+        if (item.startsWith('{') && item.endsWith('}')) {
+          try { items.push(JSON.parse(item)) }
+          catch { items.push(item) }
+        } else items.push(item)
         j++
       }
       if (items.length) {

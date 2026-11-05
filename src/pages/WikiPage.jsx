@@ -504,7 +504,8 @@ export default function WikiPage() {
           <dl className="space-y-2 text-xs">
             <Row label="分类" value={resource.category_name} />
             <Row label="子类" value={resource.sub_category_name} />
-            {data.updated ? <Row label="更新" value={data.updated} /> : null}
+            <Row label="内容整理" value={data.updated ?? '日期未记录'} />
+            <Row label="事实核验" value={data.verifiedAt ? '部分事实已核验 · ' + data.verifiedAt + ' · ' + (data.sources?.length ?? 0) + ' 个来源' : '待核验'} />
             {data.license ? <Row label="许可" value={data.license} /> : null}
           </dl>
         </Panel>
@@ -518,6 +519,19 @@ export default function WikiPage() {
               </span>
             </summary>
             <div className="mt-3 space-y-4 border-t border-[var(--line-soft)] pt-3">
+              {data.sources?.length ? (
+                <section>
+                  <h3 className="mb-2 text-[11px] font-semibold text-[var(--text-dim)]">来源与核验范围 <span className="font-normal text-[var(--text-faint)]">· 不代表整页所有信息均已核验</span></h3>
+                  <ul className="space-y-2 text-[11px]">
+                    {data.sources.map((source) => (
+                      <li key={source.url}>
+                        <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-[var(--accent-text)] hover:underline">{source.title} ↗</a>
+                        <p className="mt-0.5 leading-relaxed text-[var(--text-faint)]">{source.scope}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
               {tags.length ? (
                 <section>
                   <h3 className="mb-2 text-[11px] font-semibold text-[var(--text-dim)]">标签</h3>
@@ -597,6 +611,12 @@ export default function WikiPage() {
           className="block rounded-[6px] border border-[var(--line)] bg-[var(--ink-card)] px-3 py-2.5 text-center text-xs text-[var(--text-dim)] transition-colors hover:border-[var(--accent)]/50 hover:text-[var(--accent-text)]"
         >
           在知识图谱中查看 →
+        </Link>
+        <Link
+          to={'/graph/?walk=' + encodeURIComponent(id)}
+          className="mt-2 block rounded-[6px] border border-[var(--accent)]/35 bg-[var(--accent)]/6 px-3 py-2.5 text-center text-xs text-[var(--accent-text)] transition-colors hover:border-[var(--accent)]/65 hover:bg-[var(--accent)]/10"
+        >
+          沿真实关系继续探索 →
         </Link>
 
         {/*

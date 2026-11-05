@@ -75,6 +75,10 @@ jobs:
       - name: Probe self-hosted services
         run: npm run probe -- --out dist/probe.json || echo "::warning title=Probe failed::publishing without probe.json"
 
+      - name: Probe catalogue official links
+        # Informational snapshot only: an unavailable external site must never block publishing.
+        run: npm run probe:links -- --out dist/resource-links.json || echo "::warning title=Catalogue link audit failed::publishing without resource-links.json"
+
       - name: Configure Pages
         uses: actions/configure-pages@v6
 

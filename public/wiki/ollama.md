@@ -9,7 +9,11 @@ repo: https://github.com/ollama/ollama
 license: MIT
 alternatives: [LM Studio, Jan, GPT4All, llama.cpp]
 related: [lm-studio, jan, gpt4all, text-generation-webui, dify, langchain]
-updated: 2026-10-19
+updated: 2026-11-05
+verifiedAt: 2026-11-05
+sources:
+  - {"title":"Ollama API Introduction","url":"https://docs.ollama.com/api/introduction","type":"official","scope":"核对本地 API 地址 http://localhost:11434、本地请求无需 API key，以及 OpenAI 兼容入口；不覆盖硬件适配、性能或所有 SDK 功能。"}
+  - {"title":"Ollama Quickstart","url":"https://docs.ollama.com/quickstart","type":"official","scope":"核对 macOS / Windows / Linux 安装入口、ollama run 启动模型、本地 API 示例与本地/云端认证差异；不覆盖显存建议及各模型性能。"}
 ---
 
 # Ollama
@@ -18,9 +22,9 @@ updated: 2026-10-19
 
 ```bash
 # 安装后直接跑
+ollama run gemma4:e2b
 ollama run qwen3
 ollama run deepseek-r1:7b
-ollama run llama3.2
 
 # 列出本地已有模型
 ollama list
@@ -46,7 +50,7 @@ ollama list
 ## 常见坑
 
 - **模型下载慢**：设置 `OLLAMA_MODELS` 到磁盘空间大的分区，国内可配镜像。
-- **端口冲突**：`OLLAMA_HOST=0.0.0.0:11434` 可让局域网其他设备访问，但**不要直接暴露到公网**，API 无鉴权。
+- **端口与鉴权**：本地 API 默认无需 API key。若通过 OLLAMA_HOST 改为监听局域网地址，应先配置网络隔离或受控访问入口，避免把无认证的本地 API 直接暴露到公网。
 - **和 [[LM Studio]] 的区别**：Ollama 偏 CLI / 服务化，LM Studio 偏图形界面，两者可以共存但别同时抢显存。
 
 ## 相关工具

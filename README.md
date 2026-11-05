@@ -135,6 +135,15 @@ ECharts 力导向图，可**拖拽节点、滚轮缩放、拖拽画布平移**�
 | Markdown | react-markdown + remark-gfm |
 | 部署 | GitHub Actions → GitHub Pages + Cloudflare Pages(双平台自动同步) |
 
+## 资源可信度与探索体验
+
+- Wiki 把内容整理日期与事实核验日期分开；官方来源和核验范围按页记录。未记录证据时显示“待核验”，不会用生成日期代替核验日期。
+- 首页显示全目录官网巡检快照，支持通过 ?link=review 筛选需复核链接。认证、反爬与网络异常和 404/5xx 分开表达；快照不是实时监控，也不会自动改写原始 URL。
+- 搜索覆盖资源别名、标签、功能和使用场景；资源比较使用现有的仓库与免费方案证据，无数据时明确留空。
+- 知识图谱提供“灵感漫游”：仅沿图中已经存在的相关、替代和标签关系生成可分享的逐站路线。Wiki 页也可直接以当前资源作为漫游起点。
+
+数据字段、巡检语义与维护命令见 [资源可信度与探索维护说明](docs/RESOURCE-TRUST-AND-DISCOVERY-2026-11-05.md)。
+
 ## 🚀 本地开发
 
 ```bash
@@ -150,6 +159,7 @@ npm run views:check # 图谱各视图的节点数是否还符合代码里的说�
 npm run offers:check # 免费方案证据、资源关联和来源格式校验
 npm run repositories:sync # 有 GITHUB_TOKEN 时刷新公开 GitHub 仓库元数据
 npm run probe      # 只读探测 93 个自部署 URL；CI 在 build 之后写 dist/probe.json，/deployed 页面显示这次观察
+npm run probe:links # 只读巡检资源官网与已收录 GitHub 仓库 URL；CI 写 dist/resource-links.json，不因单项异常阻断部署
 node scripts/build-wikis.mjs   # 生成 181 篇 Wiki + src/data/backlinks.json
 npm run build      # 刷新 Wiki → vite build → 校验社交卡片 → 预渲染 190 个页面 → 404.html
 npm run preview    # 本地预览构建产物

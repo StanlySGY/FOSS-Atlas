@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { deployedStats, graphStats, pickRandomResource, resourceById, resources } from '../lib/data.js'
+import { deployedStats, graphStats, pickRandomResource, resourceById, resources, resourceSearchTextFor, searchAliasesFor } from '../lib/data.js'
+import { matchesFuzzySearchTerm, matchesSearchTerm } from '../lib/resourceSearch.js'
 import useUserJourney from '../hooks/useUserJourney.js'
 import { readLastDeployedInstance, readLastGraphUrl, readLastWikiReading } from '../lib/userJourney.js'
 
@@ -42,14 +43,21 @@ function scoreResource(r, q) {
     (r.category_name ?? '').toLowerCase(),
     (r.sub_category_name ?? '').toLowerCase(),
     ...r.tags.map((tag) => tag.toLowerCase()),
+    ...searchAliasesFor(r.id).map((alias) => alias.toLowerCase()),
+    resourceSearchTextFor(r.id).toLowerCase(),
   ]
-  if (!terms.every((term) => fields.some((field) => field.includes(term)))) return -1
+  if (!terms.every((term) => matchesSearchTerm(term,fields,[r.name,...searchAliasesFor(r.id)]))) return -1
+  const aliases = searchAliasesFor(r.id).map((alias) => alias.toLowerCase())
+  if (name === q) return 120
   if (name.startsWith(q)) return 110
+  if (aliases.includes(q)) return 105
+  if (aliases.some((alias) => alias.startsWith(q))) return 100
   if (name.includes(q)) return 90
   if (terms.every((term) => name.includes(term))) return 85
-  if (r.tags.some((tag) => terms.every((term) => tag.toLowerCase().includes(term)))) return 70
+  if (r.tags.some((tag) => terms.every((term) => tag.toLowerCase().includes(term)))) return 78
   if (terms.every((term) => hostOf(r).toLowerCase().includes(term))) return 65
   if (terms.every((term) => r.description.toLowerCase().includes(term))) return 50
+  if (matchesFuzzySearchTerm(q,[r.name,...aliases])) return 24
   return 35
 }
 

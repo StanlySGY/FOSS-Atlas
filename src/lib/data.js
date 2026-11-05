@@ -1,8 +1,10 @@
 import graph from '../data/graph.json'
 import iconManifest from '../data/icons.json'
 import resources from '../data/resources.json'
+import resourceSearchIndex from '../data/resource-search-index.json'
 
 export { graph, resources }
+export { resourceSearchIndex }
 
 export const categories = graph.categories
 export const subCategories = graph.sub_categories
@@ -117,6 +119,27 @@ export function resolveTarget(raw) {
   // "constructor" / "toString" to Object members. Only own keys count.
   if (Object.prototype.hasOwnProperty.call(ALIASES, key)) return ALIASES[key]
   return nameIndex.get(key) ?? null
+}
+
+const aliasesByResource = new Map()
+for (const [alias, resourceId] of Object.entries(ALIASES)) {
+  if (!resourceId || !resourceById.has(resourceId)) continue
+  if (!aliasesByResource.has(resourceId)) aliasesByResource.set(resourceId, [])
+  aliasesByResource.get(resourceId).push(alias)
+}
+
+/** Searchable aliases only include aliases resolving to a real catalogue item. */
+export function searchAliasesFor(resourceId) {
+  return [...(aliasesByResource.get(resourceId) ?? []), ...(resourceSearchIndex[resourceId]?.aliases ?? [])]
+}
+
+/** Authored features/scenarios stay out of the main resource bundle. */
+export function resourceSearchTextFor(resourceId) {
+  const entry = resourceSearchIndex[resourceId]
+  if (!entry) return ''
+  return [entry.summary, ...(entry.features ?? []), ...(entry.scenarios ?? []), ...(entry.usage ?? []), ...(entry.keywords ?? [])]
+    .filter(Boolean)
+    .join(' ')
 }
 
 /** Wiki file slug for a resource, if the resource ships a wiki page. */

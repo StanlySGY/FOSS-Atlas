@@ -41,7 +41,7 @@ export default function OfferingPanel({ resourceId }) {
         </details>
       ) : null}
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--line-soft)] pt-2">
-        <span className="text-[10px] text-[var(--text-faint)]">官方来源核验 · {offering.verifiedAt ?? '日期未记录'}</span>
+        <span className="text-[10px] text-[var(--text-faint)]">方案信息核验日 · {offering.verifiedAt ?? '日期未记录'}</span>
         <details className="fa-disclosure text-right">
           <summary className="cursor-pointer text-[10px] text-[var(--accent-text)]">条件、来源与核验范围</summary>
           <div className="mt-2 space-y-2 text-left">

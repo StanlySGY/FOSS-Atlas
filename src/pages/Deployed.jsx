@@ -6,6 +6,7 @@ import { resourceById } from '../lib/data.js'
 import { deploymentStatusKind, isUnreachable, matchesDeploymentStatus, probeStatusPresentation, summarizeProbeRows } from '../lib/probeStatus.js'
 import { deployedFiltersFromSearchParams, resetDeployedFiltersParams, setDeployedFilterParam } from '../lib/catalogFilterState.js'
 import { readExpandedDeployGroups, rememberDeployedInstance, rememberExpandedDeployGroups } from '../lib/userJourney.js'
+import { formatSnapshotAge, resourceLinkFreshness } from '../lib/resourceLinkStatus.js'
 
 /*
  * A row's catalogue entry, resolved through the `resource` field the generator
@@ -145,6 +146,7 @@ export default function Deployed() {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const probe = useProbe()
+  const probeFreshness = resourceLinkFreshness(probe)
   const probeRows = probe?.rows ?? EMPTY_PROBE_ROWS
   const probeSummary = summarizeProbeRows(probeRows)
   const probeByKey = useMemo(
@@ -289,14 +291,17 @@ export default function Deployed() {
       <PageHeader
         eyebrow="运行实例 / DEPLOYED"
         title="自部署服务"
-        description={`管理 ${instanceTotal} 个公开服务与镜像，按名称、域名、技术栈或可达状态快速定位。清单更新于 ${deployed.updated}。`}
+        description={`管理 ${instanceTotal} 个公开服务与镜像，按名称、域名、技术栈或可达状态快速定位。清单更新于 ${deployed.updated}；探测快照 ${probe ? utcStamp(probe.ranAt) + ' UTC' : '暂无' }。`}
       />
 
       {probe ? (
         <details className="fa-disclosure fa-surface-muted px-4 py-3">
           <summary className="flex cursor-pointer flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--text-dim)]">
             <span className="font-semibold text-[var(--text-strong)]">发布连通性快照</span>
-            <span>最近探测 {utcStamp(probe.ranAt)} UTC</span>
+            <span>最近探测 {utcStamp(probe.ranAt)} UTC · {formatSnapshotAge(probeFreshness)}</span>
+            {probeFreshness.state === 'stale' || probeFreshness.state === 'aging' ? (
+              <span className="text-[var(--down-text)]">{probeFreshness.label}，状态可能已变化</span>
+            ) : null}
             <span className={probeSummary.unreachable ? 'text-[var(--down-text)]' : 'text-[var(--text-faint)]'}>
               {probeSummary.unreachable} 个不可达
             </span>
@@ -304,7 +309,7 @@ export default function Deployed() {
           </summary>
           <div className="mt-3 space-y-2.5 border-t border-[var(--line-soft)] pt-3">
             <p className="text-[11px] leading-relaxed text-[var(--text-faint)]">
-              共探测 {probeSummary.total} 个实例。这是最近一次发布时的公网快照，不是实时监控，也不代表已完成登录或完整用户流程。
+              清单更新时间：{deployed.updated}。探测时间：{utcStamp(probe.ranAt)} UTC。共探测 {probeSummary.total} 个实例。这是最近一次发布时的公网快照，不是实时监控，也不代表已完成登录或完整用户流程；即使快照显示异常，也应结合时间和访问限制复核。
             </p>
             <ul className="flex flex-wrap gap-x-4 gap-y-1.5 text-[11px]">
               <li className="text-[var(--accent-text)]">2xx 正常响应 <span className="mono">{probeSummary.ok}</span></li>
@@ -328,7 +333,9 @@ export default function Deployed() {
             </div>
           </div>
         </details>
-      ) : null}
+      ) : (
+        <p className="fa-surface-muted px-4 py-3 text-xs text-[var(--text-faint)]">暂无发布时的公网探测快照；部署清单仍可浏览，但当前可达性未知。</p>
+      )}
 
       {/* Deployment groups describe hosting location, not resource category.
           Keep their headers neutral so a group colour cannot imply every item

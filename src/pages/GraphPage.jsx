@@ -29,6 +29,7 @@ import { graphViewModeFromParams, setGraphViewModeParams } from '../lib/graphVie
 import { graphNodeListStateFromParams, setGraphNodeListStateParams } from '../lib/graphNodeListState.js'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 import { rememberGraphContext, rememberGraphNode } from '../lib/userJourney.js'
+import { createGraphWalk, graphWalkEdgeKey, graphWalkStepLabel } from '../lib/graphWalk.js'
 
 const ALL_EDGES = Object.keys(EDGE_META)
 // Only catalogue resources can be restored as a focused graph node. Category,
@@ -73,6 +74,16 @@ export default function GraphPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const graphContextKey = searchParams.toString()
   useEffect(() => { rememberGraphContext(new URLSearchParams(graphContextKey)) }, [graphContextKey])
+  const walkId = searchParams.get('walk')
+  const walkSeed = searchParams.get('walk_seed') ?? walkId
+  const walk = useMemo(() => walkId ? createGraphWalk(graph, walkId, walkSeed) : null, [walkId, walkSeed])
+  const requestedWalkStep = Number(searchParams.get('walk_step') ?? 0)
+  const walkStep = walk ? Math.min(Math.max(Number.isInteger(requestedWalkStep) ? requestedWalkStep : 0, 0), walk.nodes.length - 1) : 0
+  const walkNodeIds = useMemo(() => walk?.nodes.map((node) => node.id) ?? [], [walk])
+  const walkEdgeKeys = useMemo(() => walk?.edges.map(graphWalkEdgeKey) ?? [], [walk])
+  const currentWalkNode = walk?.nodes[walkStep] ?? null
+  const currentWalkEdge = walk?.edges[walkStep - 1] ?? null
+  const [walkPlaying, setWalkPlaying] = useState(false)
   const [enabledEdges, setEnabledEdges] = useState(ALL_EDGES)
   const [emphasizeTagEdges, setEmphasizeTagEdges] = useState(false)
   // Below md the three control rows fold behind one button: on a phone they
@@ -147,6 +158,74 @@ export default function GraphPage() {
   const clearLocalGraph = useCallback(() => setLocalGraph(null), [setLocalGraph])
   const [popover, setPopover] = useState(null)
 
+  const startWalkFrom = useCallback((nodeId) => {
+    setWalkPlaying(false)
+    const seed = Math.floor(Math.random() * 0x7fffffff).toString(36)
+    setPopover(null)
+    setSelected(null)
+    setSearchParams((previous) => {
+      const next = new URLSearchParams(previous)
+      for (const key of ['cat', 'deployed', 'local', 'depth', 'focus', 'view', 'walk_step']) next.delete(key)
+      next.set('walk', nodeId)
+      next.set('walk_seed', seed)
+      return next
+    })
+  }, [setSearchParams])
+
+  const startRandomWalk = useCallback(() => {
+    const candidates = graph.nodes.filter((node) =>
+      (node.type === 'tool' || node.type === 'own') &&
+      graph.edges.some((edge) =>
+        ['related', 'alternative_to', 'tagged'].includes(edge.type) &&
+        (edge.source === node.id || edge.target === node.id)
+      )
+    )
+    if (!candidates.length) return
+    startWalkFrom(candidates[Math.floor(Math.random() * candidates.length)].id)
+  }, [startWalkFrom])
+
+  const setWalkStep = useCallback((step) => {
+    setSearchParams((previous) => {
+      const next = new URLSearchParams(previous)
+      if (step <= 0) next.delete('walk_step')
+      else next.set('walk_step', String(step))
+      return next
+    }, { replace: true })
+  }, [setSearchParams])
+
+  useEffect(() => {
+    if (!walk || !walkPlaying || walkStep >= walk.nodes.length - 1) return undefined
+    const nextStep = walkStep + 1
+    const timer = window.setTimeout(() => {
+      setWalkStep(nextStep)
+      if (nextStep >= walk.nodes.length - 1) setWalkPlaying(false)
+    }, 1800)
+    return () => window.clearTimeout(timer)
+  }, [walk, walkPlaying, walkStep, setWalkStep])
+
+  const toggleWalkPlayback = useCallback(() => {
+    if (!walk) return
+    if (walkPlaying) {
+      setWalkPlaying(false)
+      return
+    }
+    if (walkStep >= walk.nodes.length - 1) setWalkStep(0)
+    setWalkPlaying(true)
+  }, [walk, walkPlaying, walkStep, setWalkStep])
+
+  const remixWalk = useCallback(() => {
+    if (walk?.startId) startWalkFrom(walk.startId)
+  }, [walk, startWalkFrom])
+
+  const exitWalk = useCallback(() => {
+    setWalkPlaying(false)
+    setSearchParams((previous) => {
+      const next = new URLSearchParams(previous)
+      for (const key of ['walk', 'walk_seed', 'walk_step']) next.delete(key)
+      return next
+    }, { replace: true })
+  }, [setSearchParams])
+
   const setViewMode = useCallback(
     (next) => {
       setPopover(null)
@@ -170,6 +249,7 @@ export default function GraphPage() {
   // ignored rather than passed down.
   const focusParam = searchParams.get('focus')
   const focusId = localNode?.id ?? (focusParam && resourceById.has(focusParam) ? focusParam : null)
+  const graphFocusId = currentWalkNode?.id ?? focusId
 
   const toggleEdge = (type) => {
     setEnabledEdges((prev) =>
@@ -279,8 +359,9 @@ export default function GraphPage() {
         action.run()
       },
       onLocalGraph: () => handleLocalGraph(node),
+      onExploreFrom: () => startWalkFrom(node.id),
     }
-  }, [popover, primaryAction, handleLocalGraph])
+  }, [popover, primaryAction, handleLocalGraph, startWalkFrom])
 
   const contained = useMemo(() => {
     if (!selected) return []
@@ -377,6 +458,9 @@ export default function GraphPage() {
           <p className="mt-1 text-xs text-[var(--text-faint)]">单击节点看速览 · 拖动画布平移 · 滚轮缩放；列表可搜索并键盘浏览。</p>
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2">
+          <button type="button" onClick={startRandomWalk} className="fa-control">
+            {walk ? '换个漫游起点' : '✦ 灵感漫游'}
+          </button>
           {viewMode === 'graph' ? (
             <button
               type="button"
@@ -419,6 +503,53 @@ export default function GraphPage() {
           </div>
         </div>
       </div>
+
+      {walk ? (
+        <section className="fa-surface relative overflow-hidden p-3.5 sm:p-4" aria-label="灵感漫游路线" aria-live="polite">
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-[var(--accent)]/70" />
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div className="min-w-0">
+                <p className="mono text-[10px] tracking-wide text-[var(--accent-text)]">DISCOVERY WALK · REAL GRAPH EDGES</p>
+                <h2 className="mt-1 text-sm font-semibold text-[var(--text-strong)]">从 {walk.nodes[0].name} 出发的发现路线</h2>
+                <p className="mt-1 text-xs text-[var(--text-dim)]">
+                  {currentWalkEdge
+                    ? '第 ' + (walkStep + 1) + ' 站 · 通过「' + graphWalkStepLabel(currentWalkEdge) + '」到达 ' + (currentWalkNode?.name ?? '')
+                    : walk.nodes.length > 1 ? '已回到起点，准备沿真实关系继续探索' : '这个起点暂时没有可继续的相关路线'}
+                </p>
+              </div>
+              <span className="mono shrink-0 rounded-full border border-[var(--line)] px-2 py-1 text-[10px] text-[var(--text-faint)]">{walkStep + 1} / {walk.nodes.length} 站</span>
+            </div>
+            <ol className="flex flex-wrap items-center gap-2" aria-label="路线站点">
+              {walk.nodes.map((node, index) => (
+                <li key={node.id} className="flex items-center gap-2">
+                  {index > 0 ? <span className="text-[10px] text-[var(--text-faint)]">— {graphWalkStepLabel(walk.edges[index - 1])} —</span> : null}
+                  <button
+                    type="button"
+                    aria-current={walkStep === index ? 'step' : undefined}
+                    onClick={() => setWalkStep(index)}
+                    className={walkStep === index
+                      ? 'rounded-[5px] border border-[var(--accent)]/65 bg-[var(--accent)]/10 px-2.5 py-1.5 text-xs font-semibold text-[var(--accent-text)]'
+                      : 'rounded-[5px] border border-[var(--line)] px-2.5 py-1.5 text-xs text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]'}
+                  >
+                    <span className="mono mr-1.5 text-[10px] opacity-70">{index + 1}</span>{node.name}
+                  </button>
+                </li>
+              ))}
+            </ol>
+            <div className="flex flex-wrap items-center gap-2 border-t border-[var(--line-soft)] pt-3">
+              <button type="button" onClick={() => setWalkStep(0)} className="fa-control">回到起点</button>
+              <button type="button" disabled={walkStep === 0} onClick={() => setWalkStep(walkStep - 1)} className="fa-control disabled:opacity-40">上一站</button>
+              <button type="button" disabled={walkStep >= walk.nodes.length - 1} onClick={() => setWalkStep(walkStep + 1)} className="fa-control disabled:opacity-40">下一站 →</button>
+              <button type="button" disabled={walk.nodes.length < 2} aria-pressed={walkPlaying} onClick={toggleWalkPlayback} className="fa-control">{walkPlaying ? '暂停播放' : '自动播放 · 1.8 秒 / 站'}</button>
+              {currentWalkNode && resourceById.has(currentWalkNode.id) ? <Link to={'/wiki/' + currentWalkNode.id + '/'} className="fa-control">打开当前 Wiki ↗</Link> : null}
+              <button type="button" onClick={remixWalk} className="fa-control">重抽路线</button>
+              <button type="button" onClick={exitWalk} className="ml-auto text-xs text-[var(--text-faint)] hover:text-[var(--text-strong)]">退出漫游</button>
+              <span className="w-full text-[10px] text-[var(--text-faint)]">路线只使用图谱中已有的「相关 / 替代 / 标签」关系。地址栏保留起点和路线种子，可复制分享。</span>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {localNode ? (
         <section className="fa-surface-muted flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
@@ -639,13 +770,15 @@ export default function GraphPage() {
             onNodeDoubleClick={handleNodeDoubleClick}
             onDismiss={closePopover}
             selectedId={selected?.id ?? null}
-            focusId={focusId}
+            focusId={graphFocusId}
             focusedCategory={focusedCategory}
             deployedOnly={deployedOnly}
             localNodeId={localNode?.id ?? null}
             localDepth={localDepth}
             labelMode={labelMode}
             emphasizeTagEdges={emphasizeTagEdges}
+            walkNodeIds={walkNodeIds}
+            walkEdgeKeys={walkEdgeKeys}
           >
             {popoverModel && (
               <GraphNodePopover
@@ -657,6 +790,7 @@ export default function GraphPage() {
                 actionLabel={popoverModel.actionLabel}
                 onAction={popoverModel.onAction}
                 onLocalGraph={popoverModel.onLocalGraph}
+                onExploreFrom={popoverModel.onExploreFrom}
                 onDismiss={closePopover}
               />
             )}

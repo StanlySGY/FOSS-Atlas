@@ -7,10 +7,10 @@
     "instances": 93
   },
   "copyHash": "4040e6f0d8af7c44d919d0c1b9494e76ff5014238c59dbcfc60eaafe9f542762",
-  "glyphHash": "414d197d4b461524c1c42b4add0e9b2389b4c898e7449c043346f1837c67988c",
+  "glyphHash": "1ed248dea44cbc50afda1b6d3133bd274101d1fcd117f2fda53548e09e263d40",
   "fonts": {
-    "noto-sans-sc-400.woff2": "9e55f100daab7759e5ee3623d25ba193aa7f1c088854ad474d18dc7b194107d1",
-    "noto-sans-sc-700.woff2": "608f29676f6370809cadca419cb3b49dda4415f7ea064119461e86da2932bbae"
+    "noto-sans-sc-400.woff2": "f81fda73040eb2254f62adcdcad4dcd19dda7f5746167779afafaafffd01267f",
+    "noto-sans-sc-700.woff2": "a876bf59943d509762bd1df18670a1bb3c26cfb56b59b5bb3fbdefa08b532284"
   },
   "chrome": {
     "version": "Google Chrome 156.0.8078.47"
