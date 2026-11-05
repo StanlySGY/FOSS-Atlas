@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import DeployedBadge from '../components/DeployedBadge.jsx'
 import Markdown from '../components/Markdown.jsx'
 import OfferingPanel from '../components/OfferingPanel.jsx'
@@ -23,6 +23,10 @@ import { fetchWiki, headingsFromMarkdown, parseFrontmatter, stripLeadingChrome, 
 import { readWikiPrefill } from '../lib/wikiPrefill.js'
 import { presentWikiMarkdown } from '../lib/wikiPresentation.js'
 import { PageHeader } from '../components/PageHeader.jsx'
+import useUserJourney from '../hooks/useUserJourney.js'
+import { rememberWikiReading } from '../lib/userJourney.js'
+
+const RESOURCE_IDS = new Set(resourceById.keys())
 
 function fallbackMarkdown(resource) {
   return [
@@ -76,8 +80,11 @@ function mergeAlternatives(id, fromFrontmatter) {
 }
 
 export default function WikiPage() {
+  const location = useLocation()
   const { id } = useParams()
   const resource = resourceById.get(id)
+  const { favorites, toggleFavorite } = useUserJourney(RESOURCE_IDS)
+  const isFavorite = favorites.includes(id)
 
   const slug = wikiSlugFor(id)
   /*
@@ -132,6 +139,35 @@ export default function WikiPage() {
     () => (isFallback ? [] : headingsFromMarkdown(practicalMarkdown)),
     [practicalMarkdown, isFallback],
   )
+
+  // An in-app Wiki transition fetches Markdown after the route commits. The
+  // route shell may have already tried the hash before these headings existed;
+  // retry after the reading body is rendered so a saved chapter link lands.
+  useEffect(() => {
+    const hash = location.hash || window.location.hash
+    if (!hash || loading) return undefined
+    let targetId = hash.slice(1)
+    try { targetId = decodeURIComponent(targetId) } catch { /* keep the raw fragment */ }
+    let frame = 0
+    let settleFrame = 0
+    const revealTarget = (target) => {
+      target.scrollIntoView({ block: 'start' })
+      target.focus?.({ preventScroll: true })
+    }
+    frame = window.requestAnimationFrame(() => {
+      const target = document.getElementById(targetId)
+      if (!target) return
+      const disclosure = target.closest('details')
+      if (disclosure && !disclosure.open) disclosure.open = true
+      // Always wait one more frame: native hash handling and the palette's
+      // close/focus cleanup can otherwise race this route-level restoration.
+      settleFrame = window.requestAnimationFrame(() => revealTarget(target))
+    })
+    return () => {
+      window.cancelAnimationFrame(frame)
+      if (settleFrame) window.cancelAnimationFrame(settleFrame)
+    }
+  }, [id, location.hash, loading, practicalMarkdown])
 
   const related = useMemo(() => {
     const fromGraph = relatedResources(id)
@@ -224,6 +260,7 @@ export default function WikiPage() {
     return () => window.cancelAnimationFrame(frame)
   }, [activeHeading, id])
 
+
   const activeHeadingIndex = toc.findIndex((heading) => heading.slug === activeHeading)
 
   const articleRef = useRef(null)
@@ -237,6 +274,10 @@ export default function WikiPage() {
       const distance = Math.max(1, rect.height - window.innerHeight)
       const next = Math.round(Math.min(100, Math.max(0, (window.scrollY - articleTop) / distance * 100)))
       setReadingProgress((current) => current === next ? current : next)
+      const headings = Array.from(article.querySelectorAll('h2[id], h3[id]'))
+      const passed = headings.filter((heading) => heading.getBoundingClientRect().top <= 112)
+      const currentHeading = (passed[passed.length - 1] ?? headings[0])?.id ?? ''
+      rememberWikiReading(id, currentHeading, RESOURCE_IDS)
     }
     let frame = 0
     const scheduleUpdate = () => {
@@ -343,6 +384,9 @@ export default function WikiPage() {
               ) : null}
               {data.license ? <span className="fa-control mono">{data.license}</span> : null}
               {instances.length ? <DeployedBadge resource={resource} showGroups to={'/deployed/#' + instances[0].id} /> : null}
+              <button type="button" onClick={() => toggleFavorite(id)} aria-pressed={isFavorite} className="fa-control mono">
+                {isFavorite ? '★ 已收藏' : '☆ 收藏'}
+              </button>
               <button type="button" onClick={copyLink} className="fa-control mono">
                 {copied ? '已复制 ✓' : '复制链接'}
               </button>

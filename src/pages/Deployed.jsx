@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { PageHeader } from '../components/PageHeader.jsx'
 import deployed from '../data/deployed.json'
 import { resourceById } from '../lib/data.js'
 import { deploymentStatusKind, isUnreachable, matchesDeploymentStatus, probeStatusPresentation, summarizeProbeRows } from '../lib/probeStatus.js'
 import { deployedFiltersFromSearchParams, resetDeployedFiltersParams, setDeployedFilterParam } from '../lib/catalogFilterState.js'
+import { readExpandedDeployGroups, rememberDeployedInstance, rememberExpandedDeployGroups } from '../lib/userJourney.js'
 
 /*
  * A row's catalogue entry, resolved through the `resource` field the generator
@@ -19,6 +20,8 @@ import { deployedFiltersFromSearchParams, resetDeployedFiltersParams, setDeploye
 const resourceIdFor = (item) => item.resource ?? item.id
 const graphUrlFor = (item) => `/graph/?deployed=1&focus=${encodeURIComponent(resourceIdFor(item))}`
 const EMPTY_PROBE_ROWS = []
+const DEPLOYED_GROUP_IDS = new Set(deployed.groups.map((group) => group.id))
+const DEPLOYED_INSTANCE_IDS = new Set(deployed.groups.flatMap((group) => group.items.map((item) => item.id)))
 
 /** The snapshot `npm run probe -- --out dist/probe.json` shipped with this build. */
 function useProbe() {
@@ -138,6 +141,8 @@ function ServiceRow({ item, result }) {
 }
 
 export default function Deployed() {
+  const location = useLocation()
+  const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const probe = useProbe()
   const probeRows = probe?.rows ?? EMPTY_PROBE_ROWS
@@ -148,23 +153,39 @@ export default function Deployed() {
   )
   const instanceTotal = deployed.groups.reduce((sum, group) => sum + group.items.length, 0)
   const { query, statusFilter, groupFilter } = deployedFiltersFromSearchParams(searchParams, deployed.groups.map((group) => group.id))
-  const [expandedGroups, setExpandedGroups] = useState(() => new Set())
+  const [expandedGroups, setExpandedGroups] = useState(() => readExpandedDeployGroups(DEPLOYED_GROUP_IDS))
   const [fragmentTarget, setFragmentTarget] = useState(null)
+  const handledFragmentRef = useRef(null)
 
-  // Existing deep links such as /deployed/#atlas-tools still open their group
-  // before the browser tries to scroll to the matching row.
+  // Deep links work on first load and on in-app hash changes. A target takes
+  // precedence over old filters, then its group is expanded before scrolling.
   useEffect(() => {
-    if (!window.location.hash) return undefined
-    let id = window.location.hash.slice(1)
+    if (!location.hash) {
+      handledFragmentRef.current = null
+      const frame = window.requestAnimationFrame(() => setFragmentTarget(null))
+      return () => window.cancelAnimationFrame(frame)
+    }
+    let id = location.hash.slice(1)
     try { id = decodeURIComponent(id) } catch { /* keep the raw fragment */ }
+    if (handledFragmentRef.current === location.hash) return undefined
     const matching = deployed.groups.find((group) => group.items.some((item) => item.id === id))
     if (!matching) return undefined
+    handledFragmentRef.current = location.hash
+    rememberDeployedInstance(id, DEPLOYED_INSTANCE_IDS)
+    const nextSearch = resetDeployedFiltersParams(searchParams).toString()
+    if (nextSearch !== searchParams.toString()) {
+      navigate({ pathname: location.pathname, search: nextSearch ? '?' + nextSearch : '', hash: location.hash }, { replace: true })
+    }
     const frame = window.requestAnimationFrame(() => {
       setFragmentTarget(id)
       setExpandedGroups((current) => new Set([...current, matching.id]))
     })
     return () => window.cancelAnimationFrame(frame)
-  }, [])
+  }, [location.hash, location.pathname, navigate, searchParams])
+
+  useEffect(() => {
+    rememberExpandedDeployGroups(expandedGroups, DEPLOYED_GROUP_IDS)
+  }, [expandedGroups])
 
   useEffect(() => {
     if (!fragmentTarget) return undefined

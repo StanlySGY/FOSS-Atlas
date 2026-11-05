@@ -28,8 +28,15 @@ import { setCategoryFocusParams, setDeployedOnlyParams, setLocalGraphDepthParams
 import { graphViewModeFromParams, setGraphViewModeParams } from '../lib/graphViewState.js'
 import { graphNodeListStateFromParams, setGraphNodeListStateParams } from '../lib/graphNodeListState.js'
 import { EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
+import { rememberGraphContext, rememberGraphNode } from '../lib/userJourney.js'
 
 const ALL_EDGES = Object.keys(EDGE_META)
+// Only catalogue resources can be restored as a focused graph node. Category,
+// tag and external nodes may open a popover, but GraphPage's focus contract is
+// intentionally limited to tool/own records.
+const GRAPH_FOCUS_IDS = new Set(graph.nodes
+  .filter((node) => node.type === 'tool' || node.type === 'own')
+  .map((node) => node.id))
 
 /** Graph node ids → catalogue records, dropping any id with no record. */
 const toResources = (ids) => ids.map((id) => resourceById.get(id)).filter(Boolean)
@@ -64,6 +71,8 @@ const TYPE_BLURB = {
 export default function GraphPage() {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
+  const graphContextKey = searchParams.toString()
+  useEffect(() => { rememberGraphContext(new URLSearchParams(graphContextKey)) }, [graphContextKey])
   const [enabledEdges, setEnabledEdges] = useState(ALL_EDGES)
   const [emphasizeTagEdges, setEmphasizeTagEdges] = useState(false)
   // Below md the three control rows fold behind one button: on a phone they
@@ -198,7 +207,10 @@ export default function GraphPage() {
     [navigate],
   )
 
-  const handleNodeClick = useCallback((node, point) => setPopover({ node, point }), [])
+  const handleNodeClick = useCallback((node, point) => {
+    rememberGraphNode(node.id, GRAPH_FOCUS_IDS)
+    setPopover({ node, point })
+  }, [])
   const handleLocalGraph = useCallback((node) => {
     setPopover(null)
     setSelected(null)

@@ -1,10 +1,16 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { NavLink, Outlet, Link, useLocation, useNavigationType } from 'react-router-dom'
 import BackToTop from './BackToTop.jsx'
 import CommandPalette from './CommandPalette.jsx'
-import { graphStats, RECENT_RESOURCES_KEY, resourceById } from '../lib/data.js'
+import { graphStats, resourceById } from '../lib/data.js'
+import { rememberResourceRead } from '../lib/userJourney.js'
 import { documentTitleForLocation } from '../lib/documentTitle.js'
-import { scrollRestorationAction } from '../lib/scrollRestoration.js'
+import {
+  historyEntryMatchesLocation,
+  savedScrollYFromHistoryState,
+  scrollRestorationAction,
+  withSavedScrollY,
+} from '../lib/scrollRestoration.js'
 
 const navItems = [
   { to: '/', label: '导航', end: true },
@@ -62,24 +68,46 @@ function NavIcon({ name }) {
 }
 
 const MOBILE_ICONS = { '/': 'home', '/graph/': 'graph', '/deployed/': 'server' }
-function rememberWikiVisit(id) {
-  try {
-    const stored = JSON.parse(localStorage.getItem(RECENT_RESOURCES_KEY) || '[]')
-    const previous = Array.isArray(stored) ? stored : []
-    const next = [id, ...previous.filter((value) => typeof value === 'string' && value !== id && resourceById.has(value))].slice(0, 6)
-    localStorage.setItem(RECENT_RESOURCES_KEY, JSON.stringify(next))
-  } catch {
-    // Recent history is a convenience only; private browsing/storage denial must not break navigation.
-  }
-}
+const RESOURCE_IDS = new Set(resourceById.keys())
 
 export default function Layout() {
   const location = useLocation()
   const navigationType = useNavigationType()
   const [paletteOpen, setPaletteOpen] = useState(false)
   const scrollPositions = useRef(new Map())
+  const pendingScrollSnapshot = useRef(null)
   const previousLocation = useRef({ pathname: location.pathname, hash: location.hash })
   const initialNavigation = useRef(true)
+
+  const snapshotBeforeInternalNavigation = useCallback((event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    if (!(event.target instanceof Element)) return
+    const anchor = event.target.closest('a[href]')
+    if (!anchor || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) return
+    const destination = new URL(anchor.href, window.location.href)
+    const current = new URL(window.location.href)
+    if (destination.origin !== current.origin || destination.href === current.href) return
+
+    // Capture before React commits the destination route. Replacing a long
+    // page can trigger scroll anchoring during the commit, before passive cleanup.
+    scrollPositions.current.set(location.key, window.scrollY)
+    const historyState = window.history.state
+    if (historyEntryMatchesLocation(historyState, location.key)) {
+      window.history.replaceState(withSavedScrollY(historyState, location.key, window.scrollY), '')
+    }
+    pendingScrollSnapshot.current = location.key
+  }, [location.key])
+
+  // POP navigation can let the browser adjust the outgoing entry before React
+  // commits the new route. Capture during the event's capture phase so cleanup
+  // cannot replace that entry's position with the browser-adjusted offset.
+  useEffect(() => {
+    const snapshotBeforePop = () => {
+      pendingScrollSnapshot.current = location.key
+    }
+    window.addEventListener('popstate', snapshotBeforePop, true)
+    return () => window.removeEventListener('popstate', snapshotBeforePop, true)
+  }, [location.key])
 
   // Static HTML ships the right title on direct loads; SPA route changes must
   // update it too, or the tab and assistive technology keep announcing the old page.
@@ -89,15 +117,18 @@ export default function Layout() {
 
   useEffect(() => {
     const match = location.pathname.match(/^\/wiki\/([^/]+)\/?$/)
-    if (match && resourceById.has(match[1])) rememberWikiVisit(match[1])
+    if (match && resourceById.has(match[1])) rememberResourceRead(match[1], RESOURCE_IDS)
   }, [location.pathname])
 
   // Keep scroll restoration under the router rather than letting the browser
   // and page-level effects compete. A POP restores the exact history entry;
   // in-place filter changes preserve the viewport; new pages start at the top.
-  useEffect(() => {
+  useLayoutEffect(() => {
     const savedPositions = scrollPositions.current
     const previous = previousLocation.current
+    const historyState = window.history.state
+    const savedY = savedPositions.get(location.key)
+      ?? savedScrollYFromHistoryState(historyState, location.key)
     const action = scrollRestorationAction({
       isInitial: initialNavigation.current,
       navigationType,
@@ -105,10 +136,26 @@ export default function Layout() {
       previousHash: previous.hash,
       pathname: location.pathname,
       hash: location.hash,
-      savedY: savedPositions.get(location.key),
+      savedY,
     })
-
+    let restorationPending = action.type === 'anchor' || action.type === 'restore' || action.type === 'top'
+    const rememberScrollPosition = () => {
+      const currentHistoryState = window.history.state
+      // A PUSH/POP can switch the active history entry before React cleans up
+      // the outgoing route. Never write its browser-adjusted offset into the
+      // new entry or under the old route's key.
+      if (restorationPending) return
+      if (!historyEntryMatchesLocation(currentHistoryState, location.key)) return
+      savedPositions.set(location.key, window.scrollY)
+      window.history.replaceState(withSavedScrollY(currentHistoryState, location.key, window.scrollY), '')
+    }
+    window.addEventListener('scroll', rememberScrollPosition, { passive: true })
     let frame = 0
+    const finishRestoration = (top) => {
+      window.scrollTo({ top })
+      restorationPending = false
+      rememberScrollPosition()
+    }
     if (action.type === 'anchor') {
       frame = window.requestAnimationFrame(() => {
         let id = location.hash.slice(1)
@@ -116,10 +163,25 @@ export default function Layout() {
         const target = document.getElementById(id)
         if (target) target.scrollIntoView({ block: 'start' })
         else window.scrollTo({ top: 0 })
+        restorationPending = false
+        rememberScrollPosition()
       })
-    } else if (action.type === 'restore' || action.type === 'top') {
+    } else if (action.type === 'restore') {
+      let attempts = 0
+      const restoreWhenReachable = () => {
+        const scrollHeight = document.scrollingElement?.scrollHeight ?? document.documentElement.scrollHeight
+        const maxScrollY = Math.max(0, scrollHeight - window.innerHeight)
+        if (action.top <= maxScrollY + 1 || attempts >= 180) {
+          finishRestoration(Math.min(action.top, maxScrollY))
+          return
+        }
+        attempts += 1
+        frame = window.requestAnimationFrame(restoreWhenReachable)
+      }
+      frame = window.requestAnimationFrame(restoreWhenReachable)
+    } else if (action.type === 'top') {
       frame = window.requestAnimationFrame(() => {
-        window.scrollTo({ top: action.type === 'restore' ? action.top : 0 })
+        finishRestoration(0)
       })
     }
 
@@ -127,9 +189,18 @@ export default function Layout() {
     initialNavigation.current = false
 
     return () => {
+      window.removeEventListener('scroll', rememberScrollPosition)
       // The cleanup runs before the next location is applied, so this captures
       // the outgoing entry's actual position (including long Wiki reading).
-      savedPositions.set(location.key, window.scrollY)
+      if (pendingScrollSnapshot.current === location.key) {
+        pendingScrollSnapshot.current = null
+      } else if (!restorationPending) {
+        const currentHistoryState = window.history.state
+        if (historyEntryMatchesLocation(currentHistoryState, location.key)) {
+          savedPositions.set(location.key, window.scrollY)
+          window.history.replaceState(withSavedScrollY(currentHistoryState, location.key, window.scrollY), '')
+        }
+      }
       if (savedPositions.size > 100) {
         const oldest = savedPositions.keys().next().value
         savedPositions.delete(oldest)
@@ -182,7 +253,7 @@ export default function Layout() {
   }, [location.pathname])
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col" onClickCapture={snapshotBeforeInternalNavigation}>
       <a href="#main" className="fa-skip">
         跳到主内容
       </a>

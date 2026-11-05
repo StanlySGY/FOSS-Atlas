@@ -1,15 +1,11 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { deployedStats, graphStats, pickRandomResource, RECENT_RESOURCES_KEY, resourceById, resources } from '../lib/data.js'
+import { deployedStats, graphStats, pickRandomResource, resourceById, resources } from '../lib/data.js'
+import useUserJourney from '../hooks/useUserJourney.js'
+import { readLastDeployedInstance, readLastGraphUrl, readLastWikiReading } from '../lib/userJourney.js'
 
-function readRecentIds() {
-  try {
-    const value = JSON.parse(localStorage.getItem(RECENT_RESOURCES_KEY) || '[]')
-    return Array.isArray(value) ? [...new Set(value.filter((id) => typeof id === 'string' && resourceById.has(id)))].slice(0, 6) : []
-  } catch {
-    return []
-  }
-}
+const RESOURCE_IDS = new Set(resources.map((resource) => resource.id))
+const DEPLOYED_INSTANCE_IDS = new Set(resources.flatMap((resource) => (resource.instances ?? []).map((instance) => instance.id)))
 
 /*
  * 全站命令面板 — ⌘K / Ctrl+K 或 `/` 唤起，IT-Tools 的搜索优先 + Dashy 的键盘
@@ -74,7 +70,7 @@ export default function CommandPalette({ onClose }) {
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
-  const [recentIds] = useState(readRecentIds)
+  const { favorites, recentIds } = useUserJourney(RESOURCE_IDS)
   const inputRef = useRef(null)
   const listRef = useRef(null)
   const dialogRef = useRef(null)
@@ -82,30 +78,53 @@ export default function CommandPalette({ onClose }) {
   useEffect(() => {
     const previousOverflow = document.body.style.overflow
     const restoreTo = document.activeElement
+    const openedAtPath = window.location.pathname
     document.body.style.overflow = 'hidden'
     const t = setTimeout(() => inputRef.current?.focus(), 10)
     return () => {
       clearTimeout(t)
       document.body.style.overflow = previousOverflow
-      restoreTo?.focus?.()
+      // A route transition owns its new focus target; only restore the opener
+      // when the palette closes without navigating away from the current page.
+      if (window.location.pathname === openedAtPath) restoreTo?.focus?.()
     }
   }, [])
 
   const items = useMemo(() => {
     const q = query.trim().toLowerCase()
     if (!q) {
-      // Keep the empty state useful: quick actions first, then recently read Wiki pages.
+      // Keep the empty state useful: quick actions, exact resume points, recent reading and favorites.
       const actions = QUICK_ACTIONS.map((item) => ({ ...item, section: '快速操作' }))
-      const recent = recentIds.map((id) => resourceById.get(id)).filter(Boolean).map((resource) => ({
-        id: `recent:${resource.id}`,
-        label: resource.name,
-        hint: resource.description,
-        meta: '最近阅读',
-        recent: true,
-        to: `/wiki/${resource.id}/`,
-        section: '最近阅读',
+      const lastWiki = readLastWikiReading(RESOURCE_IDS)
+      const lastGraph = readLastGraphUrl()
+      const lastInstance = readLastDeployedInstance(DEPLOYED_INSTANCE_IDS)
+      const resume = []
+      if (lastWiki) {
+        const resource = resourceById.get(lastWiki.id)
+        if (resource) resume.push({
+          id: 'resume:wiki:' + resource.id,
+          label: '继续阅读：' + resource.name,
+          hint: lastWiki.heading ? '上次读到章节：' + lastWiki.heading : resource.description,
+          meta: 'Wiki 阅读进度',
+          to: '/wiki/' + resource.id + '/' + (lastWiki.heading ? '#' + encodeURIComponent(lastWiki.heading) : ''),
+          section: '继续上次',
+        })
+      }
+      if (lastGraph) resume.push({ id: 'resume:graph', label: '继续上次的图谱探索', hint: lastGraph, meta: '图谱筛选与焦点', to: lastGraph, section: '继续上次' })
+      if (lastInstance) resume.push({ id: 'resume:instance:' + lastInstance, label: '继续查看实例：' + lastInstance, hint: '恢复所属分组并定位到实例', meta: '自部署服务', to: '/deployed/#' + encodeURIComponent(lastInstance), section: '继续上次' })
+      const recent = recentIds.filter((id) => id !== lastWiki?.id).map((id) => resourceById.get(id)).filter(Boolean).map((resource) => ({
+        id: 'recent:' + resource.id, label: resource.name, hint: resource.description, meta: '最近阅读', recent: true,
+        to: '/wiki/' + resource.id + '/', section: '最近阅读',
       }))
-      return [...actions, ...recent]
+      const saved = favorites.slice(0, 8).map((id) => resourceById.get(id)).filter(Boolean).map((resource) => ({
+        id: 'saved:' + resource.id, label: resource.name, hint: resource.description, meta: '我的收藏',
+        to: '/wiki/' + resource.id + '/', section: '我的收藏',
+      }))
+      if (favorites.length > 8) saved.push({
+        id: 'saved:all', label: '查看全部收藏', hint: `共收藏 ${favorites.length} 个资源`, meta: '资源目录',
+        to: '/?saved=1', section: '我的收藏',
+      })
+      return [...actions, ...resume, ...recent, ...saved]
     }
     const matched = resources
       .map((r) => ({ r, s: scoreResource(r, q) }))
@@ -125,7 +144,7 @@ export default function CommandPalette({ onClose }) {
       (a) => ({ ...a, page: true }),
     )
     return [...pages.map((item) => ({ ...item, section: '快速操作' })), ...matched.map((item) => ({ ...item, section: '资源' }))]
-  }, [query, recentIds])
+  }, [query, recentIds, favorites])
 
   /*
    * 选中的下标在渲染期收进结果集边界：过滤把列表收窄后，旧下标自然落回最后
@@ -140,12 +159,13 @@ export default function CommandPalette({ onClose }) {
   }, [clampedActive, items])
 
   const run = (item) => {
-    onClose()
+    // Navigate before unmounting the palette so resume deep links complete inside the live router tree.
     if (item.action === 'random') {
-      const picked = pickRandomResource(recentIds)
-      if (picked) navigate(`/wiki/${picked.id}/`)
+      const picked = pickRandomResource([...recentIds, ...favorites])
+      if (picked) navigate('/wiki/' + picked.id + '/')
     } else if (item.href) window.open(item.href, '_blank', 'noopener,noreferrer')
     else if (item.to) navigate(item.to)
+    onClose()
   }
 
   const onKey = (event) => {

@@ -94,7 +94,7 @@ test('catalogue prioritizes search, discloses filters on demand, and progressive
   assert.match(home, /onClick=\{\(\)=>setSavedOnly\(false\)\}>我的收藏/)
   assert.doesNotMatch(home, /setFavoritesOnly/)
   assert.match(home, /随便逛逛/)
-  assert.match(home, /pickRandomResource\(favorites\)/)
+  assert.match(home, /pickRandomResource\(\[\.\.\.favorites,\.\.\.recentIds\]\)/)
 })
 
 test('resource comparison dialog moves focus inside, traps Tab, and restores focus on close', () => {
@@ -123,11 +123,12 @@ test('resource comparison dialog moves focus inside, traps Tab, and restores foc
 test('global switcher keeps recent Wiki visits locally and supports random discovery and keyboard focus management', () => {
   const layout = read('src/components/Layout.jsx')
   const palette = read('src/components/CommandPalette.jsx')
+  const journey = read('src/lib/userJourney.js')
   const data = read('src/lib/data.js')
-  assert.match(data, /RECENT_RESOURCES_KEY = 'foss-atlas:recent-resources'/)
-  assert.match(layout, /RECENT_RESOURCES_KEY/)
-  assert.match(palette, /RECENT_RESOURCES_KEY/)
-  assert.match(layout, /rememberWikiVisit\(match\[1\]\)/)
+  assert.match(journey, /RECENT_RESOURCES_KEY = 'foss-atlas:recent-resources'/)
+  assert.match(layout, /rememberResourceRead\(match\[1\]/)
+  assert.match(palette, /readLastWikiReading/)
+  assert.match(palette, /继续上次/)
   assert.match(layout, /location\.pathname !== '\/'/)
   assert.match(palette, /最近阅读/)
   assert.match(palette, /快速操作/)

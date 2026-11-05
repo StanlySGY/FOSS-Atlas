@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import ResourceCard from '../components/ResourceCard.jsx'
+import useUserJourney from '../hooks/useUserJourney.js'
 import { PageHeader, SectionHeading } from '../components/PageHeader.jsx'
 import FeaturedBuilds from '../components/FeaturedBuilds.jsx'
 import { OFFER_FILTERS, getOffering, matchesOfferFilter } from '../lib/offerings.js'
@@ -17,11 +18,8 @@ import {
 } from '../lib/catalogFilterState.js'
 import { categories, countByCategory, countBySubCategory, deployedStats, pickRandomResource, resources, subCategoriesByCategory } from '../lib/data.js'
 
-const FAVORITES_KEY = 'foss-atlas:favorites'
+const RESOURCE_IDS = new Set(resources.map((resource) => resource.id))
 const VIEW_KEY = 'foss-atlas:catalog-view'
-const readFavorites = () => {
-  try { const value=JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]'); return Array.isArray(value)?value.filter((id)=>typeof id==='string'):[] } catch { return [] }
-}
 const readView = () => { try { return localStorage.getItem(VIEW_KEY)==='list'?'list':'grid' } catch { return 'grid' } }
 const matchesSearch = (resource,query) => {
   if (!query) return true
@@ -41,7 +39,7 @@ export default function Home() {
   const [query,setQuery]=useState(()=>queryFromSearchParams(searchParams))
   const [visibleCount,setVisibleCount]=useState(24)
   const [filtersOpen,setFiltersOpen]=useState(false)
-  const [favorites,setFavorites]=useState(readFavorites)
+  const { favorites, recentIds, toggleFavorite } = useUserJourney(RESOURCE_IDS)
   const [viewFallback,setViewFallback]=useState(readView)
   const view=catalogViewFromSearchParams(searchParams,viewFallback)
   const sort=catalogSortFromSearchParams(searchParams)
@@ -61,7 +59,6 @@ export default function Home() {
   const activeCategoryName=categories.find((item)=>item.id===activeCategory)?.name
 
   useEffect(()=>{const next=queryFromSearchParams(searchParams);if(next!==query)setQuery(next);/* eslint-disable-next-line react-hooks/exhaustive-deps */},[searchParams])
-  useEffect(()=>{try{localStorage.setItem(FAVORITES_KEY,JSON.stringify(favorites))}catch{/* optional */}},[favorites])
   useEffect(()=>{try{localStorage.setItem(VIEW_KEY,view)}catch{/* optional */}},[view])
   useEffect(()=>{setVisibleCount(matchMedia('(max-width: 639px)').matches?8:24)},[query,activeCategory,activeSub,deployedOnly,activeOffer,favoritesOnly])
   useEffect(()=>{if(!toast)return undefined;const timer=setTimeout(()=>setToast(''),1800);return()=>clearTimeout(timer)},[toast])
@@ -133,7 +130,7 @@ export default function Home() {
   const changeView=(value)=>{setViewFallback(value);setSearchParams((previous)=>setCatalogViewParams(previous,value),{replace:true})}
   const resetFilters=()=>{setQuery('');setSearchParams((previous)=>resetCatalogFiltersParams(previous),{replace:true})}
   const exploreRandom=()=>{
-    const picked=pickRandomResource(favorites)
+    const picked=pickRandomResource([...favorites,...recentIds])
     if(picked)navigate(`/wiki/${picked.id}/`)
   }
 
@@ -151,9 +148,9 @@ export default function Home() {
     return result
   },[query,deployedOnly,favoritesOnly,favorites,activeCategory,activeSub,activeOffer,sort])
 
-  const toggleFavorite=(id)=>{
+  const handleFavoriteToggle=(id)=>{
     const saved=favorites.includes(id)
-    setFavorites((previous)=>saved?previous.filter((value)=>value!==id):[...previous,id])
+    toggleFavorite(id)
     setToast(saved?'已从收藏中移除':'已加入收藏')
   }
   const toggleCompare=(id)=>setCompareIds((previous)=>{
@@ -223,7 +220,7 @@ export default function Home() {
         <SectionHeading eyebrow={activeCategoryName??(favoritesOnly?'SAVED RESOURCES':deployedOnly?'RUNNING SERVICES':'RESOURCE LIBRARY')} title={query.trim()?'搜索结果':activeCategoryName??(favoritesOnly?'我的收藏':deployedOnly?'已部署资源':'探索资源')} meta={filtered.length+' 项'} description={hasActiveFilters?'当前条件下的匹配结果。可以继续组合筛选，或打开 Wiki 查看详细信息。':'每张卡片都可以进入 Wiki 深入了解，也可以直接访问原始项目。'}/>
         {filtered.length?<>
           <div className={view==='grid'?'fa-resource-grid fa-discovery-grid':'fa-resource-grid fa-discovery-grid is-list'}>
-            {filtered.slice(0,visibleCount).map((resource,index)=><ResourceCard key={resource.id} resource={resource} index={index} isFavorite={favorites.includes(resource.id)} isCompared={compareIds.includes(resource.id)} onFavorite={()=>toggleFavorite(resource.id)} onCompare={()=>toggleCompare(resource.id)} view={view}/>)}
+            {filtered.slice(0,visibleCount).map((resource,index)=><ResourceCard key={resource.id} resource={resource} index={index} isFavorite={favorites.includes(resource.id)} isCompared={compareIds.includes(resource.id)} onFavorite={()=>handleFavoriteToggle(resource.id)} onCompare={()=>toggleCompare(resource.id)} view={view}/>)}
           </div>
           <div className="fa-discovery-load-more"><span>已显示 {Math.min(visibleCount,filtered.length)} / {filtered.length}</span>{filtered.length>visibleCount?<button type="button" onClick={()=>setVisibleCount((count)=>count+(matchMedia('(max-width: 639px)').matches?8:24))}>加载更多资源 <span>+{Math.min(24,filtered.length-visibleCount)}</span></button>:<span>已显示全部</span>}</div>
         </>:<div className="fa-discovery-empty"><strong>{favoritesOnly?'还没有收藏资源':'没有匹配的资源'}</strong><p>{favoritesOnly?'点击卡片上的星标，把常用工具留在这里。':'换个关键词，或者清除部分筛选条件再试试。'}</p><button type="button" onClick={resetFilters}>清除筛选</button></div>}

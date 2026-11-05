@@ -3,7 +3,12 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { graphNodeListStateFromParams, setGraphNodeListStateParams } from '../../src/lib/graphNodeListState.js'
 import { countWikiNavTools, filterWikiNavTree } from '../../src/lib/wikiNavFilter.js'
-import { scrollRestorationAction } from '../../src/lib/scrollRestoration.js'
+import {
+  historyEntryMatchesLocation,
+  savedScrollYFromHistoryState,
+  scrollRestorationAction,
+  withSavedScrollY,
+} from '../../src/lib/scrollRestoration.js'
 
 test('cross-page navigation preserves filter scroll, restores POP entries, and prioritizes hash anchors', () => {
   assert.deepEqual(scrollRestorationAction({ isInitial: true, pathname: '/', previousPathname: '/' }), { type: 'top' })
@@ -17,6 +22,40 @@ test('cross-page navigation preserves filter scroll, restores POP entries, and p
   assert.deepEqual(scrollRestorationAction({ navigationType: 'REPLACE', previousPathname: '/deployed', pathname: '/deployed', previousHash: '#atlas-tools', hash: '' }), { type: 'preserve' })
 })
 
+test('scroll snapshots are stored per history entry, including the initial default entry', () => {
+  const initialState = { idx: 0 }
+  assert.equal(historyEntryMatchesLocation(initialState, 'default'), true)
+  assert.equal(historyEntryMatchesLocation({ key: 'graph-1', idx: 1 }, 'graph-1'), true)
+  assert.equal(historyEntryMatchesLocation({ key: 'graph-1', idx: 1 }, 'default'), false)
+
+  const initialWithScroll = withSavedScrollY(initialState, 'default', 700)
+  assert.deepEqual(initialWithScroll, { idx: 0, __faScrollY: 700 })
+  assert.equal(savedScrollYFromHistoryState(initialWithScroll, 'default'), 700)
+
+  const graphState = { usr: { source: 'home' }, key: 'graph-1', idx: 1 }
+  const graphWithScroll = withSavedScrollY(graphState, 'graph-1', 480)
+  assert.deepEqual(graphWithScroll, { ...graphState, __faScrollY: 480 })
+  assert.equal(savedScrollYFromHistoryState(graphWithScroll, 'graph-1'), 480)
+  assert.equal(savedScrollYFromHistoryState(graphWithScroll, 'another-entry'), undefined)
+  assert.equal(savedScrollYFromHistoryState({ key: 'graph-1', __faScrollY: -8 }, 'graph-1'), 0)
+  assert.deepEqual(withSavedScrollY(graphState, 'another-entry', 900), graphState)
+})
+
+test('history-keyed scroll snapshots preserve router state and reject stale entries', () => {
+  const initial = { usr: { from: 'initial' }, key: 'default' }
+  assert.equal(historyEntryMatchesLocation(initial, 'default'), true)
+  assert.equal(historyEntryMatchesLocation({ key: 'other' }, 'default'), false)
+  assert.equal(savedScrollYFromHistoryState({ key: 'route-a', __faScrollY: 930 }, 'route-a'), 930)
+  assert.equal(savedScrollYFromHistoryState({ key: 'route-b', __faScrollY: 930 }, 'route-a'), undefined)
+  assert.equal(savedScrollYFromHistoryState({ key: 'route-a', __faScrollY: -2 }, 'route-a'), 0)
+  assert.equal(savedScrollYFromHistoryState({ key: 'route-a', __faScrollY: '930' }, 'route-a'), undefined)
+  assert.deepEqual(withSavedScrollY({ usr: { from: 'wiki' }, key: 'route-a' }, 'route-a', 1250), {
+    usr: { from: 'wiki' }, key: 'route-a', __faScrollY: 1250,
+  })
+  assert.equal(withSavedScrollY({ key: 'route-b' }, 'route-a', 1250).key, 'route-b')
+  assert.equal(withSavedScrollY({ key: 'route-a' }, 'route-a', Number.NaN).__faScrollY, 0)
+})
+
 test('the shared route shell owns scroll restoration and Wiki pages do not override browser Back', () => {
   const layout = readFileSync(new URL('../../src/components/Layout.jsx', import.meta.url), 'utf8')
   const wiki = readFileSync(new URL('../../src/pages/WikiPage.jsx', import.meta.url), 'utf8')
@@ -24,8 +63,18 @@ test('the shared route shell owns scroll restoration and Wiki pages do not overr
   assert.match(layout, /scrollRestorationAction\(/)
   assert.match(layout, /scrollPositions = useRef\(new Map\(\)\)/)
   assert.match(layout, /savedPositions\.set\(location\.key, window\.scrollY\)/)
+  assert.match(layout, /onClickCapture=\{snapshotBeforeInternalNavigation\}/)
+  assert.match(layout, /addEventListener\('popstate', snapshotBeforePop, true\)/)
+  assert.match(layout, /addEventListener\('scroll', rememberScrollPosition, \{ passive: true \}\)/)
+  assert.match(layout, /savedScrollYFromHistoryState\(historyState, location\.key\)/)
+  assert.match(layout, /withSavedScrollY\(/)
+  assert.doesNotMatch(layout, /__faScrollTrace/)
   assert.match(layout, /window\.history\.scrollRestoration = 'manual'/)
-  assert.match(layout, /action\.type === 'restore' \|\| action\.type === 'top'/)
+  assert.match(layout, /let restorationPending = action\.type === 'anchor' \|\| action\.type === 'restore' \|\| action\.type === 'top'/)
+  assert.match(layout, /if \(restorationPending\) return/)
+  assert.match(layout, /document\.scrollingElement\?\.scrollHeight/)
+  assert.match(layout, /action\.top <= maxScrollY \+ 1 \|\| attempts >= 180/)
+  assert.match(layout, /finishRestoration\(Math\.min\(action\.top, maxScrollY\)\)/)
   assert.doesNotMatch(wiki, /window\.scrollTo\(\{ top: 0 \}\)/)
 })
 
