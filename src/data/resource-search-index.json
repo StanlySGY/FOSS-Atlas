@@ -252,7 +252,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "AI 代码补全",
+      "代码补全",
+      "AI 编程助手",
+      "AI code completion"
+    ]
   },
   "cline": {
     "summary": "开源的 VSCode AI 编程 Agent，能读文件、跑命令并直接改动代码。",
@@ -282,7 +287,14 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "AI 代码补全",
+      "IDE 代码补全",
+      "代码补全",
+      "AI 编程助手",
+      "本地推理后端",
+      "Ollama 后端"
+    ]
   },
   "cody": {
     "summary": "Sourcegraph 出品的 AI 编程助手，擅长基于代码检索来回答问题。",
@@ -326,8 +338,15 @@
       "团队先免费试用再决定是否采购"
     ],
     "usage": [],
-    "aliases": [],
-    "keywords": []
+    "aliases": [
+      "Windsurf"
+    ],
+    "keywords": [
+      "AI 代码补全",
+      "代码助手",
+      "代码自动补全",
+      "IDE 补全"
+    ]
   },
   "aider": {
     "summary": "命令行里的 AI 结对编程工具，直接读写本地仓库并自动生成提交。",
@@ -350,7 +369,14 @@
     "scenarios": [],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "本地模型",
+      "本地大模型",
+      "本地 LLM",
+      "模型下载运行",
+      "本地模型 API",
+      "OpenAI 兼容本地 API"
+    ]
   },
   "lm-studio": {
     "summary": "图形化的本地大模型客户端，方便下载、运行并调试开源模型。",
@@ -379,8 +405,16 @@
       "需要同时试验多种模型格式的用户"
     ],
     "usage": [],
-    "aliases": [],
-    "keywords": []
+    "aliases": [
+      "oobabooga",
+      "TextGen WebUI"
+    ],
+    "keywords": [
+      "本地模型 WebUI",
+      "本地模型前端",
+      "模型推理界面",
+      "角色扮演"
+    ]
   },
   "jan": {
     "summary": "开源的本地 AI 桌面客户端，把模型下载与对话整合进一个应用。",
@@ -410,7 +444,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "本地模型",
+      "本地大模型",
+      "离线模型运行",
+      "本地 LLM"
+    ]
   },
   "neo-chat": {
     "summary": "本地优先的 AI 对话工作台，把各家模型、RAG 知识库和插件收进一个界面，数据留在本机。",
@@ -515,7 +554,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "AI 应用编排",
+      "智能体工作流",
+      "Agent 工作流",
+      "RAG 应用"
+    ]
   },
   "flowise": {
     "summary": "拖拽式的 LLM 编排工具，用可视化节点搭出对话与 Agent 工作流。",
@@ -530,7 +574,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "AI 应用编排",
+      "智能体工作流",
+      "Agent 工作流",
+      "可视化编排"
+    ]
   },
   "fastgpt": {
     "summary": "开源的知识库问答平台，围绕 RAG 提供数据导入与流程编排能力。",
@@ -560,7 +609,13 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "AI 应用编排",
+      "智能体工作流",
+      "Agent 工作流",
+      "RAG 工作流",
+      "可视化编排"
+    ]
   },
   "new-api": {
     "summary": "多模型 API 网关：把各家 LLM 接口聚合成一套 OpenAI 兼容端点，再分发给自己的应用。",
@@ -703,7 +758,17 @@
     "scenarios": [],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "边缘计算",
+      "Workers",
+      "Pages",
+      "R2 对象存储",
+      "D1 数据库",
+      "KV 存储",
+      "CDN",
+      "免费 DNS",
+      "Serverless 部署"
+    ]
   },
   "render": {
     "summary": "Render 是一站式托管平台，可以免费部署 Web 服务、静态站点与后台任务。",
@@ -718,7 +783,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "云端部署",
+      "应用托管",
+      "Web 服务托管",
+      "持续部署"
+    ]
   },
   "railway": {
     "summary": "Railway 通过连接代码仓库自动构建部署应用，新账号每月会获得一定的试用额度。",
@@ -733,7 +803,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "云端部署",
+      "应用托管",
+      "后端托管",
+      "持续部署"
+    ]
   },
   "fly-io": {
     "summary": "Fly.io 把应用跑在靠近用户的边缘节点上，免费层可以开 3 台小型共享 CPU 实例。",
@@ -748,7 +823,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "云端部署",
+      "应用托管",
+      "边缘部署",
+      "多区域部署"
+    ]
   },
   "koyeb": {
     "summary": "Koyeb 是面向开发者的无服务器 PaaS，提供入门级 nano 实例用于跑常驻服务。",
@@ -763,7 +843,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "云端部署",
+      "应用托管",
+      "无服务器部署",
+      "持续部署"
+    ]
   },
   "supabase": {
     "summary": "Supabase 是开源的 Firebase 替代方案，免费层提供托管 Postgres 与认证、存储等后端能力。",
@@ -958,7 +1043,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "域名证书",
+      "免费 HTTPS 证书",
+      "SSL 证书",
+      "ACME 证书"
+    ]
   },
   "zerossl": {
     "summary": "ZeroSSL 提供免费的 DV 证书，可以走 ACME 协议自动签发，也能在网页面板上申请。",
@@ -973,7 +1063,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "域名证书",
+      "免费 HTTPS 证书",
+      "SSL 证书",
+      "ACME 证书"
+    ]
   },
   "cloudflare-origin-ca": {
     "summary": "Cloudflare 的源站证书，专门用来加密 Cloudflare 与源服务器之间的那段连接。",
@@ -988,7 +1083,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "域名证书",
+      "源站证书",
+      "Cloudflare 源站 HTTPS",
+      "SSL 证书"
+    ]
   },
   "buypass-go": {
     "summary": "Buypass Go SSL 是基于 ACME 协议的免费证书服务，签发证书的有效期比常见方案更长。",
@@ -1003,7 +1103,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "域名证书",
+      "免费 HTTPS 证书",
+      "SSL 证书",
+      "ACME 证书"
+    ]
   },
   "uptimerobot": {
     "summary": "UptimeRobot 提供网站可用性监控，免费账户可建多个监控项，服务宕机时发出告警。",
@@ -1018,7 +1123,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "网站监控",
+      "站点可用性",
+      "HTTP 监控",
+      "宕机告警"
+    ]
   },
   "better-stack": {
     "summary": "Better Stack 把可用性监控、日志与事件管理合在一处，免费层提供基础的监控额度。",
@@ -1071,7 +1181,16 @@
     "scenarios": [],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "自建网盘",
+      "私有网盘",
+      "私有云盘",
+      "文件同步",
+      "团队云盘",
+      "Google Drive 替代",
+      "Google Workspace 替代",
+      "文档协作"
+    ]
   },
   "seafile": {
     "summary": "高性能的开源网盘系统，主打大文件同步与团队资料库。",
@@ -1169,8 +1288,16 @@
     "features": [],
     "scenarios": [],
     "usage": [],
-    "aliases": [],
-    "keywords": []
+    "aliases": [
+      "bitwarden_rs"
+    ],
+    "keywords": [
+      "密码管理器",
+      "自建密码库",
+      "私有密码库",
+      "Bitwarden 自建",
+      "密码管理服务"
+    ]
   },
   "jellyfin": {
     "summary": "开源自建的媒体服务器，统一管理自己的电影、剧集和音乐。",
@@ -1193,7 +1320,15 @@
     "scenarios": [],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "自建相册",
+      "私有相册",
+      "手机照片备份",
+      "自动照片备份",
+      "Google Photos 替代",
+      "照片管理",
+      "人脸识别相册"
+    ]
   },
   "matrix-synapse": {
     "summary": "Matrix 协议的参考服务端，用来搭建去中心化即时通讯。",
@@ -1223,7 +1358,14 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "服务器监控",
+      "网站监控",
+      "服务可用性",
+      "HTTP 监控",
+      "TCP 监控",
+      "Ping 监控"
+    ]
   },
   "shlink": {
     "summary": "自建短链接服务，用来生成属于自己域名的短网址并统计点击。",
@@ -1238,7 +1380,14 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "短链接",
+      "短网址",
+      "URL 缩短",
+      "点击统计",
+      "访问来源统计",
+      "自建短链"
+    ]
   },
   "qbittorrent": {
     "summary": "开源 BT 下载客户端，界面接近常见的桌面下载工具。",
@@ -1298,7 +1447,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "自建 Git 仓库",
+      "私有 Git 仓库",
+      "代码托管",
+      "GitHub 替代"
+    ]
   },
   "forgejo": {
     "summary": "社区驱动的 Gitea 分支，强调开放治理与自托管。",
@@ -1313,7 +1467,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "自建 Git 仓库",
+      "私有 Git 仓库",
+      "代码托管",
+      "GitHub 替代"
+    ]
   },
   "woodpecker": {
     "summary": "轻量级 CI/CD 工具，用容器流水线自动构建与部署。",
@@ -1373,7 +1532,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "Docker 管理面板",
+      "容器管理面板",
+      "Linux 服务器面板",
+      "VPS 运维面板"
+    ]
   },
   "casaos": {
     "summary": "面向家庭服务器的轻量级面板，用极简界面管理 Docker 应用与本地存储。",
@@ -1388,7 +1552,15 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "Docker 管理面板",
+      "家庭服务器面板",
+      "NAS 面板",
+      "自托管应用管理",
+      "容器管理面板",
+      "家庭云",
+      "家庭服务器"
+    ]
   },
   "ddns-go": {
     "summary": "自动把本机变化的公网 IP 同步到域名解析记录，解决动态 IP 无法固定访问的问题。",
@@ -1628,7 +1800,14 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "文件同步",
+      "多设备同步",
+      "P2P 文件同步",
+      "私有文件同步",
+      "增量同步",
+      "局域网文件同步"
+    ]
   },
   "vikunja": {
     "summary": "自建看板与待办任务管理，提供 Web、桌面与移动端，数据完全自持。",
@@ -2033,7 +2212,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "邮件校验",
+      "邮箱校验 API",
+      "一次性邮箱检测",
+      "临时邮箱检测"
+    ]
   },
   "textbelt": {
     "summary": "短信发送接口，免费档每天可发送一条短信，适合测试。",
@@ -2078,7 +2262,11 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "短链接",
+      "短网址",
+      "URL 缩短"
+    ]
   },
   "tinyurl": {
     "summary": "老牌免费短链接服务，可将长网址压缩为固定域名的短链。",
@@ -2093,7 +2281,11 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "短链接",
+      "短网址",
+      "URL 缩短"
+    ]
   },
   "hcaptcha": {
     "summary": "注重隐私的人机验证服务，可替代 reCAPTCHA 用于表单防护。",
@@ -2517,7 +2709,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "局域网文件传输",
+      "局域网互传",
+      "跨设备传文件",
+      "AirDrop 替代"
+    ]
   },
   "stirling-pdf": {
     "summary": "可自建的 PDF 工具箱，把合并、拆分、转换与加水印等操作集中在一个网页界面。",
@@ -2532,7 +2729,15 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "PDF 编辑",
+      "PDF 文件处理",
+      "PDF 合并",
+      "PDF 拆分",
+      "PDF 压缩",
+      "PDF 转换",
+      "PDF OCR"
+    ]
   },
   "it-tools": {
     "summary": "面向开发者的在线小工具合集，把哈希、编码、正则测试等零散需求集中到一处。",
@@ -2562,7 +2767,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "自动化工作流",
+      "跨应用自动化",
+      "无代码自动化",
+      "Zapier 替代"
+    ]
   },
   "activepieces": {
     "summary": "开源的无代码自动化平台，用现成组件搭建跨应用流程，并支持自建部署。",
@@ -2577,7 +2787,12 @@
     ],
     "usage": [],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "自动化工作流",
+      "跨应用自动化",
+      "无代码自动化",
+      "Zapier 替代"
+    ]
   },
   "homarr": {
     "summary": "自建服务的导航首页面板，用图标卡片集中管理家里或服务器上的各种服务入口。",
@@ -2626,7 +2841,14 @@
       "已登记的接口入口包括 POST /api/shorten、/stats/<短码> 统计页和 /api/list 链接清单。"
     ],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "短链接",
+      "短网址",
+      "URL 缩短",
+      "点击统计",
+      "短链点击分析",
+      "自建短链"
+    ]
   },
   "paste": {
     "summary": "临时文本分享：粘贴即生成链接，附带纯文本端点，内容上限 60KB；新建分享保留 7 天。",
@@ -2742,7 +2964,13 @@
       "读取 format_valid、disposable、has_mx、mx 和 blocklist_size 等字段，按业务策略自行决定是否继续注册或发信。"
     ],
     "aliases": [],
-    "keywords": []
+    "keywords": [
+      "邮件校验",
+      "邮箱校验 API",
+      "一次性邮箱检测",
+      "MX 记录查询",
+      "域名邮箱验证"
+    ]
   },
   "atlas-geo": {
     "summary": "地理编码与逆地理编码 API：通过地名查找坐标，或通过坐标反查附近地点与地址。",

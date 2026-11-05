@@ -4,6 +4,8 @@ slug: vaultwarden
 category: selfhost
 sub_category: selfhost-core
 tags: [密码管理, Bitwarden, 开源, Rust]
+searchAliases: [bitwarden_rs]
+searchKeywords: [密码管理器, 自建密码库, 私有密码库, Bitwarden 自建, 密码管理服务]
 url: https://github.com/dani-garcia/vaultwarden
 repo: https://github.com/dani-garcia/vaultwarden
 license: AGPL-3.0

@@ -58,6 +58,7 @@ export default {
       '部署个人博客或副业小项目',
       '替代需要常驻的 Web 服务',
     ],
+    keywords: ["云端部署","应用托管","Web 服务托管","持续部署"],
   },
   'railway': {
     summary: 'Railway 通过连接代码仓库自动构建部署应用，新账号每月会获得一定的试用额度。',
@@ -70,6 +71,7 @@ export default {
       '快速上线需要后端的小项目',
       '托管机器人等需要常驻的应用',
     ],
+    keywords: ["云端部署","应用托管","后端托管","持续部署"],
   },
   'fly-io': {
     summary: 'Fly.io 把应用跑在靠近用户的边缘节点上，免费层可以开 3 台小型共享 CPU 实例。',
@@ -82,6 +84,7 @@ export default {
       '部署低流量的 API 或小服务',
       '体验边缘部署与多区域容灾',
     ],
+    keywords: ["云端部署","应用托管","边缘部署","多区域部署"],
   },
   'koyeb': {
     summary: 'Koyeb 是面向开发者的无服务器 PaaS，提供入门级 nano 实例用于跑常驻服务。',
@@ -94,6 +97,7 @@ export default {
       '托管小型 API 与后台常驻服务',
       '个人项目的持续部署与迭代',
     ],
+    keywords: ["云端部署","应用托管","无服务器部署","持续部署"],
   },
   'supabase': {
     summary: 'Supabase 是开源的 Firebase 替代方案，免费层提供托管 Postgres 与认证、存储等后端能力。',
@@ -250,6 +254,7 @@ export default {
       '给自建站点开启 HTTPS',
       '配合 certbot 等工具做自动续期',
     ],
+    keywords: ["域名证书","免费 HTTPS 证书","SSL 证书","ACME 证书"],
   },
   'zerossl': {
     summary: 'ZeroSSL 提供免费的 DV 证书，可以走 ACME 协议自动签发，也能在网页面板上申请。',
@@ -262,6 +267,7 @@ export default {
       '给个人站点申请一张免费证书',
       '在支持 ACME 的平台上自动续期',
     ],
+    keywords: ["域名证书","免费 HTTPS 证书","SSL 证书","ACME 证书"],
   },
   'cloudflare-origin-ca': {
     summary: 'Cloudflare 的源站证书，专门用来加密 Cloudflare 与源服务器之间的那段连接。',
@@ -274,6 +280,7 @@ export default {
       '为接入 Cloudflare 的源站配 HTTPS',
       '免去源站证书频繁续期的麻烦',
     ],
+    keywords: ["域名证书","源站证书","Cloudflare 源站 HTTPS","SSL 证书"],
   },
   'buypass-go': {
     summary: 'Buypass Go SSL 是基于 ACME 协议的免费证书服务，签发证书的有效期比常见方案更长。',
@@ -286,6 +293,7 @@ export default {
       '作为主流免费 ACME 服务的备选',
       '需要更长有效期以减少续期频率',
     ],
+    keywords: ["域名证书","免费 HTTPS 证书","SSL 证书","ACME 证书"],
   },
   'uptimerobot': {
     summary: 'UptimeRobot 提供网站可用性监控，免费账户可建多个监控项，服务宕机时发出告警。',
@@ -298,6 +306,7 @@ export default {
       '监控个人站点是否在线可访问',
       '在服务异常时及时收到通知',
     ],
+    keywords: ["网站监控","站点可用性","HTTP 监控","宕机告警"],
   },
   'better-stack': {
     summary: 'Better Stack 把可用性监控、日志与事件管理合在一处，免费层提供基础的监控额度。',

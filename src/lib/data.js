@@ -134,9 +134,12 @@ export function searchAliasesFor(resourceId) {
 }
 
 /** Authored features/scenarios stay out of the main resource bundle. */
+export function resourceSearchEntryFor(resourceId) {
+  return resourceSearchIndex[resourceId] ?? {}
+}
+
 export function resourceSearchTextFor(resourceId) {
-  const entry = resourceSearchIndex[resourceId]
-  if (!entry) return ''
+  const entry = resourceSearchEntryFor(resourceId)
   return [entry.summary, ...(entry.features ?? []), ...(entry.scenarios ?? []), ...(entry.usage ?? []), ...(entry.keywords ?? [])]
     .filter(Boolean)
     .join(' ')

@@ -146,7 +146,7 @@ test('global switcher keeps recent Wiki visits locally and supports random disco
   assert.match(palette, /aria-activedescendant=/)
   assert.match(palette, /event\.key === 'Tab'/)
   assert.match(palette, /onFocus=\{\(\) => setActive\(i\)\}/)
-  assert.match(palette, /terms\.every/)
+  assert.ok(palette.includes('scoreResourceSearch(q,{'))
   assert.match(data, /export function pickRandomResource/)
 })
 

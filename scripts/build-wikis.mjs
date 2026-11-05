@@ -20,6 +20,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+import { parseFrontmatter } from '../src/lib/wiki.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
@@ -266,17 +267,21 @@ for (const resource of resources) {
 
 writeFileSync(resolve(DATA_DIR, 'backlinks.json'), JSON.stringify(backlinks, null, 2) + '\n')
 
-// Search-only projection: authored usage/scenario prose is available to the
-// catalogue without bundling every full Markdown document on the Home page.
+// Search-only projection: authored usage/scenario prose stays out of the main
+// bundle. Curated hand-written Wiki pages declare searchAliases/searchKeywords
+// in frontmatter so they receive the same searchable metadata without indexing
+// the entire Markdown body and creating noisy incidental matches.
 const resourceSearchIndex = Object.fromEntries(resources.map((resource) => {
   const entry = content.get(resource.id) ?? {}
+  const curatedFile = CURATED[resource.id] ? resolve(WIKI_DIR, slugFor(resource.id) + ".md") : null
+  const curatedSearch = curatedFile ? parseFrontmatter(readFileSync(curatedFile, 'utf8')).data : {}
   return [resource.id, {
     summary: entry.summary ?? resource.description,
     features: entry.features ?? [],
     scenarios: entry.scenarios ?? [],
     usage: entry.usage ?? [],
-    aliases: entry.aliases ?? [],
-    keywords: entry.keywords ?? [],
+    aliases: [...new Set([...(entry.aliases ?? []), ...(curatedSearch.searchAliases ?? [])])],
+    keywords: [...new Set([...(entry.keywords ?? []), ...(curatedSearch.searchKeywords ?? [])])],
   }]
 }))
 writeFileSync(resolve(DATA_DIR, 'resource-search-index.json'), JSON.stringify(resourceSearchIndex, null, 2) + '\n')

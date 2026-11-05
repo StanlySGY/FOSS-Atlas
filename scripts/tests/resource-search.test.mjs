@@ -25,9 +25,11 @@ test('multi-word fuzzy queries identify the token rescued by name or alias match
   assert.equal(hasFuzzySearchMatch('cloudflre workers', ['cloudflre workers'], ['Cloudflare Workers']), false)
 })
 
-test('home search and command palette use token-level fuzzy ranking for multi-word queries', () => {
+test('home search and command palette share the field-aware scorer while fuzzy matching stays name-scoped', () => {
   const home = readFileSync(new URL('../../src/pages/Home.jsx', import.meta.url), 'utf8')
   const palette = readFileSync(new URL('../../src/components/CommandPalette.jsx', import.meta.url), 'utf8')
-  assert.ok(home.includes('hasFuzzySearchMatch(query,fields,[resource.name,...aliases])'))
-  assert.ok(palette.includes('hasFuzzySearchMatch(q,fields,[r.name,...aliases])'))
+  const scorer = readFileSync(new URL('../../src/lib/resourceSearch.js', import.meta.url), 'utf8')
+  assert.ok(home.includes('scoreResourceSearch(query,searchRecordFor(resource))'))
+  assert.ok(palette.includes('scoreResourceSearch(q,{'))
+  assert.ok(scorer.includes('matchesFuzzySearchTerm(term, [name, ...aliases])'))
 })

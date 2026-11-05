@@ -4,6 +4,7 @@ slug: cloudflare-workers
 category: saas
 sub_category: saas-cloud
 tags: [边缘计算, Serverless, CDN, 免费层]
+searchKeywords: [边缘计算, Workers, Pages, R2 对象存储, D1 数据库, KV 存储, CDN, 免费 DNS, Serverless 部署]
 url: https://www.cloudflare.com/plans/free/
 repo: https://github.com/cloudflare/workers-sdk
 license: 专有（免费层）

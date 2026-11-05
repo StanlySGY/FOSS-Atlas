@@ -17,8 +17,8 @@ import {
   setDeployedOnlyParams,
   setSavedOnlyParams,
 } from '../lib/catalogFilterState.js'
-import { categories, countByCategory, countBySubCategory, deployedStats, pickRandomResource, resources, resourceSearchTextFor, searchAliasesFor, subCategoriesByCategory } from '../lib/data.js'
-import { hasFuzzySearchMatch, matchesFuzzySearchTerm, matchesSearchTerm } from '../lib/resourceSearch.js'
+import { categories, countByCategory, countBySubCategory, deployedStats, pickRandomResource, resources, resourceSearchEntryFor, searchAliasesFor, subCategoriesByCategory } from '../lib/data.js'
+import { scoreResourceSearch } from '../lib/resourceSearch.js'
 import useResourceLinkSnapshot from '../hooks/useResourceLinkSnapshot.js'
 import { formatSnapshotAge, resourceLinkFreshness, resourceLinkPresentation, resourceLinkRowsByTarget } from '../lib/resourceLinkStatus.js'
 import ResourceLinkReviewDesk from '../components/ResourceLinkReviewDesk.jsx'
@@ -27,29 +27,21 @@ import { appendResourceLinkReview, readResourceLinkReviews, resourceLinksNeedRev
 const RESOURCE_IDS = new Set(resources.map((resource) => resource.id))
 const VIEW_KEY = 'foss-atlas:catalog-view'
 const readView = () => { try { return localStorage.getItem(VIEW_KEY)==='list'?'list':'grid' } catch { return 'grid' } }
-const searchFieldsFor = (resource) => {
+const searchRecordFor = (resource) => {
+  const entry=resourceSearchEntryFor(resource.id)
   const offer=getOffering(resource.id)
-  return [resource.name,resource.description,resource.url,resource.category_name,resource.sub_category_name,...(resource.tags||[]),...searchAliasesFor(resource.id),resourceSearchTextFor(resource.id),offer?.label,offer?.summary,...(offer?.conditions||[])].filter(Boolean).map((value)=>String(value).toLowerCase())
+  let hostname=resource.url
+  try { hostname=new URL(resource.url).hostname } catch {}
+  return {
+    name:resource.name, aliases:searchAliasesFor(resource.id), tags:resource.tags,
+    description:resource.description, url:resource.url, hostname,
+    category:resource.category_name, subCategory:resource.sub_category_name,
+    summary:entry.summary, features:entry.features, scenarios:entry.scenarios, usage:entry.usage, keywords:entry.keywords,
+    extra:[offer?.label,offer?.summary,...(offer?.conditions??[])].filter(Boolean),
+  }
 }
-const matchesSearch = (resource,query) => {
-  if (!query) return true
-  const fields=searchFieldsFor(resource)
-  return query.split(/\s+/).filter(Boolean).every((term)=>matchesSearchTerm(term,fields,[resource.name,...searchAliasesFor(resource.id)]))
-}
-const scoreSearch = (resource,query) => {
-  const name=resource.name.toLowerCase()
-  const aliases=searchAliasesFor(resource.id).map((value)=>value.toLowerCase())
-  const fields=searchFieldsFor(resource)
-  if(name===query)return 120
-  if(aliases.includes(query))return 112
-  if(name.startsWith(query))return 105
-  if((resource.tags??[]).some((tag)=>tag.toLowerCase()===query))return 90
-  if(name.includes(query))return 86
-  if(aliases.some((alias)=>alias.includes(query)))return 82
-  if(resourceSearchTextFor(resource.id).toLowerCase().includes(query))return 64
-  if(matchesFuzzySearchTerm(query,[resource.name,...aliases])||hasFuzzySearchMatch(query,fields,[resource.name,...aliases]))return 24
-  return fields.some((field)=>field.includes(query))?45:0
-}
+const scoreSearch = (resource,query) => scoreResourceSearch(query,searchRecordFor(resource))
+const matchesSearch = (resource,query) => !query || scoreSearch(resource,query)>0
 
 export default function Home() {
   const navigate = useNavigate()

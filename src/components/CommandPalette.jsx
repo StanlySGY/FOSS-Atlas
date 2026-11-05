@@ -1,7 +1,8 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { deployedStats, graphStats, pickRandomResource, resourceById, resources, resourceSearchTextFor, searchAliasesFor } from '../lib/data.js'
-import { hasFuzzySearchMatch, matchesFuzzySearchTerm, matchesSearchTerm } from '../lib/resourceSearch.js'
+import { deployedStats, graphStats, pickRandomResource, resourceById, resources, resourceSearchEntryFor, searchAliasesFor } from '../lib/data.js'
+import { scoreResourceSearch } from '../lib/resourceSearch.js'
+import { getOffering } from '../lib/offerings.js'
 import useUserJourney from '../hooks/useUserJourney.js'
 import { readLastDeployedInstance, readLastGraphUrl, readLastWikiReading } from '../lib/userJourney.js'
 
@@ -28,37 +29,17 @@ const QUICK_ACTIONS = [
   { id: 'page:github', label: 'GitHub 仓库', hint: '提 issue / 贡献', href: 'https://github.com/StanlySGY/FOSS-Atlas' },
 ]
 
-/*
- * 名字精确开头 > 名字包含 > 标签 / 域名包含 > 描述包含 > 分类名包含。全小写
- * 的子串匹配而不是编辑距离：对这个体量，前缀分档已经把想要的排到最前，而真正的
- * 模糊算法会为「输错一个字母」付出三分之一的代码和难读的得分。
- */
+/* Shared scorer for catalogue and command palette; keep the existing 编辑距离 boundary. */
 function scoreResource(r, q) {
-  const name = r.name.toLowerCase()
-  const terms = q.split(/\s+/).filter(Boolean)
-  const fields = [
-    name,
-    r.description.toLowerCase(),
-    hostOf(r).toLowerCase(),
-    (r.category_name ?? '').toLowerCase(),
-    (r.sub_category_name ?? '').toLowerCase(),
-    ...r.tags.map((tag) => tag.toLowerCase()),
-    ...searchAliasesFor(r.id).map((alias) => alias.toLowerCase()),
-    resourceSearchTextFor(r.id).toLowerCase(),
-  ]
-  if (!terms.every((term) => matchesSearchTerm(term,fields,[r.name,...searchAliasesFor(r.id)]))) return -1
-  const aliases = searchAliasesFor(r.id).map((alias) => alias.toLowerCase())
-  if (name === q) return 120
-  if (name.startsWith(q)) return 110
-  if (aliases.includes(q)) return 105
-  if (aliases.some((alias) => alias.startsWith(q))) return 100
-  if (name.includes(q)) return 90
-  if (terms.every((term) => name.includes(term))) return 85
-  if (r.tags.some((tag) => terms.every((term) => tag.toLowerCase().includes(term)))) return 78
-  if (terms.every((term) => hostOf(r).toLowerCase().includes(term))) return 65
-  if (terms.every((term) => r.description.toLowerCase().includes(term))) return 50
-  if (matchesFuzzySearchTerm(q,[r.name,...aliases]) || hasFuzzySearchMatch(q,fields,[r.name,...aliases])) return 24
-  return 35
+  const entry=resourceSearchEntryFor(r.id)
+  const offer=getOffering(r.id)
+  return scoreResourceSearch(q,{
+    name:r.name, aliases:searchAliasesFor(r.id), tags:r.tags,
+    description:r.description, hostname:hostOf(r), url:r.url,
+    category:r.category_name, subCategory:r.sub_category_name,
+    summary:entry.summary, features:entry.features, scenarios:entry.scenarios, usage:entry.usage, keywords:entry.keywords,
+    extra:[offer?.label,offer?.summary,...(offer?.conditions??[])].filter(Boolean),
+  })
 }
 
 function hostOf(r) {

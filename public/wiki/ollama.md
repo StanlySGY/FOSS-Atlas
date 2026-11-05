@@ -4,6 +4,7 @@ slug: ollama
 category: ai
 sub_category: ai-local
 tags: [本地推理, LLM, CLI, 开源]
+searchKeywords: [本地模型, 本地大模型, 本地 LLM, 模型下载运行, 本地模型 API, OpenAI 兼容本地 API]
 url: https://ollama.com
 repo: https://github.com/ollama/ollama
 license: MIT

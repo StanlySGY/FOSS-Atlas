@@ -4,6 +4,7 @@ slug: immich
 category: selfhost
 sub_category: selfhost-core
 tags: [相册, 备份, 开源, 自部署]
+searchKeywords: [自建相册, 私有相册, 手机照片备份, 自动照片备份, Google Photos 替代, 照片管理, 人脸识别相册]
 url: https://github.com/immich-app/immich
 repo: https://github.com/immich-app/immich
 license: AGPL-3.0

@@ -16,6 +16,7 @@
 import { readFileSync, readdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { parseFrontmatter } from '../src/lib/wiki.js'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -60,7 +61,7 @@ export function collectGlyphs() {
   parts.push(stringsIn(JSON.parse(readFileSync(SOURCES.deployed, 'utf8'))))
 
   for (const f of readdirSync(SOURCES.wiki)) {
-    if (f.endsWith('.md')) parts.push(readFileSync(resolve(SOURCES.wiki, f), 'utf8'))
+    if (f.endsWith('.md')) parts.push(wikiTextForGlyphCoverage(readFileSync(resolve(SOURCES.wiki, f), 'utf8')))
   }
 
   for (const f of walk(SOURCES.src)) {
@@ -72,6 +73,15 @@ export function collectGlyphs() {
   for (let c = 0x20; c <= 0x7e; c++) parts.push(String.fromCharCode(c))
 
   return [...new Set(parts.join(''))].join('')
+}
+
+/** Strip search-only frontmatter fields from text that actually needs visible glyph coverage. */
+export function wikiTextForGlyphCoverage(markdown) {
+  const parsed = parseFrontmatter(markdown)
+  const visibleMetadata = { ...parsed.data }
+  delete visibleMetadata.searchAliases
+  delete visibleMetadata.searchKeywords
+  return stringsIn(visibleMetadata) + parsed.content
 }
 
 /** Every string leaf of a parsed JSON value, in document order. */

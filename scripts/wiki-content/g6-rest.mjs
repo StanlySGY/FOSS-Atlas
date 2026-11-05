@@ -143,6 +143,7 @@ export default {
       '安卓手机往 Mac 或 Windows 传文件',
       '没有网络或不想走网盘时的互传',
     ],
+    keywords: ["局域网文件传输","局域网互传","跨设备传文件","AirDrop 替代"],
   },
 
   'stirling-pdf': {
@@ -156,6 +157,7 @@ export default {
       '处理合同资料时不想上传到在线网站',
       '批量做 PDF 合并、加水印等重复工作',
     ],
+    keywords: ["PDF 编辑","PDF 文件处理","PDF 合并","PDF 拆分","PDF 压缩","PDF 转换","PDF OCR"],
   },
 
   'it-tools': {
@@ -182,6 +184,7 @@ export default {
       '把表单、数据库与 IM 通知串成流程',
       '想替代 Zapier 又在意费用与数据',
     ],
+    keywords: ["自动化工作流","跨应用自动化","无代码自动化","Zapier 替代"],
   },
 
   'activepieces': {
@@ -195,6 +198,7 @@ export default {
       '中小团队低成本搭建内部自动化',
       '需要可自建、可审计的自动化平台',
     ],
+    keywords: ["自动化工作流","跨应用自动化","无代码自动化","Zapier 替代"],
   },
 
   'homarr': {

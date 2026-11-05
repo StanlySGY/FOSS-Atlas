@@ -4,6 +4,7 @@ slug: nextcloud
 category: selfhost
 sub_category: selfhost-core
 tags: [网盘, 协作, 开源, PHP]
+searchKeywords: [自建网盘, 私有网盘, 私有云盘, 文件同步, 团队云盘, Google Drive 替代, Google Workspace 替代, 文档协作]
 url: https://nextcloud.com
 repo: https://github.com/nextcloud/server
 license: AGPL-3.0

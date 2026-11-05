@@ -85,6 +85,7 @@ export default {
     summary: 'AI 优先的代码编辑器，把对话、补全与多文件编辑整合进写码流程。',
     features: ['基于 VSCode 改造，可沿用其扩展生态', '支持用对话对多个文件做批量修改', '内置代码补全与仓库级上下文理解'],
     scenarios: ['让 AI 读懂整个仓库后完成重构', '边写代码边用对话解释与生成片段'],
+    keywords: ["AI 代码补全","代码补全","AI 编程助手","AI code completion"],
   },
   'cline': {
     summary: '开源的 VSCode AI 编程 Agent，能读文件、跑命令并直接改动代码。',
@@ -95,6 +96,7 @@ export default {
     summary: '开源的 AI 编程助手，可为编辑器接入任意模型，云端与本地皆可。',
     features: ['支持接入 OpenAI、Claude 及本地模型', '提供对话、补全与代码编辑等能力', '可配置自定义上下文与提示词'],
     scenarios: ['想统一管理多家模型 API 的开发者', '希望用本地模型完成代码补全的团队'],
+    keywords: ["AI 代码补全","IDE 代码补全","代码补全","AI 编程助手","本地推理后端","Ollama 后端"],
   },
   'cody': {
     summary: 'Sourcegraph 出品的 AI 编程助手，擅长基于代码检索来回答问题。',
@@ -110,6 +112,8 @@ export default {
     summary: '提供免费代码补全的编程助手，相关产品现已归入 Windsurf 品牌。',
     features: ['面向个人开发者提供免费额度', '支持主流编辑器的插件接入', '覆盖补全、对话与代码搜索等功能'],
     scenarios: ['个人开发者零成本获得补全体验', '团队先免费试用再决定是否采购'],
+    aliases: ["Windsurf"],
+    keywords: ["AI 代码补全","代码助手","代码自动补全","IDE 补全"],
   },
   'aider': {
     summary: '命令行里的 AI 结对编程工具，直接读写本地仓库并自动生成提交。',
@@ -125,6 +129,8 @@ export default {
     summary: 'oobabooga 维护的本地模型 WebUI，功能齐全且可扩展的推理前端。',
     features: ['在浏览器里加载多种格式的本地模型', '内置对话、角色扮演等交互模式', '支持扩展插件与对外接口调用'],
     scenarios: ['喜欢自建、可深度定制的推理界面', '需要同时试验多种模型格式的用户'],
+    aliases: ["oobabooga","TextGen WebUI"],
+    keywords: ["本地模型 WebUI","本地模型前端","模型推理界面","角色扮演"],
   },
   'jan': {
     summary: '开源的本地 AI 桌面客户端，把模型下载与对话整合进一个应用。',
@@ -135,6 +141,7 @@ export default {
     summary: 'Nomic 出品的本地 LLM 套件，模型可以完全离线地跑在个人电脑上。',
     features: ['提供桌面客户端与 Python 绑定', '内置可下载的多种量化模型', '支持离线推理与本地文档问答'],
     scenarios: ['断网或隐私要求高的场景使用 LLM', '作为本地模型推理的入门工具'],
+    keywords: ["本地模型","本地大模型","离线模型运行","本地 LLM"],
   },
   'langchain': {
     summary: '构建 LLM 应用的主流开源框架，把模型、工具与数据串成完整流程。',
@@ -165,11 +172,13 @@ export default {
     summary: '开源的 LLM 应用开发平台，可视化编排应用、Agent 与知识库。',
     features: ['可视化编排对话流程与工作流', '内置知识库与 RAG 检索能力', '提供 API 与嵌入方式对外发布'],
     scenarios: ['快速搭建企业内部的 AI 应用', '把知识库问答发布成可用的服务'],
+    keywords: ["AI 应用编排","智能体工作流","Agent 工作流","RAG 应用"],
   },
   'flowise': {
     summary: '拖拽式的 LLM 编排工具，用可视化节点搭出对话与 Agent 工作流。',
     features: ['以节点连线的方式编排 LLM 流程', '内置大量模型、工具与向量库节点', '可导出为接口供业务系统调用'],
     scenarios: ['不想写代码就搭一个 LLM 应用', '快速验证多步工作流的可行性'],
+    keywords: ["AI 应用编排","智能体工作流","Agent 工作流","可视化编排"],
   },
   'fastgpt': {
     summary: '开源的知识库问答平台，围绕 RAG 提供数据导入与流程编排能力。',
