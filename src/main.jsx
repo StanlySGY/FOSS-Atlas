@@ -5,6 +5,7 @@ import App from './App.jsx'
 import { readPrerenderPayload } from './lib/wikiPrefill.js'
 import './index.css'
 import './redesign.css'
+import './link-review.css'
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '')
 const container = document.getElementById('root')

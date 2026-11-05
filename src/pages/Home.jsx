@@ -20,7 +20,9 @@ import {
 import { categories, countByCategory, countBySubCategory, deployedStats, pickRandomResource, resources, resourceSearchTextFor, searchAliasesFor, subCategoriesByCategory } from '../lib/data.js'
 import { hasFuzzySearchMatch, matchesFuzzySearchTerm, matchesSearchTerm } from '../lib/resourceSearch.js'
 import useResourceLinkSnapshot from '../hooks/useResourceLinkSnapshot.js'
-import { formatSnapshotAge, resourceLinkFreshness, resourceLinkPresentation, resourceLinkRowsByTarget, resourceLinksNeedReview, summarizeResourceLinks } from '../lib/resourceLinkStatus.js'
+import { formatSnapshotAge, resourceLinkFreshness, resourceLinkPresentation, resourceLinkRowsByTarget } from '../lib/resourceLinkStatus.js'
+import ResourceLinkReviewDesk from '../components/ResourceLinkReviewDesk.jsx'
+import { appendResourceLinkReview, readResourceLinkReviews, resourceLinksNeedReview as resourceLinksNeedActiveReview, summarizeResourceLinkReviews } from '../lib/resourceLinkReviews.js'
 
 const RESOURCE_IDS = new Set(resources.map((resource) => resource.id))
 const VIEW_KEY = 'foss-atlas:catalog-view'
@@ -65,7 +67,8 @@ export default function Home() {
   const linkSnapshot = useResourceLinkSnapshot()
   const linkFreshness = resourceLinkFreshness(linkSnapshot)
   const linkRows = useMemo(() => resourceLinkRowsByTarget(linkSnapshot), [linkSnapshot])
-  const linkSummary = useMemo(() => summarizeResourceLinks(linkSnapshot?.rows ?? []), [linkSnapshot])
+  const [linkReviews, setLinkReviews] = useState(() => readResourceLinkReviews())
+  const linkSummary = useMemo(() => summarizeResourceLinkReviews(linkSnapshot, linkReviews), [linkSnapshot, linkReviews])
   const linkOnly = searchParams.get('link') === 'review'
   const [viewFallback,setViewFallback]=useState(readView)
   const view=catalogViewFromSearchParams(searchParams,viewFallback)
@@ -148,6 +151,7 @@ export default function Home() {
 
   const patchParams=(mutate)=>setSearchParams((previous)=>{const next=new URLSearchParams(previous);mutate(next);return next},{replace:true})
   const setLinkReviewOnly=(enabled)=>patchParams((params)=>{if(enabled)params.set('link','review');else params.delete('link')})
+  const saveLinkReview=(record)=>{const next=appendResourceLinkReview(record,linkReviews);if(!next){setToast('浏览器未能保存复核记录，请检查本地存储权限。');return false}setLinkReviews(next);setToast('复核记录已保存到当前浏览器');return true}
   const handleQuery=(value)=>{setQuery(value);patchParams((params)=>{if(value)params.set('q',value);else params.delete('q')})}
   const pickCategory=(id)=>patchParams((params)=>{if(id==='all')params.delete('cat');else params.set('cat',id);params.delete('sub')})
   const setOffer=(id)=>patchParams((params)=>{if(id==='all')params.delete('offer');else params.set('offer',id)})
@@ -167,7 +171,7 @@ export default function Home() {
     const result=resources.filter((resource)=>{
       if(deployedOnly&&!resource.deployed)return false
       if(favoritesOnly&&!favorites.includes(resource.id))return false
-      if(linkOnly&&!resourceLinksNeedReview(resource.id,linkRows))return false
+      if(linkOnly&&!resourceLinksNeedActiveReview(resource.id,linkRows,linkSnapshot,linkReviews))return false
       if(activeCategory!=='all'&&resource.category!==activeCategory)return false
       if(activeSub!=='all'&&resource.sub_category!==activeSub)return false
       return matchesOfferFilter(resource.id,activeOffer)&&matchesSearch(resource,normalized)
@@ -176,7 +180,7 @@ export default function Home() {
     if(sort==='deployed')result.sort((a,b)=>Number(Boolean(b.deployed))-Number(Boolean(a.deployed)))
     if(sort==='recommended'&&normalized)result.sort((a,b)=>scoreSearch(b,normalized)-scoreSearch(a,normalized)||a.name.localeCompare(b.name,'zh-CN'))
     return result
-  },[query,deployedOnly,favoritesOnly,favorites,linkOnly,linkRows,activeCategory,activeSub,activeOffer,sort])
+  },[query,deployedOnly,favoritesOnly,favorites,linkOnly,linkRows,linkSnapshot,linkReviews,activeCategory,activeSub,activeOffer,sort])
 
   const handleFavoriteToggle=(id)=>{
     const saved=favorites.includes(id)
@@ -208,9 +212,9 @@ export default function Home() {
           <div className="fa-discovery-summary"><span><strong>{resources.length}</strong> 个资源</span><i/><span><strong>{deployedStats.resources}</strong> 个已自部署</span><i/><span><strong>{favorites.length}</strong> 个已收藏</span></div>
           <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] text-[var(--text-faint)]" aria-live="polite">
             <span>官网 / 仓库巡检 · {linkFreshness.label} {linkSnapshot ? formatSnapshotAge(linkFreshness) : ''}</span>
-            {linkSnapshot ? <span>需复核 {linkSummary.review} / {linkSummary.total} 条链接</span> : <span>尚无巡检快照</span>}
+            {linkSnapshot ? <span>待处理 {linkSummary.pending} / {linkSummary.total} 条链接{linkSummary.recorded ? ' · 已记录 ' + linkSummary.recorded + ' 次复核' : ''}</span> : <span>尚无巡检快照</span>}
             <button type="button" aria-pressed={linkOnly} onClick={()=>setLinkReviewOnly(!linkOnly)} className={linkOnly?'text-[var(--accent-text)] underline underline-offset-2':'text-[var(--text-dim)] hover:text-[var(--accent-text)]'}>
-              {linkOnly?'显示全部资源':'查看需复核链接 →'}
+              {linkOnly?'显示全部资源':'查看待处理链接 →'}
             </button>
             {linkFreshness.state==='stale' || linkFreshness.state==='aging' ? <span>数据仅代表上次巡检，不是实时状态</span> : null}
           </div>
@@ -251,13 +255,13 @@ export default function Home() {
         {deployedOnly?<button type="button" onClick={()=>setDeployed(false)}>只看已部署 ×</button>:null}
         {activeOffer!=='all'?<button type="button" onClick={()=>setOffer('all')}>{OFFER_FILTERS.find((item)=>item.id===activeOffer)?.label} ×</button>:null}
         {favoritesOnly?<button type="button" onClick={()=>setSavedOnly(false)}>我的收藏 ×</button>:null}
-        {linkOnly?<button type="button" onClick={()=>setLinkReviewOnly(false)}>官网需复核 ×</button>:null}
+        {linkOnly?<button type="button" onClick={()=>setLinkReviewOnly(false)}>链接待复核 ×</button>:null}
         <button type="button" className="fa-clear-all" onClick={resetFilters}>清除全部</button>
       </div>:null}
 
       <section className="fa-discovery-results">
-        <SectionHeading eyebrow={activeCategoryName??(favoritesOnly?'SAVED RESOURCES':deployedOnly?'RUNNING SERVICES':'RESOURCE LIBRARY')} title={query.trim()?'搜索结果':activeCategoryName??(favoritesOnly?'我的收藏':deployedOnly?'已部署资源':'探索资源')} meta={filtered.length+' 项'} description={hasActiveFilters?'当前条件下的匹配结果。可以继续组合筛选，或打开 Wiki 查看详细信息。':'每张卡片都可以进入 Wiki 深入了解，也可以直接访问原始项目。'}/>
-        {filtered.length?<>
+        <SectionHeading eyebrow={linkOnly?'LINK REVIEW':activeCategoryName??(favoritesOnly?'SAVED RESOURCES':deployedOnly?'RUNNING SERVICES':'RESOURCE LIBRARY')} title={linkOnly?'链接复核工作台':query.trim()?'搜索结果':activeCategoryName??(favoritesOnly?'我的收藏':deployedOnly?'已部署资源':'探索资源')} meta={linkOnly?linkSummary.pending+' 条待处理目标':filtered.length+' 项'} description={linkOnly?'按官网与 GitHub 仓库分别处理，记录结论后由下一轮巡检确认是否恢复。':hasActiveFilters?'当前条件下的匹配结果。可以继续组合筛选，或打开 Wiki 查看详细信息。':'每张卡片都可以进入 Wiki 深入了解，也可以直接访问原始项目。'}/>
+        {linkOnly?<ResourceLinkReviewDesk resources={filtered} snapshot={linkSnapshot} rowsByTarget={linkRows} reviews={linkReviews} onSave={saveLinkReview}/>:filtered.length?<>
           <div className={view==='grid'?'fa-resource-grid fa-discovery-grid':'fa-resource-grid fa-discovery-grid is-list'}>
             {filtered.slice(0,visibleCount).map((resource,index)=><ResourceCard key={resource.id} resource={resource} index={index} isFavorite={favorites.includes(resource.id)} isCompared={compareIds.includes(resource.id)} linkResult={linkRows.get(resource.id+':homepage')} repositoryLinkResult={linkRows.get(resource.id+':repository')} linkFreshness={linkFreshness} onFavorite={()=>handleFavoriteToggle(resource.id)} onCompare={()=>toggleCompare(resource.id)} view={view}/>)}
           </div>
