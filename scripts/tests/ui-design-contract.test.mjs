@@ -172,7 +172,9 @@ test('graph filters are collapsed by default at every viewport while remaining e
   assert.match(graph, /aria-controls="graph-filter-panel"/)
   assert.match(graph, /id="graph-filter-panel" className=\{`\$\{filtersOpen \? 'flex' : 'hidden'\}/)
   assert.doesNotMatch(graph, /filtersOpen \? 'flex' : 'hidden'\}\s+flex-col gap-2 md:flex/)
-  assert.match(graph, /单击节点看速览 · 拖动画布平移 · 滚轮缩放/)
+  assert.match(graph, /点节点查看关系；列表可搜索并键盘浏览/)
+  assert.match(graph, /fa-graph-filter-group--labels/)
+  assert.match(graph, /强调标签连线/)
   assert.match(graph, /<details className="fa-disclosure fa-surface p-3\.5">/)
   assert.match(graph, /操作说明/)
   assert.match(graph, /局部关系图深度/)
@@ -263,6 +265,14 @@ test('Wiki reading layout gives medium-width screens a full article before metad
   const redesign = read('src/redesign.css')
   assert.match(redesign, /min-width:1920px\)[\s\S]*?\.fa-wiki-rail\{width:280px;flex-basis:280px\}/)
   assert.match(redesign, /min-width:2560px\)[\s\S]*?\.fa-wiki-content-grid\{grid-template-columns:minmax\(0,1fr\) 360px/)
+})
+
+test('mobile graph keeps the canvas near the first viewport and moves secondary tag emphasis into filters', () => {
+  const graph = read('src/pages/GraphPage.jsx')
+  assert.match(graph, /探索工具之间的关联与替代关系；列表支持精准搜索/)
+  assert.match(graph, /点节点查看关系；列表可搜索并键盘浏览/)
+  assert.doesNotMatch(graph, /标签关系：\{emphasizeTagEdges/)
+  assert.match(graph, /fa-graph-filter-group--labels[\s\S]*?强调标签连线/)
 })
 
 test('graph label density modes are deterministic and URL-backed', () => {

@@ -17,7 +17,6 @@ import {
   deployedResources,
   deployedStats,
   graph,
-  graphStats,
   instancesFor,
   resourceById,
 } from '../lib/data.js'
@@ -449,28 +448,18 @@ export default function GraphPage() {
       <PageHeader
         eyebrow="探索关系 / GRAPH"
         title="知识图谱"
-        description={`把 ${graphStats.tools} 个工具、${graphStats.categories} 个分类与 ${graphStats.tags} 个标签放进一张关系地图；可探索替代关系，也可切换列表精确查找。当前收录 ${deployedStats.resources} 个自部署工具。`}
+        description="探索工具之间的关联与替代关系；列表支持精准搜索。"
       />
 
       <div className="fa-graph-toolbar fa-surface">
         <div className="min-w-0">
           <p className="text-sm font-semibold text-[var(--text-strong)]">关系探索</p>
-          <p className="mt-1 text-xs text-[var(--text-faint)]">单击节点看速览 · 拖动画布平移 · 滚轮缩放；列表可搜索并键盘浏览。</p>
+          <p className="mt-1 text-xs text-[var(--text-faint)]">点节点查看关系；列表可搜索并键盘浏览。</p>
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2">
           <button type="button" onClick={startRandomWalk} className="fa-control">
             {walk ? '换个漫游起点' : '✦ 灵感漫游'}
           </button>
-          {viewMode === 'graph' ? (
-            <button
-              type="button"
-              onClick={() => setEmphasizeTagEdges((value) => !value)}
-              aria-pressed={emphasizeTagEdges}
-              className="fa-control"
-            >
-              标签关系：{emphasizeTagEdges ? '强调中' : '已弱化'}
-            </button>
-          ) : null}
           <button
             type="button"
             onClick={() => setFiltersOpen((v) => !v)}
@@ -731,6 +720,14 @@ export default function GraphPage() {
             ))}
           </div>
           <span className="text-[11px] text-[var(--text-faint)]">工具与标签名称可在悬停时查看；选择会保存在链接中。</span>
+          <button
+            type="button"
+            onClick={() => setEmphasizeTagEdges((value) => !value)}
+            aria-pressed={emphasizeTagEdges}
+            className="fa-control"
+          >
+            {emphasizeTagEdges ? '已强调标签连线' : '强调标签连线'}
+          </button>
         </div>
       ) : null}
       </div>
