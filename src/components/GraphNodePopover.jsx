@@ -1,25 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TYPE_META } from '../lib/graphStyle.js'
-
-const POPOVER_WIDTH = 264
-// Gap between the node and the bubble, and the minimum distance the bubble keeps
-// from the edges of the canvas.
-const GAP = 12
-const MARGIN = 8
-/*
- * Only used for the very first frame, before the bubble has been measured. A
- * tool's `description` can run to ~200px of wrapped text, so a fixed estimate
- * alone would let a bubble near the bottom edge push its button out of the
- * clipped card. The real height is measured in a layout effect (i.e. before
- * paint, so the correction is never visible).
- *
- * The estimate only has to be safe for the first frame, and the bubble flips
- * when it would overflow — so it errs long. A deployed tool adds an instances
- * block, and that block can hold two rows (a tool deployed on both the edge and
- * Docker), so the estimate carries room for them rather than flipping twice.
- */
-const ESTIMATED_HEIGHT = 232
+import { graphPopoverLayout } from '../lib/graphPopoverLayout.js'
 
 /**
  * The single-click "peek" bubble. It is a plain DOM element rather than an
@@ -37,9 +19,9 @@ export default function GraphNodePopover({
   onLocalGraph,
   onDismiss,
 }) {
-  const { x, y, width, height } = point
   const bubbleRef = useRef(null)
   const [bubbleHeight, setBubbleHeight] = useState(0)
+  const layout = graphPopoverLayout(point, bubbleHeight)
 
   useLayoutEffect(() => {
     const el = bubbleRef.current
@@ -61,13 +43,23 @@ export default function GraphNodePopover({
     }
   }, [node.id])
 
-  const left = Math.min(Math.max(x + GAP, MARGIN), Math.max(MARGIN, width - POPOVER_WIDTH - MARGIN))
-  const flip = (bubbleHeight || ESTIMATED_HEIGHT) + y + GAP > height
-  const vertical = flip
-    ? { bottom: Math.max(MARGIN, height - y + GAP) }
-    : { top: Math.min(y + GAP, Math.max(MARGIN, height - MARGIN)) }
-  // Keep the caret pointing at the node even when the bubble is clamped to an edge.
-  const caretX = Math.min(Math.max(x - left, 14), POPOVER_WIDTH - 14)
+  // The chart resizes its coordinate system with the canvas. A stored click point
+  // belongs to the old size, so dismiss rather than leave a bubble pointing at
+  // the wrong place after a window, panel, or device-orientation resize.
+  useEffect(() => {
+    const canvas = bubbleRef.current?.parentElement
+    if (!canvas || typeof ResizeObserver === 'undefined') return undefined
+    let previous = canvas.getBoundingClientRect()
+    const observer = new ResizeObserver(([entry]) => {
+      const next = entry.contentRect
+      const changed = Math.abs(previous.width - next.width) > 0.5 || Math.abs(previous.height - next.height) > 0.5
+      previous = { width: next.width, height: next.height }
+      if (changed) onDismiss?.()
+    })
+    observer.observe(canvas)
+    return () => observer.disconnect()
+  }, [onDismiss])
+
   const kind = TYPE_META[node.type]?.label ?? node.type
 
   return (
@@ -76,7 +68,15 @@ export default function GraphNodePopover({
       role="dialog"
       aria-label={`${node.name} 速览`}
       tabIndex={-1}
-      style={{ left, width: POPOVER_WIDTH, ...vertical }}
+      style={{
+        left: layout.left,
+        top: layout.top,
+        width: layout.width,
+        maxWidth: layout.maxWidth,
+        maxHeight: layout.maxHeight,
+        overflowY: 'auto',
+        overscrollBehavior: 'contain',
+      }}
       // A tap that lands on the bubble must not be mistaken for a tap on the
       // canvas, which would dismiss the bubble before the button gets the click.
       onPointerDown={(e) => e.stopPropagation()}
@@ -85,7 +85,7 @@ export default function GraphNodePopover({
     >
       <span
         aria-hidden="true"
-        style={{ left: caretX - 6, [flip ? 'bottom' : 'top']: -5 }}
+        style={{ left: layout.caretX - 6, [layout.flipped ? 'bottom' : 'top']: -5 }}
         className="absolute h-2.5 w-2.5 rotate-45 border-b border-l border-[var(--line)] bg-[var(--ink-card)]"
       />
       <div className="p-3">
