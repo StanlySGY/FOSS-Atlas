@@ -1,0 +1,14 @@
+{
+  "id": "practical-wiki-guides",
+  "title": "完善常用资源的选型与实操指南并部署",
+  "status": "completed",
+  "complexity": "L",
+  "risk": "medium",
+  "domain": "frontend-content",
+  "currentPhase": "completed",
+  "nextAction": "归档提交推送后确认两个最终发布工作流",
+  "createdAt": "2026-11-06T12:07:56.889489+00:00",
+  "branch": "main",
+  "completedAt": "2026-11-06T14:38:23.834564+00:00",
+  "releaseCommit": "fee9cdb18400998b8dbe2e11636593a074d74098"
+}

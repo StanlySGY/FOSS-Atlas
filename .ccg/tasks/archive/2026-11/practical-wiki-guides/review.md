@@ -23,3 +23,11 @@ Claude repeatedly exited status 1 without a usable review, including final attem
 - 18 code fences checked (Bash parse, JSON parse, Compose config); no Resend email sent; Ollama model not downloaded or executed.
 - Qdrant v1.20.0 actual create/upsert/query returned expected IDs and scores 1/0 in a disposable loopback container.
 - Release evidence is recorded separately after deployment.
+
+## Deployment and live checks
+
+Implementation commit fee9cdb18400998b8dbe2e11636593a074d74098 deployed successfully through both actual deploy steps (Cloudflare run 42234359584, GitHub run 42234360510). Each live site passed the same 14-guide browser checks, including copied content, fragment reload/focus, narrow widths and zero runtime errors. GitHub initially served the old version while its release was pending; a later test was interrupted by ERR_NETWORK_CHANGED and a complete rerun passed. No content was declared live until verified.
+
+Vaultwarden test also executed built-in online backup, disabled new registration, archived/extracted the stopped SQLite data and verified integrity=ok with one account and one encrypted test item. Host sudo required a password, so archive/extract used the disposable files' existing read access; ownership-preserving sudo and full browser login on a restored second server were not tested. Containers and network were removed. Ollama execution and actual Resend sends remain untested.
+
+The final archive commit changes only task records and triggers both deployment workflows again; final workflow statuses are reported in the conversation rather than creating recursive record-only commits.
