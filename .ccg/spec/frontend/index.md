@@ -154,3 +154,7 @@ canvas `getBoundingClientRect()` rather than assuming a viewport size.
 - Comparison selection has explicit precedence: present `compare` (including an empty or invalid value) overrides local storage; absent `compare` reads the local fallback. Do not write that fallback on mount: `useSyncExternalStore` initially exposes its server snapshot during hydration and can otherwise overwrite a saved list with `[]`.
 - Use native `dialog.showModal()` to isolate the entire app, including the shared header. Global shortcuts must yield to an open dialog. Restore the exact prior body overflow style and a connected focus target during cleanup, including navigation directly from the dialog to a Wiki.
 - Mobile batch size and its displayed increment share one `pageSize`; after loading, keyboard focus moves to the first newly added resource. Browser coverage lives in the archived ui-ux-product-upgrade task alongside comparison unit tests.
+
+## CJK section metadata (2026-11-06)
+
+- Mixed numeric/Chinese labels such as `193 项` must explicitly include the self-hosted `"Noto Sans SC"` before generic `ui-monospace` / `monospace` fallbacks. On the minimal Linux Chromium environment, appending it after `monospace` still left the Chinese suffix as a missing glyph; placing it before the generic families rendered correctly. Check actual screenshots, since readable DOM text and loaded font files do not prove glyphs rendered.
