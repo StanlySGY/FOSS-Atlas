@@ -21,6 +21,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { parseFrontmatter } from '../src/lib/wiki.js'
+import { renderWikiGuide } from './wikiGuide.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
@@ -117,7 +118,11 @@ for (const edge of graph.edges) {
 const bullets = (items) => items.map((x) => `- ${x}`).join('\n')
 
 function renderPage(resource, entry) {
-  const related = relatedFor(resource.id)
+  const related = entry.related ?? relatedFor(resource.id)
+  if (!Array.isArray(related) || related.some((id) => id === resource.id || !byId.has(id))
+    || new Set(related).size !== related.length) {
+    throw new Error(`invalid related resources for "${resource.id}"`)
+  }
   const alternatives = alternativeNames.get(resource.id) ?? []
   const sources = entry.sources ?? []
   const verifiedAt = entry.verifiedAt ?? null
@@ -183,9 +188,8 @@ function renderPage(resource, entry) {
     bullets(entry.scenarios),
   ]
 
-  if (entry.usage?.length) {
-    sections.push('', '## 快速上手', '', bullets(entry.usage))
-  }
+  const guide = renderWikiGuide(entry, resource.id)
+  if (guide) sections.push('', guide)
 
   if (entry.apiExamples?.length) {
     sections.push('', '## API 调用示例', '')

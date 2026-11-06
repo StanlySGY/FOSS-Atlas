@@ -1,0 +1,43 @@
+{
+  "image": "qdrant/qdrant:v1.20.0",
+  "isolation": "Disposable container with tmpfs storage and random loopback port; no persistent user data",
+  "responses": [
+    {
+      "result": true,
+      "status": "ok",
+      "time": 0.014759468
+    },
+    {
+      "result": {
+        "operation_id": 1,
+        "status": "completed"
+      },
+      "status": "ok",
+      "time": 0.001733668
+    },
+    {
+      "result": {
+        "points": [
+          {
+            "id": 1,
+            "version": 1,
+            "score": 1.0,
+            "payload": {
+              "label": "demo-a"
+            }
+          },
+          {
+            "id": 2,
+            "version": 1,
+            "score": 0.0,
+            "payload": {
+              "label": "demo-b"
+            }
+          }
+        ]
+      },
+      "status": "ok",
+      "time": 0.001209355
+    }
+  ]
+}

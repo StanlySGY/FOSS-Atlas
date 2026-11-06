@@ -375,7 +375,11 @@
       "本地 LLM",
       "模型下载运行",
       "本地模型 API",
-      "OpenAI 兼容本地 API"
+      "OpenAI 兼容本地 API",
+      "ollama pull",
+      "ollama run",
+      "api/chat",
+      "本地离线推理"
     ]
   },
   "lm-studio": {
@@ -661,9 +665,9 @@
       "需要按用户、文档版本或业务字段过滤相似度检索结果"
     ],
     "usage": [
-      "官方 Docker 安装方式启动 qdrant/qdrant，并把 /qdrant/storage 映射到持久化目录。",
-      "通过本机 6333 端口访问 REST API；生产环境先配置鉴权、网络边界和备份。",
-      "由应用侧生成 Embedding，再写入 collection 并按向量及 payload 条件检索。"
+      "用固定版本 Docker 镜像启动本机服务，仅绑定 127.0.0.1:6333，并用命名卷保存数据。",
+      "创建四维 Cosine 演示集合，写入两条向量，再用 REST Query API 核对排序与 payload。",
+      "接入真实 Embedding 时统一模型与维度；上线前补齐鉴权、TLS、权限过滤和备份。"
     ],
     "aliases": [],
     "keywords": [
@@ -1267,9 +1271,9 @@
       "希望用 API 或 SMTP 快速接入发信，不自行维护 SMTP 投递服务器"
     ],
     "usage": [
-      "创建 Resend 账户并添加自己拥有的发信域名；未验证至少一个域名无法发送邮件。",
-      "按域名页面提供的 DNS 记录完成验证，再生成 API Key 并放入后端密钥管理。",
-      "用 API 或 SMTP 发送测试邮件，先验证退信、送达和事件回调处理。"
+      "创建账户，把发送用 API Key 放入后端环境变量，先用官方测试地址验证请求。",
+      "通过 POST /emails 发送测试邮件；同一逻辑邮件的重试复用 Idempotency-Key，并在 Dashboard 核对事件。",
+      "向真实用户发信前验证自有域名，配置投递事件处理、发送队列和限流重试。"
     ],
     "aliases": [],
     "keywords": [
@@ -1434,7 +1438,9 @@
       "自建密码库",
       "私有密码库",
       "Bitwarden 自建",
-      "密码管理服务"
+      "密码管理服务",
+      "密码库备份",
+      "首次注册"
     ]
   },
   "jellyfin": {

@@ -1,5 +1,5 @@
 import ReactMarkdown from 'react-markdown'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import remarkGfm from 'remark-gfm'
 import { headingSlug } from '../lib/wiki.js'
@@ -54,7 +54,7 @@ function MarkdownCodeBlock({ children, ...props }) {
  * `node` is injected by react-markdown for every component override; it must be
  * destructured out so it is never spread onto a DOM element.
  */
-export default function Markdown({ children }) {
+function Markdown({ children }) {
   /*
    * `h2`/`h3` get anchor ids so the article's own table of contents (see
    * headingsFromMarkdown in lib/wiki.js) can point at them. The counter is made
@@ -106,3 +106,7 @@ export default function Markdown({ children }) {
     </div>
   )
 }
+
+// TOC highlighting updates the page while scrolling. Keep the reading DOM
+// stable so focused headings and text selections survive those updates.
+export default memo(Markdown)

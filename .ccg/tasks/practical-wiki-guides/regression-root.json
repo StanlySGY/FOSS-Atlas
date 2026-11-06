@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "check": "mobile loads exactly eight more and keyboard focus reaches first new result"
+    },
+    {
+      "check": "four task shortcuts resolve to curated resources and URL state"
+    },
+    {
+      "check": "empty favorites differ from filtered favorites; recovery preserves saved view"
+    },
+    {
+      "check": "visible category and list preference survive refresh"
+    },
+    {
+      "check": "comparison survives refresh and Wiki roundtrip; fourth selection is rejected"
+    },
+    {
+      "check": "native modal traps keyboard, isolates global shortcut and restores focus and scroll"
+    },
+    {
+      "check": "failed share copy exposes a clean manual link which opens the same comparison"
+    },
+    {
+      "check": "320px grid/list fit viewport",
+      "viewport": 320,
+      "width": 320
+    },
+    {
+      "check": "390px grid/list fit viewport",
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "check": "768px grid/list fit viewport",
+      "viewport": 768,
+      "width": 768
+    },
+    {
+      "check": "1440px grid/list fit viewport",
+      "viewport": 1440,
+      "width": 1440
+    },
+    {
+      "check": "Wiki copy denial produces a focused, selectable manual link"
+    },
+    {
+      "check": "320px route smoke graph/?view=list"
+    },
+    {
+      "check": "320px route smoke graph/"
+    },
+    {
+      "check": "320px route smoke deployed/"
+    },
+    {
+      "check": "320px route smoke wiki/ollama/"
+    },
+    {
+      "check": "URL comparison works even when local storage access throws"
+    },
+    {
+      "check": "no browser runtime errors",
+      "errors": []
+    }
+  ],
+  "runtimeErrors": []
+}

@@ -1,0 +1,20 @@
+{
+  "base": "http://127.0.0.1:4175/",
+  "checks": [
+    "ollama at 320px: jump/reload focus, H3 outline, actual clipboard, width",
+    "vaultwarden at 320px: jump/reload focus, H3 outline, actual clipboard, width",
+    "qdrant at 320px: jump/reload focus, H3 outline, actual clipboard, width",
+    "resend at 320px: jump/reload focus, H3 outline, actual clipboard, width",
+    "ollama at 390px: jump/reload focus, H3 outline, actual clipboard, width",
+    "vaultwarden at 390px: jump/reload focus, H3 outline, actual clipboard, width",
+    "qdrant at 390px: jump/reload focus, H3 outline, actual clipboard, width",
+    "resend at 390px: jump/reload focus, H3 outline, actual clipboard, width",
+    "ollama at 1440px: jump/reload focus, H3 outline, actual clipboard, width",
+    "vaultwarden at 1440px: jump/reload focus, H3 outline, actual clipboard, width",
+    "qdrant at 1440px: jump/reload focus, H3 outline, actual clipboard, width",
+    "resend at 1440px: jump/reload focus, H3 outline, actual clipboard, width",
+    "internal Wiki link and refreshed nested route",
+    "no runtime errors"
+  ],
+  "errors": []
+}

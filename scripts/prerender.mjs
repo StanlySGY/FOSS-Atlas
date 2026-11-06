@@ -51,7 +51,7 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createServer } from 'vite'
 
-import { documentParts, escapeInlineJson, jsonLdTag, linkTag, metaTag, shellMetadata, stripHeadMeta } from '../src/prerender/shell.js'
+import { documentParts, renderDocument, jsonLdTag, linkTag, metaTag, shellMetadata, stripHeadMeta } from '../src/prerender/shell.js'
 import {
   PRIMARY_ORIGIN,
   STATIC_ROUTES,
@@ -245,37 +245,6 @@ function distPathFor(route) {
 function writePage(path, html) {
   mkdirSync(dirname(path), { recursive: true })
   writeFileSync(path, html)
-}
-
-/**
- * Reassemble the page from the built document's pieces.
- *
- * Vite's doctype, `<html>`, `<head>` opening, `<body>` tag and closing tags are
- * reused verbatim (`documentParts`), so the only thing this script controls is
- * the head's metadata and what goes inside `#root`.
- *
- * No `<base>` tag: every URL in the rendered markup is already root-relative
- * with the deployed base (`/FOSS-Atlas/wiki/other`), and a browser resolves a
- * root-relative URL against the origin rather than the document's own directory
- * — so a file living at `/FOSS-Atlas/wiki/syncthing/index.html` needs no help.
- * Verified by enumerating every href/src out of a rendered wiki page.
- */
-function renderDocument(parts, head, body, payload = null) {
-  /*
-   * `wiki-payload` is the signal main.jsx uses to choose `hydrateRoot` over
-   * `createRoot` — see the comment there. Only wiki pages get one: the
-   * top-level routes are prerendered for crawlers and replace-rendered on the
-   * client, because `/` renders differently under a query string (`?q=…`) and
-   * `/graph` mounts echarts inside an effect on a div React would not recreate —
-   * hydrating either would buy mismatch noise for no benefit.
-   */
-  const payloadTag = payload
-    ? `\n    <script id="wiki-payload" type="application/json">${escapeInlineJson(payload)}</script>`
-    : ''
-  return `${parts.headOpen}\n    ${head}\n  ${parts.beforeRoot}${body}${parts.afterRoot.replace(
-    '</div>',
-    `</div>${payloadTag}`,
-  )}`
 }
 
 /** The favicon href as authored in `index.html` (`./favicon.svg`). */

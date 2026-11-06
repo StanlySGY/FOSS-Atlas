@@ -158,3 +158,11 @@ canvas `getBoundingClientRect()` rather than assuming a viewport size.
 ## CJK section metadata (2026-11-06)
 
 - Mixed numeric/Chinese labels such as `193 项` must explicitly include the self-hosted `"Noto Sans SC"` before generic `ui-monospace` / `monospace` fallbacks. On the minimal Linux Chromium environment, appending it after `monospace` still left the Chinese suffix as a missing glyph; placing it before the generic families rendered correctly. Check actual screenshots, since readable DOM text and loaded font files do not prove glyphs rendered.
+
+
+## Authored practical guides and stable reading (2026-11-06)
+
+- Generated content can use `guide: [{ title, body }]` with scoped HTTPS sources and `verifiedAt`. Preserve concise `usage` for search; never index all sample commands. The renderer keeps the existing quickstart H2 and emits H3 steps. Explicit `related` overrides must be real, unique resource IDs and exclude self.
+- Keep unchanged Markdown memoized across parent TOC/scroll state updates: remounted headings lose keyboard focus even when scrolling lands correctly. Exercise native hash clicks, reload and clipboard in actual production builds.
+- Inline commands can wrap on narrow viewports; fenced blocks keep their own horizontal scrolling.
+- Never inject serialized content as a String.replace replacement string: dollar patterns in Markdown can mutate the payload. Use a replacement callback and verify JSON roundtrips with shell dollar syntax and script-like text.

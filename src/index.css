@@ -724,6 +724,7 @@ kbd,
   font-size: 0.85em;
   color: #e8c877;
 }
+.md :not(pre) > code { overflow-wrap: anywhere; }
 .md pre {
   background: var(--ink-sunken);
   border: 1px solid var(--line);

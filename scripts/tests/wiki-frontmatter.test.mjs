@@ -28,8 +28,11 @@ test('Wiki frontmatter parses structured source objects without flattening their
 test('the curated Ollama Wiki has bounded official-source evidence and labels it as partial', () => {
   const markdown = readFileSync(new URL('../../public/wiki/ollama.md', import.meta.url), 'utf8')
   const parsed = parseFrontmatter(markdown)
-  assert.equal(parsed.data.verifiedAt, '2026-11-05')
-  assert.equal(parsed.data.sources.length, 2)
+  assert.match(parsed.data.verifiedAt, /^\d{4}-\d{2}-\d{2}$/)
+  assert.equal(parsed.data.verifiedAt, parsed.data.updated)
+  for (const url of ['https://docs.ollama.com/quickstart', 'https://docs.ollama.com/faq', 'https://docs.ollama.com/api/chat', 'https://docs.ollama.com/cli']) {
+    assert.ok(parsed.data.sources.some((source) => source.url === url), 'missing evidence for ' + url)
+  }
   assert.ok(parsed.data.sources.every((source) => source.type === 'official' && source.url.startsWith('https://') && source.scope.length > 20))
   assert.match(markdown, /不覆盖硬件适配、性能或所有 SDK 功能/)
   const page = readFileSync(new URL('../../src/pages/WikiPage.jsx', import.meta.url), 'utf8')

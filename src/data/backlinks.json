@@ -138,14 +138,10 @@
     "Cody"
   ],
   "ollama": [
-    "Dify",
-    "LangChain",
-    "Continue",
-    "Cline",
     "LM Studio",
     "Jan",
-    "GPT4All",
-    "Text Generation WebUI"
+    "Dify",
+    "LangChain"
   ],
   "lm-studio": [
     "Ollama",
@@ -245,9 +241,7 @@
   ],
   "qdrant": [
     "Milvus",
-    "pgvector",
-    "Poe",
-    "HuggingChat"
+    "pgvector"
   ],
   "milvus": [
     "Qdrant",
@@ -455,9 +449,7 @@
   ],
   "resend": [
     "Brevo",
-    "Google Cloud",
-    "AWS",
-    "Microsoft Azure"
+    "Postal"
   ],
   "brevo": [
     "Resend",
@@ -508,9 +500,8 @@
     "Trilium"
   ],
   "vaultwarden": [
-    "Nginx Proxy Manager",
-    "Cloudflare Tunnel",
     "Passbolt",
+    "Nginx Proxy Manager",
     "1Panel"
   ],
   "jellyfin": [

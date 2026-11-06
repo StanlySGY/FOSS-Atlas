@@ -140,6 +140,8 @@ export default function WikiPage() {
     [practicalMarkdown, isFallback],
   )
 
+  const quickstartHeading = toc.find((heading) => heading.level === 2 && heading.text === '快速上手')
+
   // An in-app Wiki transition fetches Markdown after the route commits. The
   // route shell may have already tried the hash before these headings existed;
   // retry after the reading body is rendered so a saved chapter link lands.
@@ -398,6 +400,11 @@ export default function WikiPage() {
               <a href={resource.url} target="_blank" rel="noreferrer" className="fa-control fa-control--primary">
                 访问官网 ↗
               </a>
+              {quickstartHeading ? (
+                <a href={`#${quickstartHeading.slug}`} className="fa-control">
+                  跳到快速上手
+                </a>
+              ) : null}
               {data.repo ? (
                 <a href={data.repo} target="_blank" rel="noreferrer" className="fa-control mono">
                   源码仓库

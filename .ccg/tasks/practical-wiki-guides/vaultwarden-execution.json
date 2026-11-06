@@ -1,0 +1,12 @@
+{
+  "integrity": "ok",
+  "users": 1,
+  "ciphers": 1,
+  "image": "vaultwarden/server:1.37.5",
+  "httpsApiVerified": true,
+  "signupDisabled": true,
+  "onlineBackup": true,
+  "archiveRestored": true,
+  "backupExecution": "Archive/extract run unprivileged because this disposable data was readable; sudo password unavailable, no ownership preservation claimed",
+  "client": "HTTPS signup, login, encrypted test item via isolated browser; curl validates local CA independently"
+}
