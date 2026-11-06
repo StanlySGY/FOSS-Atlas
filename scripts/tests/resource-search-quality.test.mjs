@@ -113,3 +113,14 @@ test('catalogue and global command palette both use the same relevance scorer', 
   assert.match(home, /scoreResourceSearch\(query,searchRecordFor\(resource\)\)/)
   assert.match(palette, /scoreResourceSearch\(q,\{/)
 })
+
+test('resource health warnings and maintained successors remain discoverable', () => {
+  assert.ok(search('Flowise EOL').some((item) => item.resource.id === 'flowise'))
+  assert.ok(index.flowise.keywords.includes('已停止维护'))
+  assert.ok(index.filebrowser.keywords.includes('FileBrowser Quantum'))
+  assert.ok(index.filebrowser.aliases.includes('File Browser Classic'))
+  assert.ok(index.homarr.keywords.includes('Homarr v1'))
+  assert.ok(index['trojan-go'].keywords.includes('低维护'))
+  assert.ok(index.dionaea.keywords.includes('安全审查'))
+  assert.ok(index.tuic, 'TUIC remains listed rather than being removed on age alone')
+})

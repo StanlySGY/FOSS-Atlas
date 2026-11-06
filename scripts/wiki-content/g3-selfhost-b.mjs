@@ -182,16 +182,25 @@ export default {
     ],
   },
   'filebrowser': {
-    summary: '轻量的网页文件管理器，在浏览器里浏览、上传和下载服务器上的文件。',
+    updated: '2026-11-06',
+    verifiedAt: '2026-11-06',
+    sources: [
+      { title: 'File Browser 最终版本与归档公告', url: 'https://github.com/filebrowser/filebrowser/releases', type: 'official', scope: '核验 2.63.22 为最后计划版本、2026-09-01 归档及后续不再提供修复' },
+      { title: 'FileBrowser Quantum 官方文档', url: 'https://filebrowserquantum.com/en/docs/help/about/', type: 'official', scope: '核验社区 fork 的功能定位、与原版的关系及当前维护说明' },
+      { title: 'FileBrowser Quantum 维护者说明', url: 'https://filebrowserquantum.com/en/docs/help/qa/', type: 'official', scope: '核验当前维护者与项目维护方式' },
+    ],
+    summary: '原版轻量网页文件管理器已于 2026-09-01 归档。既有部署可继续使用，但新部署应优先评估持续维护的 FileBrowser Quantum 社区 fork。',
     features: [
       '网页界面浏览目录，支持上传与下载文件',
       '在线预览、重命名、编辑文本等常用操作',
-      '支持多用户与目录权限控制',
+      '原版已停止后续 bug 与安全修复；Quantum 是独立演进的社区 fork',
     ],
     scenarios: [
-      '给服务器或 NAS 提供简易的网盘入口',
-      '远程管理文件，避免频繁使用命令行',
+      '维护既有 File Browser 部署并评估迁移',
+      '新部署优先评估 https://github.com/gtsteffaniak/filebrowser',
     ],
+    aliases: ['File Browser Classic'],
+    keywords: ['已归档','停止维护','FileBrowser Quantum','文件管理'],
   },
   'wetty': {
     summary: '把终端搬进浏览器的开源工具，基于 xterm.js 通过网页连接 SSH 会话。',
@@ -278,16 +287,22 @@ export default {
     ],
   },
   'trojan-go': {
-    summary: 'TLS 伪装的 Trojan 代理实现，把代理流量伪装成正常的 HTTPS 访问。',
+    updated: '2026-11-06',
+    verifiedAt: '2026-11-06',
+    sources: [
+      { title: 'Trojan-Go GitHub 仓库', url: 'https://github.com/p4gefau1t/trojan-go', type: 'official', scope: '核验仓库仍可访问、未标记 archived；仓库元数据显示最近推送于 2024-07-14，不能据此推断仍有安全维护' },
+    ],
+    summary: 'TLS 伪装的 Trojan 代理实现。仓库未归档，但最近一次仓库推送距今已超过两年，缺少持续维护信号；仅供理解与维护既有部署，不建议新生产环境优先采用。',
     features: [
       '以 TLS 承载流量，外形与普通 HTTPS 相似',
       '支持 WebSocket 与多路复用，便于套 CDN',
-      '兼容 Trojan 协议，可对接常见客户端',
+      '项目未被 GitHub 标记归档，但维护活跃度偏低',
     ],
     scenarios: [
-      '想让代理流量伪装成正常网站访问',
-      '配合 CDN 隐藏节点的真实地址',
+      '理解既有 Trojan-Go 部署与兼容性',
+      '新部署前应优先比较仍在持续维护的替代内核',
     ],
+    keywords: ['低维护','维护状态待观察','不建议新部署'],
   },
   'snell': {
     summary: 'Surge 自研的加密代理协议，配合 Surge 客户端使用，配置简洁、延迟较低。',
@@ -338,16 +353,22 @@ export default {
     ],
   },
   'dionaea': {
-    summary: '低交互蜜罐，通过模拟常见服务诱捕并捕获传播中的恶意软件样本。',
+    updated: '2026-11-06',
+    verifiedAt: '2026-11-06',
+    sources: [
+      { title: 'Dionaea GitHub 仓库', url: 'https://github.com/DinoTools/dionaea', type: 'official', scope: '核验仓库仍可访问、未标记 archived；仓库元数据显示最近推送于 2024-08-01，维护活跃度偏低' },
+    ],
+    summary: '低交互蜜罐，通过模拟常见服务诱捕恶意软件样本。仓库仍可访问且未归档，但最近推送距今已超过两年，应视为低维护研究工具，部署前需自行评估依赖与安全风险。',
     features: [
       '模拟 SMB、HTTP 等多种服务吸引攻击',
       '捕获恶意软件样本并记录下载来源',
-      '低交互设计，部署占用与风险可控',
+      '项目未被 GitHub 标记归档，但维护活跃度偏低',
     ],
     scenarios: [
-      '收集与研究恶意软件样本及传播来源',
-      '为安全团队提供威胁情报补充',
+      '研究既有 Dionaea 部署与蜜罐数据',
+      '部署前先审查依赖、隔离策略和当前漏洞状态',
     ],
+    keywords: ['低维护','维护状态待观察','安全审查'],
   },
   'hfish': {
     summary: '国产跨平台蜜罐平台，提供 Web 管理界面集中部署与查看各类蜜罐。',
