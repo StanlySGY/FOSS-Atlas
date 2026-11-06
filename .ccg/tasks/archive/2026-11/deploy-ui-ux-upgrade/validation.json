@@ -1,0 +1,943 @@
+{
+  "verifiedAt": "2026-11-06T03:32:48.953236+00:00",
+  "runs": [
+    {
+      "conclusion": "success",
+      "databaseId": 42155474593,
+      "headSha": "292c38bfa94983fcc3acce71d28093fcb6d6f12e",
+      "jobs": [
+        {
+          "completedAt": "2026-11-06T03:16:59Z",
+          "conclusion": "success",
+          "databaseId": 127688470107,
+          "name": "build",
+          "startedAt": "2026-11-06T03:15:59Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-11-06T03:16:01Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-11-06T03:16:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:02Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-11-06T03:16:01Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:05Z",
+              "conclusion": "success",
+              "name": "Setup Node",
+              "number": 3,
+              "startedAt": "2026-11-06T03:16:02Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:07Z",
+              "conclusion": "success",
+              "name": "Install dependencies",
+              "number": 4,
+              "startedAt": "2026-11-06T03:16:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:08Z",
+              "conclusion": "success",
+              "name": "Run regression tests",
+              "number": 5,
+              "startedAt": "2026-11-06T03:16:07Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:08Z",
+              "conclusion": "success",
+              "name": "Check committed data is in sync",
+              "number": 6,
+              "startedAt": "2026-11-06T03:16:08Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:08Z",
+              "conclusion": "success",
+              "name": "Check graph views match their claims",
+              "number": 7,
+              "startedAt": "2026-11-06T03:16:08Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:15Z",
+              "conclusion": "success",
+              "name": "Build",
+              "number": 8,
+              "startedAt": "2026-11-06T03:16:08Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:26Z",
+              "conclusion": "success",
+              "name": "Probe self-hosted services",
+              "number": 9,
+              "startedAt": "2026-11-06T03:16:15Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:54Z",
+              "conclusion": "success",
+              "name": "Probe catalogue official links",
+              "number": 10,
+              "startedAt": "2026-11-06T03:16:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:54Z",
+              "conclusion": "success",
+              "name": "Configure Pages",
+              "number": 11,
+              "startedAt": "2026-11-06T03:16:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:56Z",
+              "conclusion": "success",
+              "name": "Upload artifact",
+              "number": 12,
+              "startedAt": "2026-11-06T03:16:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:56Z",
+              "conclusion": "success",
+              "name": "Post Setup Node",
+              "number": 23,
+              "startedAt": "2026-11-06T03:16:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:56Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 24,
+              "startedAt": "2026-11-06T03:16:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:56Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 25,
+              "startedAt": "2026-11-06T03:16:56Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/StanlySGY/FOSS-Atlas/actions/runs/42155474593/job/127688470107"
+        },
+        {
+          "completedAt": "2026-11-06T03:17:30Z",
+          "conclusion": "success",
+          "databaseId": 127688824239,
+          "name": "deploy",
+          "startedAt": "2026-11-06T03:17:03Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-11-06T03:17:04Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-11-06T03:17:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:17:29Z",
+              "conclusion": "success",
+              "name": "Deploy to GitHub Pages",
+              "number": 2,
+              "startedAt": "2026-11-06T03:17:04Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:17:29Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 3,
+              "startedAt": "2026-11-06T03:17:29Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/StanlySGY/FOSS-Atlas/actions/runs/42155474593/job/127688824239"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/StanlySGY/FOSS-Atlas/actions/runs/42155474593",
+      "workflowName": "Build & Deploy to GitHub Pages"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42155474518,
+      "headSha": "292c38bfa94983fcc3acce71d28093fcb6d6f12e",
+      "jobs": [
+        {
+          "completedAt": "2026-11-06T03:16:57Z",
+          "conclusion": "success",
+          "databaseId": 127688470265,
+          "name": "deploy",
+          "startedAt": "2026-11-06T03:15:59Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-11-06T03:16:01Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-11-06T03:16:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:02Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-11-06T03:16:01Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:05Z",
+              "conclusion": "success",
+              "name": "Setup Node",
+              "number": 3,
+              "startedAt": "2026-11-06T03:16:02Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:09Z",
+              "conclusion": "success",
+              "name": "Install dependencies",
+              "number": 4,
+              "startedAt": "2026-11-06T03:16:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:10Z",
+              "conclusion": "success",
+              "name": "Run regression tests",
+              "number": 5,
+              "startedAt": "2026-11-06T03:16:09Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:10Z",
+              "conclusion": "success",
+              "name": "Check committed data is in sync",
+              "number": 6,
+              "startedAt": "2026-11-06T03:16:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:10Z",
+              "conclusion": "success",
+              "name": "Check graph views match their claims",
+              "number": 7,
+              "startedAt": "2026-11-06T03:16:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:18Z",
+              "conclusion": "success",
+              "name": "Build",
+              "number": 8,
+              "startedAt": "2026-11-06T03:16:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:26Z",
+              "conclusion": "success",
+              "name": "Probe self-hosted services",
+              "number": 9,
+              "startedAt": "2026-11-06T03:16:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:39Z",
+              "conclusion": "success",
+              "name": "Probe catalogue official links",
+              "number": 10,
+              "startedAt": "2026-11-06T03:16:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:39Z",
+              "conclusion": "success",
+              "name": "Check Cloudflare credentials",
+              "number": 11,
+              "startedAt": "2026-11-06T03:16:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:54Z",
+              "conclusion": "success",
+              "name": "Deploy to Cloudflare Pages",
+              "number": 12,
+              "startedAt": "2026-11-06T03:16:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:54Z",
+              "conclusion": "success",
+              "name": "Post Setup Node",
+              "number": 23,
+              "startedAt": "2026-11-06T03:16:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:55Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 24,
+              "startedAt": "2026-11-06T03:16:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:16:55Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 25,
+              "startedAt": "2026-11-06T03:16:55Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/StanlySGY/FOSS-Atlas/actions/runs/42155474518/job/127688470265"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/StanlySGY/FOSS-Atlas/actions/runs/42155474518",
+      "workflowName": "Build & Deploy to Cloudflare Pages"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42156866709,
+      "headSha": "dbdbf45ea18a33b20ee4cfa4e557c93dbe6f37ed",
+      "jobs": [
+        {
+          "completedAt": "2026-11-06T03:30:20Z",
+          "conclusion": "success",
+          "databaseId": 127693010574,
+          "name": "build",
+          "startedAt": "2026-11-06T03:29:37Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-11-06T03:29:40Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-11-06T03:29:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:41Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-11-06T03:29:40Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:45Z",
+              "conclusion": "success",
+              "name": "Setup Node",
+              "number": 3,
+              "startedAt": "2026-11-06T03:29:41Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:48Z",
+              "conclusion": "success",
+              "name": "Install dependencies",
+              "number": 4,
+              "startedAt": "2026-11-06T03:29:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:49Z",
+              "conclusion": "success",
+              "name": "Run regression tests",
+              "number": 5,
+              "startedAt": "2026-11-06T03:29:48Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:49Z",
+              "conclusion": "success",
+              "name": "Check committed data is in sync",
+              "number": 6,
+              "startedAt": "2026-11-06T03:29:49Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:49Z",
+              "conclusion": "success",
+              "name": "Check graph views match their claims",
+              "number": 7,
+              "startedAt": "2026-11-06T03:29:49Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:56Z",
+              "conclusion": "success",
+              "name": "Build",
+              "number": 8,
+              "startedAt": "2026-11-06T03:29:49Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:01Z",
+              "conclusion": "success",
+              "name": "Probe self-hosted services",
+              "number": 9,
+              "startedAt": "2026-11-06T03:29:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:15Z",
+              "conclusion": "success",
+              "name": "Probe catalogue official links",
+              "number": 10,
+              "startedAt": "2026-11-06T03:30:01Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:15Z",
+              "conclusion": "success",
+              "name": "Configure Pages",
+              "number": 11,
+              "startedAt": "2026-11-06T03:30:15Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:18Z",
+              "conclusion": "success",
+              "name": "Upload artifact",
+              "number": 12,
+              "startedAt": "2026-11-06T03:30:15Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:18Z",
+              "conclusion": "success",
+              "name": "Post Setup Node",
+              "number": 23,
+              "startedAt": "2026-11-06T03:30:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:18Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 24,
+              "startedAt": "2026-11-06T03:30:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:18Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 25,
+              "startedAt": "2026-11-06T03:30:18Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/StanlySGY/FOSS-Atlas/actions/runs/42156866709/job/127693010574"
+        },
+        {
+          "completedAt": "2026-11-06T03:30:41Z",
+          "conclusion": "success",
+          "databaseId": 127693254935,
+          "name": "deploy",
+          "startedAt": "2026-11-06T03:30:24Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-11-06T03:30:25Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-11-06T03:30:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:39Z",
+              "conclusion": "success",
+              "name": "Deploy to GitHub Pages",
+              "number": 2,
+              "startedAt": "2026-11-06T03:30:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:39Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 3,
+              "startedAt": "2026-11-06T03:30:39Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/StanlySGY/FOSS-Atlas/actions/runs/42156866709/job/127693254935"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/StanlySGY/FOSS-Atlas/actions/runs/42156866709",
+      "workflowName": "Build & Deploy to GitHub Pages"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42156866608,
+      "headSha": "dbdbf45ea18a33b20ee4cfa4e557c93dbe6f37ed",
+      "jobs": [
+        {
+          "completedAt": "2026-11-06T03:30:33Z",
+          "conclusion": "success",
+          "databaseId": 127693010298,
+          "name": "deploy",
+          "startedAt": "2026-11-06T03:29:36Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-11-06T03:29:38Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-11-06T03:29:37Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:39Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-11-06T03:29:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:40Z",
+              "conclusion": "success",
+              "name": "Setup Node",
+              "number": 3,
+              "startedAt": "2026-11-06T03:29:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:44Z",
+              "conclusion": "success",
+              "name": "Install dependencies",
+              "number": 4,
+              "startedAt": "2026-11-06T03:29:40Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:45Z",
+              "conclusion": "success",
+              "name": "Run regression tests",
+              "number": 5,
+              "startedAt": "2026-11-06T03:29:44Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:45Z",
+              "conclusion": "success",
+              "name": "Check committed data is in sync",
+              "number": 6,
+              "startedAt": "2026-11-06T03:29:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:45Z",
+              "conclusion": "success",
+              "name": "Check graph views match their claims",
+              "number": 7,
+              "startedAt": "2026-11-06T03:29:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:29:52Z",
+              "conclusion": "success",
+              "name": "Build",
+              "number": 8,
+              "startedAt": "2026-11-06T03:29:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:00Z",
+              "conclusion": "success",
+              "name": "Probe self-hosted services",
+              "number": 9,
+              "startedAt": "2026-11-06T03:29:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:14Z",
+              "conclusion": "success",
+              "name": "Probe catalogue official links",
+              "number": 10,
+              "startedAt": "2026-11-06T03:30:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:14Z",
+              "conclusion": "success",
+              "name": "Check Cloudflare credentials",
+              "number": 11,
+              "startedAt": "2026-11-06T03:30:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:31Z",
+              "conclusion": "success",
+              "name": "Deploy to Cloudflare Pages",
+              "number": 12,
+              "startedAt": "2026-11-06T03:30:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:31Z",
+              "conclusion": "success",
+              "name": "Post Setup Node",
+              "number": 23,
+              "startedAt": "2026-11-06T03:30:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:32Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 24,
+              "startedAt": "2026-11-06T03:30:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-11-06T03:30:32Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 25,
+              "startedAt": "2026-11-06T03:30:32Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/StanlySGY/FOSS-Atlas/actions/runs/42156866608/job/127693010298"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/StanlySGY/FOSS-Atlas/actions/runs/42156866608",
+      "workflowName": "Build & Deploy to Cloudflare Pages"
+    }
+  ],
+  "browserJourneys": {
+    "cloudflare": {
+      "checks": [
+        {
+          "check": "mobile loads exactly eight more and keyboard focus reaches first new result"
+        },
+        {
+          "check": "four task shortcuts resolve to curated resources and URL state"
+        },
+        {
+          "check": "empty favorites differ from filtered favorites; recovery preserves saved view"
+        },
+        {
+          "check": "visible category and list preference survive refresh"
+        },
+        {
+          "check": "comparison survives refresh and Wiki roundtrip; fourth selection is rejected"
+        },
+        {
+          "check": "native modal traps keyboard, isolates global shortcut and restores focus and scroll"
+        },
+        {
+          "check": "failed share copy exposes a clean manual link which opens the same comparison"
+        },
+        {
+          "check": "320px grid/list fit viewport",
+          "viewport": 320,
+          "width": 320
+        },
+        {
+          "check": "390px grid/list fit viewport",
+          "viewport": 390,
+          "width": 390
+        },
+        {
+          "check": "768px grid/list fit viewport",
+          "viewport": 768,
+          "width": 768
+        },
+        {
+          "check": "1440px grid/list fit viewport",
+          "viewport": 1440,
+          "width": 1440
+        },
+        {
+          "check": "Wiki copy denial produces a focused, selectable manual link"
+        },
+        {
+          "check": "320px route smoke graph/?view=list"
+        },
+        {
+          "check": "320px route smoke graph/"
+        },
+        {
+          "check": "320px route smoke deployed/"
+        },
+        {
+          "check": "320px route smoke wiki/ollama/"
+        },
+        {
+          "check": "URL comparison works even when local storage access throws"
+        },
+        {
+          "check": "no browser runtime errors",
+          "errors": []
+        }
+      ],
+      "runtimeErrors": []
+    },
+    "github": {
+      "checks": [
+        {
+          "check": "mobile loads exactly eight more and keyboard focus reaches first new result"
+        },
+        {
+          "check": "four task shortcuts resolve to curated resources and URL state"
+        },
+        {
+          "check": "empty favorites differ from filtered favorites; recovery preserves saved view"
+        },
+        {
+          "check": "visible category and list preference survive refresh"
+        },
+        {
+          "check": "comparison survives refresh and Wiki roundtrip; fourth selection is rejected"
+        },
+        {
+          "check": "native modal traps keyboard, isolates global shortcut and restores focus and scroll"
+        },
+        {
+          "check": "failed share copy exposes a clean manual link which opens the same comparison"
+        },
+        {
+          "check": "320px grid/list fit viewport",
+          "viewport": 320,
+          "width": 320
+        },
+        {
+          "check": "390px grid/list fit viewport",
+          "viewport": 390,
+          "width": 390
+        },
+        {
+          "check": "768px grid/list fit viewport",
+          "viewport": 768,
+          "width": 768
+        },
+        {
+          "check": "1440px grid/list fit viewport",
+          "viewport": 1440,
+          "width": 1440
+        },
+        {
+          "check": "Wiki copy denial produces a focused, selectable manual link"
+        },
+        {
+          "check": "320px route smoke graph/?view=list"
+        },
+        {
+          "check": "320px route smoke graph/"
+        },
+        {
+          "check": "320px route smoke deployed/"
+        },
+        {
+          "check": "320px route smoke wiki/ollama/"
+        },
+        {
+          "check": "URL comparison works even when local storage access throws"
+        },
+        {
+          "check": "no browser runtime errors",
+          "errors": []
+        }
+      ],
+      "runtimeErrors": []
+    }
+  },
+  "httpChecks": [
+    {
+      "url": "https://atlas.sgyyyds.qzz.io/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 59845,
+      "newHero": true
+    },
+    {
+      "url": "https://atlas.sgyyyds.qzz.io/?cat=selfhost",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 59845,
+      "newHero": true
+    },
+    {
+      "url": "https://atlas.sgyyyds.qzz.io/wiki/ollama/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 44513
+    },
+    {
+      "url": "https://atlas.sgyyyds.qzz.io/graph/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 26366
+    },
+    {
+      "url": "https://atlas.sgyyyds.qzz.io/deployed/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 32156
+    },
+    {
+      "url": "https://atlas.sgyyyds.qzz.io/probe.json",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 40915,
+      "topKeys": [
+        "ranAt",
+        "elapsedMs",
+        "source",
+        "claimedUpdated",
+        "transport",
+        "counts",
+        "signals",
+        "rows"
+      ]
+    },
+    {
+      "url": "https://atlas.sgyyyds.qzz.io/resource-links.json",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 113209,
+      "topKeys": [
+        "schemaVersion",
+        "ranAt",
+        "elapsedMs",
+        "source",
+        "scope",
+        "transport",
+        "counts",
+        "rows"
+      ]
+    },
+    {
+      "url": "https://stanlysgy.github.io/FOSS-Atlas/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 61330,
+      "newHero": true
+    },
+    {
+      "url": "https://stanlysgy.github.io/FOSS-Atlas/?cat=selfhost",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 61330,
+      "newHero": true
+    },
+    {
+      "url": "https://stanlysgy.github.io/FOSS-Atlas/wiki/ollama/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 45151
+    },
+    {
+      "url": "https://stanlysgy.github.io/FOSS-Atlas/graph/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 26542
+    },
+    {
+      "url": "https://stanlysgy.github.io/FOSS-Atlas/deployed/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 32332
+    },
+    {
+      "url": "https://stanlysgy.github.io/FOSS-Atlas/probe.json",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "bytes": 40921,
+      "topKeys": [
+        "ranAt",
+        "elapsedMs",
+        "source",
+        "claimedUpdated",
+        "transport",
+        "counts",
+        "signals",
+        "rows"
+      ]
+    },
+    {
+      "url": "https://stanlysgy.github.io/FOSS-Atlas/resource-links.json",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "bytes": 113022,
+      "topKeys": [
+        "schemaVersion",
+        "ranAt",
+        "elapsedMs",
+        "source",
+        "scope",
+        "transport",
+        "counts",
+        "rows"
+      ]
+    }
+  ],
+  "fontFollowup": [
+    {
+      "host": "cloudflare",
+      "url": "https://atlas.sgyyyds.qzz.io/",
+      "status": 200,
+      "font": "\"Noto Sans Mono\", \"Noto Sans SC\", ui-monospace, monospace",
+      "label": "55 项",
+      "filteredUrl": "https://atlas.sgyyyds.qzz.io/?cat=selfhost",
+      "reloadStatus": 200,
+      "runtimeErrors": [],
+      "probeRanAt": "2026-11-06T03:29:53.049Z",
+      "linkAuditRanAt": "2026-11-06T03:30:00.415Z"
+    },
+    {
+      "host": "github",
+      "url": "https://stanlysgy.github.io/FOSS-Atlas/",
+      "status": 200,
+      "font": "\"Noto Sans Mono\", \"Noto Sans SC\", ui-monospace, monospace",
+      "label": "55 项",
+      "filteredUrl": "https://stanlysgy.github.io/FOSS-Atlas/?cat=selfhost",
+      "reloadStatus": 200,
+      "runtimeErrors": [],
+      "probeRanAt": "2026-11-06T03:29:56.538Z",
+      "linkAuditRanAt": "2026-11-06T03:30:01.341Z"
+    }
+  ],
+  "localChecks": {
+    "unitTests": 125,
+    "lint": "passed",
+    "productionBuild": "passed",
+    "prerenderedPages": 196
+  },
+  "artifactDirectories": [
+    "/tmp/foss-atlas-live-cloudflare",
+    "/tmp/foss-atlas-live-github"
+  ]
+}
