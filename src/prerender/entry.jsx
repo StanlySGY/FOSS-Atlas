@@ -28,7 +28,7 @@ import App from '../App.jsx'
 export function renderRoute({ basename, location }) {
   return renderToString(
     <StrictMode>
-      <StaticRouter basename={basename} location={location}>
+      <StaticRouter basename={basename ? `${basename.replace(/\/$/, '')}/` : '/'} location={location}>
         <App />
       </StaticRouter>
     </StrictMode>,

@@ -227,6 +227,8 @@ export default function Layout() {
   const openPalette = useCallback(() => setPaletteOpen(true), [])
   useEffect(() => {
     const onKey = (event) => {
+      // A native modal owns keyboard input until it is dismissed.
+      if (event.defaultPrevented || document.querySelector('dialog[open]')) return
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault()
         setPaletteOpen((v) => !v)

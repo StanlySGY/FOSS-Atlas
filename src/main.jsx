@@ -7,7 +7,8 @@ import './index.css'
 import './redesign.css'
 import './link-review.css'
 
-const basename = import.meta.env.BASE_URL.replace(/\/$/, '')
+// Preserve the directory slash: root filter links must reload on static hosts.
+const basename = import.meta.env.BASE_URL
 const container = document.getElementById('root')
 
 const app = (

@@ -49,8 +49,9 @@ export default function ResourceCard({
           <DeployedBadge resource={resource} to={'/deployed/#' + (resource.instances?.[0]?.id || '')} />
         </div>
         <div className="fa-resource-actions">
-          <button type="button" className={isCompared ? 'fa-compare-action is-selected' : 'fa-compare-action'} onClick={onCompare} aria-pressed={isCompared}>{isCompared ? '已加入' : '比较 +'}</button>
-          <a className="fa-visit-action" href={url} target="_blank" rel="noreferrer">访问 ↗</a>
+          <Link className="fa-detail-action" to={'/wiki/' + id + '/'} aria-label={'查看 ' + name + ' 的 Wiki 详情'}>Wiki 详情</Link>
+          <button type="button" className={isCompared ? 'fa-compare-action is-selected' : 'fa-compare-action'} onClick={onCompare} aria-label={isCompared ? '将 ' + name + ' 移出比较' : '将 ' + name + ' 加入比较'} aria-pressed={isCompared}>{isCompared ? '已加入' : '比较 +'}</button>
+          <a className="fa-visit-action" href={url} target="_blank" rel="noreferrer" aria-label={'访问 ' + name + ' 官网（新标签页）'}>访问 ↗</a>
         </div>
       </div>
     </article>

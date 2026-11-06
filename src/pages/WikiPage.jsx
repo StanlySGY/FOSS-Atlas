@@ -297,15 +297,36 @@ export default function WikiPage() {
     }
   }, [id, practicalMarkdown, overviewMarkdown])
 
-  // 复制分享链接：落成「已复制 ✓」一秒半，不弹 toast 不打断阅读。
-  const [copied, setCopied] = useState(false)
+  const [copyState, setCopyState] = useState({ status: 'idle', url: '' })
+  const copyStatus = copyState.id === id ? copyState.status : 'idle'
+  const copyTimerRef = useRef(null)
+  const copyRequestRef = useRef(0)
+  const manualLinkRef = useRef(null)
+  useEffect(() => {
+    copyRequestRef.current += 1
+    return () => {
+      copyRequestRef.current += 1
+      clearTimeout(copyTimerRef.current)
+    }
+  }, [id])
+  useEffect(() => {
+    if (copyStatus === 'failed') {
+      manualLinkRef.current?.focus({ preventScroll: true })
+      manualLinkRef.current?.select()
+    }
+  }, [copyStatus])
   const copyLink = async () => {
+    const request = ++copyRequestRef.current
+    const url = window.location.href
+    clearTimeout(copyTimerRef.current)
     try {
-      await navigator.clipboard.writeText(window.location.href)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1600)
+      await navigator.clipboard.writeText(url)
+      if (request !== copyRequestRef.current) return
+      setCopyState({ id, status: 'copied', url })
+      copyTimerRef.current = setTimeout(() => setCopyState({ status: 'idle', url: '' }), 1800)
     } catch {
-      /* 剪贴板被拒（非安全上下文等）：静默——按钮回到原样即可。 */
+      if (request !== copyRequestRef.current) return
+      setCopyState({ id, status: 'failed', url })
     }
   }
 
@@ -387,13 +408,23 @@ export default function WikiPage() {
               <button type="button" onClick={() => toggleFavorite(id)} aria-pressed={isFavorite} className="fa-control mono">
                 {isFavorite ? '★ 已收藏' : '☆ 收藏'}
               </button>
-              <button type="button" onClick={copyLink} className="fa-control mono">
-                {copied ? '已复制 ✓' : '复制链接'}
+              <button type="button" onClick={copyLink} className="fa-control mono" aria-live="polite">
+                {copyStatus === 'copied' ? '已复制 ✓' : '复制链接'}
               </button>
               {isFallback ? <span className="fa-control mono">暂无独立 Wiki</span> : null}
             </>
           )}
         />
+
+        {copyStatus === 'failed' ? (
+          <div className="fa-surface space-y-2 p-3">
+            <p role="status" className="text-sm text-[var(--text-dim)]">未能自动复制，请选中下面的链接手动复制。</p>
+            <label className="block text-sm text-[var(--text-dim)]">
+              分享链接
+              <input ref={manualLinkRef} type="url" readOnly value={copyState.url} onFocus={(event) => event.target.select()} className="mt-1 min-h-11 w-full rounded-md border border-[var(--line)] bg-[var(--ink-sunken)] px-3 text-base text-[var(--text)]" />
+            </label>
+          </div>
+        ) : null}
 
         <OfferingPanel resourceId={id} />
 

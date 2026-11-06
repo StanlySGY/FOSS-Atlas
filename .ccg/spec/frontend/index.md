@@ -146,3 +146,11 @@ the viewport — the wheel handler never fires and the roam event never appears,
 which reads exactly like "roam is broken". Assert on a native `wheel` listener
 before concluding anything about `graphroam`, and derive the point from the
 canvas `getBoundingClientRect()` rather than assuming a viewport size.
+
+
+## Catalogue continuity and comparison (2026-11-06)
+
+- Keep `import.meta.env.BASE_URL`'s directory slash when passing it to `BrowserRouter`. Stripping `/FOSS-Atlas/` to `/FOSS-Atlas` makes root `useSearchParams` updates generate `/FOSS-Atlas?cat=…`, which returns 404 on Vite preview. `StaticRouter` must use the same trailing-slash basename so prerendered links match hydration. Test both `/` and `/FOSS-Atlas/` production builds by changing a filter and reloading.
+- Comparison selection has explicit precedence: present `compare` (including an empty or invalid value) overrides local storage; absent `compare` reads the local fallback. Do not write that fallback on mount: `useSyncExternalStore` initially exposes its server snapshot during hydration and can otherwise overwrite a saved list with `[]`.
+- Use native `dialog.showModal()` to isolate the entire app, including the shared header. Global shortcuts must yield to an open dialog. Restore the exact prior body overflow style and a connected focus target during cleanup, including navigation directly from the dialog to a Wiki.
+- Mobile batch size and its displayed increment share one `pageSize`; after loading, keyboard focus moves to the first newly added resource. Browser coverage lives in the archived ui-ux-product-upgrade task alongside comparison unit tests.
