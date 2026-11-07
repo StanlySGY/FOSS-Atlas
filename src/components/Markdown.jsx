@@ -99,6 +99,14 @@ function Markdown({ children }) {
           pre({ node: _node, children: code, ...props }) {
             return <MarkdownCodeBlock {...props}>{code}</MarkdownCodeBlock>
           },
+          img({ src, alt, node: _node, ...props }) {
+            // Wiki markdown uses root-relative asset paths; prefix them the
+            // same way iconFor prefixes icon paths so images survive the
+            // GitHub Pages project-site base (/FOSS-Atlas/).
+            const target = src || ''
+            const href = target.startsWith('/') ? `${import.meta.env.BASE_URL}${target.replace(/^\//, '')}` : target
+            return <img src={href} alt={alt ?? ''} loading="lazy" decoding="async" {...props} />
+          },
         }}
       >
         {children}

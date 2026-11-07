@@ -1,18 +1,18 @@
 {
   "design": 1,
   "stats": {
-    "tools": 193,
-    "edges": 653,
+    "tools": 194,
+    "edges": 656,
     "deployed": 75,
     "instances": 93
   },
-  "copyHash": "74b932a75ff60029fdb7d3b246d6aa607725d6c3ee6e39f93be2b22168d0cf4d",
-  "glyphHash": "c298b5ccde5f0b0ed461d78029125cf0bb7c410b93503bab119c3cb4f4e12f82",
+  "copyHash": "74eba0083f6ca2c3591d0a7876a6df51e33f6220b074f23783c659389a5d27b1",
+  "glyphHash": "76f083cf8f9aaf3ff3488ec43758ca7a31aa2776d65e04514b9421313c262bd7",
   "fonts": {
-    "noto-sans-sc-400.woff2": "a7d46c6f6006ea1869776391399fc5408dec70bed73da4330939e8844085fce8",
-    "noto-sans-sc-700.woff2": "b3c26729d09ba31b33f3363a89c27ade86a9d7983909fbe1e82ea9750316a987"
+    "noto-sans-sc-400.woff2": "a95a314dd26f4a98656d642165fc3ee3d0f246cbe3e27bca600602353123f7f1",
+    "noto-sans-sc-700.woff2": "026896e6e154354baf0bd3177f62e7d012d285efaff92ab5b96db113ef1db2d3"
   },
   "chrome": {
-    "version": "Google Chrome 156.0.8078.47"
+    "version": "Google Chrome 156.0.8078.79"
   }
 }

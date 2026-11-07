@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-05T07:12:34.181Z",
+  "generated_at": "2026-11-07T14:46:41.168Z",
   "stats": {
-    "tools": 193,
+    "tools": 194,
     "categories": 11,
-    "sub_categories": 25,
+    "sub_categories": 26,
     "tags": 40,
     "externals": 24,
     "own": 12,
     "deployed": 75,
     "instances": 93,
-    "edges": 653
+    "edges": 656
   },
   "categories": [
     {
@@ -192,6 +192,11 @@
     {
       "id": "gear-tools",
       "name": "高频实用工具",
+      "category": "gear"
+    },
+    {
+      "id": "gear-picks",
+      "name": "社区精选索引",
       "category": "gear"
     }
   ],
@@ -409,6 +414,12 @@
     {
       "id": "sub:gear-tools",
       "name": "高频实用工具",
+      "type": "subcategory",
+      "category": "gear"
+    },
+    {
+      "id": "sub:gear-picks",
+      "name": "社区精选索引",
       "type": "subcategory",
       "category": "gear"
     },
@@ -3003,6 +3014,15 @@
       ]
     },
     {
+      "id": "linuxdo-ai-picks",
+      "name": "学AI上L站 · 月度精选帖",
+      "type": "tool",
+      "category": "gear",
+      "sub_category": "gear-picks",
+      "url": "https://linux.do/t/topic/3106502",
+      "wiki": "linuxdo-ai-picks"
+    },
+    {
       "id": "foss-atlas-cf",
       "name": "FOSS-Atlas(Cloudflare Pages)",
       "type": "own",
@@ -3357,6 +3377,11 @@
       "type": "tag"
     },
     {
+      "id": "tag:合集",
+      "name": "合集",
+      "type": "tag"
+    },
+    {
       "id": "tag:部署",
       "name": "部署",
       "type": "tag"
@@ -3429,11 +3454,6 @@
     {
       "id": "tag:向量数据库",
       "name": "向量数据库",
-      "type": "tag"
-    },
-    {
-      "id": "tag:合集",
-      "name": "合集",
       "type": "tag"
     },
     {
@@ -3734,6 +3754,11 @@
     },
     {
       "source": "sub:gear-tools",
+      "target": "cat:gear",
+      "type": "in_category"
+    },
+    {
+      "source": "sub:gear-picks",
       "target": "cat:gear",
       "type": "in_category"
     },
@@ -4640,6 +4665,11 @@
     {
       "source": "homarr",
       "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "linuxdo-ai-picks",
+      "target": "sub:gear-picks",
       "type": "belongs_to"
     },
     {
@@ -6275,6 +6305,11 @@
     {
       "source": "homarr",
       "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "linuxdo-ai-picks",
+      "target": "tag:合集",
       "type": "tagged"
     },
     {

@@ -3855,6 +3855,23 @@
     "deployed": true
   },
   {
+    "id": "linuxdo-ai-picks",
+    "name": "学AI上L站 · 月度精选帖",
+    "url": "https://linux.do/t/topic/3106502",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-picks",
+    "sub_category_name": "社区精选索引",
+    "description": "timerring 每月整理的 L 站高价值 AI 帖子索引，分「项目/工具」与「文档」两板块，逐条一句话点评",
+    "tags": [
+      "AI",
+      "合集",
+      "L站",
+      "月度更新"
+    ],
+    "wiki": "linuxdo-ai-picks"
+  },
+  {
     "id": "foss-atlas-cf",
     "name": "FOSS-Atlas(Cloudflare Pages)",
     "url": "https://atlas.sgyyyds.qzz.io",

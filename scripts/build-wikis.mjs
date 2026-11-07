@@ -9,9 +9,9 @@
  *   - public/wiki/<id>.md          (generated base page, one per resource)
  *   - src/data/backlinks.json      ({ sourceId: [wikilink target names] })
  *
- * The five pages that predate this script are hand-written and referenced by
- * CURATED below; they keep their own file names and are never rewritten, but
- * they still take part in the backlink index.
+ * The pages that predate this script (plus any later hand-written deep pages)
+ * are listed in CURATED below; they keep their own file names and are never
+ * rewritten, but they still take part in the backlink index.
  *
  * Prose lives in scripts/wiki-content/*.mjs (one module per group). The
  * generator only adds the parts that must stay in sync with the catalogue:
@@ -38,6 +38,7 @@ const CURATED = {
   vaultwarden: 'vaultwarden',
   immich: 'immich',
   nextcloud: 'nextcloud',
+  'linuxdo-ai-picks': 'linuxdo-ai-picks',
 }
 
 /**

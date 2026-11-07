@@ -428,6 +428,13 @@ const CATEGORIES = [
           ['homarr', 'Homarr', 'https://github.com/ajnart/homarr', '自建服务导航首页面板', ['导航', '面板', '开源']],
         ],
       },
+      {
+        id: 'gear-picks',
+        name: '社区精选索引',
+        items: [
+          ['linuxdo-ai-picks', '学AI上L站 · 月度精选帖', 'https://linux.do/t/topic/3106502', 'timerring 每月整理的 L 站高价值 AI 帖子索引，分「项目/工具」与「文档」两板块，逐条一句话点评', ['AI', '合集', 'L站', '月度更新']],
+        ],
+      },
     ],
   },
 ]

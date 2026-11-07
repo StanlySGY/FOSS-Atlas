@@ -3002,6 +3002,24 @@
       "自建导航面板"
     ]
   },
+  "linuxdo-ai-picks": {
+    "summary": "timerring 每月整理的 L 站高价值 AI 帖子索引，分「项目/工具」与「文档」两板块，逐条一句话点评",
+    "features": [],
+    "scenarios": [],
+    "usage": [],
+    "aliases": [],
+    "keywords": [
+      "学AI上L站",
+      "timerring",
+      "L站精选帖",
+      "AI 学习帖子",
+      "linux.do 精华帖",
+      "每月 AI 帖子",
+      "AI 教程合集",
+      "AI 项目推荐",
+      "文档共建"
+    ]
+  },
   "foss-atlas-cf": {
     "summary": "本目录站的 Cloudflare Pages 镜像，与 GitHub Pages 上的主站保持同一份内容。",
     "features": [
