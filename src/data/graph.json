@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-07T14:46:41.168Z",
+  "generated_at": "2026-11-07T15:57:05.197Z",
   "stats": {
-    "tools": 194,
+    "tools": 198,
     "categories": 11,
     "sub_categories": 26,
     "tags": 40,
-    "externals": 24,
+    "externals": 25,
     "own": 12,
     "deployed": 75,
     "instances": 93,
-    "edges": 656
+    "edges": 666
   },
   "categories": [
     {
@@ -943,6 +943,15 @@
       "sub_category": "ai-prompt",
       "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
       "wiki": "deeplearning-ai-prompts"
+    },
+    {
+      "id": "best-paper-writing-skill",
+      "name": "Best Paper Writing Skill",
+      "type": "tool",
+      "category": "ai",
+      "sub_category": "ai-prompt",
+      "url": "https://gulucaptain.github.io/Best-Paper-Writing-Skill/",
+      "wiki": "best-paper-writing-skill"
     },
     {
       "id": "google-cloud",
@@ -2678,6 +2687,15 @@
       ]
     },
     {
+      "id": "security-audit-skill",
+      "name": "Security Audit Skill",
+      "type": "tool",
+      "category": "security",
+      "sub_category": "security-pentest",
+      "url": "https://github.com/cloudflare/security-audit-skill",
+      "wiki": "security-audit-skill"
+    },
+    {
       "id": "free-programming-books",
       "name": "free-programming-books",
       "type": "tool",
@@ -3014,13 +3032,31 @@
       ]
     },
     {
-      "id": "linuxdo-ai-picks",
-      "name": "学AI上L站 · 月度精选帖",
+      "id": "macos-sysdata",
+      "name": "macOS SysData",
+      "type": "tool",
+      "category": "gear",
+      "sub_category": "gear-tools",
+      "url": "https://github.com/Jarvis322/macos-sysdata",
+      "wiki": "macos-sysdata"
+    },
+    {
+      "id": "startup-due-diligence",
+      "name": "Startup Due Diligence",
       "type": "tool",
       "category": "gear",
       "sub_category": "gear-picks",
-      "url": "https://linux.do/t/topic/3106502",
-      "wiki": "linuxdo-ai-picks"
+      "url": "https://memwey.github.io/startup-due-diligence/zh/",
+      "wiki": "startup-due-diligence"
+    },
+    {
+      "id": "wqu-newshub",
+      "name": "wqu Newshub",
+      "type": "tool",
+      "category": "gear",
+      "sub_category": "gear-picks",
+      "url": "https://wqu.guru/newshub/discover?topic=ship",
+      "wiki": "wqu-newshub"
     },
     {
       "id": "foss-atlas-cf",
@@ -3322,13 +3358,13 @@
       "type": "tag"
     },
     {
-      "id": "tag:代理",
-      "name": "代理",
+      "id": "tag:安全",
+      "name": "安全",
       "type": "tag"
     },
     {
-      "id": "tag:安全",
-      "name": "安全",
+      "id": "tag:代理",
+      "name": "代理",
       "type": "tag"
     },
     {
@@ -3407,6 +3443,11 @@
       "type": "tag"
     },
     {
+      "id": "tag:监控",
+      "name": "监控",
+      "type": "tag"
+    },
+    {
       "id": "tag:短链",
       "name": "短链",
       "type": "tag"
@@ -3469,11 +3510,6 @@
     {
       "id": "tag:Cloudflare",
       "name": "Cloudflare",
-      "type": "tag"
-    },
-    {
-      "id": "tag:监控",
-      "name": "监控",
       "type": "tag"
     },
     {
@@ -3629,6 +3665,12 @@
       "name": "Adobe Acrobat",
       "type": "external",
       "url": "https://www.adobe.com/acrobat.html"
+    },
+    {
+      "id": "ext:CleanMyMac",
+      "name": "CleanMyMac",
+      "type": "external",
+      "url": "https://cleanmymac.com"
     }
   ],
   "edges": [
@@ -3989,6 +4031,11 @@
     },
     {
       "source": "deeplearning-ai-prompts",
+      "target": "sub:ai-prompt",
+      "type": "belongs_to"
+    },
+    {
+      "source": "best-paper-writing-skill",
       "target": "sub:ai-prompt",
       "type": "belongs_to"
     },
@@ -4548,6 +4595,11 @@
       "type": "belongs_to"
     },
     {
+      "source": "security-audit-skill",
+      "target": "sub:security-pentest",
+      "type": "belongs_to"
+    },
+    {
       "source": "free-programming-books",
       "target": "sub:ebook-free",
       "type": "belongs_to"
@@ -4668,7 +4720,17 @@
       "type": "belongs_to"
     },
     {
-      "source": "linuxdo-ai-picks",
+      "source": "macos-sysdata",
+      "target": "sub:gear-tools",
+      "type": "belongs_to"
+    },
+    {
+      "source": "startup-due-diligence",
+      "target": "sub:gear-picks",
+      "type": "belongs_to"
+    },
+    {
+      "source": "wqu-newshub",
       "target": "sub:gear-picks",
       "type": "belongs_to"
     },
@@ -5145,6 +5207,11 @@
     {
       "source": "deeplearning-ai-prompts",
       "target": "tag:免费",
+      "type": "tagged"
+    },
+    {
+      "source": "best-paper-writing-skill",
+      "target": "tag:开源",
       "type": "tagged"
     },
     {
@@ -6103,6 +6170,16 @@
       "type": "tagged"
     },
     {
+      "source": "security-audit-skill",
+      "target": "tag:安全",
+      "type": "tagged"
+    },
+    {
+      "source": "security-audit-skill",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
       "source": "free-programming-books",
       "target": "tag:编程",
       "type": "tagged"
@@ -6308,8 +6385,18 @@
       "type": "tagged"
     },
     {
-      "source": "linuxdo-ai-picks",
+      "source": "macos-sysdata",
+      "target": "tag:开源",
+      "type": "tagged"
+    },
+    {
+      "source": "startup-due-diligence",
       "target": "tag:合集",
+      "type": "tagged"
+    },
+    {
+      "source": "wqu-newshub",
+      "target": "tag:监控",
       "type": "tagged"
     },
     {
@@ -6595,6 +6682,11 @@
     {
       "source": "dify",
       "target": "langflow",
+      "type": "alternative_to"
+    },
+    {
+      "source": "macos-sysdata",
+      "target": "ext:CleanMyMac",
       "type": "alternative_to"
     },
     {

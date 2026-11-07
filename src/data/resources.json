@@ -849,6 +849,23 @@
     "wiki": "deeplearning-ai-prompts"
   },
   {
+    "id": "best-paper-writing-skill",
+    "name": "Best Paper Writing Skill",
+    "url": "https://gulucaptain.github.io/Best-Paper-Writing-Skill/",
+    "category": "ai",
+    "category_name": "AI / LLM 白嫖",
+    "sub_category": "ai-prompt",
+    "sub_category_name": "AI 提示词资源",
+    "description": "从 60 篇顶会获奖论文提炼论证结构与文风的论文写作 Skill，按章节生成草稿",
+    "tags": [
+      "论文",
+      "写作",
+      "Skill",
+      "开源"
+    ],
+    "wiki": "best-paper-writing-skill"
+  },
+  {
     "id": "google-cloud",
     "name": "Google Cloud",
     "url": "https://cloud.google.com/free",
@@ -3351,6 +3368,23 @@
     "deployed": true
   },
   {
+    "id": "security-audit-skill",
+    "name": "Security Audit Skill",
+    "url": "https://github.com/cloudflare/security-audit-skill",
+    "category": "security",
+    "category_name": "黑客 / 安全工具书",
+    "sub_category": "security-pentest",
+    "sub_category_name": "渗透测试工具集",
+    "description": "Cloudflare 开源的多阶段安全审计 coding-agent skill，产出可机读的核验结论",
+    "tags": [
+      "安全",
+      "审计",
+      "Skill",
+      "开源"
+    ],
+    "wiki": "security-audit-skill"
+  },
+  {
     "id": "free-programming-books",
     "name": "free-programming-books",
     "url": "https://github.com/EbookFoundation/free-programming-books",
@@ -3855,21 +3889,54 @@
     "deployed": true
   },
   {
-    "id": "linuxdo-ai-picks",
-    "name": "学AI上L站 · 月度精选帖",
-    "url": "https://linux.do/t/topic/3106502",
+    "id": "macos-sysdata",
+    "name": "macOS SysData",
+    "url": "https://github.com/Jarvis322/macos-sysdata",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-tools",
+    "sub_category_name": "高频实用工具",
+    "description": "免费菜单栏 App，解释 macOS「系统数据」为何膨胀，并逐项安全清理",
+    "tags": [
+      "macOS",
+      "清理",
+      "菜单栏",
+      "开源"
+    ],
+    "wiki": "macos-sysdata"
+  },
+  {
+    "id": "startup-due-diligence",
+    "name": "Startup Due Diligence",
+    "url": "https://memwey.github.io/startup-due-diligence/zh/",
     "category": "gear",
     "category_name": "佬友神器",
     "sub_category": "gear-picks",
     "sub_category_name": "社区精选索引",
-    "description": "timerring 每月整理的 L 站高价值 AI 帖子索引，分「项目/工具」与「文档」两板块，逐条一句话点评",
+    "description": "工程师视角的创业尽调信息源合集，从团队到市场的核查清单一应俱全",
     "tags": [
-      "AI",
+      "尽调",
+      "信息源",
       "合集",
-      "L站",
-      "月度更新"
+      "创业"
     ],
-    "wiki": "linuxdo-ai-picks"
+    "wiki": "startup-due-diligence"
+  },
+  {
+    "id": "wqu-newshub",
+    "name": "wqu Newshub",
+    "url": "https://wqu.guru/newshub/discover?topic=ship",
+    "category": "gear",
+    "category_name": "佬友神器",
+    "sub_category": "gear-picks",
+    "sub_category_name": "社区精选索引",
+    "description": "个人维护的开发动态信源站：77 个 RSS 信源按主题聚合，持续抓取入库",
+    "tags": [
+      "RSS",
+      "信息源",
+      "监控"
+    ],
+    "wiki": "wqu-newshub"
   },
   {
     "id": "foss-atlas-cf",

@@ -258,20 +258,26 @@
   "awesome-chatgpt-prompts": [
     "Prompt 工程指南（OpenAI）",
     "DeepLearning.AI 提示词课",
-    "Poe",
-    "HuggingChat"
+    "Best Paper Writing Skill",
+    "Poe"
   ],
   "openai-prompt-guide": [
     "awesome-chatgpt-prompts (prompts.chat)",
     "DeepLearning.AI 提示词课",
-    "Poe",
-    "HuggingChat"
+    "Best Paper Writing Skill",
+    "Poe"
   ],
   "deeplearning-ai-prompts": [
     "awesome-chatgpt-prompts (prompts.chat)",
     "Prompt 工程指南（OpenAI）",
-    "Poe",
-    "HuggingChat"
+    "Best Paper Writing Skill",
+    "Poe"
+  ],
+  "best-paper-writing-skill": [
+    "awesome-chatgpt-prompts (prompts.chat)",
+    "Prompt 工程指南（OpenAI）",
+    "DeepLearning.AI 提示词课",
+    "Poe"
   ],
   "google-cloud": [
     "AWS",
@@ -935,6 +941,12 @@
     "HackTricks",
     "SecLists"
   ],
+  "security-audit-skill": [
+    "Awesome Hacking",
+    "PayloadsAllTheThings",
+    "HackTricks",
+    "SecLists"
+  ],
   "mfuu-freeproxies": [
     "aiboboxx/v2rayfree",
     "barry-far/V2ray-Configs",
@@ -1063,9 +1075,23 @@
     "subconverter",
     "LocalSend"
   ],
-  "linuxdo-ai-picks": [
-    "Awesome Hacking",
-    "free-programming-books"
+  "macos-sysdata": [
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "subconverter",
+    "LocalSend"
+  ],
+  "startup-due-diligence": [
+    "wqu Newshub",
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "subconverter"
+  ],
+  "wqu-newshub": [
+    "Startup Due Diligence",
+    "CloudFlare-ImgBed",
+    "Cloudflare Tunnel",
+    "subconverter"
   ],
   "foss-atlas-cf": [
     "Atlas Short",

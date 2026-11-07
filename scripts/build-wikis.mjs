@@ -38,7 +38,6 @@ const CURATED = {
   vaultwarden: 'vaultwarden',
   immich: 'immich',
   nextcloud: 'nextcloud',
-  'linuxdo-ai-picks': 'linuxdo-ai-picks',
 }
 
 /**

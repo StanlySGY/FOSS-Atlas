@@ -300,4 +300,85 @@ export default {
       '快速做一个能对外访问的原型',
     ],
   },
+  'security-audit-skill': {
+    updated: '2026-11-07',
+    verifiedAt: '2026-11-07',
+    sources: [
+      { title: 'cloudflare/security-audit-skill（GitHub）', url: 'https://github.com/cloudflare/security-audit-skill', type: 'official', scope: '核对仓库定位（多阶段安全审计的 coding-agent skill、独立复核的机器可读 findings）、MIT 许可与 Cloudflare 官方维护身份' },
+      { title: 'L 站 2026.11 精选帖（发现来源）', url: 'https://linux.do/t/topic/3106502', type: 'third-party', scope: '收录线索来源：timerring 的月度精选帖「帖子/项目/工具类」条目，附一句点评' },
+    ],
+    summary: 'Cloudflare 官方开源的安全审计 Skill，把多阶段审查流程装进 coding agent。',
+    features: [
+      '多阶段审计流程：从侦察、攻击面分析到结论复核',
+      '产出独立复核过的机器可读 findings，便于归档与追踪',
+      '可直接挂载到 Claude Code / Codex 等主流 coding agent',
+    ],
+    scenarios: [
+      '给自己的开源仓库或内部服务做一轮自动化安全体检',
+      '为 coding agent 配置标准化、可复现的安全审查流程',
+    ],
+    keywords: ['安全审计', '漏洞审查', 'security audit', 'coding agent skill', 'Cloudflare 开源', 'agent 安全'],
+  },
+
+  'macos-sysdata': {
+    updated: '2026-11-07',
+    verifiedAt: '2026-11-07',
+    sources: [
+      { title: 'Jarvis322/macos-sysdata（GitHub）', url: 'https://github.com/Jarvis322/macos-sysdata', type: 'official', scope: '核对功能描述（免费菜单栏 App，逐项解释并删除 macOS System Data）、约 2k star 与 2026-11 的更新活跃度' },
+      { title: 'L 站 2026.11 精选帖（发现来源）', url: 'https://linux.do/t/topic/3106502', type: 'third-party', scope: '收录线索来源：timerring 的月度精选帖「帖子/项目/工具类」条目，附一句点评' },
+    ],
+    summary: '免费的 macOS 菜单栏清理工具，把「系统数据」拆开讲清楚，再让你逐项删除。',
+    features: [
+      '菜单栏常驻，直观查看 System Data 的真实构成',
+      '逐项解释占用来源，删除前可见明细而非一键全清',
+      '开源免费，更新活跃，持续适配新 macOS 版本',
+    ],
+    scenarios: [
+      'Mac 存储被「系统数据」吃掉几十 GB 时定位去向',
+      '不敢乱删系统文件，想先弄明白每一项是什么再清理',
+    ],
+    keywords: ['Mac 清理', '系统数据', 'System Data', '菜单栏应用', '磁盘空间', 'menu bar'],
+  },
+
+  'startup-due-diligence': {
+    updated: '2026-11-07',
+    verifiedAt: '2026-11-07',
+    sources: [
+      { title: 'startup-due-diligence 中文版（项目站点）', url: 'https://memwey.github.io/startup-due-diligence/zh/', type: 'official', scope: '核对内容形态：工程师视角的创业尽调信息源合集，按主题归组的核查清单' },
+      { title: 'memwey/startup-due-diligence（GitHub）', url: 'https://github.com/memwey/startup-due-diligence', type: 'official', scope: '核对仓库 MIT 许可与开源状态；各信息源本身的时效未逐条复核' },
+      { title: 'L 站 2026.11 精选帖（发现来源）', url: 'https://linux.do/t/topic/3106502', type: 'third-party', scope: '收录线索来源：timerring 的月度精选帖「帖子/项目/工具类」条目，附一句点评' },
+    ],
+    summary: '工程师视角的创业尽调手册：把该查的信息源按主题整理成可执行的核查清单。',
+    features: [
+      '按团队、产品、市场等主题归组一手信息源',
+      '中文版开箱即读，源站 GitHub 开源可 fork',
+      '每条都指向可直接点开的公开数据来源',
+    ],
+    scenarios: [
+      '入职、投资或合作前想摸清一家公司的底细',
+      '做竞品调研时寻找结构化的一手信息源',
+    ],
+    keywords: ['尽调', 'due diligence', '公司背调', '信息源', '竞品调研', '创业'],
+  },
+
+  'wqu-newshub': {
+    updated: '2026-11-07',
+    verifiedAt: '2026-11-07',
+    sources: [
+      { title: 'wqu.guru Newshub（项目站点）', url: 'https://wqu.guru/newshub/discover?topic=ship', type: 'official', scope: '核对站点可访问与形态：77 个 RSS 信源按主题（AI/Ship/Invest 等）聚合，持续抓取入库并在页面标注更新时间' },
+      { title: 'L 站 2026.11 精选帖（发现来源）', url: 'https://linux.do/t/topic/3106502', type: 'third-party', scope: '收录线索来源：timerring 的月度精选帖「帖子/项目/工具类」条目，附一句点评' },
+    ],
+    summary: '个人维护的开发动态信源站：RSS 信源按主题聚合，持续抓取并标注新鲜度。',
+    features: [
+      '按 AI、Ship、Invest 等主题浏览 77 个精选信源',
+      '持续抓取入库，页面标注最近更新时间与运行状态',
+      '轻量网页直接用，也可搭配自建 RSS 阅读器订阅',
+    ],
+    scenarios: [
+      '跟踪关注的产品与团队的发布动态',
+      '为 FreshRSS、Miniflux 等阅读器补充新信源',
+    ],
+    keywords: ['RSS', '信源', '信息聚合', '监控', 'news hub', '开发动态'],
+  },
 };
+

@@ -776,6 +776,29 @@
     "aliases": [],
     "keywords": []
   },
+  "best-paper-writing-skill": {
+    "summary": "从 60 篇顶会获奖论文提炼论证结构与文风的论文写作 Skill，按章节生成学术草稿。",
+    "features": [
+      "输入摘要或研究信息即可起草 Title、Abstract 与 Introduction",
+      "覆盖 Method 与 Experiments 章节的写作范式",
+      "以 Skill 形态挂载到 Claude Code / Codex 等 coding agent"
+    ],
+    "scenarios": [
+      "论文初稿没头绪，先按顶会范式搭出章节骨架",
+      "给组里新生一份可复用、可改写的写作脚手架"
+    ],
+    "usage": [],
+    "aliases": [],
+    "keywords": [
+      "论文写作",
+      "学术写作",
+      "paper writing",
+      "顶会",
+      "CVPR",
+      "Claude skill",
+      "Codex skill"
+    ]
+  },
   "google-cloud": {
     "summary": "Google Cloud 的永久免费层，含 1 台美区 e2-micro 虚拟机、5GB 存储与每月 1GB 出网流量。",
     "features": [
@@ -2608,6 +2631,28 @@
     "aliases": [],
     "keywords": []
   },
+  "security-audit-skill": {
+    "summary": "Cloudflare 官方开源的安全审计 Skill，把多阶段审查流程装进 coding agent。",
+    "features": [
+      "多阶段审计流程：从侦察、攻击面分析到结论复核",
+      "产出独立复核过的机器可读 findings，便于归档与追踪",
+      "可直接挂载到 Claude Code / Codex 等主流 coding agent"
+    ],
+    "scenarios": [
+      "给自己的开源仓库或内部服务做一轮自动化安全体检",
+      "为 coding agent 配置标准化、可复现的安全审查流程"
+    ],
+    "usage": [],
+    "aliases": [],
+    "keywords": [
+      "安全审计",
+      "漏洞审查",
+      "security audit",
+      "coding agent skill",
+      "Cloudflare 开源",
+      "agent 安全"
+    ]
+  },
   "free-programming-books": {
     "summary": "Free Ebook Foundation 维护的免费编程书清单，按语言与主题分类收录大量电子书链接。",
     "features": [
@@ -3002,22 +3047,70 @@
       "自建导航面板"
     ]
   },
-  "linuxdo-ai-picks": {
-    "summary": "timerring 每月整理的 L 站高价值 AI 帖子索引，分「项目/工具」与「文档」两板块，逐条一句话点评",
-    "features": [],
-    "scenarios": [],
+  "macos-sysdata": {
+    "summary": "免费的 macOS 菜单栏清理工具，把「系统数据」拆开讲清楚，再让你逐项删除。",
+    "features": [
+      "菜单栏常驻，直观查看 System Data 的真实构成",
+      "逐项解释占用来源，删除前可见明细而非一键全清",
+      "开源免费，更新活跃，持续适配新 macOS 版本"
+    ],
+    "scenarios": [
+      "Mac 存储被「系统数据」吃掉几十 GB 时定位去向",
+      "不敢乱删系统文件，想先弄明白每一项是什么再清理"
+    ],
     "usage": [],
     "aliases": [],
     "keywords": [
-      "学AI上L站",
-      "timerring",
-      "L站精选帖",
-      "AI 学习帖子",
-      "linux.do 精华帖",
-      "每月 AI 帖子",
-      "AI 教程合集",
-      "AI 项目推荐",
-      "文档共建"
+      "Mac 清理",
+      "系统数据",
+      "System Data",
+      "菜单栏应用",
+      "磁盘空间",
+      "menu bar"
+    ]
+  },
+  "startup-due-diligence": {
+    "summary": "工程师视角的创业尽调手册：把该查的信息源按主题整理成可执行的核查清单。",
+    "features": [
+      "按团队、产品、市场等主题归组一手信息源",
+      "中文版开箱即读，源站 GitHub 开源可 fork",
+      "每条都指向可直接点开的公开数据来源"
+    ],
+    "scenarios": [
+      "入职、投资或合作前想摸清一家公司的底细",
+      "做竞品调研时寻找结构化的一手信息源"
+    ],
+    "usage": [],
+    "aliases": [],
+    "keywords": [
+      "尽调",
+      "due diligence",
+      "公司背调",
+      "信息源",
+      "竞品调研",
+      "创业"
+    ]
+  },
+  "wqu-newshub": {
+    "summary": "个人维护的开发动态信源站：RSS 信源按主题聚合，持续抓取并标注新鲜度。",
+    "features": [
+      "按 AI、Ship、Invest 等主题浏览 77 个精选信源",
+      "持续抓取入库，页面标注最近更新时间与运行状态",
+      "轻量网页直接用，也可搭配自建 RSS 阅读器订阅"
+    ],
+    "scenarios": [
+      "跟踪关注的产品与团队的发布动态",
+      "为 FreshRSS、Miniflux 等阅读器补充新信源"
+    ],
+    "usage": [],
+    "aliases": [],
+    "keywords": [
+      "RSS",
+      "信源",
+      "信息聚合",
+      "监控",
+      "news hub",
+      "开发动态"
     ]
   },
   "foss-atlas-cf": {

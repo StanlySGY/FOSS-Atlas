@@ -114,6 +114,7 @@ const CATEGORIES = [
           ['awesome-chatgpt-prompts', 'awesome-chatgpt-prompts (prompts.chat)', 'https://github.com/f/prompts.chat', '最全的 ChatGPT 提示词合集', ['提示词', '合集', '开源']],
           ['openai-prompt-guide', 'Prompt 工程指南（OpenAI）', 'https://platform.openai.com/docs/guides/prompt-engineering', 'OpenAI 官方提示词工程最佳实践', ['提示词', '官方文档', 'OpenAI']],
           ['deeplearning-ai-prompts', 'DeepLearning.AI 提示词课', 'https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/', '吴恩达团队的提示词工程短课', ['提示词', '课程', '免费']],
+          ['best-paper-writing-skill', 'Best Paper Writing Skill', 'https://gulucaptain.github.io/Best-Paper-Writing-Skill/', '从 60 篇顶会获奖论文提炼论证结构与文风的论文写作 Skill，按章节生成草稿', ['论文', '写作', 'Skill', '开源']],
         ],
       },
     ],
@@ -331,6 +332,7 @@ const CATEGORIES = [
           ['nuclei-templates', 'nuclei-templates', 'https://github.com/projectdiscovery/nuclei-templates', 'Nuclei 漏洞检测模板库', ['安全', '漏洞扫描', '开源']],
           ['gtfobins', 'GTFOBins', 'https://gtfobins.github.io', 'Unix 提权二进制利用手册', ['安全', '提权', '手册']],
           ['lolbas', 'LOLBAS', 'https://lolbas-project.github.io', 'Windows 原生二进制滥用手册', ['安全', 'Windows', '手册']],
+          ['security-audit-skill', 'Security Audit Skill', 'https://github.com/cloudflare/security-audit-skill', 'Cloudflare 开源的多阶段安全审计 coding-agent skill，产出可机读的核验结论', ['安全', '审计', 'Skill', '开源']],
         ],
       },
     ],
@@ -426,13 +428,15 @@ const CATEGORIES = [
           ['n8n', 'n8n', 'https://github.com/n8n-io/n8n', '开源工作流自动化，替代 Zapier', ['自动化', '工作流', '开源']],
           ['activepieces', 'Activepieces', 'https://github.com/activepieces/activepieces', '开源自动化平台，替代 Zapier', ['自动化', '工作流', '开源']],
           ['homarr', 'Homarr', 'https://github.com/ajnart/homarr', '自建服务导航首页面板', ['导航', '面板', '开源']],
+          ['macos-sysdata', 'macOS SysData', 'https://github.com/Jarvis322/macos-sysdata', '免费菜单栏 App，解释 macOS「系统数据」为何膨胀，并逐项安全清理', ['macOS', '清理', '菜单栏', '开源']],
         ],
       },
       {
         id: 'gear-picks',
         name: '社区精选索引',
         items: [
-          ['linuxdo-ai-picks', '学AI上L站 · 月度精选帖', 'https://linux.do/t/topic/3106502', 'timerring 每月整理的 L 站高价值 AI 帖子索引，分「项目/工具」与「文档」两板块，逐条一句话点评', ['AI', '合集', 'L站', '月度更新']],
+          ['startup-due-diligence', 'Startup Due Diligence', 'https://memwey.github.io/startup-due-diligence/zh/', '工程师视角的创业尽调信息源合集，从团队到市场的核查清单一应俱全', ['尽调', '信息源', '合集', '创业']],
+          ['wqu-newshub', 'wqu Newshub', 'https://wqu.guru/newshub/discover?topic=ship', '个人维护的开发动态信源站：77 个 RSS 信源按主题聚合，持续抓取入库', ['RSS', '信息源', '监控']],
         ],
       },
     ],
@@ -494,6 +498,7 @@ const ALTERNATIVES = [
   ['stirling-pdf', 'Adobe Acrobat'],
   ['homarr', 'heimdall'],
   ['dify', 'langflow'],
+  ['macos-sysdata', 'CleanMyMac'],
 ]
 
 // curated "related" pairs (undirected, stored once)
@@ -545,6 +550,7 @@ const EXTERNALS = {
   'Miro': 'https://miro.com',
   'Zapier': 'https://zapier.com',
   'Adobe Acrobat': 'https://www.adobe.com/acrobat.html',
+  'CleanMyMac': 'https://cleanmymac.com',
 }
 
 /* ------------------------------------------------------------------ *

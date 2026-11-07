@@ -134,10 +134,13 @@ export default function WikiPage() {
   )
 
   // Only headings in the visible reading flow are indexed; collapsed background
-  // sections never create dead TOC jumps.
+  // sections never create dead TOC jumps. When the overview renders inline
+  // (no actionable guide to prioritise) its headings belong to the flow too.
   const toc = useMemo(
-    () => (isFallback ? [] : headingsFromMarkdown(practicalMarkdown)),
-    [practicalMarkdown, isFallback],
+    () => (isFallback
+      ? []
+      : headingsFromMarkdown(hasActionableGuide ? practicalMarkdown : `${overviewMarkdown}\n\n${practicalMarkdown}`)),
+    [overviewMarkdown, practicalMarkdown, hasActionableGuide, isFallback],
   )
 
   const quickstartHeading = toc.find((heading) => heading.level === 2 && heading.text === '快速上手')
@@ -442,13 +445,19 @@ export default function WikiPage() {
           </p>
         ) : null}
 
-        {overviewMarkdown ? (
+        {overviewMarkdown && hasActionableGuide ? (
+          // Actionable steps exist lower on the page, so the generic feature
+          // and scenario lists stay one click away instead of pushing them down.
           <details className="fa-disclosure fa-surface px-3.5 py-3 sm:px-4">
             <summary className="cursor-pointer text-sm font-semibold text-[var(--text-strong)]">展开功能特点与适用场景</summary>
             <div className="mt-3 border-t border-[var(--line-soft)] pt-2">
               <Markdown>{overviewMarkdown}</Markdown>
             </div>
           </details>
+        ) : overviewMarkdown ? (
+          // Nothing actionable below: these lists ARE the page content, so
+          // collapsing them would leave a hollow page behind the header.
+          <Markdown>{overviewMarkdown}</Markdown>
         ) : null}
 
         <RepositoryPanel resourceId={id} />

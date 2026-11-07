@@ -24,13 +24,13 @@
 
 | 维度 | 数量 |
 | --- | --- |
-| 资源条目 | **193** |
+| 资源条目 | **198** |
 | 一级分类 | **11** |
 | 子分类 | **25** |
-| 图谱节点 | **293**（工具 / 自建 / 分类 / 子类 / 标签 / 外部服务） |
-| 图谱关系边 | **653**（属于 / 归类 / 标签 / 相关 / 替代） |
+| 图谱节点 | **300**（工具 / 自建 / 分类 / 子类 / 标签 / 外部服务） |
+| 图谱关系边 | **666**（属于 / 归类 / 标签 / 相关 / 替代） |
 | 自部署实例 | **93**（75 个资源条目在跑，其中 12 个为 Atlas 自建） |
-| Wiki 页面 | **193**（每个条目一篇，全部可读） |
+| Wiki 页面 | **198**（每个条目一篇，全部可读） |
 | 有额度证据的方案 | **34**（逐条列明额度、周期、条件与官方来源） |
 
 分类覆盖：AI / LLM 白嫖 · 免费 SaaS 开发资源 · 自部署开源神器 · 公开 API 大全 ·
@@ -51,7 +51,7 @@ Wiki 右侧栏有「我的实例」列出具名实例，图谱里它是有坐标
 搜索词会同步到 URL（`/?q=密码`），因此任何筛选结果都可以直接分享。
 
 页面任意处按 <kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd> 或 <kbd>/</kbd> 唤起**命令面板**：
-一个输入框同时模糊搜索全部 193 个条目直达 Wiki，也能跳转三个页面——方向键选择、
+一个输入框同时模糊搜索全部 198 个条目直达 Wiki，也能跳转三个页面——方向键选择、
 回车直达，头部搜索按钮是它的可见入口，手机上则常驻底部导航第四格。
 
 顶部五格统计里最后一格 **已自部署** 是个开关：按下后卡片收窄到我真正在跑的条目，
@@ -62,7 +62,7 @@ Wiki 右侧栏有「我的实例」列出具名实例，图谱里它是有坐标
 ### 2. Wiki 页（`/wiki/:id`）
 读取 `public/wiki/*.md`，支持 YAML Frontmatter 与 `[[双向链接]]` 语法。
 `[[Vaultwarden]]` 会被自动解析成站内跳转；解析不到的链接会退化为全站搜索。
-**193 个条目每个都有一篇独立 Wiki**：5 篇为手写深度页，其余 188 篇由
+**198 个条目每个都有一篇独立 Wiki**：5 篇为手写深度页，其余 193 篇由
 `scripts/build-wikis.mjs` 依据 `scripts/wiki-content/*.mjs` 里的散文自动生成
 （含「一句话总结 / 核心功能 / 适用场景 / 同类推荐」，推荐项用 `[[工具名]]` 互链）。
 右侧栏自动聚合**相关工具**与**反向链接（backlinks）**；没有反向链接时该面板整体隐藏。
@@ -71,7 +71,7 @@ Wiki 页使用**三栏 App-like 全宽布局**（无居中容器，撑满视口�
 
 | 栏位 | 内容 |
 | --- | --- |
-| 左（280px） | **导航树**：贴屏幕最左侧、`sticky` 吸顶、独立滚动；按 `分类 → 子分类` 折叠，列出全部 193 个条目；当前浏览的工具自动展开并高亮；点击即跳转 |
+| 左（280px） | **导航树**：贴屏幕最左侧、`sticky` 吸顶、独立滚动；按 `分类 → 子分类` 折叠，列出全部 198 个条目；当前浏览的工具自动展开并高亮；点击即跳转 |
 | 中 | 正文，`flex-1` 自适应铺开。正文开头的 `# H1` 与其后的首个 `> 引用块` 会被自动去掉，标题与副标题统一由页面头部的原生 UI 呈现，避免重复 |
 | 右（300px） | **元数据**：分类、子类、更新日期、标签、**我的实例**（只在我部署了它时出现）、可替代、反向链接；PC 端 `sticky` 吸顶跟随，贴靠视口最右侧 |
 
@@ -160,7 +160,7 @@ npm run offers:check # 免费方案证据、资源关联和来源格式校验
 npm run repositories:sync # 有 GITHUB_TOKEN 时刷新公开 GitHub 仓库元数据
 npm run probe      # 只读探测 93 个自部署 URL；CI 在 build 之后写 dist/probe.json，/deployed 页面显示这次观察
 npm run probe:links # 只读巡检资源官网与已收录 GitHub 仓库 URL；CI 写 dist/resource-links.json，不因单项异常阻断部署
-node scripts/build-wikis.mjs   # 生成 188 篇 Wiki + src/data/backlinks.json
+node scripts/build-wikis.mjs   # 生成 193 篇 Wiki + src/data/backlinks.json
 npm run build      # 刷新 Wiki → vite build → 校验社交卡片 → 预渲染 196 个页面 → 404.html
 npm run preview    # 本地预览构建产物
 npm test            # 资源状态语义与图谱标签密度回归
@@ -174,7 +174,7 @@ npm run lint       # oxlint
 > Cloudflare Pages 自带同类兜底,打包时用
 > `SKIP_SPA_FALLBACK=1 npm run build` 跳过这一步(见下方「深链接(SPA 兜底)」)。
 
-> `npm run build` 同时把 196 个路由渲染成真正的 HTML（含 193 篇 Wiki）、生成
+> `npm run build` 同时把 201 个路由渲染成真正的 HTML（含 198 篇 Wiki）、生成
 > `sitemap.xml` / `robots.txt`，并为每个页面写好 canonical / og / JSON-LD。
 > 详见下方「搜索与分享卡片产物」。
 
@@ -196,16 +196,16 @@ FOSS-Atlas/
 │  └─ spa-fallback.mjs      # dist/index.html → dist/404.html(SKIP_SPA_FALLBACK=1 跳过)
 ├─ public/
 │  ├─ .nojekyll             # 让 Pages 原样发布（不跑 Jekyll）
-│  ├─ icons/                # 125 个 host 的站点图标（构建期抓取，随包发布）
+│  ├─ icons/                # 128 个 host 的站点图标（构建期抓取，随包发布）
 │  ├─ fonts/                # Noto Sans SC 中文字体子集（构建期生成，随包发布）
 │  ├─ og/                   # 4 张社交卡片（1200×630，本地绘制后提交的二进制文件）
-│  └─ wiki/                 # 193 篇 Wiki（Markdown + Frontmatter）
+│  └─ wiki/                 # 198 篇 Wiki（Markdown + Frontmatter）
 │     ├─ ollama.md          # 5 篇手写深度页……
 │     ├─ cloudflare-workers.md
 │     ├─ vaultwarden.md
 │     ├─ immich.md
 │     ├─ nextcloud.md
-│     └─ …                  # 其余 188 篇由 build-wikis.mjs 生成
+│     └─ …                  # 其余 193 篇由 build-wikis.mjs 生成
 ├─ src/
 │  ├─ data/
 │  │  ├─ resources.json     # 193 条资源（生成物，勿手改）
