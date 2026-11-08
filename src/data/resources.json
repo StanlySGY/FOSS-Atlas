@@ -86,7 +86,7 @@
     "category_name": "AI / LLM 白嫖",
     "sub_category": "ai-chat",
     "sub_category_name": "免费 AI 对话站点",
-    "description": "Meta 出品的对话助手",
+    "description": "Meta 出品 AI 助手，Llama 系列驱动，支持图片生成与联网问答",
     "tags": [
       "对话",
       "Meta"
@@ -165,7 +165,7 @@
     "category_name": "AI / LLM 白嫖",
     "sub_category": "ai-chat",
     "sub_category_name": "免费 AI 对话站点",
-    "description": "科大讯飞星火认知大模型",
+    "description": "科大讯飞星火大模型对话端，国内直连，Web 与移动端免费使用",
     "tags": [
       "对话",
       "国内",
@@ -229,7 +229,7 @@
     "category_name": "AI / LLM 白嫖",
     "sub_category": "ai-chat",
     "sub_category_name": "免费 AI 对话站点",
-    "description": "昆仑万维天工大模型",
+    "description": "昆仑万维天工大模型对话端，含写作、音乐、绘图等多种能力",
     "tags": [
       "对话",
       "国内",
@@ -329,7 +329,7 @@
     "description": "可自部署的 AI 代码补全服务",
     "tags": [
       "编程",
-      "自部署",
+      "自建",
       "补全"
     ],
     "wiki": "tabby"
@@ -1730,7 +1730,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "自建短链接服务",
+    "description": "自建短链接服务，带点击统计、标签与多域名，Docker 单容器即可跑",
     "tags": [
       "短链",
       "开源"
@@ -1766,7 +1766,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "开源 BT 下载客户端",
+    "description": "开源 BT 客户端，带 WebUI 与 RSS 订阅，可无头跑在 NAS 与服务器上",
     "tags": [
       "下载",
       "BT",
@@ -2006,7 +2006,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "面向家庭服务器的轻量面板",
+    "description": "家用服务器面板，Docker 应用商店一键安装，旧设备改私有云",
     "tags": [
       "面板",
       "NAS",
@@ -2022,7 +2022,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "自动更新动态域名解析",
+    "description": "DDNS 客户端，支持 Cloudflare/阿里云等主流服务商，网页界面配置",
     "tags": [
       "DDNS",
       "网络",
@@ -2051,7 +2051,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "自建音乐流媒体服务",
+    "description": "自建音乐流媒体，兼容 Subsonic API，主流第三方播放器可直接连接",
     "tags": [
       "音乐",
       "流媒体",
@@ -2080,7 +2080,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "团队知识库与文档协作",
+    "description": "团队知识库，支持 OIDC/SAML 单点登录与 Slack 集成，文档层级清晰",
     "tags": [
       "文档",
       "知识库",
@@ -2154,7 +2154,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "极简看板式任务管理",
+    "description": "极简看板任务管理，PHP 单应用、SQLite 开箱即用，资源占用极低",
     "tags": [
       "看板",
       "任务管理",
@@ -2183,7 +2183,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "开源看板与项目管理",
+    "description": "开源项目看板，Notion 风格多视图，可嵌入 Mattermost 使用",
     "tags": [
       "看板",
       "任务管理",
@@ -2280,7 +2280,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "轻量自建书签管理",
+    "description": "轻量书签管理，标签与全站搜索，Docker 单容器、占用极低",
     "tags": [
       "书签",
       "开源"
@@ -2345,7 +2345,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "轻量网页文件管理器",
+    "description": "网页文件管理器，上传、编辑、分享都在浏览器完成，单二进制即可部署",
     "tags": [
       "文件管理",
       "开源"
@@ -2497,7 +2497,7 @@
     "category_name": "自部署开源神器",
     "sub_category": "selfhost-core",
     "sub_category_name": "佬友首选自部署",
-    "description": "自建看板与待办任务管理",
+    "description": "开源任务管理，列表/看板/甘特/日历多视图，支持 OIDC 登录",
     "tags": [
       "任务管理",
       "看板",
@@ -2602,7 +2602,7 @@
     "sub_category_name": "佬友首选自部署",
     "description": "自托管服务大全，按类目收录的上游清单",
     "tags": [
-      "自托管",
+      "自建",
       "资源列表",
       "开源"
     ],
@@ -2635,7 +2635,7 @@
       "SMTP",
       "事务邮件",
       "邮件 API",
-      "自托管",
+      "自建",
       "MIT"
     ],
     "wiki": "postal"
@@ -3028,7 +3028,7 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "公开 API 服务",
-    "description": "免费高清图片 API",
+    "description": "免费高清图库 API，图片可免费商用；Demo 模式每小时 50 次请求",
     "tags": [
       "API",
       "图片",
@@ -3106,7 +3106,7 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "公开 API 服务",
-    "description": "免费代理列表 API",
+    "description": "免费代理列表 API，可按协议、国家与匿名级别过滤",
     "tags": [
       "API",
       "代理",
@@ -3122,7 +3122,7 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "公开 API 服务",
-    "description": "免费短链接服务",
+    "description": "免费短链接服务，提供简洁 API，支持自定义短码",
     "tags": [
       "短链",
       "免费"
@@ -3137,7 +3137,7 @@
     "category_name": "公开 API 大全",
     "sub_category": "api-free",
     "sub_category_name": "公开 API 服务",
-    "description": "免费短链接服务",
+    "description": "老牌免费短链服务，注册后可用 API 创建与管理短链",
     "tags": [
       "短链",
       "免费"
@@ -3285,7 +3285,7 @@
     "category_name": "黑客 / 安全工具书",
     "sub_category": "security-pentest",
     "sub_category_name": "渗透测试工具集",
-    "description": "安全测试字典合集",
+    "description": "渗透测试字典集：用户名、密码、子域名、敏感路径等数十个分类",
     "tags": [
       "安全",
       "字典",
@@ -3432,12 +3432,12 @@
   {
     "id": "aiboboxx-v2rayfree",
     "name": "aiboboxx/v2rayfree",
-    "url": "https://github.com/free-nodes/v2rayfree",
+    "url": "https://github.com/aiboboxx/v2rayfree",
     "category": "proxy",
     "category_name": "免费节点 / 代理订阅",
     "sub_category": "proxy-sub",
     "sub_category_name": "活跃订阅仓库",
-    "description": "免费 v2ray 节点订阅",
+    "description": "每日更新的 v2ray 免费节点聚合仓库，提供 Base64 订阅直链",
     "tags": [
       "订阅",
       "v2ray",
@@ -3469,7 +3469,7 @@
     "category_name": "免费节点 / 代理订阅",
     "sub_category": "proxy-sub",
     "sub_category_name": "活跃订阅仓库",
-    "description": "原始 GitHub 仓库目前返回 404；同名社区 fork 不自动等同原项目，使用前需重新核验来源",
+    "description": "原始仓库已失效（2026-11-08 复核返回 404）；同名社区 fork 不自动等同原项目，使用前需重新核验来源",
     "tags": [
       "订阅",
       "v2ray",
@@ -3613,7 +3613,7 @@
     "category_name": "国内免费 AI 工具",
     "sub_category": "cn-ai-dev",
     "sub_category_name": "国内 AI 开发者 API",
-    "description": "Yi 系列模型开放平台",
+    "description": "零一万物 Yi 系列开放平台，可直接对话也能调 API，国内直连",
     "tags": [
       "API",
       "国内",
@@ -3703,7 +3703,7 @@
     "category_name": "佬友神器",
     "sub_category": "gear-tools",
     "sub_category_name": "高频实用工具",
-    "description": "订阅格式转换工具",
+    "description": "订阅格式互转，输出 Clash、Surge 等主流客户端格式，可自建转换后端",
     "tags": [
       "订阅",
       "转换",
@@ -3748,7 +3748,7 @@
     "category_name": "佬友神器",
     "sub_category": "gear-tools",
     "sub_category_name": "高频实用工具",
-    "description": "自建 PDF 工具箱",
+    "description": "自建 PDF 工具箱：合并、拆分、OCR、压缩等几十种操作，Docker 单容器",
     "tags": [
       "PDF",
       "工具集",
@@ -3777,7 +3777,7 @@
     "category_name": "佬友神器",
     "sub_category": "gear-tools",
     "sub_category_name": "高频实用工具",
-    "description": "开发者在线工具箱合集",
+    "description": "开发者工具箱：JSON、正则、哈希、转换等上百个小工具，纯前端可自部署",
     "tags": [
       "工具集",
       "开发",
@@ -3859,7 +3859,7 @@
     "category_name": "佬友神器",
     "sub_category": "gear-tools",
     "sub_category_name": "高频实用工具",
-    "description": "自建服务导航首页面板",
+    "description": "自建服务导航面板，拖拽布局、集成状态与剪贴板小组件",
     "tags": [
       "导航",
       "面板",

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T15:57:05.197Z",
+  "generated_at": "2026-11-08T02:58:55.093Z",
   "stats": {
     "tools": 198,
     "categories": 11,
@@ -9,7 +9,7 @@
     "own": 12,
     "deployed": 75,
     "instances": 93,
-    "edges": 666
+    "edges": 669
   },
   "categories": [
     {
@@ -2732,7 +2732,7 @@
       "type": "tool",
       "category": "proxy",
       "sub_category": "proxy-sub",
-      "url": "https://github.com/free-nodes/v2rayfree",
+      "url": "https://github.com/aiboboxx/v2rayfree",
       "wiki": "aiboboxx-v2rayfree"
     },
     {
@@ -4960,6 +4960,11 @@
       "type": "tagged"
     },
     {
+      "source": "tabby",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
       "source": "codeium",
       "target": "tag:编程",
       "type": "tagged"
@@ -5831,6 +5836,11 @@
     },
     {
       "source": "awesome-selfhosted",
+      "target": "tag:自建",
+      "type": "tagged"
+    },
+    {
+      "source": "awesome-selfhosted",
       "target": "tag:开源",
       "type": "tagged"
     },
@@ -5842,6 +5852,11 @@
     {
       "source": "postal",
       "target": "tag:事务邮件",
+      "type": "tagged"
+    },
+    {
+      "source": "postal",
+      "target": "tag:自建",
       "type": "tagged"
     },
     {
