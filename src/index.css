@@ -411,6 +411,7 @@ kbd,
 }
 .fa-breadcrumb {
   min-height: 22px;
+  padding-top: 2px;
   margin-bottom: 2px;
 }
 .fa-breadcrumb a {
@@ -924,7 +925,11 @@ kbd,
   top: var(--header-h);
   z-index: 19;
   height: 3px;
-  margin: -8px 0 -11px;
+  /* The bar must not overlap the breadcrumb below: the old -11px bottom margin
+     pulled the crumb up under this element's opaque 3px track, shearing the
+     glyphs mid-height (the bar is sticky and z-indexed above the flow). -3px
+     keeps the flow exactly as tall as the bar itself without any overlap. */
+  margin: -8px 0 -3px;
   overflow: hidden;
   background: var(--line-soft);
 }

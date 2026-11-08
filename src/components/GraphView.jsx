@@ -3,7 +3,7 @@ import { LegendComponent, TooltipComponent } from 'echarts/components'
 import * as echarts from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { categoryColor } from '../lib/categoryColor.js'
+import { categoryDeep } from '../lib/categoryColor.js'
 import { CANVAS, EDGE_META, TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 import { visibleNodeIds } from '../lib/graphFilter.js'
 import { shouldShowGraphLabel } from '../lib/graphLabel.js'
@@ -17,8 +17,10 @@ const FOCUS_ZOOM = 2.2
 const CATEGORY_FIT = 0.72
 /*
  * The focus ring is the app accent, but the *fill* is deliberately a colour the
- * rest of the graph never uses — category nodes are already solid #f0b429, so an
- * accent-only highlight would be indistinguishable from them.
+ * rest of the graph never uses — on the light field a warm near-black inverts
+ * the focused node against everything around it (the dark theme used a warm
+ * white to the same effect), so an accent-only highlight would be
+ * indistinguishable from the 分类 nodes it sits on.
  */
 const FOCUS_RING = CANVAS.focusRing
 const FOCUS_FILL = CANVAS.focusFill
@@ -215,32 +217,24 @@ export default function GraphView({
            * carries its colour as a solid fill: the type then reads from the
            * shape as well as the hue.
            *
-           * A hollow 工具 ring wears its 分类's hue, which is the only thing in
-           * the canvas that says which 分类 a tool belongs to without hovering it
-           * — and 174 of 174 tool nodes carry a category, so the ring always has
-           * an answer. It is the ring and not the fill on purpose: a category hue
-           * diluted to a fill (18%, the concentration the DOM chips use) is
-           * 1.41–1.55:1 against --ink-sunken, invisible; at full strength a ring
-           * measures 7.27–10.57:1 on that field (worst cn-ai, best vps) and
-           * 5.02–7.30:1 against the hole it is drawn around. The ring is 1.6px,
-           * i.e. a mark, and every category hue clears the 3:1 mark floor against
-           * both.
+           * A hollow 工具 ring wears its 分类's *deep* hue (categoryDeep), which
+           * is the only thing on the canvas that says which 分类 a tool belongs
+           * to without hovering it — and every tool node carries a category, so
+           * the ring always has an answer. It is the ring and not the fill on
+           * purpose: a category hue diluted to a fill (18%, the concentration the
+           * DOM chips use) is invisible on the light field. The base pastel hues
+           * only clear 1.5–2.2:1 here, so the canvas draws the deep set
+           * (categoryDeep), which measures 3.15–3.17:1 on #f4f6fa — every ring
+           * past the 3:1 mark floor for a 1.6px line.
            *
-           * 外部服务 keeps its own #c2643f instead: 0 of 24 external nodes has a
+           * 外部服务 keeps its own #c2643f instead: 0 external nodes has a
            * category (they are services outside the catalogue, so there is no
            * category to name), and its hue is the palette's only warm-red.
            *
-           * The rings do overlap the solid type hues — worst pairs under
-           * deuteranopia: ai ↔ 分类 ΔE76 2.5 (11.1 for a normal-tricolour reader —
-           * #e3b341 is the 分类 amber's near-relative by design), gear ↔ 子类 11.4,
-           * vps ↔ 子类 16.9, selfhost ↔ 子类 24.1 — accepted rather than solved,
-           * because a tool ring and a category / subcategory node never have to be
-           * told apart by hue alone: they are 46 / 26 / 15px and the larger node
-           * is the one that is filled. The ai pair is the one worth saying out
-           * loud: an AI tool's ring and the AI category node are *meant* to be the
-           * same colour, so a reader who cannot separate them is reading a correct
-           * fact. 类型 stays legible from shape and size; the ring adds 分类 on top
-           * of it.
+           * The rings do overlap the solid type hues — an AI tool's deep ring and
+           * the AI 分类 node are *meant* to be near-relatives, so a reader who
+           * cannot separate them is reading a correct fact. 类型 stays legible
+           * from shape and size; the ring adds 分类 on top of it.
            */
           color: isFocused
             ? FOCUS_FILL
@@ -250,12 +244,12 @@ export default function GraphView({
           borderColor: isFocused
             ? FOCUS_RING
             : n.type === 'tool' && n.category
-              ? categoryColor(n.category)
+              ? categoryDeep(n.category)
               : meta.color,
           borderWidth: isFocused ? 3.5 : isSelected ? 3 : 1.6,
           // A halo so the focused node reads as "you are here" even at a glance.
           shadowBlur: isFocused ? 18 : isWalkNode ? 12 : 0,
-          shadowColor: isFocused ? 'rgba(240, 180, 41, 0.8)' : 'rgba(79, 179, 165, 0.75)',
+          shadowColor: isFocused ? 'rgba(49, 94, 232, 0.55)' : 'rgba(30, 133, 119, 0.6)',
           // Category focus: ECharts clamps symbolSize to a minimum, so a
           // zero-sized node still draws a dot — opacity 0 is what actually
           // removes it, while keeping the series' coordinate extent intact.

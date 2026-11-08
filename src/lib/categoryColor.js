@@ -48,6 +48,59 @@ export function categoryColor(id) {
 }
 
 /*
+ * 浅色主题的三件套。上面的 11 个色相是在深色卡 (L* 25.1) 上按「文本 ≥4.5、
+ * mark ≥3」选的；换到白卡 / #f4f6fa 画布后它们只剩 1.5–2.2:1，两条下限同时
+ * 失守。这里保持同一色相、压低亮度，各派生两套并逐色实测：
+ *
+ * - CATEGORY_DEEP：画布上的工具环色（GraphView 用）。在浅画布 #f4f6fa 上
+ *   3.15–3.17:1，全部过 mark 3:1 下限。
+ * - CATEGORY_TEXT：浅底上的分类文字（导航树当前行、图谱分类 chip 的字）。
+ *   按**页面地面 #f5f7fa**（比白卡更亮板面的最差情形）校准：4.62–4.65:1，
+ *   白卡上 4.96–5.00:1，两块板上都过 AA。琥珀 (ai) 压到 4.5+ 后已经是深
+ *   金褐——这是物理下限，不是品味选择。
+ *
+ * 基础色相继续承担装饰性工作（图标底 18% wash、chip 描边、Chevron）：
+ * 它们在浅底上变淡粉彩是可接受的，因为旁边永远有文字与名称。
+ */
+const CATEGORY_DEEP = {
+  ai: '#b0841a',
+  saas: '#4e8ae8',
+  selfhost: '#239d6d',
+  api: '#0e96bf',
+  security: '#e6622f',
+  ebook: '#a4882a',
+  proxy: '#817aff',
+  vps: '#219b8c',
+  'cn-ai': '#ff415b',
+  gear: '#d660ad',
+  atlas: '#947fc9',
+}
+
+const CATEGORY_TEXT = {
+  ai: '#8e6a15',
+  saas: '#1e6ae1',
+  selfhost: '#1d7f58',
+  api: '#0b799a',
+  security: '#c34717',
+  ebook: '#846e22',
+  proxy: '#5f55ff',
+  vps: '#1b7d71',
+  'cn-ai': '#e1001f',
+  gear: '#c43391',
+  atlas: '#7a60bc',
+}
+
+/* 画布上的工具环 / 需要在浅色板面上过 3:1 的分类 mark。 */
+export function categoryDeep(id) {
+  return CATEGORY_DEEP[id] ?? 'var(--accent)'
+}
+
+/* 白底 / 浅卡上的分类文字。凡是「色相当 11-12px 文字」的地方都必须用它。 */
+export function categoryTextColor(id) {
+  return CATEGORY_TEXT[id] ?? 'var(--accent-text)'
+}
+
+/*
  * color-mix 把色相稀释成底色。18% 在新的 --ink-card（L* 25.1）上是
  * 1.362–1.514:1 的分层——仍然是「染过色」而不是「涂了色」；字母
  * （categoryColor 本体）在这层染上 3.387–3.661:1（最差 proxy 在 --ink-card-hover
