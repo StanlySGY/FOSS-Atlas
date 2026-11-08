@@ -11,7 +11,7 @@
  * of numbers rather than a harness.
  *
  * The expected values are the ones documented above the filter itself: 102 nodes,
- * 12 of 40 tags, 108 of 338 标签 edges. If the catalogue moves them, change the
+ * 12 of 40 tags, 109 of 347 标签 edges. If the catalogue moves them, change the
  * comment and this file together — the comment is the claim, this is the check.
  */
 import { readFileSync } from 'node:fs'
@@ -42,7 +42,7 @@ check(
 )
 check(deployedView.size === 102, `deployed view: expected 102 visible nodes, got ${deployedView.size}`)
 check(deployedCounts.tag === 12, `deployed view: expected 12 of 40 tags, got ${deployedCounts.tag}`)
-check(visibleTagged === 108, `deployed view: expected 108 of ${taggedEdges.length} 标签 edges, got ${visibleTagged}`)
+check(visibleTagged === 109, `deployed view: expected 109 of ${taggedEdges.length} 标签 edges, got ${visibleTagged}`)
 check(
   graph.nodes.some((n) => n.id === 'tag:开源' && deployedView.has(n.id)),
   '标签:开源 must survive the deployed view (see the comment in src/lib/graphFilter.js)',

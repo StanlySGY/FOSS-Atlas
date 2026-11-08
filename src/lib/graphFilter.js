@@ -19,8 +19,8 @@
  *   off, and a tag only when it joins *two or more* of them. A tag touching a
  *   single running tool links it to nothing the filter kept, so it would add
  *   visual weight and no information; with that rule 12 of the 40 tags and
- *   108 of the 338 标签 edges survive, over 102 visible nodes instead of all
- *   293. 标签:开源 survives with 59 of those edges — kept deliberately: it is
+ *   109 of the 347 标签 edges survive, over 102 visible nodes instead of all
+ *   300. 标签:开源 survives with 59 of those edges — kept deliberately: it is
  *   a real node with real coordinates in the frozen layout, not a hub minted
  *   for this view, and dropping it would make the subgraph read as if the
  *   services running here were not open source.
