@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { categoryColor } from '../lib/categoryColor.js'
+import { categoryColor, categoryDeep, categoryTextColor } from '../lib/categoryColor.js'
 import { navTree, resourceById } from '../lib/data.js'
 import { countWikiNavTools, filterWikiNavTree } from '../lib/wikiNavFilter.js'
 
@@ -88,7 +88,7 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
             onChange={(event) => setQuery(event.target.value)}
             placeholder="搜索工具 / 分类…"
             aria-label="搜索 Wiki 目录"
-            className="w-full rounded-[4px] border border-[var(--line)] bg-[var(--ink-sunken)] py-2 pl-8 pr-8 text-[11px] text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--accent)]/70 focus:outline-none"
+            className="w-full rounded-[4px] border border-[var(--line)] bg-[var(--ink-sunken)] py-2 pl-8 pr-8 text-base text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--accent)]/70 focus:outline-none sm:text-[11px]"
           />
           {query ? (
             <button type="button" onClick={() => setQuery('')} aria-label="清除目录搜索" className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-1 text-[10px] text-[var(--text-faint)] hover:text-[var(--text-strong)]">×</button>
@@ -128,9 +128,7 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                 <span className="mr-1">{cat.icon}</span>
                 {cat.name}
               </span>
-              <span className="mono text-[10px]" style={{ color: hue }}>
-                {cat.count}
-              </span>
+              <span className="mono text-[10px] text-[var(--text-mute)]">{cat.count}</span>
             </button>
 
             {/* The branch line wears its category at 28% — 1.750–2.053:1 against
@@ -179,16 +177,14 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                             const isActive = tool.id === activeId
                             return (
                               /* The active tool's own row is the one place in the nav
-                                 * where the category hue is a mark you read, so it
-                                 * gets the same concentration the category chips on
-                                 * the home rail and the graph page use: 10% fill,
-                                 * 70% border. Measured on the rail (--ink-sunken)
-                                 * the label is 6.08–8.36:1 and the 2px left border
-                                 * 4.25–5.85:1; in the mobile drawer (--ink) 5.15–7.16
-                                 * and 3.82–5.24. At the old 12%/55% the border was
-                                 * 2.83–3.57 and 2.58–3.22 — under the 3:1 mark floor
-                                 * on a row that is the nav's only "you are here".
-                                 * The wash stays 1.19–1.27:1 against the plate. */
+                                 * where the category hue is a mark you read, so on the
+                                 * light theme the label wears the category's text
+                                 * variant (categoryTextColor — 4.97:1 on the white rail,
+                                 * 4.63 in the drawer on the ground — AA on both) and the
+                                 * 2px left border wears the deep variant flat
+                                 * (categoryDeep, ≈3.2–3.5:1 — a mark, past the 3:1 floor;
+                                 * the base pastel hue at any mix lands under it on light
+                                 * surfaces). The 10% wash stays a layer cue. */
                               <li key={tool.id}>
                                 <Link
                                   to={`/wiki/${tool.id}/`}
@@ -198,8 +194,8 @@ export default function WikiNavSidebar({ activeId, onNavigate, scrollRef }) {
                                   style={
                                     isActive
                                       ? {
-                                          color: hue,
-                                          borderColor: `color-mix(in srgb, ${hue} 70%, transparent)`,
+                                          color: categoryTextColor(cat.id),
+                                          borderColor: categoryDeep(cat.id),
                                           background: `color-mix(in srgb, ${hue} 10%, transparent)`,
                                         }
                                       : undefined

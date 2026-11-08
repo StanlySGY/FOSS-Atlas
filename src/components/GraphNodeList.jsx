@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { categoryColor } from '../lib/categoryColor.js'
+import { categoryDeep } from '../lib/categoryColor.js'
 import { categories, hostFor, resourceById } from '../lib/data.js'
 import { TYPE_META, TYPE_ORDER } from '../lib/graphStyle.js'
 import { GRAPH_NODE_TYPE_FILTERS } from '../lib/graphNodeListState.js'
@@ -111,7 +111,7 @@ export default function GraphNodeList({
           <svg aria-hidden="true" viewBox="0 0 24 24" className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-faint)]" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" strokeLinecap="round" />
           </svg>
-          <input value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder="搜索节点…" aria-label="搜索图谱节点" className="w-full rounded-[var(--radius-sm)] border border-[var(--line)] bg-[var(--ink-sunken)] py-2 pl-9 pr-16 text-xs text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--accent)]/70 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/15" />
+          <input value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder="搜索节点…" aria-label="搜索图谱节点" className="w-full rounded-[var(--radius-sm)] border border-[var(--line)] bg-[var(--ink-sunken)] py-2 pl-9 pr-16 text-base text-[var(--text)] placeholder:text-[var(--text-faint)] focus:border-[var(--accent)]/70 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/15 sm:text-xs" />
           {query ? <button type="button" onClick={() => onQueryChange('')} className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-1.5 py-0.5 text-[10px] text-[var(--text-faint)] hover:text-[var(--text-strong)]">清空</button> : null}
         </label>
       </div>
@@ -137,7 +137,7 @@ export default function GraphNodeList({
       </div>
 
       {results.length ? (
-        <div className="max-h-[min(72vh,820px)] overflow-auto">
+        <div className="max-h-[min(72vh,820px)] overflow-auto overscroll-contain">
           <table className="w-full border-collapse text-left">
             <thead className="sticky top-0 z-10 bg-[var(--ink-raised)] text-[10px] text-[var(--text-faint)]">
               <tr>
@@ -152,7 +152,7 @@ export default function GraphNodeList({
                 const resource = resourceById.get(node.id)
                 const type = TYPE_META[node.type]
                 const category = categoryForNode(node)
-                const color = node.type === 'tool' && node.category ? categoryColor(node.category) : type?.color ?? 'var(--text-faint)'
+                const color = node.type === 'tool' && node.category ? categoryDeep(node.category) : type?.color ?? 'var(--text-faint)'
                 const focused = node.id === focusId
                 return (
                   <tr key={node.id} className={['border-t border-[var(--line-soft)] align-top transition-colors hover:bg-[var(--ink-tint)]', focused ? 'bg-[var(--accent)]/8' : ''].join(' ')}>
