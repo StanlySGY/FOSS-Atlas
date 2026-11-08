@@ -18,6 +18,18 @@
  * get their names.
  */
 import { deployGroupPhrase } from '../lib/deployGroups.js'
+import graphJson from '../data/graph.json' with { type: 'json' }
+
+/**
+ * Entry / edge counts, read from the generated graph rather than written down.
+ * The copy below used to hardcode "193 / 653" while the data had moved to
+ * 198 / 666 — the CommandPalette showed the live numbers and the meta
+ * description contradicted them on the same screen. `index.html` still carries
+ * the same sentence as static text; the prerender check compares the two, so a
+ * data change that moves these numbers fails the build until `index.html` is
+ * updated to match — loud, rather than silently stale.
+ */
+const GRAPH_STATS = graphJson.stats
 
 /** The origin every canonical, og:url and sitemap entry uses. */
 export const PRIMARY_ORIGIN = 'https://atlas.sgyyyds.qzz.io'
@@ -38,7 +50,7 @@ export const PRIMARY_ORIGIN = 'https://atlas.sgyyyds.qzz.io'
  * measured 1032px and would have been cut mid-sentence.
  */
 export const HOME_DESCRIPTION =
-  '免费额度、自部署方案、公开 API 收进一张可搜索、可漫游的图：193 个开源条目，导航、Wiki、知识图谱三合一。'
+  `免费额度、自部署方案、公开 API 收进一张可搜索、可漫游的图：${GRAPH_STATS.tools} 个开源条目，导航、Wiki、知识图谱三合一。`
 
 export const SITE_NAME = 'FOSS-Atlas'
 export const SITE_TAGLINE = '开源白嫖资源图鉴'
@@ -68,7 +80,7 @@ export const STATIC_ROUTES = [
     path: '/graph/',
     title: '知识图谱 · FOSS-Atlas',
     description:
-      '193 个条目、653 条关系边的可拖拽图谱：同类、替代、分类、自建实例一目了然，可只看已自部署的部分。',
+      `${GRAPH_STATS.tools} 个条目、${GRAPH_STATS.edges} 条关系边的可拖拽图谱：同类、替代、分类、自建实例一目了然，可只看已自部署的部分。`,
     kind: 'WebPage',
   },
   {
@@ -92,7 +104,7 @@ export function primaryUrl(path) {
  * at roughly 600px on desktop, and a CJK glyph is about twice as wide as a
  * Latin one (measured on this catalogue: median pattern below is 382px at
  * 33 characters, 90th percentile 480px). `name · 子分类 | 站名` therefore stays
- * inside the cut for all but two of the 193 entries, while the same pattern
+ * inside the cut for all but two of the catalogue entries, while the same pattern
  * against the *top-level* category name would be cut for eleven of them.
  */
 export function wikiTitle(resource) {

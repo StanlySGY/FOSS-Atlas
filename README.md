@@ -26,9 +26,9 @@
 | --- | --- |
 | 资源条目 | **198** |
 | 一级分类 | **11** |
-| 子分类 | **25** |
+| 子分类 | **26** |
 | 图谱节点 | **300**（工具 / 自建 / 分类 / 子类 / 标签 / 外部服务） |
-| 图谱关系边 | **666**（属于 / 归类 / 标签 / 相关 / 替代） |
+| 图谱关系边 | **669**（属于 / 归类 / 标签 / 相关 / 替代） |
 | 自部署实例 | **93**（75 个资源条目在跑，其中 12 个为 Atlas 自建） |
 | Wiki 页面 | **198**（每个条目一篇，全部可读） |
 | 有额度证据的方案 | **34**（逐条列明额度、周期、条件与官方来源） |
@@ -196,7 +196,7 @@ FOSS-Atlas/
 │  └─ spa-fallback.mjs      # dist/index.html → dist/404.html(SKIP_SPA_FALLBACK=1 跳过)
 ├─ public/
 │  ├─ .nojekyll             # 让 Pages 原样发布（不跑 Jekyll）
-│  ├─ icons/                # 128 个 host 的站点图标（构建期抓取，随包发布）
+│  ├─ icons/                # 129 个 host 的站点图标（构建期抓取，随包发布）
 │  ├─ fonts/                # Noto Sans SC 中文字体子集（构建期生成，随包发布）
 │  ├─ og/                   # 4 张社交卡片（1200×630，本地绘制后提交的二进制文件）
 │  └─ wiki/                 # 198 篇 Wiki（Markdown + Frontmatter）
@@ -259,7 +259,7 @@ src/prerender/* + graph.json ──► scripts/build-og.mjs ──► public/og/
                     │   （npm run og：本地 Chrome 绘制；npm run build 只 --check）
                     └── 校验：卡片文案的字形必须在字体子集里，文案必须在卡片内不溢出
 
-dist/index.html + 数据 ──► scripts/prerender.mjs ──► dist/wiki/<id>/index.html ×193
+dist/index.html + 数据 ──► scripts/prerender.mjs ──► dist/wiki/<id>/index.html ×198
                                                   └► dist/graph|deployed/index.html
                                                   └► dist/sitemap.xml + robots.txt
                     └── 校验：卡片记录与当前 stats 不一致 → 构建失败
@@ -301,7 +301,7 @@ dist/index.html + 数据 ──► scripts/prerender.mjs ──► dist/wiki/<id
 
 ### 免费方案与证据数据
 
-免费层不是一个布尔值。2026-11-03 首批为 20 个高风险条目建立独立的 src/data/offerings.json，区分持续免费、限时试用、credits、API 免费配额和按量付费。每条记录包含适用方案、额度与周期、资格 / 区域 / 绑卡 / 暂停 / 超额条件、官方证据 URL、支持的 claim 和核验日期。
+免费层不是一个布尔值。2026-11-03 首批为 20 个高风险条目建立独立的 src/data/offerings.json（现已覆盖 34 条），区分持续免费、限时试用、credits、API 免费配额和按量付费。每条记录包含适用方案、额度与周期、资格 / 区域 / 绑卡 / 暂停 / 超额条件、官方证据 URL、支持的 claim 和核验日期。
 
 Wiki 内容编辑时间（updated）与官方事实核验日期（verifiedAt）分开管理。首页的“方案类型”筛选通过 URL 参数 offer 分享筛选结果；资源卡片显示方案标签，Wiki 详情展示额度、条件和官方来源。此数据是核验日的官方资料快照，不构成供应商对账户资格或未来价格的承诺。
 
@@ -424,13 +424,13 @@ generated: true   # 生成器写下的标记：这些页面每次运行都会被
 站点的 193 篇 Wiki 正文是客户端在 effect 里 `fetch` `public/wiki/*.md` 渲染的，
 所以爬虫请求 `/wiki/syncthing/` 拿到的是空的 SPA 外壳：**正文和工具名在这份 HTML 里一个字符都没有**。
 Googlebot 会执行脚本，但只在 bundle 加载完、且有时间预算之后；直接读 HTML 的二手爬虫与 AI 爬虫
-看到的就是一份 196 个 URL 里 193 个为空的站点。`scripts/prerender.mjs` 因此在构建期把每个路由渲染成真正的文件：
+看到的就是一份 201 个 URL 里 198 个为空的站点。`scripts/prerender.mjs` 因此在构建期把每个路由渲染成真正的文件：
 
 | 产物 | 内容 |
 | --- | --- |
 | `dist/index.html` / `dist/graph/index.html` / `dist/deployed/index.html` | 3 个静态路由，head 换成该路由自己的元数据 |
-| `dist/wiki/<id>/index.html` ×193 | 正文已在 HTML 里，另带 `<script id="wiki-payload">` 供前端 hydrate |
-| `dist/sitemap.xml` | 196 个 URL，全部写在主域名上 |
+| `dist/wiki/<id>/index.html` ×198 | 正文已在 HTML 里，另带 `<script id="wiki-payload">` 供前端 hydrate |
+| `dist/sitemap.xml` | 201 个 URL，全部写在主域名上 |
 | `dist/robots.txt` | `Allow: /`、`Allow: /wiki/`、`Sitemap:` 行 |
 | 每个页面的 head | `<title>` / description / `rel=canonical` / `og:*` / `twitter:*` / schema.org JSON-LD |
 
@@ -450,7 +450,7 @@ GitHub Pages 侧对已有镜像实测：目录索引正常服务，但**嵌套�
 ### 社交卡片（`og:image`）
 
 四张卡片，按**页面种类**而不是按条目：`/og/site.png`、`graph.png`、`deployed.png`、`wiki.png`。
-193 张条目卡片要么变成 193 个提交的二进制（≈12 MB，对照本仓库现有的 125 个图标），
+198 张条目卡片要么变成 198 个提交的二进制（≈12 MB，对照本仓库现有的 129 个图标），
 要么变成每次 push 都在 CI 里跑一遍的字体栅格化——两条都不值；条目自己的名字已经通过
 `og:title` 到达爬虫，那是文本。
 
