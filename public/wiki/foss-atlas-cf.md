@@ -6,17 +6,13 @@ sub_category: atlas-edge
 tags: [本站, 静态托管, 自建]
 url: https://atlas.sgyyyds.qzz.io
 related: [short, paste, nodes, qr]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # FOSS-Atlas(Cloudflare Pages)
 
 > 本目录站的 Cloudflare Pages 镜像，与 GitHub Pages 上的主站保持同一份内容。
-
-## 一句话总结
-
-本目录站的 Cloudflare Pages 镜像，与 GitHub Pages 上的主站保持同一份内容。
 
 ## 核心功能 / 特点
 

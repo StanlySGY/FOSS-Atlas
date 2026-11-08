@@ -6,17 +6,13 @@ sub_category: ai-framework
 tags: [LLM 网关, API, 开源]
 url: https://github.com/looplj/axonhub
 related: [langchain, llamaindex, langfuse, litellm]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # AxonHub
 
 > 开源 AI 网关，重点是渠道故障转移与成本控制，把模型调用集中在一个可观测的入口。
-
-## 一句话总结
-
-开源 AI 网关，重点是渠道故障转移与成本控制，把模型调用集中在一个可观测的入口。
 
 ## 核心功能 / 特点
 

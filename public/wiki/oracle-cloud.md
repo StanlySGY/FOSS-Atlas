@@ -5,18 +5,14 @@ category: saas
 sub_category: saas-cloud
 tags: [云厂商, 免费层, Oracle, ARM]
 url: https://www.oracle.com/cloud/free/
-related: [google-cloud, aws, azure, cloudflare]
-updated: 2026-10-19
+related: [cloudflare, google-cloud, aws, azure]
+updated: 2026-11-08
 generated: true
 ---
 
 # Oracle Cloud
 
 > Oracle Cloud 的永久免费层，提供 2 台 AMD 与 4 台 ARM 虚拟机，规格在一众云厂商里相当慷慨。
-
-## 一句话总结
-
-Oracle Cloud 的永久免费层，提供 2 台 AMD 与 4 台 ARM 虚拟机，规格在一众云厂商里相当慷慨。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Oracle Cloud 的永久免费层，提供 2 台 AMD 与 4 台 ARM 虚拟机，规
 
 ## 同类推荐
 
+- [[Cloudflare]] —— Workers 10 万次/天、Pages、R2 10GB、免费 DNS
 - [[Google Cloud]] —— 1 台 e2-micro VM（美区）、5GB 存储、1GB 出网/月
 - [[AWS]] —— 750 小时 t2.micro/月（12 个月）+ Lambda 100 万次/月永久免费
 - [[Microsoft Azure]] —— 55+ 永久免费服务，含 App Service F1
-- [[Cloudflare]] —— Workers 10 万次/天、Pages、R2 10GB、免费 DNS

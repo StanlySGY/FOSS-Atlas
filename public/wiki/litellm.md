@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-framework
 tags: [代理, API, 开源]
 url: https://github.com/BerriAI/litellm
-related: [langchain, llamaindex, langfuse, promptfoo]
-updated: 2026-10-19
+related: [langfuse, promptfoo, dify, flowise]
+updated: 2026-11-08
 generated: true
 ---
 
 # LiteLLM
 
 > 统一多家大模型 API 的代理层，用一套 OpenAI 风格接口调用各家模型。
-
-## 一句话总结
-
-统一多家大模型 API 的代理层，用一套 OpenAI 风格接口调用各家模型。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[LangChain]] —— 构建 LLM 应用的主流框架
-- [[LlamaIndex]] —— 面向 RAG 的数据框架
 - [[Langfuse]] —— LLM 可观测性与追踪平台
 - [[promptfoo]] —— 提示词与模型输出测试工具
+- [[Dify]] —— 开源 LLM 应用开发平台
+- [[Flowise]] —— 可视化拖拽编排 LLM 工作流

@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [表单, 开源]
 url: https://ohmyform.com
 alternatives: [Google Forms]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [linkding, searxng, filebrowser, wetty]
+updated: 2026-11-08
 generated: true
 ---
 
 # OhMyForm
 
 > 开源的表单收集工具，可自建问卷与报名表并集中查看提交结果。
-
-## 一句话总结
-
-开源的表单收集工具，可自建问卷与报名表并集中查看提交结果。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Linkding]] —— 轻量书签管理，标签与全站搜索，Docker 单容器、占用极低
+- [[SearXNG]] —— 自建元搜索引擎，聚合多引擎结果
+- [[Filebrowser]] —— 网页文件管理器，上传、编辑、分享都在浏览器完成，单二进制即可部署
+- [[Wetty]] —— 浏览器里的终端（基于 xterm.js）

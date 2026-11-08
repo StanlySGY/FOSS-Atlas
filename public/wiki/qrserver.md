@@ -5,18 +5,14 @@ category: api
 sub_category: api-free
 tags: [API, 二维码]
 url: https://goqr.me/api/
-related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
-updated: 2026-10-19
+related: [qr, disify, textbelt, proxyscrape]
+updated: 2026-11-08
 generated: true
 ---
 
 # QRServer
 
 > goqr.me 提供的二维码接口，用 URL 参数直接生成二维码图片。
-
-## 一句话总结
-
-goqr.me 提供的二维码接口，用 URL 参数直接生成二维码图片。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ goqr.me 提供的二维码接口，用 URL 参数直接生成二维码图片。
 
 ## 同类推荐
 
-- [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
-- [[Anthropic API]] —— Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺
-- [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
-- [[Hugging Face Inference API]] —— 开源模型推理 API
+- [[Atlas QR]] —— 二维码生成 API(/api/qr?data=),SVG 输出,替代 qrserver 等第三方接口。
+- [[Disify]] —— 临时邮箱与邮箱校验 API
+- [[Textbelt]] —— 短信 API；共享演示 Key 每日 1 条免费短信，更多需使用付费 Key
+- [[ProxyScrape]] —— 免费代理列表 API，可按协议、国家与匿名级别过滤

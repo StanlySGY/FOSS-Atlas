@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-framework
 tags: [RAG, 知识库, 开源]
 url: https://github.com/labring/FastGPT
-related: [langchain, llamaindex, langfuse, litellm]
-updated: 2026-10-19
+related: [dify, flowise, langflow, new-api]
+updated: 2026-11-08
 generated: true
 ---
 
 # FastGPT
 
 > 开源的知识库问答平台，围绕 RAG 提供数据导入与流程编排能力。
-
-## 一句话总结
-
-开源的知识库问答平台，围绕 RAG 提供数据导入与流程编排能力。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[LangChain]] —— 构建 LLM 应用的主流框架
-- [[LlamaIndex]] —— 面向 RAG 的数据框架
-- [[Langfuse]] —— LLM 可观测性与追踪平台
-- [[LiteLLM]] —— 统一 100+ 模型 API 的代理层
+- [[Dify]] —— 开源 LLM 应用开发平台
+- [[Flowise]] —— 可视化拖拽编排 LLM 工作流
+- [[LangFlow]] —— 可视化拖拽构建 LLM 工作流与 Agent
+- [[New API]] —— 多模型网关：聚合各家 LLM API 再分发

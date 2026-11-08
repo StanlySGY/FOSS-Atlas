@@ -3,20 +3,16 @@ title: awesome-selfhosted
 slug: awesome-selfhosted
 category: selfhost
 sub_category: selfhost-core
-tags: [自托管, 资源列表, 开源]
+tags: [自建, 资源列表, 开源]
 url: https://awesome-selfhosted.net
 related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # awesome-selfhosted
 
 > 自托管服务大全：按类目收录开源自建方案的上游清单，是自部署选型的第一份索引。
-
-## 一句话总结
-
-自托管服务大全：按类目收录开源自建方案的上游清单，是自部署选型的第一份索引。
 
 ## 核心功能 / 特点
 

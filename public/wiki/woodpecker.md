@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [CI/CD, 开源]
 url: https://woodpecker-ci.org
 alternatives: [GitLab CI]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [drone, gitea, forgejo, nginx-proxy-manager]
+updated: 2026-11-08
 generated: true
 ---
 
 # Woodpecker CI
 
 > 轻量级 CI/CD 工具，用容器流水线自动构建与部署。
-
-## 一句话总结
-
-轻量级 CI/CD 工具，用容器流水线自动构建与部署。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Drone CI]] —— 容器原生 CI/CD，替代 GitLab CI
+- [[Gitea]] —— 轻量自建 Git 服务，替代 GitHub
+- [[Forgejo]] —— 社区驱动的 Gitea 分支，替代 GitHub
+- [[Nginx Proxy Manager]] —— 可视化反向代理与证书管理

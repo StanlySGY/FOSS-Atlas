@@ -6,17 +6,13 @@ sub_category: ai-framework
 tags: [框架, RAG, 开源]
 url: https://github.com/run-llama/llama_index
 related: [langchain, langfuse, litellm, promptfoo]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # LlamaIndex
 
 > 面向 RAG 的数据框架，擅长把私有文档索引成可检索的知识。
-
-## 一句话总结
-
-面向 RAG 的数据框架，擅长把私有文档索引成可检索的知识。
 
 ## 核心功能 / 特点
 

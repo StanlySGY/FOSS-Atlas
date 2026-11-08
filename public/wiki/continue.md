@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-coding
 tags: [编程, 开源, 插件]
 url: https://continue.dev
-related: [cursor, cline, cody, tabby]
-updated: 2026-10-19
+related: [cline, cody, tabby, codeium]
+updated: 2026-11-08
 generated: true
 ---
 
 # Continue
 
 > 开源的 AI 编程助手，可为编辑器接入任意模型，云端与本地皆可。
-
-## 一句话总结
-
-开源的 AI 编程助手，可为编辑器接入任意模型，云端与本地皆可。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Cursor]] —— Cursor Free 为 USD 0 / 月，提供受限 Agent 与 Chat 请求；不等于无限使用第三方模型
 - [[Cline]] —— VSCode 开源 AI 编程 Agent
 - [[Cody]] —— Sourcegraph 出品的 AI 编程助手
 - [[Tabby]] —— 可自部署的 AI 代码补全服务
+- [[Codeium]] —— 免费 AI 代码补全（现 Windsurf）

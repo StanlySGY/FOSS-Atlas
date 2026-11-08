@@ -6,17 +6,13 @@ sub_category: saas-ssl
 tags: [SSL, 证书, 免费]
 url: https://letsencrypt.org
 related: [zerossl, cloudflare-origin-ca, buypass-go, google-cloud]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Let's Encrypt
 
 > Let's Encrypt 是免费且自动化的证书颁发机构，是给网站启用 HTTPS 最常用的选择。
-
-## 一句话总结
-
-Let's Encrypt 是免费且自动化的证书颁发机构，是给网站启用 HTTPS 最常用的选择。
 
 ## 核心功能 / 特点
 

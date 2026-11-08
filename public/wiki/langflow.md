@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-framework
 tags: [工作流, 低代码, 开源]
 url: https://github.com/langflow-ai/langflow
-related: [langchain, llamaindex, langfuse, litellm]
-updated: 2026-10-19
+related: [dify, new-api, axonhub, langchain]
+updated: 2026-11-08
 generated: true
 ---
 
 # LangFlow
 
 > 可视化拖拽构建 LLM 工作流与 Agent 的低代码平台，节点连线即流程。
-
-## 一句话总结
-
-可视化拖拽构建 LLM 工作流与 Agent 的低代码平台，节点连线即流程。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[Dify]] —— 开源 LLM 应用开发平台
+- [[New API]] —— 多模型网关：聚合各家 LLM API 再分发
+- [[AxonHub]] —— 开源 AI 网关，内置故障转移与成本控制
 - [[LangChain]] —— 构建 LLM 应用的主流框架
-- [[LlamaIndex]] —— 面向 RAG 的数据框架
-- [[Langfuse]] —— LLM 可观测性与追踪平台
-- [[LiteLLM]] —— 统一 100+ 模型 API 的代理层

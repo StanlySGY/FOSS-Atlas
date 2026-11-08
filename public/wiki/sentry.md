@@ -6,17 +6,13 @@ sub_category: saas-monitor
 tags: [错误追踪, 可观测性, 免费]
 url: https://sentry.io
 related: [uptimerobot, better-stack, logtail, google-cloud]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Sentry
 
 > Sentry 是应用错误追踪平台，免费层每月可以上报一定数量的错误事件。
-
-## 一句话总结
-
-Sentry 是应用错误追踪平台，免费层每月可以上报一定数量的错误事件。
 
 ## 核心功能 / 特点
 

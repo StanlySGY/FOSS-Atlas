@@ -5,18 +5,14 @@ category: api
 sub_category: api-free
 tags: [API, 推理, 开源模型]
 url: https://huggingface.co/docs/api-inference
-related: [openai-api, anthropic-api, google-ai-api, replicate]
-updated: 2026-10-19
+related: [replicate, openweathermap, ipinfo, mymemory]
+updated: 2026-11-08
 generated: true
 ---
 
 # Hugging Face Inference API
 
 > Hugging Face 的模型推理接口，用一套 API 调用平台上的开源模型。
-
-## 一句话总结
-
-Hugging Face 的模型推理接口，用一套 API 调用平台上的开源模型。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Hugging Face 的模型推理接口，用一套 API 调用平台上的开源模�
 
 ## 同类推荐
 
-- [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
-- [[Anthropic API]] —— Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺
-- [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
 - [[Replicate]] —— 托管开源模型，部分模型免费试用
+- [[OpenWeatherMap]] —— 天气数据 API，1000 次/天免费
+- [[IPinfo]] —— IPinfo Lite 需 Token，country-level Geo / basic ASN 查询不设日月请求数上限；Legacy 公共 API 另有共享 IP 限制
+- [[MyMemory]] —— 翻译 API，5000 字/天免费

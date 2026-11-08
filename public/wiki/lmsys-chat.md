@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-chat
 tags: [对话, 评测, 对比]
 url: https://chat.lmsys.org
-related: [poe, huggingchat, duckduckgo-ai-chat, microsoft-copilot]
-updated: 2026-10-19
+related: [microsoft-copilot, meta-ai, google-gemini, anthropic-claude]
+updated: 2026-11-08
 generated: true
 ---
 
 # LMSYS Chatbot Arena
 
 > LMSYS 的 Chatbot Arena，用盲测投票给各家大模型排名的评测平台。
-
-## 一句话总结
-
-LMSYS 的 Chatbot Arena，用盲测投票给各家大模型排名的评测平台。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ LMSYS 的 Chatbot Arena，用盲测投票给各家大模型排名的评测平台
 
 ## 同类推荐
 
-- [[Poe]] —— 多模型聚合对话站点，提供有限免费额度
-- [[HuggingChat]] —— Hugging Face 开源模型免费聊天
-- [[DuckDuckGo AI Chat]] —— 匿名 AI 聊天，不记录对话
 - [[Microsoft Copilot]] —— 微软 Copilot，GPT 系列免费版
+- [[Meta AI]] —— Meta 出品 AI 助手，Llama 系列驱动，支持图片生成与联网问答
+- [[Google Gemini]] —— Google Gemini 免费对话
+- [[Anthropic Claude]] —— Claude 官方站点，含免费层

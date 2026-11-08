@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-coding
 tags: [编程, 补全, 免费]
 url: https://codeium.com
-related: [cursor, cline, continue, cody]
-updated: 2026-10-19
+related: [aider, cursor, cline, continue]
+updated: 2026-11-08
 generated: true
 ---
 
 # Codeium
 
 > 提供免费代码补全的编程助手，相关产品现已归入 Windsurf 品牌。
-
-## 一句话总结
-
-提供免费代码补全的编程助手，相关产品现已归入 Windsurf 品牌。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[Aider]] —— 命令行 AI 结对编程工具（仓库已迁移至 Aider-AI/aider）
 - [[Cursor]] —— Cursor Free 为 USD 0 / 月，提供受限 Agent 与 Chat 请求；不等于无限使用第三方模型
 - [[Cline]] —— VSCode 开源 AI 编程 Agent
 - [[Continue]] —— 开源 AI 编程助手，可接任意模型
-- [[Cody]] —— Sourcegraph 出品的 AI 编程助手

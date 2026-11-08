@@ -5,7 +5,7 @@ category: selfhost
 sub_category: selfhost-honeypot
 tags: [蜜罐, 恶意软件, 开源]
 url: https://github.com/DinoTools/dionaea
-related: [tpot, cowrie, hfish, nextcloud]
+related: [cowrie, hfish, tpot, nextcloud]
 updated: 2026-11-06
 verifiedAt: 2026-11-06
 sources:
@@ -16,10 +16,6 @@ generated: true
 # Dionaea
 
 > 低交互蜜罐，通过模拟常见服务诱捕恶意软件样本。仓库仍可访问且未归档，但最近推送距今已超过两年，应视为低维护研究工具，部署前需自行评估依赖与安全风险。
-
-## 一句话总结
-
-低交互蜜罐，通过模拟常见服务诱捕恶意软件样本。仓库仍可访问且未归档，但最近推送距今已超过两年，应视为低维护研究工具，部署前需自行评估依赖与安全风险。
 
 ## 核心功能 / 特点
 
@@ -34,7 +30,7 @@ generated: true
 
 ## 同类推荐
 
-- [[T-Pot]] —— 多蜜罐一体化平台（Deutsche Telekom）
 - [[Cowrie]] —— SSH / Telnet 交互式蜜罐
 - [[HFish]] —— 国产跨平台蜜罐平台
+- [[T-Pot]] —— 多蜜罐一体化平台（Deutsche Telekom）
 - [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive

@@ -6,17 +6,13 @@ sub_category: selfhost-honeypot
 tags: [蜜罐, 安全, 开源]
 url: https://github.com/telekom-security/tpotce
 related: [cowrie, dionaea, hfish, nextcloud]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # T-Pot
 
 > 德国电信开源的多蜜罐一体化平台，集中部署多种蜜罐并可视化攻击数据。
-
-## 一句话总结
-
-德国电信开源的多蜜罐一体化平台，集中部署多种蜜罐并可视化攻击数据。
 
 ## 核心功能 / 特点
 

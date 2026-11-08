@@ -6,7 +6,7 @@ sub_category: atlas-edge
 tags: [短链, API, 自建]
 url: https://short.sgyyyds.qzz.io
 alternatives: [is.gd, TinyURL]
-related: [foss-atlas-cf, paste, nodes, qr]
+related: [is-gd, tinyurl, paste, nodes]
 updated: 2026-10-30
 generated: true
 ---
@@ -14,10 +14,6 @@ generated: true
 # Atlas Short
 
 > 自建短链服务：Workers 加 KV 做去重存储，带点击统计和可列出的链接清单。
-
-## 一句话总结
-
-自建短链服务：Workers 加 KV 做去重存储，带点击统计和可列出的链接清单。
 
 ## 核心功能 / 特点
 
@@ -43,7 +39,7 @@ generated: true
 
 ## 同类推荐
 
-- [[FOSS-Atlas(Cloudflare Pages)]] —— 本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。
+- [[is.gd]] —— 免费短链接服务，提供简洁 API，支持自定义短码
+- [[TinyURL]] —— 老牌免费短链服务，注册后可用 API 创建与管理短链
 - [[Atlas Paste]] —— 临时文本分享：粘贴即生成链接，附 /raw 纯文本端点（上限 60 KB）；新建分享保留 7 天。
 - [[Atlas Nodes]] —— 免费节点聚合订阅:11 个上游源合并去重 13,000+ 节点,输出 Base64/明文订阅,30 分钟自动刷新。
-- [[Atlas QR]] —— 二维码生成 API(/api/qr?data=),SVG 输出,替代 qrserver 等第三方接口。

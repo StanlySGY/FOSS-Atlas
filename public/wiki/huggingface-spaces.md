@@ -6,17 +6,13 @@ sub_category: vps-free
 tags: [VPS, 容器, AI 托管]
 url: https://huggingface.co/spaces
 related: [replit]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # HuggingFace Spaces
 
 > Hugging Face 的免费托管空间，支持用 Docker 部署并公开访问。
-
-## 一句话总结
-
-Hugging Face 的免费托管空间，支持用 Docker 部署并公开访问。
 
 ## 核心功能 / 特点
 

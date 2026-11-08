@@ -19,10 +19,6 @@ generated: true
 
 > 工程师视角的创业尽调手册：把该查的信息源按主题整理成可执行的核查清单。
 
-## 一句话总结
-
-工程师视角的创业尽调手册：把该查的信息源按主题整理成可执行的核查清单。
-
 ## 核心功能 / 特点
 
 - 按团队、产品、市场等主题归组一手信息源
@@ -39,4 +35,4 @@ generated: true
 - [[wqu Newshub]] —— 个人维护的开发动态信源站：77 个 RSS 信源按主题聚合，持续抓取入库
 - [[CloudFlare-ImgBed]] —— 基于 Cloudflare 的免费图床
 - [[Cloudflare Tunnel]] —— 无需公网 IP 的内网穿透隧道
-- [[subconverter]] —— 订阅格式转换工具
+- [[subconverter]] —— 订阅格式互转，输出 Clash、Surge 等主流客户端格式，可自建转换后端

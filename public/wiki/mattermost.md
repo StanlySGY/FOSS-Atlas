@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [IM, 团队协作, 开源]
 url: https://mattermost.com
 alternatives: [Slack]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [kanboard, focalboard, passbolt, radicale]
+updated: 2026-11-08
 generated: true
 ---
 
 # Mattermost
 
 > 可自部署的团队聊天协作平台，功能对标 Slack，消息数据掌握在自己手里。
-
-## 一句话总结
-
-可自部署的团队聊天协作平台，功能对标 Slack，消息数据掌握在自己手里。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Kanboard]] —— 极简看板任务管理，PHP 单应用、SQLite 开箱即用，资源占用极低
+- [[Focalboard]] —— 开源项目看板，Notion 风格多视图，可嵌入 Mattermost 使用
+- [[Passbolt]] —— 团队密码管理，替代 1Password
+- [[Radicale]] —— 轻量 CalDAV / CardDAV 服务端

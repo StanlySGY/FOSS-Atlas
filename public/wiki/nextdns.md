@@ -5,18 +5,14 @@ category: saas
 sub_category: saas-dns
 tags: [DNS, 隐私, 过滤]
 url: https://nextdns.io
-related: [cloudflare-dns, hurricane-electric, bunnydns, google-cloud]
-updated: 2026-10-19
+related: [cloudflare-dns, bunnydns, hurricane-electric, google-cloud]
+updated: 2026-11-08
 generated: true
 ---
 
 # NextDNS
 
 > NextDNS 是带过滤能力的加密 DNS 服务，免费额度为每月 30 万次查询。
-
-## 一句话总结
-
-NextDNS 是带过滤能力的加密 DNS 服务，免费额度为每月 30 万次查询。
 
 ## 核心功能 / 特点
 
@@ -32,6 +28,6 @@ NextDNS 是带过滤能力的加密 DNS 服务，免费额度为每月 30 万次
 ## 同类推荐
 
 - [[Cloudflare DNS]] —— 免费 DNS 解析 + CDN 加速
-- [[Hurricane Electric]] —— 老牌免费 DNS 托管（HE.net）
 - [[Bunny DNS]] —— 第一个域名免费，全球 Anycast 解析
+- [[Hurricane Electric]] —— 老牌免费 DNS 托管（HE.net）
 - [[Google Cloud]] —— 1 台 e2-micro VM（美区）、5GB 存储、1GB 出网/月

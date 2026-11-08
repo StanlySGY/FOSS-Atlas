@@ -5,18 +5,14 @@ category: gear
 sub_category: gear-tools
 tags: [工具集, 开发, 开源]
 url: https://github.com/CorentinTh/it-tools
-related: [cloudflare-imgbed, cloudflare-tunnel, subconverter, localsend]
-updated: 2026-10-19
+related: [excalidraw, stirling-pdf, n8n, activepieces]
+updated: 2026-11-08
 generated: true
 ---
 
 # IT-Tools
 
 > 面向开发者的在线小工具合集，把哈希、编码、正则测试等零散需求集中到一处。
-
-## 一句话总结
-
-面向开发者的在线小工具合集，把哈希、编码、正则测试等零散需求集中到一处。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[CloudFlare-ImgBed]] —— 基于 Cloudflare 的免费图床
-- [[Cloudflare Tunnel]] —— 无需公网 IP 的内网穿透隧道
-- [[subconverter]] —— 订阅格式转换工具
-- [[LocalSend]] —— 跨平台局域网文件互传，替代 AirDrop
+- [[Excalidraw]] —— 手绘风格白板与流程图
+- [[Stirling-PDF]] —— 自建 PDF 工具箱：合并、拆分、OCR、压缩等几十种操作，Docker 单容器
+- [[n8n]] —— 开源工作流自动化，替代 Zapier
+- [[Activepieces]] —— 开源自动化平台，替代 Zapier

@@ -5,18 +5,14 @@ category: saas
 sub_category: saas-monitor
 tags: [监控, 告警, 免费]
 url: https://uptimerobot.com
-related: [better-stack, logtail, sentry, google-cloud]
-updated: 2026-10-19
+related: [uptime-kuma, better-stack, logtail, sentry]
+updated: 2026-11-08
 generated: true
 ---
 
 # UptimeRobot
 
 > UptimeRobot 提供网站可用性监控，免费账户可建多个监控项，服务宕机时发出告警。
-
-## 一句话总结
-
-UptimeRobot 提供网站可用性监控，免费账户可建多个监控项，服务宕机时发出告警。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ UptimeRobot 提供网站可用性监控，免费账户可建多个监控项，�
 
 ## 同类推荐
 
+- [[Uptime Kuma]] —— 自建监控告警，替代 UptimeRobot
 - [[Better Stack]] —— 1 个监控免费 + 日志/事件管理
 - [[Logtail]] —— 1GB 日志/月免费（已并入 Better Stack）
 - [[Sentry]] —— 5000 错误事件/月免费，异常追踪
-- [[Google Cloud]] —— 1 台 e2-micro VM（美区）、5GB 存储、1GB 出网/月

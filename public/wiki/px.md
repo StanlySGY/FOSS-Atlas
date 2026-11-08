@@ -6,7 +6,7 @@ sub_category: atlas-edge
 tags: [API, 代理, 自建]
 url: https://px.sgyyyds.qzz.io
 alternatives: [ProxyScrape]
-related: [foss-atlas-cf, short, paste, nodes]
+related: [proxyscrape, ip, check, atlas-geo]
 updated: 2026-10-30
 generated: true
 ---
@@ -14,10 +14,6 @@ generated: true
 # Atlas Proxy
 
 > 公开代理聚合 API：聚合 HTTP、SOCKS4 和 SOCKS5 代理列表，提供明文与结构化输出。
-
-## 一句话总结
-
-公开代理聚合 API：聚合 HTTP、SOCKS4 和 SOCKS5 代理列表，提供明文与结构化输出。
 
 ## 核心功能 / 特点
 
@@ -80,7 +76,7 @@ curl -sS 'https://px.sgyyyds.qzz.io/api/sources'
 
 ## 同类推荐
 
-- [[FOSS-Atlas(Cloudflare Pages)]] —— 本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。
-- [[Atlas Short]] —— 自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。
-- [[Atlas Paste]] —— 临时文本分享：粘贴即生成链接，附 /raw 纯文本端点（上限 60 KB）；新建分享保留 7 天。
-- [[Atlas Nodes]] —— 免费节点聚合订阅:11 个上游源合并去重 13,000+ 节点,输出 Base64/明文订阅,30 分钟自动刷新。
+- [[ProxyScrape]] —— 免费代理列表 API，可按协议、国家与匿名级别过滤
+- [[Atlas IP]] —— 客户端 IP 与地理位置/ASN 查询 API(/json),替代 ipinfo 等第三方接口。
+- [[Atlas Check]] —— 邮箱/域名校验 API:一次性邮箱黑名单(9,900+ 域名)+ MX 记录查询,替代 disify 等第三方。
+- [[Atlas Geo]] —— 地理编码 / 逆地理编码:地名↔坐标,自建 KV 缓存,替代 Nominatim 公共实例。

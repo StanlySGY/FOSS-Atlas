@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [白板, 绘图, 开源]
 url: https://excalidraw.com
 alternatives: [Miro]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [it-tools, syncthing, vikunja, authentik]
+updated: 2026-11-08
 generated: true
 ---
 
 # Excalidraw
 
 > 手绘风格的开源白板，用来随手画流程图、示意图和架构草图。
-
-## 一句话总结
-
-手绘风格的开源白板，用来随手画流程图、示意图和架构草图。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[IT-Tools]] —— 开发者工具箱：JSON、正则、哈希、转换等上百个小工具，纯前端可自部署
+- [[Syncthing]] —— P2P 文件同步，多设备互传不上云
+- [[Vikunja]] —— 开源任务管理，列表/看板/甘特/日历多视图，支持 OIDC 登录
+- [[Authentik]] —— 自建身份认证与单点登录（IdP）

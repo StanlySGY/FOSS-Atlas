@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-chat
 tags: [对话, 国内, 编码]
 url: https://www.deepseek.com
-related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
-updated: 2026-10-19
+related: [tiangong, pi, poe, huggingchat]
+updated: 2026-11-08
 generated: true
 ---
 
 # DeepSeek
 
 > 深度求索的 DeepSeek，以推理与编程见长，并长期提供免费对话。
-
-## 一句话总结
-
-深度求索的 DeepSeek，以推理与编程见长，并长期提供免费对话。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[天工 AI]] —— 昆仑万维天工大模型对话端，含写作、音乐、绘图等多种能力
+- [[Pi]] —— Inflection 出品的个人 AI 助手
 - [[Poe]] —— 多模型聚合对话站点，提供有限免费额度
 - [[HuggingChat]] —— Hugging Face 开源模型免费聊天
-- [[DuckDuckGo AI Chat]] —— 匿名 AI 聊天，不记录对话
-- [[LMSYS Chatbot Arena]] —— 多模型直接对比与竞技场排名

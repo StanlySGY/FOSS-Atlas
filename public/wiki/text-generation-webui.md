@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-local
 tags: [本地推理, WebUI, 开源]
 url: https://github.com/oobabooga/textgen
-related: [ollama, lm-studio, jan, gpt4all]
-updated: 2026-10-19
+related: [ollama, jan, gpt4all, neo-chat]
+updated: 2026-11-08
 generated: true
 ---
 
 # Text Generation WebUI
 
 > oobabooga 维护的本地模型 WebUI，功能齐全且可扩展的推理前端。
-
-## 一句话总结
-
-oobabooga 维护的本地模型 WebUI，功能齐全且可扩展的推理前端。
 
 ## 核心功能 / 特点
 
@@ -32,6 +28,6 @@ oobabooga 维护的本地模型 WebUI，功能齐全且可扩展的推理前端�
 ## 同类推荐
 
 - [[Ollama]] —— 一键在本地运行 Llama / Qwen / DeepSeek 等模型
-- [[LM Studio]] —— 图形化本地模型运行与下载
 - [[Jan]] —— 开源本地模型桌面客户端
 - [[GPT4All]] —— 可离线运行的本地 LLM 套件
+- [[Neo Chat]] —— 本地优先的 AI 对话工作台，支持 RAG 与插件

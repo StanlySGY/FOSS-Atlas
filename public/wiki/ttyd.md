@@ -5,18 +5,14 @@ category: selfhost
 sub_category: selfhost-core
 tags: [终端, WebSSH, 开源]
 url: https://github.com/tsl0922/ttyd
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [excalidraw, syncthing, vikunja, authentik]
+updated: 2026-11-08
 generated: true
 ---
 
 # ttyd
 
 > 把命令行共享到浏览器的轻量工具，用一条命令即可开放 Web 终端。
-
-## 一句话总结
-
-把命令行共享到浏览器的轻量工具，用一条命令即可开放 Web 终端。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Excalidraw]] —— 手绘风格白板与流程图
+- [[Syncthing]] —— P2P 文件同步，多设备互传不上云
+- [[Vikunja]] —— 开源任务管理，列表/看板/甘特/日历多视图，支持 OIDC 登录
+- [[Authentik]] —— 自建身份认证与单点登录（IdP）

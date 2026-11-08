@@ -6,7 +6,7 @@ sub_category: atlas-edge
 tags: [API, IP 查询, 自建]
 url: https://ip.sgyyyds.qzz.io
 alternatives: [IPinfo]
-related: [foss-atlas-cf, short, paste, nodes]
+related: [ipinfo, check, atlas-geo, atlas-meta]
 updated: 2026-10-30
 generated: true
 ---
@@ -14,10 +14,6 @@ generated: true
 # Atlas IP
 
 > 客户端 IP 查询 API：返回请求来源 IP、粗略地理位置、ASN 和 Cloudflare 边缘节点信息。
-
-## 一句话总结
-
-客户端 IP 查询 API：返回请求来源 IP、粗略地理位置、ASN 和 Cloudflare 边缘节点信息。
 
 ## 核心功能 / 特点
 
@@ -69,7 +65,7 @@ curl -sS 'https://ip.sgyyyds.qzz.io/api/ip'
 
 ## 同类推荐
 
-- [[FOSS-Atlas(Cloudflare Pages)]] —— 本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。
-- [[Atlas Short]] —— 自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。
-- [[Atlas Paste]] —— 临时文本分享：粘贴即生成链接，附 /raw 纯文本端点（上限 60 KB）；新建分享保留 7 天。
-- [[Atlas Nodes]] —— 免费节点聚合订阅:11 个上游源合并去重 13,000+ 节点,输出 Base64/明文订阅,30 分钟自动刷新。
+- [[IPinfo]] —— IPinfo Lite 需 Token，country-level Geo / basic ASN 查询不设日月请求数上限；Legacy 公共 API 另有共享 IP 限制
+- [[Atlas Check]] —— 邮箱/域名校验 API:一次性邮箱黑名单(9,900+ 域名)+ MX 记录查询,替代 disify 等第三方。
+- [[Atlas Geo]] —— 地理编码 / 逆地理编码:地名↔坐标,自建 KV 缓存,替代 Nominatim 公共实例。
+- [[Atlas Meta]] —— 链接元数据 / OpenGraph 解析:抓标题、摘要、缩略图,自建不发第三方。

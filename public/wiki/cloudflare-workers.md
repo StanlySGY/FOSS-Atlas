@@ -10,7 +10,14 @@ repo: https://github.com/cloudflare/workers-sdk
 license: 专有（免费层）
 alternatives: [Vercel Edge Functions, Deno Deploy, Netlify Edge]
 related: [cloudflare, cloudflare-tunnel, cloudflare-dns, cloudflare-imgbed, vercel, netlify]
-updated: 2026-10-19
+updated: 2026-11-08
+verifiedAt: 2026-11-08
+sources:
+  - {"title":"Cloudflare Workers Free plan","url":"https://developers.cloudflare.com/workers/platform/pricing/#workers-free-plan","type":"official","scope":"Free 计划 100,000 次请求 / 天、每次请求 10 ms CPU 时间与 100 个 Worker 脚本上限；不覆盖 Workers Paid。"}
+  - {"title":"Cloudflare R2 pricing","url":"https://developers.cloudflare.com/r2/pricing/","type":"official","scope":"R2 免费层 10 GB-month 存储；不覆盖超出部分的存储与操作计费。"}
+  - {"title":"Cloudflare Workers KV pricing","url":"https://developers.cloudflare.com/kv/platform/pricing/","type":"official","scope":"KV 免费层读写 / 存储日额度。"}
+  - {"title":"Cloudflare D1 pricing","url":"https://developers.cloudflare.com/d1/platform/pricing/","type":"official","scope":"D1 免费层行读 / 行写 / 存储日额度。"}
+  - {"title":"Cloudflare Pages pricing","url":"https://developers.cloudflare.com/pages/platform/pricing/","type":"official","scope":"Pages 静态请求与构建额度。"}
 ---
 
 # Cloudflare Workers

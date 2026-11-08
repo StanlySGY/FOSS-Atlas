@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [监控, 告警, 开源]
 url: https://github.com/louislam/uptime-kuma
 alternatives: [UptimeRobot]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [uptimerobot, shlink, qbittorrent, aria2]
+updated: 2026-11-08
 generated: true
 ---
 
 # Uptime Kuma
 
 > 自建的站点监控与告警面板，持续检查各项服务是否在线。
-
-## 一句话总结
-
-自建的站点监控与告警面板，持续检查各项服务是否在线。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[UptimeRobot]] —— 50 个监控免费，站点可用性告警
+- [[Shlink]] —— 自建短链接服务，带点击统计、标签与多域名，Docker 单容器即可跑
+- [[qBittorrent]] —— 开源 BT 客户端，带 WebUI 与 RSS 订阅，可无头跑在 NAS 与服务器上
+- [[Aria2]] —— 轻量多协议命令行下载器

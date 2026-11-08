@@ -6,17 +6,13 @@ sub_category: saas-domain
 tags: [域名, 子域名, 免费]
 url: https://nic.ua/en/domains/.pp.ua
 related: [is-a-dev, js-org, eu-org, google-cloud]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # pp.ua
 
 > pp.ua 是 nic.ua 提供的免费域名后缀，注册账号后即可申请 .pp.ua 域名。
-
-## 一句话总结
-
-pp.ua 是 nic.ua 提供的免费域名后缀，注册账号后即可申请 .pp.ua 域名。
 
 ## 核心功能 / 特点
 

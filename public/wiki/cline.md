@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-coding
 tags: [编程, VSCode, 开源, Agent]
 url: https://cline.bot
-related: [cursor, continue, cody, tabby]
-updated: 2026-10-19
+related: [continue, cursor, aider, cody]
+updated: 2026-11-08
 generated: true
 ---
 
 # Cline
 
 > 开源的 VSCode AI 编程 Agent，能读文件、跑命令并直接改动代码。
-
-## 一句话总结
-
-开源的 VSCode AI 编程 Agent，能读文件、跑命令并直接改动代码。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Cursor]] —— Cursor Free 为 USD 0 / 月，提供受限 Agent 与 Chat 请求；不等于无限使用第三方模型
 - [[Continue]] —— 开源 AI 编程助手，可接任意模型
+- [[Cursor]] —— Cursor Free 为 USD 0 / 月，提供受限 Agent 与 Chat 请求；不等于无限使用第三方模型
+- [[Aider]] —— 命令行 AI 结对编程工具（仓库已迁移至 Aider-AI/aider）
 - [[Cody]] —— Sourcegraph 出品的 AI 编程助手
-- [[Tabby]] —— 可自部署的 AI 代码补全服务

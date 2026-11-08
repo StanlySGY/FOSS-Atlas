@@ -6,17 +6,13 @@ sub_category: selfhost-honeypot
 tags: [蜜罐, SSH, 开源]
 url: https://github.com/cowrie/cowrie
 related: [tpot, dionaea, hfish, nextcloud]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Cowrie
 
 > 交互式 SSH 与 Telnet 蜜罐，记录暴力破解尝试和攻击者输入的每一条命令。
-
-## 一句话总结
-
-交互式 SSH 与 Telnet 蜜罐，记录暴力破解尝试和攻击者输入的每一条命令。
 
 ## 核心功能 / 特点
 

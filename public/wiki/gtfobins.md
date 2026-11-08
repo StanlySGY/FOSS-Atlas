@@ -5,18 +5,14 @@ category: security
 sub_category: security-pentest
 tags: [安全, 提权, 手册]
 url: https://gtfobins.github.io
-related: [awesome-hacking, payloadsallthethings, hacktricks, seclists]
-updated: 2026-10-19
+related: [lolbas, security-audit-skill, awesome-hacking, payloadsallthethings]
+updated: 2026-11-08
 generated: true
 ---
 
 # GTFOBins
 
 > 整理 Unix 上可被滥用的二进制程序清单，说明如何借此提权或读取文件。
-
-## 一句话总结
-
-整理 Unix 上可被滥用的二进制程序清单，说明如何借此提权或读取文件。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[LOLBAS]] —— Windows 原生二进制滥用手册
+- [[Security Audit Skill]] —— Cloudflare 开源的多阶段安全审计 coding-agent skill，产出可机读的核验结论
 - [[Awesome Hacking]] —— 黑客与安全资源大全
 - [[PayloadsAllTheThings]] —— 各类漏洞利用 Payload 合集
-- [[HackTricks]] —— 渗透测试技巧百科全书
-- [[SecLists]] —— 安全测试字典合集

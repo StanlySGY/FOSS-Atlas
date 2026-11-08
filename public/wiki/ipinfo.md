@@ -5,18 +5,14 @@ category: api
 sub_category: api-free
 tags: [API, IP, 地理]
 url: https://ipinfo.io
-related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
-updated: 2026-10-19
+related: [ip, mymemory, unsplash, pexels]
+updated: 2026-11-08
 generated: true
 ---
 
 # IPinfo
 
 > IP 地址查询服务，返回归属地、运营商与网络类型等信息。
-
-## 一句话总结
-
-IP 地址查询服务，返回归属地、运营商与网络类型等信息。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ IP 地址查询服务，返回归属地、运营商与网络类型等信息。
 
 ## 同类推荐
 
-- [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
-- [[Anthropic API]] —— Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺
-- [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
-- [[Hugging Face Inference API]] —— 开源模型推理 API
+- [[Atlas IP]] —— 客户端 IP 与地理位置/ASN 查询 API(/json),替代 ipinfo 等第三方接口。
+- [[MyMemory]] —— 翻译 API，5000 字/天免费
+- [[Unsplash]] —— 免费高清图库 API，图片可免费商用；Demo 模式每小时 50 次请求
+- [[Pexels]] —— 免费图片与视频 API；默认每小时 200 次、每月 20,000 次请求，需遵守署名和 API 使用规范

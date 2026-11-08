@@ -4,19 +4,15 @@ slug: aiboboxx-v2rayfree
 category: proxy
 sub_category: proxy-sub
 tags: [订阅, v2ray, 开源]
-url: https://github.com/free-nodes/v2rayfree
-related: [mfuu-freeproxies, barry-far-v2ray-configs, epodonators-v2ray-configs]
-updated: 2026-10-19
+url: https://github.com/aiboboxx/v2rayfree
+related: [barry-far-v2ray-configs, epodonators-v2ray-configs, mfuu-freeproxies]
+updated: 2026-11-08
 generated: true
 ---
 
 # aiboboxx/v2rayfree
 
 > 持续维护的免费 v2ray 节点订阅仓库，每天更新可用节点供客户端直接导入。
-
-## 一句话总结
-
-持续维护的免费 v2ray 节点订阅仓库，每天更新可用节点供客户端直接导入。
 
 ## 核心功能 / 特点
 
@@ -31,6 +27,6 @@ generated: true
 
 ## 同类推荐
 
-- [[mfuu/FreeProxies]] —— 每日更新的免费节点订阅仓库
 - [[barry-far/V2ray-Configs]] —— 聚合式免费节点配置
-- [[Epodonios/v2ray-configs]] —— 原始 GitHub 仓库目前返回 404；同名社区 fork 不自动等同原项目，使用前需重新核验来源
+- [[Epodonios/v2ray-configs]] —— 原始仓库已失效（2026-11-08 复核返回 404）；同名社区 fork 不自动等同原项目，使用前需重新核验来源
+- [[mfuu/FreeProxies]] —— 每日更新的免费节点订阅仓库

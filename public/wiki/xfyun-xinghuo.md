@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-chat
 tags: [对话, 国内, 讯飞]
 url: https://xinghuo.xfyun.cn
-related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
-updated: 2026-10-19
+related: [doubao, chatglm, deepseek-chat, tiangong]
+updated: 2026-11-08
 generated: true
 ---
 
 # 讯飞星火
 
 > 科大讯飞的星火认知大模型，主打中文对话并延续讯飞的语音技术优势。
-
-## 一句话总结
-
-科大讯飞的星火认知大模型，主打中文对话并延续讯飞的语音技术优势。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Poe]] —— 多模型聚合对话站点，提供有限免费额度
-- [[HuggingChat]] —— Hugging Face 开源模型免费聊天
-- [[DuckDuckGo AI Chat]] —— 匿名 AI 聊天，不记录对话
-- [[LMSYS Chatbot Arena]] —— 多模型直接对比与竞技场排名
+- [[豆包]] —— 字节跳动豆包，多模态对话
+- [[智谱清言]] —— 智谱 GLM 系列对话助手
+- [[DeepSeek]] —— 深度求索对话与编码助手
+- [[天工 AI]] —— 昆仑万维天工大模型对话端，含写作、音乐、绘图等多种能力

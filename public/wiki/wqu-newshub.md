@@ -18,10 +18,6 @@ generated: true
 
 > 个人维护的开发动态信源站：RSS 信源按主题聚合，持续抓取并标注新鲜度。
 
-## 一句话总结
-
-个人维护的开发动态信源站：RSS 信源按主题聚合，持续抓取并标注新鲜度。
-
 ## 核心功能 / 特点
 
 - 按 AI、Ship、Invest 等主题浏览 77 个精选信源
@@ -38,4 +34,4 @@ generated: true
 - [[Startup Due Diligence]] —— 工程师视角的创业尽调信息源合集，从团队到市场的核查清单一应俱全
 - [[CloudFlare-ImgBed]] —— 基于 Cloudflare 的免费图床
 - [[Cloudflare Tunnel]] —— 无需公网 IP 的内网穿透隧道
-- [[subconverter]] —— 订阅格式转换工具
+- [[subconverter]] —— 订阅格式互转，输出 Clash、Surge 等主流客户端格式，可自建转换后端

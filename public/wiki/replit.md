@@ -6,17 +6,13 @@ sub_category: vps-free
 tags: [在线 IDE, App Builder]
 url: https://replit.com
 related: [huggingface-spaces]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Replit
 
 > 浏览器里的在线 IDE，创建项目即可编写运行多种语言的代码并发布成公网服务。
-
-## 一句话总结
-
-浏览器里的在线 IDE，创建项目即可编写运行多种语言的代码并发布成公网服务。
 
 ## 核心功能 / 特点
 

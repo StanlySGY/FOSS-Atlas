@@ -6,17 +6,13 @@ sub_category: gear-tools
 tags: [图床, Cloudflare, 开源]
 url: https://github.com/MarSeventh/CloudFlare-ImgBed
 related: [cloudflare-tunnel, subconverter, localsend, stirling-pdf]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # CloudFlare-ImgBed
 
 > 搭建在 Cloudflare 上的免费图床，支持多种存储渠道并自带上传与管理界面。
-
-## 一句话总结
-
-搭建在 Cloudflare 上的免费图床，支持多种存储渠道并自带上传与管理界面。
 
 ## 核心功能 / 特点
 
@@ -32,6 +28,6 @@ generated: true
 ## 同类推荐
 
 - [[Cloudflare Tunnel]] —— 无需公网 IP 的内网穿透隧道
-- [[subconverter]] —— 订阅格式转换工具
+- [[subconverter]] —— 订阅格式互转，输出 Clash、Surge 等主流客户端格式，可自建转换后端
 - [[LocalSend]] —— 跨平台局域网文件互传，替代 AirDrop
-- [[Stirling-PDF]] —— 自建 PDF 工具箱
+- [[Stirling-PDF]] —— 自建 PDF 工具箱：合并、拆分、OCR、压缩等几十种操作，Docker 单容器

@@ -6,17 +6,13 @@ sub_category: selfhost-proxy
 tags: [代理, 内核, 开源]
 url: https://github.com/SagerNet/sing-box
 related: [xray-reality, mihomo, hysteria2, trojan-go]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # sing-box
 
 > 一体化的通用代理内核，单个程序同时支持多种协议，客户端与服务端通用。
-
-## 一句话总结
-
-一体化的通用代理内核，单个程序同时支持多种协议，客户端与服务端通用。
 
 ## 核心功能 / 特点
 

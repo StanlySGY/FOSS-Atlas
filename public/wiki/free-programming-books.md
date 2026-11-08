@@ -5,17 +5,13 @@ category: ebook
 sub_category: ebook-free
 tags: [电子书, 编程, 合集]
 url: https://github.com/EbookFoundation/free-programming-books
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # free-programming-books
 
 > Free Ebook Foundation 维护的免费编程书清单，按语言与主题分类收录大量电子书链接。
-
-## 一句话总结
-
-Free Ebook Foundation 维护的免费编程书清单，按语言与主题分类收录大量电子书链接。
 
 ## 核心功能 / 特点
 

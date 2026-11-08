@@ -5,18 +5,14 @@ category: saas
 sub_category: saas-paas
 tags: [PaaS, 部署, 免费层]
 url: https://www.koyeb.com
-related: [render, railway, fly-io, supabase]
-updated: 2026-10-19
+related: [render, supabase, neon, vercel]
+updated: 2026-11-08
 generated: true
 ---
 
 # Koyeb
 
 > Koyeb 是面向开发者的无服务器 PaaS，提供入门级 nano 实例用于跑常驻服务。
-
-## 一句话总结
-
-Koyeb 是面向开发者的无服务器 PaaS，提供入门级 nano 实例用于跑常驻服务。
 
 ## 核心功能 / 特点
 
@@ -32,6 +28,6 @@ Koyeb 是面向开发者的无服务器 PaaS，提供入门级 nano 实例用于
 ## 同类推荐
 
 - [[Render]] —— 750 小时免费实例/月
-- [[Railway]] —— 每月 5 美元试用额度（需绑卡）
-- [[Fly.io]] —— 3 台 shared-cpu-1x VM 永久免费
 - [[Supabase]] —— 500MB 数据库 + 5 万 MAU
+- [[Neon Postgres]] —— 0.5GB Serverless Postgres 免费
+- [[Vercel]] —— Hobby 计划永久免费，含 100GB 带宽

@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [文档, 知识库, 开源]
 url: https://www.getoutline.com
 alternatives: [Confluence]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [mattermost, kanboard, focalboard, passbolt]
+updated: 2026-11-08
 generated: true
 ---
 
 # Outline
 
 > 团队知识库与协作文档工具，用 Markdown 快速搭起结构清晰的内部 Wiki。
-
-## 一句话总结
-
-团队知识库与协作文档工具，用 Markdown 快速搭起结构清晰的内部 Wiki。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Mattermost]] —— 团队聊天协作，替代 Slack
+- [[Kanboard]] —— 极简看板任务管理，PHP 单应用、SQLite 开箱即用，资源占用极低
+- [[Focalboard]] —— 开源项目看板，Notion 风格多视图，可嵌入 Mattermost 使用
+- [[Passbolt]] —— 团队密码管理，替代 1Password

@@ -7,17 +7,13 @@ tags: [网盘, 同步, 开源]
 url: https://www.seafile.com
 alternatives: [Google Drive]
 related: [nextcloud, joplin, trilium, memos]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Seafile
 
 > 高性能的开源网盘系统，主打大文件同步与团队资料库。
-
-## 一句话总结
-
-高性能的开源网盘系统，主打大文件同步与团队资料库。
 
 ## 核心功能 / 特点
 

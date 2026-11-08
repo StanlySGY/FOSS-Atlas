@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-chat
 tags: [对话, Google, 多模态]
 url: https://gemini.google.com
-related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
-updated: 2026-10-19
+related: [anthropic-claude, baidu-yiyan, aliyun-tongyi, xfyun-xinghuo]
+updated: 2026-11-08
 generated: true
 ---
 
 # Google Gemini
 
 > Google 的 Gemini 助手，支持长上下文以及图文、音视频的多模态理解。
-
-## 一句话总结
-
-Google 的 Gemini 助手，支持长上下文以及图文、音视频的多模态理解。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Google 的 Gemini 助手，支持长上下文以及图文、音视频的多模�
 
 ## 同类推荐
 
-- [[Poe]] —— 多模型聚合对话站点，提供有限免费额度
-- [[HuggingChat]] —— Hugging Face 开源模型免费聊天
-- [[DuckDuckGo AI Chat]] —— 匿名 AI 聊天，不记录对话
-- [[LMSYS Chatbot Arena]] —— 多模型直接对比与竞技场排名
+- [[Anthropic Claude]] —— Claude 官方站点，含免费层
+- [[百度文心一言]] —— 百度文心大模型对话，国内免费
+- [[阿里通义千问]] —— 通义千问消费者聊天入口；不要与阿里云百炼开发者 API 的模型免费额度混为一谈
+- [[讯飞星火]] —— 科大讯飞星火大模型对话端，国内直连，Web 与移动端免费使用

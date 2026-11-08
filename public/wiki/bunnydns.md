@@ -6,17 +6,13 @@ sub_category: saas-dns
 tags: [DNS, CDN, 免费]
 url: https://bunny.net/dns/
 related: [cloudflare-dns, hurricane-electric, nextdns, google-cloud]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Bunny DNS
 
 > Bunny DNS 是 Bunny.net 的 DNS 托管服务，第一个域名免费，走全球 Anycast 网络解析。
-
-## 一句话总结
-
-Bunny DNS 是 Bunny.net 的 DNS 托管服务，第一个域名免费，走全球 Anycast 网络解析。
 
 ## 核心功能 / 特点
 

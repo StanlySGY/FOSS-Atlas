@@ -5,18 +5,14 @@ category: api
 sub_category: api-free
 tags: [API, 翻译, 免费]
 url: https://mymemory.translated.net
-related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
-updated: 2026-10-19
+related: [unsplash, pexels, qrserver, disify]
+updated: 2026-11-08
 generated: true
 ---
 
 # MyMemory
 
 > 在线翻译记忆服务提供的翻译 API，免费档每天五千字额度。
-
-## 一句话总结
-
-在线翻译记忆服务提供的翻译 API，免费档每天五千字额度。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
-- [[Anthropic API]] —— Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺
-- [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
-- [[Hugging Face Inference API]] —— 开源模型推理 API
+- [[Unsplash]] —— 免费高清图库 API，图片可免费商用；Demo 模式每小时 50 次请求
+- [[Pexels]] —— 免费图片与视频 API；默认每小时 200 次、每月 20,000 次请求，需遵守署名和 API 使用规范
+- [[QRServer]] —— 二维码生成 / 解码 API；文档未公布固定请求上限，但保留拒绝滥用请求的权利
+- [[Disify]] —— 临时邮箱与邮箱校验 API

@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-prompt
 tags: [提示词, 官方文档, OpenAI]
 url: https://platform.openai.com/docs/guides/prompt-engineering
-related: [awesome-chatgpt-prompts, deeplearning-ai-prompts, best-paper-writing-skill, poe]
-updated: 2026-10-19
+related: [deeplearning-ai-prompts, best-paper-writing-skill, awesome-chatgpt-prompts, poe]
+updated: 2026-11-08
 generated: true
 ---
 
 # Prompt 工程指南（OpenAI）
 
 > OpenAI 官方的提示词工程指南，讲清编写与优化提示词的原则。
-
-## 一句话总结
-
-OpenAI 官方的提示词工程指南，讲清编写与优化提示词的原则。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ OpenAI 官方的提示词工程指南，讲清编写与优化提示词的原则�
 
 ## 同类推荐
 
-- [[awesome-chatgpt-prompts (prompts.chat)]] —— 最全的 ChatGPT 提示词合集
 - [[DeepLearning.AI 提示词课]] —— 吴恩达团队的提示词工程短课
 - [[Best Paper Writing Skill]] —— 从 60 篇顶会获奖论文提炼论证结构与文风的论文写作 Skill，按章节生成草稿
+- [[awesome-chatgpt-prompts (prompts.chat)]] —— 最全的 ChatGPT 提示词合集
 - [[Poe]] —— 多模型聚合对话站点，提供有限免费额度

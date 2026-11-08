@@ -6,17 +6,13 @@ sub_category: api-free
 tags: [API, LLM, OpenAI]
 url: https://platform.openai.com
 related: [anthropic-api, google-ai-api, hf-inference-api, replicate]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # OpenAI API
 
 > OpenAI 官方开发者平台，按用量计费调用 GPT 系列模型的能力。
-
-## 一句话总结
-
-OpenAI 官方开发者平台，按用量计费调用 GPT 系列模型的能力。
 
 ## 核心功能 / 特点
 

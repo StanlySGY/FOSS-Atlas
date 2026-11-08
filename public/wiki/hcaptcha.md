@@ -5,18 +5,14 @@ category: api
 sub_category: api-free
 tags: [验证码, 安全, 免费]
 url: https://www.hcaptcha.com
-related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
-updated: 2026-10-19
+related: [nominatim, openai-api, anthropic-api, google-ai-api]
+updated: 2026-11-08
 generated: true
 ---
 
 # hCaptcha
 
 > 注重隐私的人机验证服务，可替代 reCAPTCHA 用于表单防护。
-
-## 一句话总结
-
-注重隐私的人机验证服务，可替代 reCAPTCHA 用于表单防护。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[OpenStreetMap Nominatim]] —— OSM 公共地理编码服务最多每秒 1 次请求，需署名并遵守禁止自动补全和批量查询政策
 - [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
 - [[Anthropic API]] —— Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺
 - [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
-- [[Hugging Face Inference API]] —— 开源模型推理 API

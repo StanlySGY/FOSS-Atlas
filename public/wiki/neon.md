@@ -5,18 +5,14 @@ category: saas
 sub_category: saas-paas
 tags: [数据库, Postgres, Serverless]
 url: https://neon.tech
-related: [render, railway, fly-io, koyeb]
-updated: 2026-10-19
+related: [supabase, vercel, netlify, render]
+updated: 2026-11-08
 generated: true
 ---
 
 # Neon Postgres
 
 > Neon 提供 Serverless Postgres，把计算与存储分离，免费层含 0.5GB 存储空间。
-
-## 一句话总结
-
-Neon 提供 Serverless Postgres，把计算与存储分离，免费层含 0.5GB 存储空间。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Neon 提供 Serverless Postgres，把计算与存储分离，免费层含 0.5GB 
 
 ## 同类推荐
 
+- [[Supabase]] —— 500MB 数据库 + 5 万 MAU
+- [[Vercel]] —— Hobby 计划永久免费，含 100GB 带宽
+- [[Netlify]] —— 100GB 带宽/月 + 300 分钟构建
 - [[Render]] —— 750 小时免费实例/月
-- [[Railway]] —— 每月 5 美元试用额度（需绑卡）
-- [[Fly.io]] —— 3 台 shared-cpu-1x VM 永久免费
-- [[Koyeb]] —— 1 个 nano 实例免费

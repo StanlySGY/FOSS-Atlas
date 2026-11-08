@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-chat
 tags: [对话, 微软, GPT]
 url: https://copilot.microsoft.com
-related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
-updated: 2026-10-19
+related: [meta-ai, google-gemini, anthropic-claude, baidu-yiyan]
+updated: 2026-11-08
 generated: true
 ---
 
 # Microsoft Copilot
 
 > 微软的 AI 助手，把 GPT 系列模型接进对话、搜索与系统层面。
-
-## 一句话总结
-
-微软的 AI 助手，把 GPT 系列模型接进对话、搜索与系统层面。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Poe]] —— 多模型聚合对话站点，提供有限免费额度
-- [[HuggingChat]] —— Hugging Face 开源模型免费聊天
-- [[DuckDuckGo AI Chat]] —— 匿名 AI 聊天，不记录对话
-- [[LMSYS Chatbot Arena]] —— 多模型直接对比与竞技场排名
+- [[Meta AI]] —— Meta 出品 AI 助手，Llama 系列驱动，支持图片生成与联网问答
+- [[Google Gemini]] —— Google Gemini 免费对话
+- [[Anthropic Claude]] —— Claude 官方站点，含免费层
+- [[百度文心一言]] —— 百度文心大模型对话，国内免费

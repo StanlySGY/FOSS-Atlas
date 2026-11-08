@@ -6,17 +6,13 @@ sub_category: ai-chat
 tags: [对话, 助手, 情感]
 url: https://pi.ai
 related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Pi
 
 > Inflection 推出的个人 AI 助手 Pi，主打有同理心的日常对话体验。
-
-## 一句话总结
-
-Inflection 推出的个人 AI 助手 Pi，主打有同理心的日常对话体验。
 
 ## 核心功能 / 特点
 

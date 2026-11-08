@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [远程桌面, 开源]
 url: https://github.com/rustdesk/rustdesk
 alternatives: [TeamViewer]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [gitea, forgejo, woodpecker, drone]
+updated: 2026-11-08
 generated: true
 ---
 
 # RustDesk
 
 > 开源的远程桌面工具，支持自建中继服务器，连接不依赖第三方。
-
-## 一句话总结
-
-开源的远程桌面工具，支持自建中继服务器，连接不依赖第三方。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Gitea]] —— 轻量自建 Git 服务，替代 GitHub
+- [[Forgejo]] —— 社区驱动的 Gitea 分支，替代 GitHub
+- [[Woodpecker CI]] —— 轻量 CI/CD，替代 GitLab CI
+- [[Drone CI]] —— 容器原生 CI/CD，替代 GitLab CI

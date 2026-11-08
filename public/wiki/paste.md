@@ -5,7 +5,7 @@ category: atlas
 sub_category: atlas-edge
 tags: [粘贴分享, 临时分享, 自建]
 url: https://paste.sgyyyds.qzz.io
-related: [foss-atlas-cf, short, nodes, qr]
+related: [nodes, qr, px, ip]
 updated: 2026-10-30
 generated: true
 ---
@@ -13,10 +13,6 @@ generated: true
 # Atlas Paste
 
 > 临时文本分享：粘贴即生成链接，附带纯文本端点，内容上限 60KB；新建分享保留 7 天。
-
-## 一句话总结
-
-临时文本分享：粘贴即生成链接，附带纯文本端点，内容上限 60KB；新建分享保留 7 天。
 
 ## 核心功能 / 特点
 
@@ -44,7 +40,7 @@ generated: true
 
 ## 同类推荐
 
-- [[FOSS-Atlas(Cloudflare Pages)]] —— 本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。
-- [[Atlas Short]] —— 自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。
 - [[Atlas Nodes]] —— 免费节点聚合订阅:11 个上游源合并去重 13,000+ 节点,输出 Base64/明文订阅,30 分钟自动刷新。
 - [[Atlas QR]] —— 二维码生成 API(/api/qr?data=),SVG 输出,替代 qrserver 等第三方接口。
+- [[Atlas Proxy]] —— 公开代理聚合 API:HTTP/SOCKS4/SOCKS5 共 8,000+ 条,支持 /json 带国家与 ASN。
+- [[Atlas IP]] —— 客户端 IP 与地理位置/ASN 查询 API(/json),替代 ipinfo 等第三方接口。

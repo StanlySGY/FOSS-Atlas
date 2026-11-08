@@ -3,20 +3,16 @@ title: Tabby
 slug: tabby
 category: ai
 sub_category: ai-coding
-tags: [编程, 自部署, 补全]
+tags: [编程, 自建, 补全]
 url: https://tabby.tabbyml.com
-related: [cursor, cline, continue, cody]
-updated: 2026-10-19
+related: [codeium, aider, cursor, cline]
+updated: 2026-11-08
 generated: true
 ---
 
 # Tabby
 
 > 可自行部署的 AI 代码补全服务，模型与代码都留在自己的服务器上。
-
-## 一句话总结
-
-可自行部署的 AI 代码补全服务，模型与代码都留在自己的服务器上。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[Codeium]] —— 免费 AI 代码补全（现 Windsurf）
+- [[Aider]] —— 命令行 AI 结对编程工具（仓库已迁移至 Aider-AI/aider）
 - [[Cursor]] —— Cursor Free 为 USD 0 / 月，提供受限 Agent 与 Chat 请求；不等于无限使用第三方模型
 - [[Cline]] —— VSCode 开源 AI 编程 Agent
-- [[Continue]] —— 开源 AI 编程助手，可接任意模型
-- [[Cody]] —— Sourcegraph 出品的 AI 编程助手

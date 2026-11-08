@@ -14,10 +14,6 @@ generated: true
 
 > 浏览器里的 SSH 客户端：Workers 加 Durable Objects 维持会话，D1 存审计记录，由 Cloudflare Access 邮箱验证码保护。
 
-## 一句话总结
-
-浏览器里的 SSH 客户端：Workers 加 Durable Objects 维持会话，D1 存审计记录，由 Cloudflare Access 邮箱验证码保护。
-
 ## 核心功能 / 特点
 
 - 无需本机装终端或跳板机，浏览器打开即可连服务器

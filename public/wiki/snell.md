@@ -5,18 +5,14 @@ category: selfhost
 sub_category: selfhost-proxy
 tags: [代理, Surge]
 url: https://manual.nssurge.com/policies/snell.html
-related: [xray-reality, sing-box, mihomo, hysteria2]
-updated: 2026-10-19
+related: [trojan-go, tuic, xray-reality, sing-box]
+updated: 2026-11-08
 generated: true
 ---
 
 # Snell
 
 > Surge 自研的加密代理协议，配合 Surge 客户端使用，配置简洁、延迟较低。
-
-## 一句话总结
-
-Surge 自研的加密代理协议，配合 Surge 客户端使用，配置简洁、延迟较低。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Surge 自研的加密代理协议，配合 Surge 客户端使用，配置简洁�
 
 ## 同类推荐
 
+- [[Trojan-Go]] —— TLS 伪装的 Trojan 实现
+- [[TUIC]] —— 基于 QUIC 的轻量代理协议
 - [[Xray + Reality]] —— 当前主流方案，Reality 伪装 SNI
 - [[sing-box]] —— 一体化通用代理内核，多协议支持
-- [[mihomo / Clash Meta]] —— Clash Meta 内核，客户端与服务端通用
-- [[Hysteria2]] —— 基于 QUIC 的高速代理协议

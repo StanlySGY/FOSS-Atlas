@@ -5,18 +5,14 @@ category: api
 sub_category: api-free
 tags: [API, LLM, Anthropic]
 url: https://docs.anthropic.com
-related: [openai-api, google-ai-api, hf-inference-api, replicate]
-updated: 2026-10-19
+related: [google-ai-api, hf-inference-api, replicate, openweathermap]
+updated: 2026-11-08
 generated: true
 ---
 
 # Anthropic API
 
 > Anthropic 官方接口，用于调用 Claude 系列模型完成对话与推理任务。
-
-## 一句话总结
-
-Anthropic 官方接口，用于调用 Claude 系列模型完成对话与推理任务。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Anthropic 官方接口，用于调用 Claude 系列模型完成对话与推理�
 
 ## 同类推荐
 
-- [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
 - [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
 - [[Hugging Face Inference API]] —— 开源模型推理 API
 - [[Replicate]] —— 托管开源模型，部分模型免费试用
+- [[OpenWeatherMap]] —— 天气数据 API，1000 次/天免费

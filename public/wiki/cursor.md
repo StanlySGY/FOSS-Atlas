@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-coding
 tags: [编程, IDE, 编辑器]
 url: https://cursor.com
-related: [cline, continue, cody, tabby]
-updated: 2026-10-19
+related: [cline, aider, continue, cody]
+updated: 2026-11-08
 generated: true
 ---
 
 # Cursor
 
 > AI 优先的代码编辑器，把对话、补全与多文件编辑整合进写码流程。
-
-## 一句话总结
-
-AI 优先的代码编辑器，把对话、补全与多文件编辑整合进写码流程。
 
 ## 核心功能 / 特点
 
@@ -32,6 +28,6 @@ AI 优先的代码编辑器，把对话、补全与多文件编辑整合进写�
 ## 同类推荐
 
 - [[Cline]] —— VSCode 开源 AI 编程 Agent
+- [[Aider]] —— 命令行 AI 结对编程工具（仓库已迁移至 Aider-AI/aider）
 - [[Continue]] —— 开源 AI 编程助手，可接任意模型
 - [[Cody]] —— Sourcegraph 出品的 AI 编程助手
-- [[Tabby]] —— 可自部署的 AI 代码补全服务

@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [RSS, 阅读器, 开源]
 url: https://miniflux.app
 alternatives: [Feedly]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [freshrss, vaultwarden, jellyfin, immich]
+updated: 2026-11-08
 generated: true
 ---
 
 # Miniflux
 
 > 极简风格的自建 RSS 阅读器，专注快速阅读本身。
-
-## 一句话总结
-
-极简风格的自建 RSS 阅读器，专注快速阅读本身。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[FreshRSS]] —— 自建 RSS 阅读器，替代 Feedly
+- [[Vaultwarden]] —— 轻量 Bitwarden 服务端实现，密码管理首选
+- [[Jellyfin]] —— 自建媒体服务器，替代 Plex
+- [[Immich]] —— 自建相册，替代 Google Photos

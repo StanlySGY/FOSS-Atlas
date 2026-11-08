@@ -5,18 +5,14 @@ category: selfhost
 sub_category: selfhost-proxy
 tags: [代理, Xray, Reality]
 url: https://github.com/XTLS/Xray-core
-related: [sing-box, mihomo, hysteria2, trojan-go]
-updated: 2026-10-19
+related: [sing-box, hysteria2, mihomo, trojan-go]
+updated: 2026-11-08
 generated: true
 ---
 
 # Xray + Reality
 
 > 基于 Xray 内核的 Reality 代理方案，借真实网站 SNI 伪装流量，抗封锁能力较强。
-
-## 一句话总结
-
-基于 Xray 内核的 Reality 代理方案，借真实网站 SNI 伪装流量，抗封锁能力较强。
 
 ## 核心功能 / 特点
 
@@ -32,6 +28,6 @@ generated: true
 ## 同类推荐
 
 - [[sing-box]] —— 一体化通用代理内核，多协议支持
-- [[mihomo / Clash Meta]] —— Clash Meta 内核，客户端与服务端通用
 - [[Hysteria2]] —— 基于 QUIC 的高速代理协议
+- [[mihomo / Clash Meta]] —— Clash Meta 内核，客户端与服务端通用
 - [[Trojan-Go]] —— TLS 伪装的 Trojan 实现

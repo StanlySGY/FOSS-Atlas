@@ -5,18 +5,14 @@ category: saas
 sub_category: saas-domain
 tags: [域名, 免费]
 url: https://nic.eu.org
-related: [is-a-dev, js-org, pp-ua, google-cloud]
-updated: 2026-10-19
+related: [pp-ua, is-a-dev, js-org, google-cloud]
+updated: 2026-11-08
 generated: true
 ---
 
 # eu.org
 
 > eu.org 提供长期免费的 .eu.org 域名，申请需要人工审核，周期偏长。
-
-## 一句话总结
-
-eu.org 提供长期免费的 .eu.org 域名，申请需要人工审核，周期偏长。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ eu.org 提供长期免费的 .eu.org 域名，申请需要人工审核，周期�
 
 ## 同类推荐
 
+- [[pp.ua]] —— 免费 .pp.ua 子域名（需 nic.ua 账号）
 - [[is-a.dev]] —— 免费 .is-a.dev 子域名，面向开发者
 - [[js.org]] —— 免费 .js.org 子域名，面向 JS 项目
-- [[pp.ua]] —— 免费 .pp.ua 子域名（需 nic.ua 账号）
 - [[Google Cloud]] —— 1 台 e2-micro VM（美区）、5GB 存储、1GB 出网/月

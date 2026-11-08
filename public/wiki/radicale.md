@@ -5,18 +5,14 @@ category: selfhost
 sub_category: selfhost-core
 tags: [通讯录, 日历, 开源]
 url: https://radicale.org
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [ohmyform, linkding, searxng, filebrowser]
+updated: 2026-11-08
 generated: true
 ---
 
 # Radicale
 
 > 轻量的 CalDAV 与 CardDAV 服务端，让日历和通讯录在多设备之间同步。
-
-## 一句话总结
-
-轻量的 CalDAV 与 CardDAV 服务端，让日历和通讯录在多设备之间同步。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[OhMyForm]] —— 开源表单收集，替代 Google Forms
+- [[Linkding]] —— 轻量书签管理，标签与全站搜索，Docker 单容器、占用极低
+- [[SearXNG]] —— 自建元搜索引擎，聚合多引擎结果
+- [[Filebrowser]] —— 网页文件管理器，上传、编辑、分享都在浏览器完成，单二进制即可部署

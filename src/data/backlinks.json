@@ -6,88 +6,88 @@
     "Microsoft Copilot"
   ],
   "huggingchat": [
-    "Poe",
     "DuckDuckGo AI Chat",
     "LMSYS Chatbot Arena",
-    "Microsoft Copilot"
+    "Microsoft Copilot",
+    "Meta AI"
   ],
   "duckduckgo-ai-chat": [
-    "Poe",
-    "HuggingChat",
     "LMSYS Chatbot Arena",
-    "Microsoft Copilot"
+    "Microsoft Copilot",
+    "Meta AI",
+    "Google Gemini"
   ],
   "lmsys-chat": [
-    "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "Microsoft Copilot"
+    "Microsoft Copilot",
+    "Meta AI",
+    "Google Gemini",
+    "Anthropic Claude"
   ],
   "microsoft-copilot": [
-    "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "Meta AI",
+    "Google Gemini",
+    "Anthropic Claude",
+    "百度文心一言"
   ],
   "meta-ai": [
-    "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "Google Gemini",
+    "Anthropic Claude",
+    "百度文心一言",
+    "阿里通义千问"
   ],
   "google-gemini": [
-    "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "Anthropic Claude",
+    "百度文心一言",
+    "阿里通义千问",
+    "讯飞星火"
   ],
   "anthropic-claude": [
-    "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "百度文心一言",
+    "阿里通义千问",
+    "讯飞星火",
+    "豆包"
   ],
   "baidu-yiyan": [
-    "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "阿里通义千问",
+    "讯飞星火",
+    "豆包",
+    "智谱清言"
   ],
   "aliyun-tongyi": [
-    "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "讯飞星火",
+    "豆包",
+    "智谱清言",
+    "DeepSeek"
   ],
   "xfyun-xinghuo": [
-    "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "豆包",
+    "智谱清言",
+    "DeepSeek",
+    "天工 AI"
   ],
   "doubao": [
-    "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "智谱清言",
+    "DeepSeek",
+    "天工 AI",
+    "Pi"
   ],
   "chatglm": [
-    "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "DeepSeek",
+    "天工 AI",
+    "Pi",
+    "Poe"
   ],
   "deepseek-chat": [
+    "天工 AI",
+    "Pi",
     "Poe",
-    "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "HuggingChat"
   ],
   "tiangong": [
+    "Pi",
     "Poe",
     "HuggingChat",
-    "DuckDuckGo AI Chat",
-    "LMSYS Chatbot Arena"
+    "DuckDuckGo AI Chat"
   ],
   "pi": [
     "Poe",
@@ -97,43 +97,43 @@
   ],
   "cursor": [
     "Cline",
+    "Aider",
     "Continue",
-    "Cody",
-    "Tabby"
+    "Cody"
   ],
   "cline": [
-    "Cursor",
     "Continue",
-    "Cody",
-    "Tabby"
+    "Cursor",
+    "Aider",
+    "Cody"
   ],
   "continue": [
-    "Cursor",
     "Cline",
     "Cody",
-    "Tabby"
+    "Tabby",
+    "Codeium"
   ],
   "cody": [
-    "Cursor",
     "Cline",
     "Continue",
-    "Tabby"
+    "Tabby",
+    "Codeium"
   ],
   "tabby": [
+    "Codeium",
+    "Aider",
     "Cursor",
-    "Cline",
-    "Continue",
-    "Cody"
+    "Cline"
   ],
   "codeium": [
+    "Aider",
     "Cursor",
     "Cline",
-    "Continue",
-    "Cody"
+    "Continue"
   ],
   "aider": [
-    "Cursor",
     "Cline",
+    "Cursor",
     "Continue",
     "Cody"
   ],
@@ -145,27 +145,27 @@
   ],
   "lm-studio": [
     "Ollama",
-    "Text Generation WebUI",
     "Jan",
+    "Text Generation WebUI",
     "GPT4All"
   ],
   "text-generation-webui": [
     "Ollama",
-    "LM Studio",
     "Jan",
-    "GPT4All"
+    "GPT4All",
+    "Neo Chat"
   ],
   "jan": [
     "Ollama",
     "LM Studio",
-    "Text Generation WebUI",
-    "GPT4All"
+    "GPT4All",
+    "Neo Chat"
   ],
   "gpt4all": [
     "Ollama",
-    "LM Studio",
-    "Text Generation WebUI",
-    "Jan"
+    "Jan",
+    "Neo Chat",
+    "LM Studio"
   ],
   "neo-chat": [
     "Ollama",
@@ -186,52 +186,52 @@
     "promptfoo"
   ],
   "langfuse": [
-    "LangChain",
-    "LlamaIndex",
     "LiteLLM",
-    "promptfoo"
+    "promptfoo",
+    "Dify",
+    "Flowise"
   ],
   "litellm": [
-    "LangChain",
-    "LlamaIndex",
     "Langfuse",
-    "promptfoo"
+    "promptfoo",
+    "Dify",
+    "Flowise"
   ],
   "promptfoo": [
-    "LangChain",
-    "LlamaIndex",
     "Langfuse",
-    "LiteLLM"
+    "Dify",
+    "Flowise",
+    "FastGPT"
   ],
   "dify": [
-    "LangChain",
-    "LlamaIndex",
-    "Langfuse",
-    "LiteLLM"
+    "LangFlow",
+    "Flowise",
+    "FastGPT",
+    "New API"
   ],
   "flowise": [
-    "LangChain",
-    "LlamaIndex",
-    "Langfuse",
-    "LiteLLM"
+    "Dify",
+    "FastGPT",
+    "LangFlow",
+    "New API"
   ],
   "fastgpt": [
-    "LangChain",
-    "LlamaIndex",
-    "Langfuse",
-    "LiteLLM"
+    "Dify",
+    "Flowise",
+    "LangFlow",
+    "New API"
   ],
   "langflow": [
-    "LangChain",
-    "LlamaIndex",
-    "Langfuse",
-    "LiteLLM"
+    "Dify",
+    "New API",
+    "AxonHub",
+    "LangChain"
   ],
   "new-api": [
+    "AxonHub",
     "LangChain",
     "LlamaIndex",
-    "Langfuse",
-    "LiteLLM"
+    "Langfuse"
   ],
   "axonhub": [
     "LangChain",
@@ -244,8 +244,8 @@
     "pgvector"
   ],
   "milvus": [
-    "Qdrant",
     "pgvector",
+    "Qdrant",
     "Poe",
     "HuggingChat"
   ],
@@ -262,15 +262,15 @@
     "Poe"
   ],
   "openai-prompt-guide": [
-    "awesome-chatgpt-prompts (prompts.chat)",
     "DeepLearning.AI 提示词课",
     "Best Paper Writing Skill",
+    "awesome-chatgpt-prompts (prompts.chat)",
     "Poe"
   ],
   "deeplearning-ai-prompts": [
+    "Best Paper Writing Skill",
     "awesome-chatgpt-prompts (prompts.chat)",
     "Prompt 工程指南（OpenAI）",
-    "Best Paper Writing Skill",
     "Poe"
   ],
   "best-paper-writing-skill": [
@@ -286,22 +286,22 @@
     "Cloudflare"
   ],
   "aws": [
-    "Google Cloud",
     "Microsoft Azure",
     "Oracle Cloud",
-    "Cloudflare"
+    "Cloudflare",
+    "Google Cloud"
   ],
   "azure": [
-    "Google Cloud",
-    "AWS",
     "Oracle Cloud",
-    "Cloudflare"
+    "Cloudflare",
+    "Google Cloud",
+    "AWS"
   ],
   "oracle-cloud": [
+    "Cloudflare",
     "Google Cloud",
     "AWS",
-    "Microsoft Azure",
-    "Cloudflare"
+    "Microsoft Azure"
   ],
   "cloudflare": [
     "CloudFlare-ImgBed",
@@ -310,16 +310,16 @@
     "Netlify"
   ],
   "render": [
-    "Railway",
-    "Fly.io",
     "Koyeb",
+    "Fly.io",
+    "Railway",
     "Supabase"
   ],
   "railway": [
-    "Render",
     "Fly.io",
     "Koyeb",
-    "Supabase"
+    "Supabase",
+    "Neon Postgres"
   ],
   "fly-io": [
     "Render",
@@ -329,33 +329,33 @@
   ],
   "koyeb": [
     "Render",
-    "Railway",
-    "Fly.io",
-    "Supabase"
+    "Supabase",
+    "Neon Postgres",
+    "Vercel"
   ],
   "supabase": [
-    "Render",
-    "Railway",
-    "Fly.io",
-    "Koyeb"
+    "Neon Postgres",
+    "Vercel",
+    "Netlify",
+    "Render"
   ],
   "neon": [
-    "Render",
-    "Railway",
-    "Fly.io",
-    "Koyeb"
+    "Supabase",
+    "Vercel",
+    "Netlify",
+    "Render"
   ],
   "vercel": [
+    "Netlify",
     "Render",
     "Railway",
-    "Fly.io",
-    "Koyeb"
+    "Fly.io"
   ],
   "netlify": [
+    "Vercel",
     "Render",
     "Railway",
-    "Fly.io",
-    "Koyeb"
+    "Fly.io"
   ],
   "is-a-dev": [
     "js.org",
@@ -364,15 +364,15 @@
     "Google Cloud"
   ],
   "js-org": [
-    "is-a.dev",
     "eu.org",
     "pp.ua",
+    "is-a.dev",
     "Google Cloud"
   ],
   "eu-org": [
+    "pp.ua",
     "is-a.dev",
     "js.org",
-    "pp.ua",
     "Google Cloud"
   ],
   "pp-ua": [
@@ -382,21 +382,21 @@
     "Google Cloud"
   ],
   "cloudflare-dns": [
-    "Hurricane Electric",
+    "Cloudflare",
     "NextDNS",
-    "Bunny DNS",
-    "Google Cloud"
+    "Hurricane Electric",
+    "Bunny DNS"
   ],
   "hurricane-electric": [
-    "Cloudflare DNS",
     "NextDNS",
     "Bunny DNS",
+    "Cloudflare DNS",
     "Google Cloud"
   ],
   "nextdns": [
     "Cloudflare DNS",
-    "Hurricane Electric",
     "Bunny DNS",
+    "Hurricane Electric",
     "Google Cloud"
   ],
   "bunnydns": [
@@ -418,9 +418,9 @@
     "Google Cloud"
   ],
   "cloudflare-origin-ca": [
+    "Buypass Go SSL",
     "Let's Encrypt",
     "ZeroSSL",
-    "Buypass Go SSL",
     "Google Cloud"
   ],
   "buypass-go": [
@@ -430,21 +430,21 @@
     "Google Cloud"
   ],
   "uptimerobot": [
+    "Uptime Kuma",
     "Better Stack",
     "Logtail",
-    "Sentry",
-    "Google Cloud"
+    "Sentry"
   ],
   "better-stack": [
-    "UptimeRobot",
     "Logtail",
     "Sentry",
+    "UptimeRobot",
     "Google Cloud"
   ],
   "logtail": [
+    "Sentry",
     "UptimeRobot",
     "Better Stack",
-    "Sentry",
     "Google Cloud"
   ],
   "sentry": [
@@ -476,34 +476,34 @@
     "Memos"
   ],
   "joplin": [
-    "Nextcloud",
-    "Seafile",
     "Trilium",
-    "Memos"
+    "Memos",
+    "FreshRSS",
+    "Miniflux"
   ],
   "trilium": [
-    "Nextcloud",
-    "Seafile",
     "Joplin",
-    "Memos"
+    "Memos",
+    "FreshRSS",
+    "Miniflux"
   ],
   "memos": [
-    "Nextcloud",
-    "Seafile",
     "Joplin",
-    "Trilium"
+    "Trilium",
+    "FreshRSS",
+    "Miniflux"
   ],
   "freshrss": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Miniflux",
+    "Vaultwarden",
+    "Jellyfin",
+    "Immich"
   ],
   "miniflux": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "FreshRSS",
+    "Vaultwarden",
+    "Jellyfin",
+    "Immich"
   ],
   "vaultwarden": [
     "Passbolt",
@@ -511,10 +511,10 @@
     "1Panel"
   ],
   "jellyfin": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Navidrome",
+    "Immich",
+    "Matrix / Synapse",
+    "Uptime Kuma"
   ],
   "immich": [
     "Nextcloud",
@@ -522,196 +522,196 @@
     "Seafile"
   ],
   "matrix-synapse": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Uptime Kuma",
+    "Shlink",
+    "qBittorrent",
+    "Aria2"
   ],
   "uptime-kuma": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "UptimeRobot",
+    "Shlink",
+    "qBittorrent",
+    "Aria2"
   ],
   "shlink": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "qBittorrent",
+    "Aria2",
+    "RustDesk",
+    "Gitea"
   ],
   "qbittorrent": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Aria2",
+    "RustDesk",
+    "Gitea",
+    "Forgejo"
   ],
   "aria2": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "RustDesk",
+    "Gitea",
+    "Forgejo",
+    "Woodpecker CI"
   ],
   "rustdesk": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Gitea",
+    "Forgejo",
+    "Woodpecker CI",
+    "Drone CI"
   ],
   "gitea": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Forgejo",
+    "Woodpecker CI",
+    "Drone CI",
+    "Nginx Proxy Manager"
   ],
   "forgejo": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Gitea",
+    "Woodpecker CI",
+    "Drone CI",
+    "Nginx Proxy Manager"
   ],
   "woodpecker": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Drone CI",
+    "Gitea",
+    "Forgejo",
+    "Nginx Proxy Manager"
   ],
   "drone": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Woodpecker CI",
+    "Nginx Proxy Manager",
+    "1Panel",
+    "CasaOS"
   ],
   "nginx-proxy-manager": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Cloudflare Tunnel",
+    "1Panel",
+    "CasaOS",
+    "ddns-go"
   ],
   "1panel": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "CasaOS",
+    "ddns-go",
+    "Navidrome",
+    "Outline"
   ],
   "casaos": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "1Panel",
+    "ddns-go",
+    "Navidrome",
+    "Outline"
   ],
   "ddns-go": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Navidrome",
+    "Outline",
+    "Mattermost",
+    "Kanboard"
   ],
   "navidrome": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Jellyfin",
+    "Outline",
+    "Mattermost",
+    "Kanboard"
   ],
   "outline": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Mattermost",
+    "Kanboard",
+    "Focalboard",
+    "Passbolt"
   ],
   "mattermost": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Kanboard",
+    "Focalboard",
+    "Passbolt",
+    "Radicale"
   ],
   "kanboard": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Focalboard",
+    "Passbolt",
+    "Radicale",
+    "OhMyForm"
   ],
   "focalboard": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Passbolt",
+    "Radicale",
+    "OhMyForm",
+    "Linkding"
   ],
   "passbolt": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Vaultwarden",
+    "Radicale",
+    "OhMyForm",
+    "Linkding"
   ],
   "radicale": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "OhMyForm",
+    "Linkding",
+    "SearXNG",
+    "Filebrowser"
   ],
   "ohmyform": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Linkding",
+    "SearXNG",
+    "Filebrowser",
+    "Wetty"
   ],
   "linkding": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "SearXNG",
+    "Filebrowser",
+    "Wetty",
+    "ttyd"
   ],
   "searxng": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Linkding",
+    "Filebrowser",
+    "Wetty",
+    "ttyd"
   ],
   "filebrowser": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Immich",
+    "Wetty",
+    "ttyd",
+    "Excalidraw"
   ],
   "wetty": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "ttyd",
+    "Excalidraw",
+    "Syncthing",
+    "Vikunja"
   ],
   "ttyd": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Excalidraw",
+    "Syncthing",
+    "Vikunja",
+    "Authentik"
   ],
   "excalidraw": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "IT-Tools",
+    "Syncthing",
+    "Vikunja",
+    "Authentik"
   ],
   "syncthing": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Vikunja",
+    "Authentik",
+    "Heimdall",
+    "awesome-selfhosted"
   ],
   "vikunja": [
-    "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Authentik",
+    "Heimdall",
+    "awesome-selfhosted",
+    "Nextcloud"
   ],
   "authentik": [
+    "Heimdall",
+    "awesome-selfhosted",
     "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Seafile"
   ],
   "heimdall": [
+    "Homarr",
+    "awesome-selfhosted",
     "Nextcloud",
-    "Seafile",
-    "Joplin",
-    "Trilium"
+    "Seafile"
   ],
   "awesome-selfhosted": [
     "Nextcloud",
@@ -727,8 +727,8 @@
   ],
   "xray-reality": [
     "sing-box",
-    "mihomo / Clash Meta",
     "Hysteria2",
+    "mihomo / Clash Meta",
     "Trojan-Go"
   ],
   "sing-box": [
@@ -745,27 +745,27 @@
   ],
   "hysteria2": [
     "Xray + Reality",
-    "sing-box",
-    "mihomo / Clash Meta",
-    "Trojan-Go"
+    "TUIC",
+    "Trojan-Go",
+    "Snell"
   ],
   "trojan-go": [
+    "Snell",
+    "TUIC",
     "Xray + Reality",
-    "sing-box",
-    "mihomo / Clash Meta",
-    "Hysteria2"
+    "sing-box"
   ],
   "snell": [
+    "Trojan-Go",
+    "TUIC",
     "Xray + Reality",
-    "sing-box",
-    "mihomo / Clash Meta",
-    "Hysteria2"
+    "sing-box"
   ],
   "tuic": [
+    "Hysteria2",
     "Xray + Reality",
     "sing-box",
-    "mihomo / Clash Meta",
-    "Hysteria2"
+    "mihomo / Clash Meta"
   ],
   "tpot": [
     "Cowrie",
@@ -780,9 +780,9 @@
     "Nextcloud"
   ],
   "dionaea": [
-    "T-Pot",
     "Cowrie",
     "HFish",
+    "T-Pot",
     "Nextcloud"
   ],
   "hfish": [
@@ -798,106 +798,106 @@
     "Replicate"
   ],
   "anthropic-api": [
-    "OpenAI API",
     "Google AI (Gemini) API",
     "Hugging Face Inference API",
-    "Replicate"
+    "Replicate",
+    "OpenWeatherMap"
   ],
   "google-ai-api": [
-    "OpenAI API",
-    "Anthropic API",
     "Hugging Face Inference API",
-    "Replicate"
+    "Replicate",
+    "OpenWeatherMap",
+    "IPinfo"
   ],
   "hf-inference-api": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Replicate"
+    "Replicate",
+    "OpenWeatherMap",
+    "IPinfo",
+    "MyMemory"
   ],
   "replicate": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "OpenWeatherMap",
+    "IPinfo",
+    "MyMemory",
+    "Unsplash"
   ],
   "openweathermap": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "IPinfo",
+    "MyMemory",
+    "Unsplash",
+    "Pexels"
   ],
   "ipinfo": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "Atlas IP",
+    "MyMemory",
+    "Unsplash",
+    "Pexels"
   ],
   "mymemory": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "Unsplash",
+    "Pexels",
+    "QRServer",
+    "Disify"
   ],
   "unsplash": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "Pexels",
+    "QRServer",
+    "Disify",
+    "Textbelt"
   ],
   "pexels": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "QRServer",
+    "Disify",
+    "Textbelt",
+    "ProxyScrape"
   ],
   "qrserver": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "Atlas QR",
+    "Disify",
+    "Textbelt",
+    "ProxyScrape"
   ],
   "disify": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "Atlas Check",
+    "Textbelt",
+    "ProxyScrape",
+    "is.gd"
   ],
   "textbelt": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "ProxyScrape",
+    "is.gd",
+    "TinyURL",
+    "hCaptcha"
   ],
   "proxyscrape": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "Atlas Proxy",
+    "is.gd",
+    "TinyURL",
+    "hCaptcha"
   ],
   "is-gd": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "Atlas Short",
+    "TinyURL",
+    "hCaptcha",
+    "OpenStreetMap Nominatim"
   ],
   "tinyurl": [
-    "OpenAI API",
-    "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "Atlas Short",
+    "hCaptcha",
+    "OpenStreetMap Nominatim",
+    "OpenAI API"
   ],
   "hcaptcha": [
+    "OpenStreetMap Nominatim",
     "OpenAI API",
     "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "Google AI (Gemini) API"
   ],
   "nominatim": [
+    "Atlas Geo",
     "OpenAI API",
     "Anthropic API",
-    "Google AI (Gemini) API",
-    "Hugging Face Inference API"
+    "Google AI (Gemini) API"
   ],
   "awesome-hacking": [
     "PayloadsAllTheThings",
@@ -906,40 +906,40 @@
     "nuclei-templates"
   ],
   "payloadsallthethings": [
-    "Awesome Hacking",
     "HackTricks",
     "SecLists",
-    "nuclei-templates"
+    "nuclei-templates",
+    "GTFOBins"
   ],
   "hacktricks": [
-    "Awesome Hacking",
     "PayloadsAllTheThings",
     "SecLists",
-    "nuclei-templates"
+    "nuclei-templates",
+    "GTFOBins"
   ],
   "seclists": [
-    "Awesome Hacking",
-    "PayloadsAllTheThings",
-    "HackTricks",
-    "nuclei-templates"
+    "nuclei-templates",
+    "GTFOBins",
+    "LOLBAS",
+    "Security Audit Skill"
   ],
   "nuclei-templates": [
-    "Awesome Hacking",
-    "PayloadsAllTheThings",
-    "HackTricks",
-    "SecLists"
+    "GTFOBins",
+    "LOLBAS",
+    "Security Audit Skill",
+    "Awesome Hacking"
   ],
   "gtfobins": [
+    "LOLBAS",
+    "Security Audit Skill",
     "Awesome Hacking",
-    "PayloadsAllTheThings",
-    "HackTricks",
-    "SecLists"
+    "PayloadsAllTheThings"
   ],
   "lolbas": [
+    "Security Audit Skill",
     "Awesome Hacking",
     "PayloadsAllTheThings",
-    "HackTricks",
-    "SecLists"
+    "HackTricks"
   ],
   "security-audit-skill": [
     "Awesome Hacking",
@@ -953,14 +953,14 @@
     "Epodonios/v2ray-configs"
   ],
   "aiboboxx-v2rayfree": [
-    "mfuu/FreeProxies",
     "barry-far/V2ray-Configs",
-    "Epodonios/v2ray-configs"
+    "Epodonios/v2ray-configs",
+    "mfuu/FreeProxies"
   ],
   "barry-far-v2ray-configs": [
+    "Epodonios/v2ray-configs",
     "mfuu/FreeProxies",
-    "aiboboxx/v2rayfree",
-    "Epodonios/v2ray-configs"
+    "aiboboxx/v2rayfree"
   ],
   "epodonators-v2ray-configs": [
     "mfuu/FreeProxies",
@@ -980,40 +980,40 @@
     "DeepSeek API"
   ],
   "tencent-hunyuan": [
-    "Kimi",
     "腾讯云 TokenHub",
     "智谱 GLM-4 API",
-    "DeepSeek API"
+    "DeepSeek API",
+    "硅基流动"
   ],
   "tencent-tokenhub": [
-    "Kimi",
-    "腾讯混元",
     "智谱 GLM-4 API",
-    "DeepSeek API"
+    "DeepSeek API",
+    "硅基流动",
+    "零一万物"
   ],
   "bigmodel-glm": [
-    "Kimi",
-    "腾讯混元",
-    "腾讯云 TokenHub",
-    "DeepSeek API"
+    "DeepSeek API",
+    "硅基流动",
+    "零一万物",
+    "MiniMax"
   ],
   "deepseek-api": [
-    "Kimi",
-    "腾讯混元",
-    "腾讯云 TokenHub",
-    "智谱 GLM-4 API"
+    "硅基流动",
+    "零一万物",
+    "MiniMax",
+    "Kimi"
   ],
   "siliconflow": [
+    "零一万物",
+    "MiniMax",
     "Kimi",
-    "腾讯混元",
-    "腾讯云 TokenHub",
-    "智谱 GLM-4 API"
+    "腾讯混元"
   ],
   "lingyiwanwu": [
+    "MiniMax",
     "Kimi",
     "腾讯混元",
-    "腾讯云 TokenHub",
-    "智谱 GLM-4 API"
+    "腾讯云 TokenHub"
   ],
   "minimax": [
     "Kimi",
@@ -1028,52 +1028,52 @@
     "Stirling-PDF"
   ],
   "cloudflare-tunnel": [
-    "CloudFlare-ImgBed",
+    "Nginx Proxy Manager",
+    "Cloudflare",
     "subconverter",
-    "LocalSend",
-    "Stirling-PDF"
+    "LocalSend"
   ],
   "subconverter": [
-    "CloudFlare-ImgBed",
-    "Cloudflare Tunnel",
     "LocalSend",
-    "Stirling-PDF"
+    "Stirling-PDF",
+    "IT-Tools",
+    "n8n"
   ],
   "localsend": [
-    "CloudFlare-ImgBed",
-    "Cloudflare Tunnel",
-    "subconverter",
-    "Stirling-PDF"
+    "Stirling-PDF",
+    "IT-Tools",
+    "n8n",
+    "Activepieces"
   ],
   "stirling-pdf": [
-    "CloudFlare-ImgBed",
-    "Cloudflare Tunnel",
-    "subconverter",
-    "LocalSend"
+    "IT-Tools",
+    "n8n",
+    "Activepieces",
+    "Homarr"
   ],
   "it-tools": [
-    "CloudFlare-ImgBed",
-    "Cloudflare Tunnel",
-    "subconverter",
-    "LocalSend"
+    "Excalidraw",
+    "Stirling-PDF",
+    "n8n",
+    "Activepieces"
   ],
   "n8n": [
-    "CloudFlare-ImgBed",
-    "Cloudflare Tunnel",
-    "subconverter",
-    "LocalSend"
+    "Activepieces",
+    "Homarr",
+    "macOS SysData",
+    "CloudFlare-ImgBed"
   ],
   "activepieces": [
-    "CloudFlare-ImgBed",
-    "Cloudflare Tunnel",
-    "subconverter",
-    "LocalSend"
+    "n8n",
+    "Homarr",
+    "macOS SysData",
+    "CloudFlare-ImgBed"
   ],
   "homarr": [
+    "Heimdall",
+    "macOS SysData",
     "CloudFlare-ImgBed",
-    "Cloudflare Tunnel",
-    "subconverter",
-    "LocalSend"
+    "Cloudflare Tunnel"
   ],
   "macos-sysdata": [
     "CloudFlare-ImgBed",
@@ -1100,64 +1100,64 @@
     "Atlas QR"
   ],
   "short": [
-    "FOSS-Atlas(Cloudflare Pages)",
+    "is.gd",
+    "TinyURL",
     "Atlas Paste",
-    "Atlas Nodes",
-    "Atlas QR"
+    "Atlas Nodes"
   ],
   "paste": [
-    "FOSS-Atlas(Cloudflare Pages)",
-    "Atlas Short",
     "Atlas Nodes",
-    "Atlas QR"
+    "Atlas QR",
+    "Atlas Proxy",
+    "Atlas IP"
   ],
   "nodes": [
-    "FOSS-Atlas(Cloudflare Pages)",
-    "Atlas Short",
-    "Atlas Paste",
-    "Atlas QR"
+    "Atlas QR",
+    "Atlas Proxy",
+    "Atlas IP",
+    "Atlas Check"
   ],
   "qr": [
-    "FOSS-Atlas(Cloudflare Pages)",
-    "Atlas Short",
-    "Atlas Paste",
-    "Atlas Nodes"
+    "QRServer",
+    "Atlas Proxy",
+    "Atlas IP",
+    "Atlas Check"
   ],
   "px": [
-    "FOSS-Atlas(Cloudflare Pages)",
-    "Atlas Short",
-    "Atlas Paste",
-    "Atlas Nodes"
+    "ProxyScrape",
+    "Atlas IP",
+    "Atlas Check",
+    "Atlas Geo"
   ],
   "ip": [
-    "FOSS-Atlas(Cloudflare Pages)",
-    "Atlas Short",
-    "Atlas Paste",
-    "Atlas Nodes"
+    "IPinfo",
+    "Atlas Check",
+    "Atlas Geo",
+    "Atlas Meta"
   ],
   "check": [
-    "FOSS-Atlas(Cloudflare Pages)",
-    "Atlas Short",
-    "Atlas Paste",
-    "Atlas Nodes"
+    "Disify",
+    "Atlas Geo",
+    "Atlas Meta",
+    "Atlas Tools"
   ],
   "atlas-geo": [
-    "FOSS-Atlas(Cloudflare Pages)",
-    "Atlas Short",
-    "Atlas Paste",
-    "Atlas Nodes"
+    "OpenStreetMap Nominatim",
+    "Atlas Meta",
+    "Atlas Tools",
+    "EdgeSSH"
   ],
   "atlas-meta": [
+    "Atlas Tools",
+    "EdgeSSH",
     "FOSS-Atlas(Cloudflare Pages)",
-    "Atlas Short",
-    "Atlas Paste",
-    "Atlas Nodes"
+    "Atlas Short"
   ],
   "atlas-tools": [
+    "EdgeSSH",
     "FOSS-Atlas(Cloudflare Pages)",
     "Atlas Short",
-    "Atlas Paste",
-    "Atlas Nodes"
+    "Atlas Paste"
   ],
   "edgessh": [
     "FOSS-Atlas(Cloudflare Pages)",

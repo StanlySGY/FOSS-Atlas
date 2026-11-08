@@ -6,17 +6,13 @@ sub_category: cn-ai-dev
 tags: [API, 国内, 多模态]
 url: https://www.minimax.io
 related: [kimi, tencent-hunyuan, tencent-tokenhub, bigmodel-glm]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # MiniMax
 
 > MiniMax 的开放平台，提供海螺 AI 相关的大模型与多模态接口。
-
-## 一句话总结
-
-MiniMax 的开放平台，提供海螺 AI 相关的大模型与多模态接口。
 
 ## 核心功能 / 特点
 

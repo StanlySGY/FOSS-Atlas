@@ -5,7 +5,7 @@ category: atlas
 sub_category: atlas-edge
 tags: [代理订阅, 聚合, 自建]
 url: https://nodes.sgyyyds.qzz.io
-related: [foss-atlas-cf, short, paste, qr]
+related: [qr, px, ip, check]
 updated: 2026-10-30
 generated: true
 ---
@@ -13,10 +13,6 @@ generated: true
 # Atlas Nodes
 
 > 免费节点聚合订阅：合并多个公开上游并去重，提供 Base64 订阅、明文列表和来源状态。
-
-## 一句话总结
-
-免费节点聚合订阅：合并多个公开上游并去重，提供 Base64 订阅、明文列表和来源状态。
 
 ## 核心功能 / 特点
 
@@ -79,7 +75,7 @@ curl -sS 'https://nodes.sgyyyds.qzz.io/api/sources'
 
 ## 同类推荐
 
-- [[FOSS-Atlas(Cloudflare Pages)]] —— 本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。
-- [[Atlas Short]] —— 自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。
-- [[Atlas Paste]] —— 临时文本分享：粘贴即生成链接，附 /raw 纯文本端点（上限 60 KB）；新建分享保留 7 天。
 - [[Atlas QR]] —— 二维码生成 API(/api/qr?data=),SVG 输出,替代 qrserver 等第三方接口。
+- [[Atlas Proxy]] —— 公开代理聚合 API:HTTP/SOCKS4/SOCKS5 共 8,000+ 条,支持 /json 带国家与 ASN。
+- [[Atlas IP]] —— 客户端 IP 与地理位置/ASN 查询 API(/json),替代 ipinfo 等第三方接口。
+- [[Atlas Check]] —— 邮箱/域名校验 API:一次性邮箱黑名单(9,900+ 域名)+ MX 记录查询,替代 disify 等第三方。

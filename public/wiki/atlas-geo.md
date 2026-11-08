@@ -6,7 +6,7 @@ sub_category: atlas-edge
 tags: [API, 地理编码, 自建]
 url: https://geo.sgyyyds.qzz.io
 alternatives: [OpenStreetMap Nominatim]
-related: [foss-atlas-cf, short, paste, nodes]
+related: [nominatim, atlas-meta, atlas-tools, edgessh]
 updated: 2026-10-30
 generated: true
 ---
@@ -14,10 +14,6 @@ generated: true
 # Atlas Geo
 
 > 地理编码与逆地理编码 API：通过地名查找坐标，或通过坐标反查附近地点与地址。
-
-## 一句话总结
-
-地理编码与逆地理编码 API：通过地名查找坐标，或通过坐标反查附近地点与地址。
 
 ## 核心功能 / 特点
 
@@ -102,7 +98,7 @@ curl -sS 'https://geo.sgyyyds.qzz.io/reverse?lat=37.5665&lon=126.9780'
 
 ## 同类推荐
 
-- [[FOSS-Atlas(Cloudflare Pages)]] —— 本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。
-- [[Atlas Short]] —— 自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。
-- [[Atlas Paste]] —— 临时文本分享：粘贴即生成链接，附 /raw 纯文本端点（上限 60 KB）；新建分享保留 7 天。
-- [[Atlas Nodes]] —— 免费节点聚合订阅:11 个上游源合并去重 13,000+ 节点,输出 Base64/明文订阅,30 分钟自动刷新。
+- [[OpenStreetMap Nominatim]] —— OSM 公共地理编码服务最多每秒 1 次请求，需署名并遵守禁止自动补全和批量查询政策
+- [[Atlas Meta]] —— 链接元数据 / OpenGraph 解析:抓标题、摘要、缩略图,自建不发第三方。
+- [[Atlas Tools]] —— 哈希(SHA 系列)/ UUID v4 / Base64·URL·Hex 编解码 API。
+- [[EdgeSSH]] —— 浏览器里的 SSH 客户端:Workers + Durable Objects + D1,由 Cloudflare Access 邮箱验证码保护。

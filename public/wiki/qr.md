@@ -6,7 +6,7 @@ sub_category: atlas-edge
 tags: [API, 二维码, 自建]
 url: https://qr.sgyyyds.qzz.io
 alternatives: [QRServer]
-related: [foss-atlas-cf, short, paste, nodes]
+related: [qrserver, px, ip, check]
 updated: 2026-10-30
 generated: true
 ---
@@ -14,10 +14,6 @@ generated: true
 # Atlas QR
 
 > 二维码生成 API：同时支持 SVG 矢量图和 PNG 位图输出，可用于网页嵌入或下载。
-
-## 一句话总结
-
-二维码生成 API：同时支持 SVG 矢量图和 PNG 位图输出，可用于网页嵌入或下载。
 
 ## 核心功能 / 特点
 
@@ -54,7 +50,7 @@ curl -sS 'https://qr.sgyyyds.qzz.io/api/qr?data=FOSS-Atlas'
 
 ## 同类推荐
 
-- [[FOSS-Atlas(Cloudflare Pages)]] —— 本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。
-- [[Atlas Short]] —— 自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。
-- [[Atlas Paste]] —— 临时文本分享：粘贴即生成链接，附 /raw 纯文本端点（上限 60 KB）；新建分享保留 7 天。
-- [[Atlas Nodes]] —— 免费节点聚合订阅:11 个上游源合并去重 13,000+ 节点,输出 Base64/明文订阅,30 分钟自动刷新。
+- [[QRServer]] —— 二维码生成 / 解码 API；文档未公布固定请求上限，但保留拒绝滥用请求的权利
+- [[Atlas Proxy]] —— 公开代理聚合 API:HTTP/SOCKS4/SOCKS5 共 8,000+ 条,支持 /json 带国家与 ASN。
+- [[Atlas IP]] —— 客户端 IP 与地理位置/ASN 查询 API(/json),替代 ipinfo 等第三方接口。
+- [[Atlas Check]] —— 邮箱/域名校验 API:一次性邮箱黑名单(9,900+ 域名)+ MX 记录查询,替代 disify 等第三方。

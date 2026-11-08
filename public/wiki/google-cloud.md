@@ -6,17 +6,13 @@ sub_category: saas-cloud
 tags: [云厂商, 免费层, Google]
 url: https://cloud.google.com/free
 related: [aws, azure, oracle-cloud, cloudflare]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Google Cloud
 
 > Google Cloud 的永久免费层，含 1 台美区 e2-micro 虚拟机、5GB 存储与每月 1GB 出网流量。
-
-## 一句话总结
-
-Google Cloud 的永久免费层，含 1 台美区 e2-micro 虚拟机、5GB 存储与每月 1GB 出网流量。
 
 ## 核心功能 / 特点
 

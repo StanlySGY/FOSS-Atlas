@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-framework
 tags: [LLM 网关, API, 开源]
 url: https://github.com/QuantumNous/new-api
-related: [langchain, llamaindex, langfuse, litellm]
-updated: 2026-10-19
+related: [axonhub, langchain, llamaindex, langfuse]
+updated: 2026-11-08
 generated: true
 ---
 
 # New API
 
 > 多模型 API 网关：把各家 LLM 接口聚合成一套 OpenAI 兼容端点，再分发给自己的应用。
-
-## 一句话总结
-
-多模型 API 网关：把各家 LLM 接口聚合成一套 OpenAI 兼容端点，再分发给自己的应用。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[AxonHub]] —— 开源 AI 网关，内置故障转移与成本控制
 - [[LangChain]] —— 构建 LLM 应用的主流框架
 - [[LlamaIndex]] —— 面向 RAG 的数据框架
 - [[Langfuse]] —— LLM 可观测性与追踪平台
-- [[LiteLLM]] —— 统一 100+ 模型 API 的代理层

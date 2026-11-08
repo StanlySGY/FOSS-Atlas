@@ -5,18 +5,14 @@ category: cn-ai
 sub_category: cn-ai-dev
 tags: [API, 聚合, 国内]
 url: https://siliconflow.cn
-related: [kimi, tencent-hunyuan, tencent-tokenhub, bigmodel-glm]
-updated: 2026-10-19
+related: [lingyiwanwu, minimax, kimi, tencent-hunyuan]
+updated: 2026-11-08
 generated: true
 ---
 
 # 硅基流动
 
 > 硅基流动的模型聚合平台，用统一接口调用多家开源模型。
-
-## 一句话总结
-
-硅基流动的模型聚合平台，用统一接口调用多家开源模型。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[零一万物]] —— 零一万物 Yi 系列开放平台，可直接对话也能调 API，国内直连
+- [[MiniMax]] —— API 速率按模型与接口区分；部分免费 T2T 场景为 6 RPM，不代表固定月度 Token 赠额
 - [[Kimi]] —— 月之暗面 Kimi，长文本对话助手
 - [[腾讯混元]] —— 腾讯混元消费者聊天入口；开发者 API 一次性体验资源包与 TokenHub 规则需单独核对
-- [[腾讯云 TokenHub]] —— 腾讯云混元等大模型开发者 API 平台；旧混元体验资源包与模型迁移规则以 TokenHub 当前产品页为准
-- [[智谱 GLM-4 API]] —— 智谱开发者 API；活动额度和资格以当前账户权益页为准，未确认常驻免费配额

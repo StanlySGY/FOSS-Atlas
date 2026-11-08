@@ -6,17 +6,13 @@ sub_category: cn-ai-dev
 tags: [对话, 国内, 长文本]
 url: https://www.kimi.com
 related: [tencent-hunyuan, tencent-tokenhub, bigmodel-glm, deepseek-api]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Kimi
 
 > 月之暗面的 Kimi 助手，擅长处理长文本并支持超长上下文对话。
-
-## 一句话总结
-
-月之暗面的 Kimi 助手，擅长处理长文本并支持超长上下文对话。
 
 ## 核心功能 / 特点
 

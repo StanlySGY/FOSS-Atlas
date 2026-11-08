@@ -5,18 +5,14 @@ category: selfhost
 sub_category: selfhost-core
 tags: [身份认证, SSO, 开源]
 url: https://goauthentik.io
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [heimdall, awesome-selfhosted, nextcloud, seafile]
+updated: 2026-11-08
 generated: true
 ---
 
 # Authentik
 
 > 自建身份认证与单点登录（IdP），给其他自建服务统一提供登录与授权。
-
-## 一句话总结
-
-自建身份认证与单点登录（IdP），给其他自建服务统一提供登录与授权。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[Heimdall]] —— 自建服务导航与应用仪表盘
+- [[awesome-selfhosted]] —— 自托管服务大全，按类目收录的上游清单
 - [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
 - [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion

@@ -18,10 +18,6 @@ generated: true
 
 > Cloudflare 官方开源的安全审计 Skill，把多阶段审查流程装进 coding agent。
 
-## 一句话总结
-
-Cloudflare 官方开源的安全审计 Skill，把多阶段审查流程装进 coding agent。
-
 ## 核心功能 / 特点
 
 - 多阶段审计流程：从侦察、攻击面分析到结论复核
@@ -38,4 +34,4 @@ Cloudflare 官方开源的安全审计 Skill，把多阶段审查流程装进 co
 - [[Awesome Hacking]] —— 黑客与安全资源大全
 - [[PayloadsAllTheThings]] —— 各类漏洞利用 Payload 合集
 - [[HackTricks]] —— 渗透测试技巧百科全书
-- [[SecLists]] —— 安全测试字典合集
+- [[SecLists]] —— 渗透测试字典集：用户名、密码、子域名、敏感路径等数十个分类

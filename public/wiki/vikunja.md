@@ -5,18 +5,14 @@ category: selfhost
 sub_category: selfhost-core
 tags: [任务管理, 看板, 开源]
 url: https://vikunja.io
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [authentik, heimdall, awesome-selfhosted, nextcloud]
+updated: 2026-11-08
 generated: true
 ---
 
 # Vikunja
 
 > 自建看板与待办任务管理，提供 Web、桌面与移动端，数据完全自持。
-
-## 一句话总结
-
-自建看板与待办任务管理，提供 Web、桌面与移动端，数据完全自持。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[Authentik]] —— 自建身份认证与单点登录（IdP）
+- [[Heimdall]] —— 自建服务导航与应用仪表盘
+- [[awesome-selfhosted]] —— 自托管服务大全，按类目收录的上游清单
 - [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion

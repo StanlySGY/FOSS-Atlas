@@ -5,18 +5,14 @@ category: api
 sub_category: api-free
 tags: [短链, 免费]
 url: https://is.gd
-related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
-updated: 2026-10-19
+related: [short, tinyurl, hcaptcha, nominatim]
+updated: 2026-11-08
 generated: true
 ---
 
 # is.gd
 
 > is.gd 提供的免费短链接服务，提交长网址即可得到短链。
-
-## 一句话总结
-
-is.gd 提供的免费短链接服务，提交长网址即可得到短链。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ is.gd 提供的免费短链接服务，提交长网址即可得到短链。
 
 ## 同类推荐
 
-- [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
-- [[Anthropic API]] —— Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺
-- [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
-- [[Hugging Face Inference API]] —— 开源模型推理 API
+- [[Atlas Short]] —— 自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。
+- [[TinyURL]] —— 老牌免费短链服务，注册后可用 API 创建与管理短链
+- [[hCaptcha]] —— 非商业免费的人机验证服务
+- [[OpenStreetMap Nominatim]] —— OSM 公共地理编码服务最多每秒 1 次请求，需署名并遵守禁止自动补全和批量查询政策

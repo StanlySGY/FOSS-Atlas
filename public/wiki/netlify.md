@@ -5,18 +5,14 @@ category: saas
 sub_category: saas-paas
 tags: [PaaS, 前端托管, 免费层]
 url: https://www.netlify.com
-related: [render, railway, fly-io, koyeb]
-updated: 2026-10-19
+related: [vercel, render, railway, fly-io]
+updated: 2026-11-08
 generated: true
 ---
 
 # Netlify
 
 > Netlify 面向静态站点与前端项目，免费层提供流量额度与每月构建时长。
-
-## 一句话总结
-
-Netlify 面向静态站点与前端项目，免费层提供流量额度与每月构建时长。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Netlify 面向静态站点与前端项目，免费层提供流量额度与每月
 
 ## 同类推荐
 
+- [[Vercel]] —— Hobby 计划永久免费，含 100GB 带宽
 - [[Render]] —— 750 小时免费实例/月
 - [[Railway]] —— 每月 5 美元试用额度（需绑卡）
 - [[Fly.io]] —— 3 台 shared-cpu-1x VM 永久免费
-- [[Koyeb]] —— 1 个 nano 实例免费

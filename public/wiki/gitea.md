@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [Git, 代码托管, 开源]
 url: https://about.gitea.com
 alternatives: [GitHub]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [forgejo, woodpecker, drone, nginx-proxy-manager]
+updated: 2026-11-08
 generated: true
 ---
 
 # Gitea
 
 > 轻量自建 Git 代码托管服务，占用低、部署简单。
-
-## 一句话总结
-
-轻量自建 Git 代码托管服务，占用低、部署简单。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Forgejo]] —— 社区驱动的 Gitea 分支，替代 GitHub
+- [[Woodpecker CI]] —— 轻量 CI/CD，替代 GitLab CI
+- [[Drone CI]] —— 容器原生 CI/CD，替代 GitLab CI
+- [[Nginx Proxy Manager]] —— 可视化反向代理与证书管理

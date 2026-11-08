@@ -21,10 +21,6 @@ generated: true
 
 > 面向开发者的事务邮件服务，提供 REST API、SMTP relay 和 SDK，用于从应用发送验证、通知和业务触发邮件。
 
-## 一句话总结
-
-面向开发者的事务邮件服务，提供 REST API、SMTP relay 和 SDK，用于从应用发送验证、通知和业务触发邮件。
-
 ## 核心功能 / 特点
 
 - 通过 REST API 或 SMTP relay 发送应用邮件，并提供官方 SDK

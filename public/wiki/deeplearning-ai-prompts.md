@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-prompt
 tags: [提示词, 课程, 免费]
 url: https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/
-related: [awesome-chatgpt-prompts, openai-prompt-guide, best-paper-writing-skill, poe]
-updated: 2026-10-19
+related: [best-paper-writing-skill, awesome-chatgpt-prompts, openai-prompt-guide, poe]
+updated: 2026-11-08
 generated: true
 ---
 
 # DeepLearning.AI 提示词课
 
 > 吴恩达团队与 OpenAI 合作的提示词工程短课，面向开发者系统讲解。
-
-## 一句话总结
-
-吴恩达团队与 OpenAI 合作的提示词工程短课，面向开发者系统讲解。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
+- [[Best Paper Writing Skill]] —— 从 60 篇顶会获奖论文提炼论证结构与文风的论文写作 Skill，按章节生成草稿
 - [[awesome-chatgpt-prompts (prompts.chat)]] —— 最全的 ChatGPT 提示词合集
 - [[Prompt 工程指南（OpenAI）]] —— OpenAI 官方提示词工程最佳实践
-- [[Best Paper Writing Skill]] —— 从 60 篇顶会获奖论文提炼论证结构与文风的论文写作 Skill，按章节生成草稿
 - [[Poe]] —— 多模型聚合对话站点，提供有限免费额度

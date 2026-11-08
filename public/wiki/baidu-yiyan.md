@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-chat
 tags: [对话, 国内, 百度]
 url: https://yiyan.baidu.com
-related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
-updated: 2026-10-19
+related: [aliyun-tongyi, xfyun-xinghuo, doubao, chatglm]
+updated: 2026-11-08
 generated: true
 ---
 
 # 百度文心一言
 
 > 百度的文心一言，基于文心大模型的对话助手，国内网络可直接访问。
-
-## 一句话总结
-
-百度的文心一言，基于文心大模型的对话助手，国内网络可直接访问。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Poe]] —— 多模型聚合对话站点，提供有限免费额度
-- [[HuggingChat]] —— Hugging Face 开源模型免费聊天
-- [[DuckDuckGo AI Chat]] —— 匿名 AI 聊天，不记录对话
-- [[LMSYS Chatbot Arena]] —— 多模型直接对比与竞技场排名
+- [[阿里通义千问]] —— 通义千问消费者聊天入口；不要与阿里云百炼开发者 API 的模型免费额度混为一谈
+- [[讯飞星火]] —— 科大讯飞星火大模型对话端，国内直连，Web 与移动端免费使用
+- [[豆包]] —— 字节跳动豆包，多模态对话
+- [[智谱清言]] —— 智谱 GLM 系列对话助手

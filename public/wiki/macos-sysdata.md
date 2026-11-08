@@ -19,10 +19,6 @@ generated: true
 
 > 免费的 macOS 菜单栏清理工具，把「系统数据」拆开讲清楚，再让你逐项删除。
 
-## 一句话总结
-
-免费的 macOS 菜单栏清理工具，把「系统数据」拆开讲清楚，再让你逐项删除。
-
 ## 核心功能 / 特点
 
 - 菜单栏常驻，直观查看 System Data 的真实构成
@@ -38,5 +34,5 @@ generated: true
 
 - [[CloudFlare-ImgBed]] —— 基于 Cloudflare 的免费图床
 - [[Cloudflare Tunnel]] —— 无需公网 IP 的内网穿透隧道
-- [[subconverter]] —— 订阅格式转换工具
+- [[subconverter]] —— 订阅格式互转，输出 Clash、Surge 等主流客户端格式，可自建转换后端
 - [[LocalSend]] —— 跨平台局域网文件互传，替代 AirDrop

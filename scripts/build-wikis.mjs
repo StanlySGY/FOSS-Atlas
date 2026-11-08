@@ -45,7 +45,7 @@ const CURATED = {
  * from the clock so regenerating after an unrelated data change does not create
  * a 160-file diff; bump it when the prose itself is revised.
  */
-const CONTENT_REVISION = '2026-10-19'
+const CONTENT_REVISION = '2026-11-08'
 
 /** How many [[wikilinks]] to place under 「同类推荐」. */
 const RELATED_COUNT = 4
@@ -81,7 +81,10 @@ const shadowedProse = [...content.keys()].filter((id) => CURATED[id])
  * ------------------------------------------------------------------ */
 const resources = JSON.parse(readFileSync(resolve(DATA_DIR, 'resources.json'), 'utf8'))
 const graph = JSON.parse(readFileSync(resolve(DATA_DIR, 'graph.json'), 'utf8'))
+const offerings = JSON.parse(readFileSync(resolve(DATA_DIR, 'offerings.json'), 'utf8'))
 const byId = new Map(resources.map((r) => [r.id, r]))
+const resourceIds = new Set(resources.map((r) => r.id))
+const offeringByResource = new Map(offerings.entries.map((entry) => [entry.resourceId, entry]))
 
 const bySubCategory = new Map()
 const byCategory = new Map()
@@ -92,14 +95,55 @@ for (const r of resources) {
   byCategory.get(r.category).push(r.id)
 }
 
-/** Tools to link under 「同类推荐」: nearest neighbours first. */
+/* ------------------------------------------------------------------ *
+ * Semantic neighbours, straight from the graph's own edges.
+ *
+ * The old relatedFor() took the first four members of the subcategory array,
+ * so 43 selfhost-core entries (1panel, authentik, vikunja, wetty…) all
+ * recommended the same unrelated nextcloud / seafile / joplin / trilium —
+ * list order, not meaning — and the backlink mass those four absorbed made
+ * graph centrality an artefact of the array. The graph already carries
+ * alternative_to (42 edges) and related (56 edges) relationships; those come
+ * first now, subcategory neighbours remain the fallback, category last.
+ * ------------------------------------------------------------------ */
+const semanticNeighbours = new Map()
+const addNeighbour = (id, other) => {
+  if (other === id || !resourceIds.has(other)) return
+  if (!semanticNeighbours.has(id)) semanticNeighbours.set(id, [])
+  if (!semanticNeighbours.get(id).includes(other)) semanticNeighbours.get(id).push(other)
+}
+for (const edge of graph.edges) {
+  if (edge.type === 'related') {
+    addNeighbour(edge.source, edge.target)
+    addNeighbour(edge.target, edge.source)
+  }
+  if (edge.type === 'alternative_to') {
+    // Both directions are a meaningful "同类" claim: what this tool replaces,
+    // and the tools that replace *it*.
+    addNeighbour(edge.source, edge.target)
+    addNeighbour(edge.target, edge.source)
+  }
+}
+
+/** Tools to link under 「同类推荐」: graph semantics first, then locality. */
 function relatedFor(id) {
   const r = byId.get(id)
-  const near = (bySubCategory.get(r.sub_category) ?? []).filter((x) => x !== id)
-  const far = (byCategory.get(r.category) ?? []).filter(
-    (x) => x !== id && !near.includes(x),
+  const semantic = (semanticNeighbours.get(id) ?? []).filter((x) => x !== id)
+  // The subcategory fallback used to start at index 0 for every member, which
+  // is why a 43-entry subcategory (佬友首选自部署) all recommended the same
+  // first four. Rotating the window by the entry's own position is still
+  // deterministic (stable across builds), but each sibling now recommends a
+  // different, still-local slice of its own neighbourhood.
+  const siblings = (bySubCategory.get(r.sub_category) ?? []).filter((x) => x !== id)
+  const ownIndex = Math.max(0, (bySubCategory.get(r.sub_category) ?? []).indexOf(id))
+  const start = siblings.length ? ownIndex % siblings.length : 0
+  const near = [...siblings.slice(start), ...siblings.slice(0, start)].filter(
+    (x) => !semantic.includes(x),
   )
-  return [...near, ...far].slice(0, RELATED_COUNT)
+  const far = (byCategory.get(r.category) ?? []).filter(
+    (x) => x !== id && !near.includes(x) && !semantic.includes(x),
+  )
+  return [...semantic, ...near, ...far].slice(0, RELATED_COUNT)
 }
 
 /** External/catalogue services this tool is an alternative to, by display name. */
@@ -170,14 +214,14 @@ function renderPage(resource, entry) {
 
   // A resource with no neighbours at all has nothing to recommend; drop the
   // section rather than printing an empty heading.
+  //
+  // The opening blockquote *is* the one-line summary; a `## 一句话总结`
+  // repeating the same sentence verbatim made every generated page open with
+  // the same text twice. The blockquote stays, the section goes.
   const sections = [
     `# ${resource.name}`,
     '',
     `> ${entry.summary}`,
-    '',
-    '## 一句话总结',
-    '',
-    entry.summary,
     '',
     '## 核心功能 / 特点',
     '',

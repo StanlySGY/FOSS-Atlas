@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [IM, 去中心化, 开源]
 url: https://matrix.org
 alternatives: [Discord]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [uptime-kuma, shlink, qbittorrent, aria2]
+updated: 2026-11-08
 generated: true
 ---
 
 # Matrix / Synapse
 
 > Matrix 协议的参考服务端，用来搭建去中心化即时通讯。
-
-## 一句话总结
-
-Matrix 协议的参考服务端，用来搭建去中心化即时通讯。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ Matrix 协议的参考服务端，用来搭建去中心化即时通讯。
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Uptime Kuma]] —— 自建监控告警，替代 UptimeRobot
+- [[Shlink]] —— 自建短链接服务，带点击统计、标签与多域名，Docker 单容器即可跑
+- [[qBittorrent]] —— 开源 BT 客户端，带 WebUI 与 RSS 订阅，可无头跑在 NAS 与服务器上
+- [[Aria2]] —— 轻量多协议命令行下载器

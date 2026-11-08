@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [音乐, 流媒体, 开源]
 url: https://www.navidrome.org
 alternatives: [Spotify]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [jellyfin, outline, mattermost, kanboard]
+updated: 2026-11-08
 generated: true
 ---
 
 # Navidrome
 
 > 自建音乐流媒体服务，扫描本地曲库后可在浏览器或客户端随时播放。
-
-## 一句话总结
-
-自建音乐流媒体服务，扫描本地曲库后可在浏览器或客户端随时播放。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Jellyfin]] —— 自建媒体服务器，替代 Plex
+- [[Outline]] —— 团队知识库，支持 OIDC/SAML 单点登录与 Slack 集成，文档层级清晰
+- [[Mattermost]] —— 团队聊天协作，替代 Slack
+- [[Kanboard]] —— 极简看板任务管理，PHP 单应用、SQLite 开箱即用，资源占用极低

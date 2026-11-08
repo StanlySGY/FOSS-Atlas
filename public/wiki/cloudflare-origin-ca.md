@@ -5,18 +5,14 @@ category: saas
 sub_category: saas-ssl
 tags: [SSL, 证书, Cloudflare]
 url: https://developers.cloudflare.com/ssl/origin-configuration/origin-ca/
-related: [lets-encrypt, zerossl, buypass-go, google-cloud]
-updated: 2026-10-19
+related: [buypass-go, lets-encrypt, zerossl, google-cloud]
+updated: 2026-11-08
 generated: true
 ---
 
 # Cloudflare Origin CA
 
 > Cloudflare 的源站证书，专门用来加密 Cloudflare 与源服务器之间的那段连接。
-
-## 一句话总结
-
-Cloudflare 的源站证书，专门用来加密 Cloudflare 与源服务器之间的那段连接。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Cloudflare 的源站证书，专门用来加密 Cloudflare 与源服务器之间
 
 ## 同类推荐
 
+- [[Buypass Go SSL]] —— 180 天免费 ACME 证书
 - [[Let's Encrypt]] —— 无限免费证书，90 天有效期，自动续期
 - [[ZeroSSL]] —— 3 个 90 天免费证书
-- [[Buypass Go SSL]] —— 180 天免费 ACME 证书
 - [[Google Cloud]] —— 1 台 e2-micro VM（美区）、5GB 存储、1GB 出网/月

@@ -6,17 +6,13 @@ sub_category: saas-ssl
 tags: [SSL, 证书, ACME]
 url: https://www.buypass.com/ssl/products/acme
 related: [lets-encrypt, zerossl, cloudflare-origin-ca, google-cloud]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Buypass Go SSL
 
 > Buypass Go SSL 是基于 ACME 协议的免费证书服务，签发证书的有效期比常见方案更长。
-
-## 一句话总结
-
-Buypass Go SSL 是基于 ACME 协议的免费证书服务，签发证书的有效期比常见方案更长。
 
 ## 核心功能 / 特点
 

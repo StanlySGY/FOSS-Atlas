@@ -5,18 +5,14 @@ category: saas
 sub_category: saas-paas
 tags: [PaaS, 前端托管, 免费层]
 url: https://vercel.com
-related: [render, railway, fly-io, koyeb]
-updated: 2026-10-19
+related: [netlify, render, railway, fly-io]
+updated: 2026-11-08
 generated: true
 ---
 
 # Vercel
 
 > Vercel 是前端托管平台，Hobby 计划对个人项目永久免费，对 Next.js 的支持尤其顺滑。
-
-## 一句话总结
-
-Vercel 是前端托管平台，Hobby 计划对个人项目永久免费，对 Next.js 的支持尤其顺滑。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Vercel 是前端托管平台，Hobby 计划对个人项目永久免费，对 Nex
 
 ## 同类推荐
 
+- [[Netlify]] —— 100GB 带宽/月 + 300 分钟构建
 - [[Render]] —— 750 小时免费实例/月
 - [[Railway]] —— 每月 5 美元试用额度（需绑卡）
 - [[Fly.io]] —— 3 台 shared-cpu-1x VM 永久免费
-- [[Koyeb]] —— 1 个 nano 实例免费

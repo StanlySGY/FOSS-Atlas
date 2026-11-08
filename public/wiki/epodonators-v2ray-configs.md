@@ -14,10 +14,6 @@ generated: true
 
 > 原始 GitHub 仓库目前返回 HTTP 404；目录保留历史条目与原始地址，但不再宣称其订阅源当前可用。
 
-## 一句话总结
-
-原始 GitHub 仓库目前返回 HTTP 404；目录保留历史条目与原始地址，但不再宣称其订阅源当前可用。
-
 ## 核心功能 / 特点
 
 - 历史上按协议拆分提供多条 V2Ray 订阅文件
@@ -32,5 +28,5 @@ generated: true
 ## 同类推荐
 
 - [[mfuu/FreeProxies]] —— 每日更新的免费节点订阅仓库
-- [[aiboboxx/v2rayfree]] —— 免费 v2ray 节点订阅
+- [[aiboboxx/v2rayfree]] —— 每日更新的 v2ray 免费节点聚合仓库，提供 Base64 订阅直链
 - [[barry-far/V2ray-Configs]] —— 聚合式免费节点配置

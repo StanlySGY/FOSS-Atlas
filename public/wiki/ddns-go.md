@@ -5,18 +5,14 @@ category: selfhost
 sub_category: selfhost-core
 tags: [DDNS, 网络, 开源]
 url: https://github.com/jeessy2/ddns-go
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [navidrome, outline, mattermost, kanboard]
+updated: 2026-11-08
 generated: true
 ---
 
 # ddns-go
 
 > 自动把本机变化的公网 IP 同步到域名解析记录，解决动态 IP 无法固定访问的问题。
-
-## 一句话总结
-
-自动把本机变化的公网 IP 同步到域名解析记录，解决动态 IP 无法固定访问的问题。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Navidrome]] —— 自建音乐流媒体，兼容 Subsonic API，主流第三方播放器可直接连接
+- [[Outline]] —— 团队知识库，支持 OIDC/SAML 单点登录与 Slack 集成，文档层级清晰
+- [[Mattermost]] —— 团队聊天协作，替代 Slack
+- [[Kanboard]] —— 极简看板任务管理，PHP 单应用、SQLite 开箱即用，资源占用极低

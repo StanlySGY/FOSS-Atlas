@@ -5,18 +5,14 @@ category: saas
 sub_category: saas-dns
 tags: [DNS, CDN, 免费]
 url: https://www.cloudflare.com/dns/
-related: [hurricane-electric, nextdns, bunnydns, google-cloud]
-updated: 2026-10-19
+related: [cloudflare, nextdns, hurricane-electric, bunnydns]
+updated: 2026-11-08
 generated: true
 ---
 
 # Cloudflare DNS
 
 > Cloudflare 的免费权威 DNS 解析服务，同时附带 CDN 缓存与基础的安全防护。
-
-## 一句话总结
-
-Cloudflare 的免费权威 DNS 解析服务，同时附带 CDN 缓存与基础的安全防护。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Cloudflare 的免费权威 DNS 解析服务，同时附带 CDN 缓存与基础�
 
 ## 同类推荐
 
-- [[Hurricane Electric]] —— 老牌免费 DNS 托管（HE.net）
+- [[Cloudflare]] —— Workers 10 万次/天、Pages、R2 10GB、免费 DNS
 - [[NextDNS]] —— Free 每月 300,000 次 DNS 查询；超额后退化为传统非拦截式 DNS 响应
+- [[Hurricane Electric]] —— 老牌免费 DNS 托管（HE.net）
 - [[Bunny DNS]] —— 第一个域名免费，全球 Anycast 解析
-- [[Google Cloud]] —— 1 台 e2-micro VM（美区）、5GB 存储、1GB 出网/月

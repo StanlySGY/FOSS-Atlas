@@ -6,17 +6,13 @@ sub_category: security-pentest
 tags: [安全, 合集, 开源]
 url: https://github.com/Hack-with-Github/Awesome-Hacking
 related: [payloadsallthethings, hacktricks, seclists, nuclei-templates]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Awesome Hacking
 
 > 开源的黑客与安全资源清单，按方向汇总渗透测试、逆向、漏洞研究的学习资料入口。
-
-## 一句话总结
-
-开源的黑客与安全资源清单，按方向汇总渗透测试、逆向、漏洞研究的学习资料入口。
 
 ## 核心功能 / 特点
 
@@ -33,5 +29,5 @@ generated: true
 
 - [[PayloadsAllTheThings]] —— 各类漏洞利用 Payload 合集
 - [[HackTricks]] —— 渗透测试技巧百科全书
-- [[SecLists]] —— 安全测试字典合集
+- [[SecLists]] —— 渗透测试字典集：用户名、密码、子域名、敏感路径等数十个分类
 - [[nuclei-templates]] —— Nuclei 漏洞检测模板库

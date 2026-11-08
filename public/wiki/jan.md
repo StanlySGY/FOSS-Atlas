@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-local
 tags: [本地推理, 桌面端, 开源]
 url: https://jan.ai
-related: [ollama, lm-studio, text-generation-webui, gpt4all]
-updated: 2026-10-19
+related: [ollama, lm-studio, gpt4all, neo-chat]
+updated: 2026-11-08
 generated: true
 ---
 
 # Jan
 
 > 开源的本地 AI 桌面客户端，把模型下载与对话整合进一个应用。
-
-## 一句话总结
-
-开源的本地 AI 桌面客户端，把模型下载与对话整合进一个应用。
 
 ## 核心功能 / 特点
 
@@ -33,5 +29,5 @@ generated: true
 
 - [[Ollama]] —— 一键在本地运行 Llama / Qwen / DeepSeek 等模型
 - [[LM Studio]] —— 图形化本地模型运行与下载
-- [[Text Generation WebUI]] —— 功能齐全的本地模型 WebUI
 - [[GPT4All]] —— 可离线运行的本地 LLM 套件
+- [[Neo Chat]] —— 本地优先的 AI 对话工作台，支持 RAG 与插件

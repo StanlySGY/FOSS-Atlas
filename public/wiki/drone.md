@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [CI/CD, 开源]
 url: https://www.drone.io
 alternatives: [GitLab CI]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [woodpecker, nginx-proxy-manager, 1panel, casaos]
+updated: 2026-11-08
 generated: true
 ---
 
 # Drone CI
 
 > 容器原生的自建 CI/CD 平台，用 YAML 定义流水线，可作为 GitLab CI 的开源替代。
-
-## 一句话总结
-
-容器原生的自建 CI/CD 平台，用 YAML 定义流水线，可作为 GitLab CI 的开源替代。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Woodpecker CI]] —— 轻量 CI/CD，替代 GitLab CI
+- [[Nginx Proxy Manager]] —— 可视化反向代理与证书管理
+- [[1Panel]] —— 现代化 Linux 服务器运维面板
+- [[CasaOS]] —— 家用服务器面板，Docker 应用商店一键安装，旧设备改私有云

@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [密码管理, 团队, 开源]
 url: https://www.passbolt.com
 alternatives: [1Password]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [vaultwarden, radicale, ohmyform, linkding]
+updated: 2026-11-08
 generated: true
 ---
 
 # Passbolt
 
 > 面向团队的密码管理工具，通过浏览器扩展共享凭据，支持自托管部署。
-
-## 一句话总结
-
-面向团队的密码管理工具，通过浏览器扩展共享凭据，支持自托管部署。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Vaultwarden]] —— 轻量 Bitwarden 服务端实现，密码管理首选
+- [[Radicale]] —— 轻量 CalDAV / CardDAV 服务端
+- [[OhMyForm]] —— 开源表单收集，替代 Google Forms
+- [[Linkding]] —— 轻量书签管理，标签与全站搜索，Docker 单容器、占用极低

@@ -6,17 +6,13 @@ sub_category: selfhost-honeypot
 tags: [蜜罐, 安全, 开源]
 url: https://github.com/hacklcx/HFish
 related: [tpot, cowrie, dionaea, nextcloud]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # HFish
 
 > 国产跨平台蜜罐平台，提供 Web 管理界面集中部署与查看各类蜜罐。
-
-## 一句话总结
-
-国产跨平台蜜罐平台，提供 Web 管理界面集中部署与查看各类蜜罐。
 
 ## 核心功能 / 特点
 

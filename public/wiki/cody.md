@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-coding
 tags: [编程, 代码检索, Sourcegraph]
 url: https://sourcegraph.com/cody
-related: [cursor, cline, continue, tabby]
-updated: 2026-10-19
+related: [cline, continue, tabby, codeium]
+updated: 2026-11-08
 generated: true
 ---
 
 # Cody
 
 > Sourcegraph 出品的 AI 编程助手，擅长基于代码检索来回答问题。
-
-## 一句话总结
-
-Sourcegraph 出品的 AI 编程助手，擅长基于代码检索来回答问题。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ Sourcegraph 出品的 AI 编程助手，擅长基于代码检索来回答问题�
 
 ## 同类推荐
 
-- [[Cursor]] —— Cursor Free 为 USD 0 / 月，提供受限 Agent 与 Chat 请求；不等于无限使用第三方模型
 - [[Cline]] —— VSCode 开源 AI 编程 Agent
 - [[Continue]] —— 开源 AI 编程助手，可接任意模型
 - [[Tabby]] —— 可自部署的 AI 代码补全服务
+- [[Codeium]] —— 免费 AI 代码补全（现 Windsurf）

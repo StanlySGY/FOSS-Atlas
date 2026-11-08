@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-local
 tags: [本地推理, GUI, 桌面端]
 url: https://lmstudio.ai
-related: [ollama, text-generation-webui, jan, gpt4all]
-updated: 2026-10-19
+related: [ollama, jan, text-generation-webui, gpt4all]
+updated: 2026-11-08
 generated: true
 ---
 
 # LM Studio
 
 > 图形化的本地大模型客户端，方便下载、运行并调试开源模型。
-
-## 一句话总结
-
-图形化的本地大模型客户端，方便下载、运行并调试开源模型。
 
 ## 核心功能 / 特点
 
@@ -32,6 +28,6 @@ generated: true
 ## 同类推荐
 
 - [[Ollama]] —— 一键在本地运行 Llama / Qwen / DeepSeek 等模型
-- [[Text Generation WebUI]] —— 功能齐全的本地模型 WebUI
 - [[Jan]] —— 开源本地模型桌面客户端
+- [[Text Generation WebUI]] —— 功能齐全的本地模型 WebUI
 - [[GPT4All]] —— 可离线运行的本地 LLM 套件

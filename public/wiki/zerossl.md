@@ -6,17 +6,13 @@ sub_category: saas-ssl
 tags: [SSL, 证书, 免费]
 url: https://zerossl.com
 related: [lets-encrypt, cloudflare-origin-ca, buypass-go, google-cloud]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # ZeroSSL
 
 > ZeroSSL 提供免费的 DV 证书，可以走 ACME 协议自动签发，也能在网页面板上申请。
-
-## 一句话总结
-
-ZeroSSL 提供免费的 DV 证书，可以走 ACME 协议自动签发，也能在网页面板上申请。
 
 ## 核心功能 / 特点
 

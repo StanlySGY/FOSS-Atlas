@@ -6,7 +6,7 @@ sub_category: gear-tools
 tags: [导航, 面板, 开源]
 url: https://github.com/ajnart/homarr
 alternatives: [Heimdall]
-related: [cloudflare-imgbed, cloudflare-tunnel, subconverter, localsend]
+related: [heimdall, macos-sysdata, cloudflare-imgbed, cloudflare-tunnel]
 updated: 2026-11-06
 verifiedAt: 2026-11-06
 sources:
@@ -18,10 +18,6 @@ generated: true
 # Homarr
 
 > 自建服务导航面板。原 0.x 版本已归档，v1+ 已迁移至 homarr-labs/homarr；旧版可维护既有实例，但新部署应使用新版。
-
-## 一句话总结
-
-自建服务导航面板。原 0.x 版本已归档，v1+ 已迁移至 homarr-labs/homarr；旧版可维护既有实例，但新部署应使用新版。
 
 ## 核心功能 / 特点
 
@@ -36,7 +32,7 @@ generated: true
 
 ## 同类推荐
 
+- [[Heimdall]] —— 自建服务导航与应用仪表盘
+- [[macOS SysData]] —— 免费菜单栏 App，解释 macOS「系统数据」为何膨胀，并逐项安全清理
 - [[CloudFlare-ImgBed]] —— 基于 Cloudflare 的免费图床
 - [[Cloudflare Tunnel]] —— 无需公网 IP 的内网穿透隧道
-- [[subconverter]] —— 订阅格式转换工具
-- [[LocalSend]] —— 跨平台局域网文件互传，替代 AirDrop

@@ -5,18 +5,14 @@ category: security
 sub_category: security-pentest
 tags: [安全, 字典, 开源]
 url: https://github.com/danielmiessler/SecLists
-related: [awesome-hacking, payloadsallthethings, hacktricks, nuclei-templates]
-updated: 2026-10-19
+related: [nuclei-templates, gtfobins, lolbas, security-audit-skill]
+updated: 2026-11-08
 generated: true
 ---
 
 # SecLists
 
 > 安全测试用的字典合集，包含用户名、密码、目录、子域等各类清单。
-
-## 一句话总结
-
-安全测试用的字典合集，包含用户名、密码、目录、子域等各类清单。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Awesome Hacking]] —— 黑客与安全资源大全
-- [[PayloadsAllTheThings]] —— 各类漏洞利用 Payload 合集
-- [[HackTricks]] —— 渗透测试技巧百科全书
 - [[nuclei-templates]] —— Nuclei 漏洞检测模板库
+- [[GTFOBins]] —— Unix 提权二进制利用手册
+- [[LOLBAS]] —— Windows 原生二进制滥用手册
+- [[Security Audit Skill]] —— Cloudflare 开源的多阶段安全审计 coding-agent skill，产出可机读的核验结论

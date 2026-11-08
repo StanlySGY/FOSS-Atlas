@@ -5,7 +5,7 @@ category: ai
 sub_category: ai-vector
 tags: [向量数据库, ANN 检索, RAG, 混合检索, Apache-2.0]
 url: https://github.com/milvus-io/milvus
-related: [qdrant, pgvector, poe, huggingchat]
+related: [pgvector, qdrant, poe, huggingchat]
 updated: 2026-11-05
 verifiedAt: 2026-11-05
 sources:
@@ -19,10 +19,6 @@ generated: true
 # Milvus
 
 > LF AI & Data Foundation 下的开源云原生向量数据库，面向高规模 ANN 检索、RAG 和混合检索场景。
-
-## 一句话总结
-
-LF AI & Data Foundation 下的开源云原生向量数据库，面向高规模 ANN 检索、RAG 和混合检索场景。
 
 ## 核心功能 / 特点
 
@@ -48,7 +44,7 @@ LF AI & Data Foundation 下的开源云原生向量数据库，面向高规模 A
 
 ## 同类推荐
 
-- [[Qdrant]] —— 专用向量数据库，支持相似度检索、元数据过滤与混合检索
 - [[pgvector]] —— PostgreSQL 向量扩展，在关系型数据旁存储向量并执行相似度检索
+- [[Qdrant]] —— 专用向量数据库，支持相似度检索、元数据过滤与混合检索
 - [[Poe]] —— 多模型聚合对话站点，提供有限免费额度
 - [[HuggingChat]] —— Hugging Face 开源模型免费聊天

@@ -6,17 +6,13 @@ sub_category: ai-framework
 tags: [框架, 开源, Agent]
 url: https://github.com/langchain-ai/langchain
 related: [llamaindex, langfuse, litellm, promptfoo]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # LangChain
 
 > 构建 LLM 应用的主流开源框架，把模型、工具与数据串成完整流程。
-
-## 一句话总结
-
-构建 LLM 应用的主流开源框架，把模型、工具与数据串成完整流程。
 
 ## 核心功能 / 特点
 

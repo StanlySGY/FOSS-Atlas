@@ -6,17 +6,13 @@ sub_category: saas-domain
 tags: [域名, 子域名, 免费]
 url: https://www.is-a.dev
 related: [js-org, eu-org, pp-ua, google-cloud]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # is-a.dev
 
 > is-a.dev 向开发者免费发放 .is-a.dev 子域名，通过 GitHub 提交申请即可获得。
-
-## 一句话总结
-
-is-a.dev 向开发者免费发放 .is-a.dev 子域名，通过 GitHub 提交申请即可获得。
 
 ## 核心功能 / 特点
 

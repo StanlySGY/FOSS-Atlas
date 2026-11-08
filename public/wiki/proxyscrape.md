@@ -5,18 +5,14 @@ category: api
 sub_category: api-free
 tags: [API, 代理, 免费]
 url: https://proxyscrape.com
-related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
-updated: 2026-10-19
+related: [px, is-gd, tinyurl, hcaptcha]
+updated: 2026-11-08
 generated: true
 ---
 
 # ProxyScrape
 
 > 代理 IP 服务，提供可免费获取与定期更新的代理列表接口。
-
-## 一句话总结
-
-代理 IP 服务，提供可免费获取与定期更新的代理列表接口。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
-- [[Anthropic API]] —— Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺
-- [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
-- [[Hugging Face Inference API]] —— 开源模型推理 API
+- [[Atlas Proxy]] —— 公开代理聚合 API:HTTP/SOCKS4/SOCKS5 共 8,000+ 条,支持 /json 带国家与 ASN。
+- [[is.gd]] —— 免费短链接服务，提供简洁 API，支持自定义短码
+- [[TinyURL]] —— 老牌免费短链服务，注册后可用 API 创建与管理短链
+- [[hCaptcha]] —— 非商业免费的人机验证服务

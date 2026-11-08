@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [影音, 媒体库, 开源]
 url: https://jellyfin.org
 alternatives: [Plex]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [navidrome, immich, matrix-synapse, uptime-kuma]
+updated: 2026-11-08
 generated: true
 ---
 
 # Jellyfin
 
 > 开源自建的媒体服务器，统一管理自己的电影、剧集和音乐。
-
-## 一句话总结
-
-开源自建的媒体服务器，统一管理自己的电影、剧集和音乐。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Navidrome]] —— 自建音乐流媒体，兼容 Subsonic API，主流第三方播放器可直接连接
+- [[Immich]] —— 自建相册，替代 Google Photos
+- [[Matrix / Synapse]] —— 去中心化即时通讯协议与服务端，替代 Discord
+- [[Uptime Kuma]] —— 自建监控告警，替代 UptimeRobot

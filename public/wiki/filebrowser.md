@@ -6,7 +6,7 @@ sub_category: selfhost-core
 tags: [文件管理, 开源]
 url: https://github.com/filebrowser/filebrowser
 alternatives: [Google Drive]
-related: [nextcloud, seafile, joplin, trilium]
+related: [immich, wetty, ttyd, excalidraw]
 updated: 2026-11-06
 verifiedAt: 2026-11-06
 sources:
@@ -19,10 +19,6 @@ generated: true
 # Filebrowser
 
 > 原版轻量网页文件管理器已于 2026-09-01 归档。既有部署可继续使用，但新部署应优先评估持续维护的 FileBrowser Quantum 社区 fork。
-
-## 一句话总结
-
-原版轻量网页文件管理器已于 2026-09-01 归档。既有部署可继续使用，但新部署应优先评估持续维护的 FileBrowser Quantum 社区 fork。
 
 ## 核心功能 / 特点
 
@@ -37,7 +33,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Immich]] —— 自建相册，替代 Google Photos
+- [[Wetty]] —— 浏览器里的终端（基于 xterm.js）
+- [[ttyd]] —— 把命令行共享到浏览器
+- [[Excalidraw]] —— 手绘风格白板与流程图

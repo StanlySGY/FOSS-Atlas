@@ -6,17 +6,13 @@ sub_category: ai-prompt
 tags: [提示词, 合集, 开源]
 url: https://github.com/f/prompts.chat
 related: [openai-prompt-guide, deeplearning-ai-prompts, best-paper-writing-skill, poe]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # awesome-chatgpt-prompts (prompts.chat)
 
 > 社区维护的提示词合集，把各种角色和用途的提示词整理成清单。
-
-## 一句话总结
-
-社区维护的提示词合集，把各种角色和用途的提示词整理成清单。
 
 ## 核心功能 / 特点
 

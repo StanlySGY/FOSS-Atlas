@@ -6,18 +6,14 @@ sub_category: gear-tools
 tags: [文件传输, 局域网, 开源]
 url: https://github.com/localsend/localsend
 alternatives: [AirDrop]
-related: [cloudflare-imgbed, cloudflare-tunnel, subconverter, stirling-pdf]
-updated: 2026-10-19
+related: [stirling-pdf, it-tools, n8n, activepieces]
+updated: 2026-11-08
 generated: true
 ---
 
 # LocalSend
 
 > 开源的跨平台局域网文件互传工具，在同一网络下直接发送文件，替代 AirDrop。
-
-## 一句话总结
-
-开源的跨平台局域网文件互传工具，在同一网络下直接发送文件，替代 AirDrop。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[CloudFlare-ImgBed]] —— 基于 Cloudflare 的免费图床
-- [[Cloudflare Tunnel]] —— 无需公网 IP 的内网穿透隧道
-- [[subconverter]] —— 订阅格式转换工具
-- [[Stirling-PDF]] —— 自建 PDF 工具箱
+- [[Stirling-PDF]] —— 自建 PDF 工具箱：合并、拆分、OCR、压缩等几十种操作，Docker 单容器
+- [[IT-Tools]] —— 开发者工具箱：JSON、正则、哈希、转换等上百个小工具，纯前端可自部署
+- [[n8n]] —— 开源工作流自动化，替代 Zapier
+- [[Activepieces]] —— 开源自动化平台，替代 Zapier

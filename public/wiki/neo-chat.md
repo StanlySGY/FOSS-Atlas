@@ -6,17 +6,13 @@ sub_category: ai-local
 tags: [AI 对话, 本地优先, 开源]
 url: https://github.com/u14app/neo-chat
 related: [ollama, lm-studio, text-generation-webui, jan]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Neo Chat
 
 > 本地优先的 AI 对话工作台，把各家模型、RAG 知识库和插件收进一个界面，数据留在本机。
-
-## 一句话总结
-
-本地优先的 AI 对话工作台，把各家模型、RAG 知识库和插件收进一个界面，数据留在本机。
 
 ## 核心功能 / 特点
 

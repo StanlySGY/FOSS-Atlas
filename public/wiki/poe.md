@@ -6,17 +6,13 @@ sub_category: ai-chat
 tags: [对话, 聚合, 多模型]
 url: https://poe.com
 related: [huggingchat, duckduckgo-ai-chat, lmsys-chat, microsoft-copilot]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Poe
 
 > Quora 推出的多模型聚合站点，可在 GPT、Claude、Gemini 之间切换对话。
-
-## 一句话总结
-
-Quora 推出的多模型聚合站点，可在 GPT、Claude、Gemini 之间切换对话。
 
 ## 核心功能 / 特点
 

@@ -5,18 +5,14 @@ category: security
 sub_category: security-pentest
 tags: [安全, 渗透测试, 开源]
 url: https://github.com/HackTricks-wiki/hacktricks
-related: [awesome-hacking, payloadsallthethings, seclists, nuclei-templates]
-updated: 2026-10-19
+related: [payloadsallthethings, seclists, nuclei-templates, gtfobins]
+updated: 2026-11-08
 generated: true
 ---
 
 # HackTricks
 
 > 渗透测试技巧百科，按平台与场景整理从信息收集到提权的实操方法与命令。
-
-## 一句话总结
-
-渗透测试技巧百科，按平台与场景整理从信息收集到提权的实操方法与命令。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Awesome Hacking]] —— 黑客与安全资源大全
 - [[PayloadsAllTheThings]] —— 各类漏洞利用 Payload 合集
-- [[SecLists]] —— 安全测试字典合集
+- [[SecLists]] —— 渗透测试字典集：用户名、密码、子域名、敏感路径等数十个分类
 - [[nuclei-templates]] —— Nuclei 漏洞检测模板库
+- [[GTFOBins]] —— Unix 提权二进制利用手册

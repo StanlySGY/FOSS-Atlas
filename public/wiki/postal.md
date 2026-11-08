@@ -3,7 +3,7 @@ title: Postal
 slug: postal
 category: selfhost
 sub_category: selfhost-mail
-tags: [邮件投递, SMTP, 事务邮件, 邮件 API, 自托管, MIT]
+tags: [邮件投递, SMTP, 事务邮件, 邮件 API, 自建, MIT]
 url: https://github.com/postalserver/postal
 related: [nextcloud, seafile, joplin, trilium]
 updated: 2026-11-05
@@ -19,10 +19,6 @@ generated: true
 # Postal
 
 > 自托管邮件投递平台，为网站和应用管理邮件服务器、SMTP/API 凭据以及出站邮件投递。
-
-## 一句话总结
-
-自托管邮件投递平台，为网站和应用管理邮件服务器、SMTP/API 凭据以及出站邮件投递。
 
 ## 核心功能 / 特点
 

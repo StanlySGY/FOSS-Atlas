@@ -5,18 +5,14 @@ category: ai
 sub_category: ai-chat
 tags: [对话, 国内, 阿里]
 url: https://tongyi.aliyun.com
-related: [poe, huggingchat, duckduckgo-ai-chat, lmsys-chat]
-updated: 2026-10-19
+related: [xfyun-xinghuo, doubao, chatglm, deepseek-chat]
+updated: 2026-11-08
 generated: true
 ---
 
 # 阿里通义千问
 
 > 阿里的通义千问，提供对话、文档解析与文生图等能力的国产大模型。
-
-## 一句话总结
-
-阿里的通义千问，提供对话、文档解析与文生图等能力的国产大模型。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Poe]] —— 多模型聚合对话站点，提供有限免费额度
-- [[HuggingChat]] —— Hugging Face 开源模型免费聊天
-- [[DuckDuckGo AI Chat]] —— 匿名 AI 聊天，不记录对话
-- [[LMSYS Chatbot Arena]] —— 多模型直接对比与竞技场排名
+- [[讯飞星火]] —— 科大讯飞星火大模型对话端，国内直连，Web 与移动端免费使用
+- [[豆包]] —— 字节跳动豆包，多模态对话
+- [[智谱清言]] —— 智谱 GLM 系列对话助手
+- [[DeepSeek]] —— 深度求索对话与编码助手

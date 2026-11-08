@@ -19,10 +19,6 @@ generated: true
 
 > PostgreSQL 的开源向量扩展，可把 Embedding 和业务数据放在同一数据库中，并用 SQL 做精确或近似近邻检索。
 
-## 一句话总结
-
-PostgreSQL 的开源向量扩展，可把 Embedding 和业务数据放在同一数据库中，并用 SQL 做精确或近似近邻检索。
-
 ## 核心功能 / 特点
 
 - 支持精确最近邻查询及 HNSW、IVFFlat 近似索引

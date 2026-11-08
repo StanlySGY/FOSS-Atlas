@@ -5,18 +5,14 @@ category: selfhost
 sub_category: selfhost-core
 tags: [短链, 开源]
 url: https://shlink.io
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [qbittorrent, aria2, rustdesk, gitea]
+updated: 2026-11-08
 generated: true
 ---
 
 # Shlink
 
 > 自建短链接服务，用来生成属于自己域名的短网址并统计点击。
-
-## 一句话总结
-
-自建短链接服务，用来生成属于自己域名的短网址并统计点击。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[qBittorrent]] —— 开源 BT 客户端，带 WebUI 与 RSS 订阅，可无头跑在 NAS 与服务器上
+- [[Aria2]] —— 轻量多协议命令行下载器
+- [[RustDesk]] —— 开源远程桌面，替代 TeamViewer
+- [[Gitea]] —— 轻量自建 Git 服务，替代 GitHub

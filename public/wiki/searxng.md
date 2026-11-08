@@ -6,18 +6,14 @@ sub_category: selfhost-core
 tags: [搜索, 隐私, 开源]
 url: https://github.com/searxng/searxng
 alternatives: [Google Search]
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [linkding, filebrowser, wetty, ttyd]
+updated: 2026-11-08
 generated: true
 ---
 
 # SearXNG
 
 > 自建的元搜索引擎，聚合多个引擎的结果并过滤追踪，保护搜索隐私。
-
-## 一句话总结
-
-自建的元搜索引擎，聚合多个引擎的结果并过滤追踪，保护搜索隐私。
 
 ## 核心功能 / 特点
 
@@ -32,7 +28,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[Linkding]] —— 轻量书签管理，标签与全站搜索，Docker 单容器、占用极低
+- [[Filebrowser]] —— 网页文件管理器，上传、编辑、分享都在浏览器完成，单二进制即可部署
+- [[Wetty]] —— 浏览器里的终端（基于 xterm.js）
+- [[ttyd]] —— 把命令行共享到浏览器

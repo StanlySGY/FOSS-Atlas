@@ -5,18 +5,14 @@ category: api
 sub_category: api-free
 tags: [API, 模型托管]
 url: https://replicate.com
-related: [openai-api, anthropic-api, google-ai-api, hf-inference-api]
-updated: 2026-10-19
+related: [openweathermap, ipinfo, mymemory, unsplash]
+updated: 2026-11-08
 generated: true
 ---
 
 # Replicate
 
 > 托管开源模型的云平台，用一条 HTTP 请求即可运行模型并获取结果。
-
-## 一句话总结
-
-托管开源模型的云平台，用一条 HTTP 请求即可运行模型并获取结果。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[OpenAI API]] —— API 与 ChatGPT 分开计费；新 API 账户采用预付 credits，赠金额度以账户实际权益为准
-- [[Anthropic API]] —— Claude API 按预付 usage credits 计费；账户赠金额度不作统一承诺
-- [[Google AI (Gemini) API]] —— Gemini 官方开发者 API
-- [[Hugging Face Inference API]] —— 开源模型推理 API
+- [[OpenWeatherMap]] —— 天气数据 API，1000 次/天免费
+- [[IPinfo]] —— IPinfo Lite 需 Token，country-level Geo / basic ASN 查询不设日月请求数上限；Legacy 公共 API 另有共享 IP 限制
+- [[MyMemory]] —— 翻译 API，5000 字/天免费
+- [[Unsplash]] —— 免费高清图库 API，图片可免费商用；Demo 模式每小时 50 次请求

@@ -6,17 +6,13 @@ sub_category: saas-paas
 tags: [PaaS, 部署, 免费层]
 url: https://fly.io
 related: [render, railway, koyeb, supabase]
-updated: 2026-10-19
+updated: 2026-11-08
 generated: true
 ---
 
 # Fly.io
 
 > Fly.io 把应用跑在靠近用户的边缘节点上，免费层可以开 3 台小型共享 CPU 实例。
-
-## 一句话总结
-
-Fly.io 把应用跑在靠近用户的边缘节点上，免费层可以开 3 台小型共享 CPU 实例。
 
 ## 核心功能 / 特点
 

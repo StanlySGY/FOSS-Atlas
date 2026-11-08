@@ -6,7 +6,7 @@ sub_category: atlas-edge
 tags: [API, 邮箱校验, 自建]
 url: https://check.sgyyyds.qzz.io
 alternatives: [Disify]
-related: [foss-atlas-cf, short, paste, nodes]
+related: [disify, atlas-geo, atlas-meta, atlas-tools]
 updated: 2026-10-30
 generated: true
 ---
@@ -14,10 +14,6 @@ generated: true
 # Atlas Check
 
 > 邮箱与域名校验 API：检查邮箱格式、一次性邮箱域名黑名单和 MX 记录。
-
-## 一句话总结
-
-邮箱与域名校验 API：检查邮箱格式、一次性邮箱域名黑名单和 MX 记录。
 
 ## 核心功能 / 特点
 
@@ -91,7 +87,7 @@ curl -sS 'https://check.sgyyyds.qzz.io/api/domain?domain=gmail.com'
 
 ## 同类推荐
 
-- [[FOSS-Atlas(Cloudflare Pages)]] —— 本目录站的 Cloudflare Pages 镜像,与 GitHub Pages 自动同步。
-- [[Atlas Short]] —— 自建短链服务:Workers + KV 去重存储,带点击统计与 /api/list 列表。
-- [[Atlas Paste]] —— 临时文本分享：粘贴即生成链接，附 /raw 纯文本端点（上限 60 KB）；新建分享保留 7 天。
-- [[Atlas Nodes]] —— 免费节点聚合订阅:11 个上游源合并去重 13,000+ 节点,输出 Base64/明文订阅,30 分钟自动刷新。
+- [[Disify]] —— 临时邮箱与邮箱校验 API
+- [[Atlas Geo]] —— 地理编码 / 逆地理编码:地名↔坐标,自建 KV 缓存,替代 Nominatim 公共实例。
+- [[Atlas Meta]] —— 链接元数据 / OpenGraph 解析:抓标题、摘要、缩略图,自建不发第三方。
+- [[Atlas Tools]] —— 哈希(SHA 系列)/ UUID v4 / Base64·URL·Hex 编解码 API。

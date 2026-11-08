@@ -5,18 +5,14 @@ category: selfhost
 sub_category: selfhost-core
 tags: [下载, CLI, 开源]
 url: https://aria2.github.io
-related: [nextcloud, seafile, joplin, trilium]
-updated: 2026-10-19
+related: [rustdesk, gitea, forgejo, woodpecker]
+updated: 2026-11-08
 generated: true
 ---
 
 # Aria2
 
 > 轻量命令行下载工具，支持 HTTP、BT 和磁力等多种协议。
-
-## 一句话总结
-
-轻量命令行下载工具，支持 HTTP、BT 和磁力等多种协议。
 
 ## 核心功能 / 特点
 
@@ -31,7 +27,7 @@ generated: true
 
 ## 同类推荐
 
-- [[Nextcloud]] —— 自建网盘与协作套件，替代 Google Drive
-- [[Seafile]] —— 高性能自建网盘，替代 Google Drive
-- [[Joplin]] —— 端到端加密笔记，替代 Notion / Evernote
-- [[Trilium]] —— 层级化知识库笔记，替代 Notion
+- [[RustDesk]] —— 开源远程桌面，替代 TeamViewer
+- [[Gitea]] —— 轻量自建 Git 服务，替代 GitHub
+- [[Forgejo]] —— 社区驱动的 Gitea 分支，替代 GitHub
+- [[Woodpecker CI]] —— 轻量 CI/CD，替代 GitLab CI
