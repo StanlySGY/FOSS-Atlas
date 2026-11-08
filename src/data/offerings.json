@@ -11,12 +11,12 @@
       ],
       "label": "持续免费额度 + 新用户试用",
       "shortLabel": "免费层 + 试用",
-      "summary": "新客户可获得最长 6 个月、最高 00 AWS credits；另有 30 多项服务提供按各自限制执行的 Always Free 用量。试用 credits 不是永久免费。",
+      "summary": "新客户可获得最长 6 个月、最高 200 美元 AWS credits（注册即得 100 美元，完成新手任务可再得 100 美元）；另有 30 多项服务提供按各自限制执行的 Always Free 用量。试用 credits 不是永久免费。",
       "limits": [
         [
           "新客户 credits",
-          "最高 00",
-          "最长 6 个月；00 注册额度，另有最多 00 可通过基础服务获得"
+          "最高 200 美元",
+          "最长 6 个月；注册即得 100 美元，另有最多 100 美元可通过基础服务任务获得"
         ],
         [
           "Always Free",
@@ -32,7 +32,7 @@
         [
           "AWS Free Tier FAQs",
           "https://aws.amazon.com/free/free-tier-faqs/",
-          "新客户最长 6 个月、最高 00 credits 和 30+ Always Free 服务"
+          "新客户最长 6 个月、最高 200 美元 credits 和 30+ Always Free 服务"
         ]
       ],
       "verifiedAt": "2026-11-03"
@@ -46,11 +46,11 @@
       ],
       "label": "新用户试用 + 持续免费额度",
       "shortLabel": "试用 + 免费层",
-      "summary": "新 Azure 客户可获得 30 天内使用的 00 额度；20 多项常用服务有 12 个月免费月度额度，65 多项服务提供 Always Free 月度额度。",
+      "summary": "新 Azure 客户可获得 30 天内使用的 200 美元额度；20 多项常用服务有 12 个月免费月度额度，65 多项服务提供 Always Free 月度额度。",
       "limits": [
         [
           "试用额度",
-          "00",
+          "200 美元",
           "30 天"
         ],
         [
@@ -72,7 +72,7 @@
         [
           "Azure account and free services",
           "https://azure.microsoft.com/en-gb/pricing/purchase-options/azure-account",
-          "00/30 天、20+ 项 12 个月免费服务、65+ 项 Always Free"
+          "200 美元/30 天、20+ 项 12 个月免费服务、65+ 项 Always Free"
         ]
       ],
       "verifiedAt": "2026-11-03"
@@ -496,9 +496,9 @@
         "free-tier",
         "credit"
       ],
-      "label": "Free /bin/bash 计划（每月 300 credits）",
+      "label": "Free（USD 0）计划（每月 300 credits）",
       "shortLabel": "300 credits/月",
-      "summary": "Netlify Free 为 /bin/bash 计划，每月提供 300 credits；构建、带宽和请求等服务会消耗 credits。",
+      "summary": "Netlify Free 为 USD 0 计划，每月提供 300 credits；构建、带宽和请求等服务会消耗 credits。",
       "limits": [
         [
           "月度 credits",
@@ -524,7 +524,7 @@
         [
           "Netlify Pricing",
           "https://www.netlify.com/pricing/",
-          "Free /bin/bash 计划和每月 300 credits"
+          "USD 0 计划和每月 300 credits"
         ]
       ],
       "verifiedAt": "2026-11-03"
@@ -535,13 +535,13 @@
         "credit",
         "api-demo"
       ],
-      "label": "每月 /bin/bash.10 推理 credits（可变）",
-      "shortLabel": "/bin/bash.10/月 credits",
-      "summary": "Hugging Face Free 用户每月获得 /bin/bash.10 Inference Providers credits；官方注明金额可能变化，超出部分按量计费并需要购买 credits。",
+      "label": "每月 0.10 美元推理 credits（可变）",
+      "shortLabel": "0.10 美元/月 credits",
+      "summary": "Hugging Face Free 用户每月获得 0.10 美元 Inference Providers credits；官方注明金额可能变化，超出部分按量计费并需要购买 credits。",
       "limits": [
         [
           "Free 用户额度",
-          "/bin/bash.10",
+          "0.10 美元",
           "每月；subject to change"
         ]
       ],
@@ -553,7 +553,7 @@
         [
           "Hugging Face Inference Providers Pricing",
           "https://huggingface.co/docs/inference-providers/pricing",
-          "Free 用户每月 /bin/bash.10 credits，金额可能变化和额外计费规则"
+          "Free 用户每月 0.10 美元 credits，金额可能变化和额外计费规则"
         ]
       ],
       "verifiedAt": "2026-11-03"
@@ -566,7 +566,7 @@
       ],
       "label": "One Call API 4.0 每日首 1,000 次免费",
       "shortLabel": "1,000 次/天",
-      "summary": "OpenWeather 当前页面说明 One Call API 4.0 每日首 1,000 次调用免费，超出部分每次 /bin/bash.0015；这个规则只针对 One Call 产品，不代表所有 API 都有同样额度。",
+      "summary": "OpenWeather 当前页面说明 One Call API 4.0 每日首 1,000 次调用免费，超出部分每次 0.0015 美元；这个规则只针对 One Call 产品，不代表所有 API 都有同样额度。",
       "limits": [
         [
           "One Call API 4.0",
@@ -575,7 +575,7 @@
         ],
         [
           "超额调用",
-          "/bin/bash.0015 / call",
+          "0.0015 美元 / call",
           "超过每日免费额度后"
         ]
       ],
@@ -587,7 +587,7 @@
         [
           "OpenWeather API pricing",
           "https://openweathermap.org/price",
-          "One Call 首 1,000 calls/day 免费，超额 /bin/bash.0015/call"
+          "One Call 首 1,000 calls/day 免费，超额 0.0015 美元/call"
         ]
       ],
       "verifiedAt": "2026-11-03"

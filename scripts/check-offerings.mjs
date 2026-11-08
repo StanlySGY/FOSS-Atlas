@@ -16,6 +16,29 @@ const isDate = (value) => {
   const date = new Date(value + 'T00:00:00Z')
   return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value
 }
+/*
+ * Amount sanity: this catalogue's whole point is legible quota evidence, and an
+ * earlier revision shipped "最高 00 AWS credits" — a "$200" that lost its
+ * leading digits — past every structural check below. A bare "00" (or any run
+ * of zeros not part of a larger number, a decimal, or a thousands group) is
+ * never a valid amount, so it is rejected outright. "100" / "10.00" / "0.5" /
+ * "1,000" stay legal.
+ */
+const CORRUPTED_AMOUNT = /(?:^|[^\d.,])0{2,}(?=[^\d.]|$)/
+/*
+ * Shell-expansion pollution: an earlier revision generated these strings
+ * through a shell where "$0" expanded to "/bin/bash", shipping prose like
+ * "Free /bin/bash 计划" and "$0.0015" as "/bin/bash.0015". A shell path has no
+ * business inside quota prose, so it is rejected outright.
+ */
+const SHELL_POLLUTION = /\/(?:bin|usr|etc|var|tmp|home)\//
+const collectStrings = (entry) => {
+  const values = [entry.label, entry.shortLabel, entry.summary]
+  for (const limit of entry.limits ?? []) values.push(...limit)
+  for (const condition of entry.conditions ?? []) values.push(condition)
+  for (const source of entry.sources ?? []) values.push(...source)
+  return values.filter((value) => typeof value === 'string')
+}
 
 if (catalogue.schemaVersion !== 1) fail('schemaVersion must be 1')
 if (!isDate(catalogue.verifiedAt)) fail('catalogue.verifiedAt must be YYYY-MM-DD')
@@ -38,6 +61,10 @@ for (const [index, entry] of (catalogue.entries ?? []).entries()) {
     fail(prefix + '.types must contain one or more known offering types')
   }
   if (!isDate(entry.verifiedAt)) fail(prefix + '.verifiedAt must be YYYY-MM-DD')
+  for (const value of collectStrings(entry)) {
+    if (CORRUPTED_AMOUNT.test(value)) fail(prefix + ': amount "' + value.slice(0, 60) + '" contains a bare 00 — a currency amount likely lost its leading digits')
+    if (SHELL_POLLUTION.test(value)) fail(prefix + ': prose "' + value.slice(0, 60) + '" contains a filesystem path — a "$..." amount likely got shell-expanded')
+  }
 
   if (!Array.isArray(entry.limits)) fail(prefix + '.limits must be an array')
   for (const [limitIndex, limit] of (entry.limits ?? []).entries()) {
