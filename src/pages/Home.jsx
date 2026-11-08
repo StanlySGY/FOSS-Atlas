@@ -28,18 +28,27 @@ import { appendResourceLinkReview, readResourceLinkReviews, resourceLinksNeedRev
 const RESOURCE_IDS = new Set(resources.map((resource) => resource.id))
 const VIEW_KEY = 'foss-atlas:catalog-view'
 const readView = () => { try { return localStorage.getItem(VIEW_KEY)==='list'?'list':'grid' } catch { return 'grid' } }
+// Search records are pure functions of static catalogue data, so each resource
+// is expanded exactly once per session. Rebuilding the record (offering spread,
+// URL parse, alias lookup) on every keystroke was the per-key cost of the old
+// pipeline; with the cache, typing only pays for the scorer itself.
+const SEARCH_RECORDS = new Map()
 const searchRecordFor = (resource) => {
+  let record = SEARCH_RECORDS.get(resource.id)
+  if (record) return record
   const entry=resourceSearchEntryFor(resource.id)
   const offer=getOffering(resource.id)
   let hostname=resource.url
   try { hostname=new URL(resource.url).hostname } catch {}
-  return {
+  record = {
     name:resource.name, aliases:searchAliasesFor(resource.id), tags:resource.tags,
     description:resource.description, url:resource.url, hostname,
     category:resource.category_name, subCategory:resource.sub_category_name,
     summary:entry.summary, features:entry.features, scenarios:entry.scenarios, usage:entry.usage, keywords:entry.keywords,
     extra:[offer?.label,offer?.summary,...(offer?.conditions??[])].filter(Boolean),
   }
+  SEARCH_RECORDS.set(resource.id, record)
+  return record
 }
 const scoreSearch = (resource,query) => scoreResourceSearch(query,searchRecordFor(resource))
 const matchesSearch = (resource,query) => !query || scoreSearch(resource,query)>0
@@ -49,12 +58,19 @@ export default function Home() {
   const [searchParams,setSearchParams]=useSearchParams()
   const searchRef=useRef(null)
   const [query,setQuery]=useState(()=>queryFromSearchParams(searchParams))
+  /*
+   * Scoring runs on a 150ms-debounced copy of the query: the input itself stays
+   * fully controlled (zero input latency, URL syncs immediately), but the
+   * 198-record scorer — Levenshtein included — does not run on every keystroke.
+   */
+  const [debouncedQuery,setDebouncedQuery]=useState(query)
+  useEffect(()=>{const timer=setTimeout(()=>setDebouncedQuery(query),150);return()=>clearTimeout(timer)},[query])
   const [visibleCount,setVisibleCount]=useState(24)
   const [pageSize,setPageSize]=useState(24)
   const resultsRef=useRef(null)
   const [filtersOpen,setFiltersOpen]=useState(false)
   const { favorites, recentIds, toggleFavorite } = useUserJourney(RESOURCE_IDS)
-  const linkSnapshot = useResourceLinkSnapshot()
+  const { status: linkSnapshotStatus, snapshot: linkSnapshot } = useResourceLinkSnapshot()
   const linkFreshness = resourceLinkFreshness(linkSnapshot)
   const linkRows = useMemo(() => resourceLinkRowsByTarget(linkSnapshot), [linkSnapshot])
   const [linkReviews, setLinkReviews] = useState(() => readResourceLinkReviews())
@@ -91,7 +107,11 @@ export default function Home() {
   useEffect(()=>{if(!toast)return undefined;const timer=setTimeout(()=>setToast(''),1800);return()=>clearTimeout(timer)},[toast])
   useEffect(()=>{
     const shortcut=(event)=>{
-      if(!document.querySelector('dialog[open]')&&event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)&&!document.activeElement?.isContentEditable){event.preventDefault();searchRef.current?.focus()}
+      // Native modals own the keyboard; so does the command palette, whose root
+      // is a div with role="dialog" — checking only <dialog open> let `/` yank
+      // focus out of an open palette back to the catalogue field behind it.
+      const modal=document.querySelector('dialog[open]')||document.querySelector('[role="dialog"][aria-modal="true"]')
+      if(!modal&&event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)&&!document.activeElement?.isContentEditable){event.preventDefault();searchRef.current?.focus()}
     }
     window.addEventListener('keydown',shortcut)
     return()=>window.removeEventListener('keydown',shortcut)
@@ -121,7 +141,7 @@ export default function Home() {
   }
 
   const filtered=useMemo(()=>{
-    const normalized=query.trim().toLowerCase()
+    const normalized=debouncedQuery.trim().toLowerCase()
     const result=resources.filter((resource)=>{
       if(deployedOnly&&!resource.deployed)return false
       if(favoritesOnly&&!favorites.includes(resource.id))return false
@@ -134,7 +154,7 @@ export default function Home() {
     if(sort==='deployed')result.sort((a,b)=>Number(Boolean(b.deployed))-Number(Boolean(a.deployed)))
     if(sort==='recommended'&&normalized)result.sort((a,b)=>scoreSearch(b,normalized)-scoreSearch(a,normalized)||a.name.localeCompare(b.name,'zh-CN'))
     return result
-  },[query,deployedOnly,favoritesOnly,favorites,linkOnly,linkRows,linkSnapshot,linkReviews,activeCategory,activeSub,activeOffer,sort])
+  },[debouncedQuery,deployedOnly,favoritesOnly,favorites,linkOnly,linkRows,linkSnapshot,linkReviews,activeCategory,activeSub,activeOffer,sort])
 
   const handleFavoriteToggle=(id)=>{
     const saved=favorites.includes(id)
@@ -175,7 +195,7 @@ export default function Home() {
         <div className="fa-discovery-search-area">
           <label className="fa-discovery-search" htmlFor="catalog-search">
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="11" cy="11" r="7.2"/><path d="m16.4 16.4 4.1 4.1" strokeLinecap="round"/></svg>
-            <input id="catalog-search" ref={searchRef} aria-label="搜索资源" value={query} onChange={(event)=>handleQuery(event.target.value)} type="search" autoComplete="off" placeholder="搜索工具、用途或域名…"/>
+            <input id="catalog-search" ref={searchRef} aria-label="搜索资源" value={query} onChange={(event)=>handleQuery(event.target.value)} onKeyDown={(event)=>{if(event.key==='Enter'&&query.trim()&&filtered.length){navigate(`/wiki/${filtered[0].id}/`)}}} type="search" autoComplete="off" placeholder="搜索工具、用途或域名…"/>
             {query?<button type="button" onClick={()=>{handleQuery('');searchRef.current?.focus()}} aria-label="清空搜索">×</button>:<kbd>/</kbd>}
           </label>
           <p className="fa-search-caption"><span>搜索名称、描述、标签与免费方案 · 按 <kbd>/</kbd> 快速定位</span><button type="button" onClick={exploreRandom}>随便逛逛 <span aria-hidden="true">✦</span></button></p>
@@ -247,7 +267,7 @@ export default function Home() {
       <details className="fa-catalog-maintenance">
         <summary>目录维护与链接巡检</summary>
           <div className="fa-catalog-maintenance-content" aria-live="polite">
-            <span>官网 / 仓库巡检 · {linkFreshness.label} {linkSnapshot ? formatSnapshotAge(linkFreshness) : ''}</span>
+            <span>官网 / 仓库巡检 · {linkSnapshotStatus === 'loading' ? '快照加载中…' : linkSnapshotStatus === 'error' ? '快照加载失败' : `${linkFreshness.label} ${linkSnapshot ? formatSnapshotAge(linkFreshness) : ''}`}</span>
             {linkSnapshot ? <span>待处理 {linkSummary.pending} / {linkSummary.total} 条链接{linkSummary.recorded ? ' · 已记录 ' + linkSummary.recorded + ' 次复核' : ''}</span> : null}
             <button type="button" aria-pressed={linkOnly} onClick={()=>setLinkReviewOnly(!linkOnly)} className={linkOnly?'text-[var(--accent-text)] underline underline-offset-2':'text-[var(--text-dim)] hover:text-[var(--accent-text)]'}>
               {linkOnly?'显示全部资源':'查看待处理链接 →'}

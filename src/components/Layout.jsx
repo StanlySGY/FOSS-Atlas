@@ -115,6 +115,16 @@ export default function Layout() {
     document.title = documentTitleForLocation(location.pathname, resourceById)
   }, [location.pathname])
 
+  // A PUSH must move focus as well as scroll, or keyboard and screen-reader
+  // users stay on <body> with no announcement that the page changed — the
+  // skip-link target (<main id="main" tabIndex={-1}>) is the receiver. POP is
+  // excluded: going back must leave focus where the reader left it, and the
+  // initial load arrives as POP so it never steals focus either.
+  useEffect(() => {
+    if (navigationType !== 'PUSH') return
+    document.getElementById('main')?.focus({ preventScroll: true })
+  }, [location.pathname, navigationType])
+
   useEffect(() => {
     const match = location.pathname.match(/^\/wiki\/([^/]+)\/?$/)
     if (match && resourceById.has(match[1])) rememberResourceRead(match[1], RESOURCE_IDS)

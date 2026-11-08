@@ -5,7 +5,7 @@ import Markdown from '../components/Markdown.jsx'
 import OfferingPanel from '../components/OfferingPanel.jsx'
 import RepositoryPanel from '../components/RepositoryPanel.jsx'
 import { backlinksFor } from '../lib/backlinks.js'
-import { categoryColor, categoryRing, categorySoft } from '../lib/categoryColor.js'
+import { categoryDeep, categoryRing, categorySoft } from '../lib/categoryColor.js'
 import {
   DEPLOY_GROUP_LABEL,
   alternativesFor,
@@ -94,29 +94,39 @@ export default function WikiPage() {
    * that did not come from a prerendered file — start empty and fetch.
    */
   const [fetched, setFetched] = useState(() => readWikiPrefill(id))
+  const [fetchError, setFetchError] = useState(false)
+  const [fetchAttempt, setFetchAttempt] = useState(0)
+  const retryFetch = () => setFetchAttempt((n) => n + 1)
 
   useEffect(() => {
     if (!slug || readWikiPrefill(id)) return undefined
     let cancelled = false
-    fetchWiki(slug).then((raw) => {
-      if (cancelled) return
-      if (!raw) {
-        setFetched({ id, data: {}, content: null })
-        return
-      }
-      const { data, content } = parseFrontmatter(raw)
-      setFetched({ id, data, content })
-    })
+    setFetchError(false)
+    fetchWiki(slug)
+      .then((raw) => {
+        if (cancelled) return
+        if (!raw) {
+          setFetched({ id, data: {}, content: null })
+          return
+        }
+        const { data, content } = parseFrontmatter(raw)
+        setFetched({ id, data, content })
+      })
+      .catch(() => {
+        // Network failure is transient: surface it (with a retry) instead of
+        // presenting this page as "no wiki exists".
+        if (!cancelled) setFetchError(true)
+      })
     return () => {
       cancelled = true
     }
-  }, [id, slug])
+  }, [id, slug, fetchAttempt])
 
-  const loading = Boolean(slug) && fetched?.id !== id
+  const loading = Boolean(slug) && fetched?.id !== id && !fetchError
   const hasWiki = Boolean(slug && fetched?.id === id && fetched.content)
   const data = !loading && fetched?.id === id ? fetched.data : {}
   const content = loading ? '' : hasWiki ? fetched.content : resource ? fallbackMarkdown(resource) : ''
-  const isFallback = !loading && !hasWiki
+  const isFallback = !loading && !hasWiki && !fetchError
 
   // The body's own `# Title` and its one-line `> summary` are dropped: the
   // header above already renders the title and the catalogue description, so
@@ -422,6 +432,11 @@ export default function WikiPage() {
                 {copyStatus === 'copied' ? '已复制 ✓' : '复制链接'}
               </button>
               {isFallback ? <span className="fa-control mono">暂无独立 Wiki</span> : null}
+              {fetchError ? (
+                <button type="button" onClick={retryFetch} className="fa-control mono text-[var(--accent-text)]">
+                  Wiki 加载失败 · 重试
+                </button>
+              ) : null}
             </>
           )}
         />
@@ -433,6 +448,15 @@ export default function WikiPage() {
               分享链接
               <input ref={manualLinkRef} type="url" readOnly value={copyState.url} onFocus={(event) => event.target.select()} className="mt-1 min-h-11 w-full rounded-md border border-[var(--line)] bg-[var(--ink-sunken)] px-3 text-base text-[var(--text)]" />
             </label>
+          </div>
+        ) : null}
+
+        {fetchError ? (
+          <div className="fa-surface flex flex-wrap items-center gap-2 p-3">
+            <p role="alert" className="text-sm text-[var(--text-dim)]">
+              独立 Wiki 内容加载失败，下面显示的是目录内置摘要；网络恢复后可重试。
+            </p>
+            <button type="button" onClick={retryFetch} className="text-sm text-[var(--accent-text)] underline underline-offset-2">重试</button>
           </div>
         ) : null}
 
@@ -689,7 +713,7 @@ function WikiIcon({ resource }) {
       style={{ background: categorySoft(resource.category), borderColor: categoryRing(resource.category) }}
       className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-[9px] border text-sm font-semibold"
     >
-      <span aria-hidden="true" style={{ color: categoryColor(resource.category) }}>
+      <span aria-hidden="true" style={{ color: categoryDeep(resource.category) }}>
         {initialFor(resource)}
       </span>
       {!src || failed ? null : (

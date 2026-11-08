@@ -20,7 +20,7 @@ import {
   instancesFor,
   resourceById,
 } from '../lib/data.js'
-import { categoryColor } from '../lib/categoryColor.js'
+import { categoryColor, categoryTextColor } from '../lib/categoryColor.js'
 import { GRAPH_LABEL_MODES, graphLabelModeFromParams, setGraphLabelModeParams } from '../lib/graphLabel.js'
 import { countByType, toolsInCategory, visibleNodeIds } from '../lib/graphFilter.js'
 import { setCategoryFocusParams, setDeployedOnlyParams, setLocalGraphDepthParams, setLocalGraphParams } from '../lib/graphFilterState.js'
@@ -83,8 +83,20 @@ export default function GraphPage() {
   const currentWalkNode = walk?.nodes[walkStep] ?? null
   const currentWalkEdge = walk?.edges[walkStep - 1] ?? null
   const [walkPlaying, setWalkPlaying] = useState(false)
-  const [enabledEdges, setEnabledEdges] = useState(ALL_EDGES)
-  const [emphasizeTagEdges, setEmphasizeTagEdges] = useState(false)
+  /*
+   * 关系过滤与标签强调，与 cat/deployed/local/depth 一样住在 URL 里：
+   * 筛选面板旁的说明写着「选择会保存在链接中」，这两个开关以前是纯组件
+   * state，分享出去的链接会丢掉它们。`rel` 是按 EDGE_META 顺序的 CSV，
+   * 缺省（全开或全关）时干脆不写参数。
+   */
+  const relParam = searchParams.get('rel')
+  const enabledEdges = useMemo(() => {
+    if (!relParam) return ALL_EDGES
+    const wanted = new Set(relParam.split(',').filter((type) => ALL_EDGES.includes(type)))
+    return wanted.size ? ALL_EDGES.filter((type) => wanted.has(type)) : ALL_EDGES
+  }, [relParam])
+  const emphasizeTagEdges = searchParams.get('tags') === '1'
+  const [walkNotice, setWalkNotice] = useState(null)
   // Below md the three control rows fold behind one button: on a phone they
   // would otherwise eat ~340px of the screen before the canvas even starts.
   const [filtersOpen, setFiltersOpen] = useState(false)
@@ -179,7 +191,13 @@ export default function GraphPage() {
         (edge.source === node.id || edge.target === node.id)
       )
     )
-    if (!candidates.length) return
+    // 静默 return 是一个死交互：按了没反应，读屏用户更不知道发生了什么。
+    // 无候选时给出一句明确的状态说明。
+    if (!candidates.length) {
+      setWalkNotice('当前图谱里没有带「相关 / 替代 / 标签」关系的可漫游节点。')
+      return
+    }
+    setWalkNotice(null)
     startWalkFrom(candidates[Math.floor(Math.random() * candidates.length)].id)
   }, [startWalkFrom])
 
@@ -250,11 +268,28 @@ export default function GraphPage() {
   const focusId = localNode?.id ?? (focusParam && resourceById.has(focusParam) ? focusParam : null)
   const graphFocusId = currentWalkNode?.id ?? focusId
 
-  const toggleEdge = (type) => {
-    setEnabledEdges((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
-    )
-  }
+  const toggleEdge = useCallback((type) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev)
+      const current = new Set((next.get('rel') ?? ALL_EDGES.join(',')).split(',').filter((t) => ALL_EDGES.includes(t)))
+      if (current.has(type)) current.delete(type)
+      else current.add(type)
+      const ordered = ALL_EDGES.filter((t) => current.has(t))
+      // 全开或全关都不留参数：URL 的缺省语义就是「全部关系」。
+      if (!ordered.length || ordered.length === ALL_EDGES.length) next.delete('rel')
+      else next.set('rel', ordered.join(','))
+      return next
+    }, { replace: true })
+  }, [setSearchParams])
+
+  const toggleTagEmphasis = useCallback(() => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev)
+      if (next.get('tags') === '1') next.delete('tags')
+      else next.set('tags', '1')
+      return next
+    }, { replace: true })
+  }, [setSearchParams])
 
   /*
    * The only way out of the graph. A single click just opens the bubble, so
@@ -460,6 +495,9 @@ export default function GraphPage() {
           <button type="button" onClick={startRandomWalk} className="fa-control">
             {walk ? '换个漫游起点' : '✦ 灵感漫游'}
           </button>
+          {walkNotice ? (
+            <span role="status" className="text-[11px] text-[var(--text-dim)]">{walkNotice}</span>
+          ) : null}
           <button
             type="button"
             onClick={() => setFiltersOpen((v) => !v)}
@@ -494,14 +532,16 @@ export default function GraphPage() {
       </div>
 
       {walk ? (
-        <section className="fa-surface relative overflow-hidden p-3.5 sm:p-4" aria-label="灵感漫游路线" aria-live="polite">
+        <section className="fa-surface relative overflow-hidden p-3.5 sm:p-4" aria-label="灵感漫游路线">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-[var(--accent)]/70" />
           <div className="flex flex-col gap-3">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div className="min-w-0">
                 <p className="mono text-[10px] tracking-wide text-[var(--accent-text)]">DISCOVERY WALK · REAL GRAPH EDGES</p>
                 <h2 className="mt-1 text-sm font-semibold text-[var(--text-strong)]">从 {walk.nodes[0].name} 出发的发现路线</h2>
-                <p className="mt-1 text-xs text-[var(--text-dim)]">
+                {/* 只有这一句进 live region：整个 section 曾被 aria-live 包住，
+                    自动播放时每 1.8 秒把按钮组在内全部重述一遍。 */}
+                <p role="status" className="mt-1 text-xs text-[var(--text-dim)]">
                   {currentWalkEdge
                     ? '第 ' + (walkStep + 1) + ' 站 · 通过「' + graphWalkStepLabel(currentWalkEdge) + '」到达 ' + (currentWalkNode?.name ?? '')
                     : walk.nodes.length > 1 ? '已回到起点，准备沿真实关系继续探索' : '这个起点暂时没有可继续的相关路线'}
@@ -584,19 +624,13 @@ export default function GraphPage() {
         {categories.map((cat) => {
           const on = focusedCategory === cat.id
           /*
-           * Was: all 11 chips wore --accent, the same colour the *graph itself*
-           * uses for every category node and for the focus ring. So the chips
-           * could not tell you which category they were about — they only said
-           * "a filter" — and the one colour that means "category" in the canvas
-           * was spent on the control instead. Now each chip is its category's
-           * hue, at rest 8% fill / 35% border and at 10% / 70% when focused —
-           * the same ladder the homepage rail uses, and measured the same way,
-           * at the brightest ground the bar can sit on (the warm halo peak,
-           * #3b333a): labels 4.78–6.35:1 at rest and 4.60–6.78 focused, all AA
-           * on their own wash; borders 1.83–2.09 at rest (a container line) and
-           * 3.07–3.65 focused (a mark). The hue is also legal as text here
-           * because the bar sits on the ground, not on a tinted plate — see the
-           * plate list in src/lib/categoryColor.js.
+           * Each chip is its category's identity: the *word* wears the category's
+           * text variant (categoryTextColor — 4.62–4.65:1 on the page ground,
+           * 4.96–5.00 on white, AA on both), while the base pastel hue keeps the
+           * decorative jobs it survives on light surfaces: the 8%/35% wash and
+           * border at rest, 10%/70% when focused. The base hue itself is not
+           * legal as 11px text on light backgrounds (1.5–2.2:1) — that is the
+           * whole reason the text variant exists; see src/lib/categoryColor.js.
            */
           const hue = categoryColor(cat.id)
           return (
@@ -606,7 +640,7 @@ export default function GraphPage() {
               onClick={() => setCategoryFocus(on ? null : cat.id)}
               aria-pressed={on}
               style={{
-                color: hue,
+                color: categoryTextColor(cat.id),
                 borderColor: `color-mix(in srgb, ${hue} ${on ? 70 : 35}%, transparent)`,
                 background: `color-mix(in srgb, ${hue} ${on ? 10 : 8}%, transparent)`,
               }}
@@ -722,7 +756,7 @@ export default function GraphPage() {
           <span className="text-[11px] text-[var(--text-faint)]">工具与标签名称可在悬停时查看；选择会保存在链接中。</span>
           <button
             type="button"
-            onClick={() => setEmphasizeTagEdges((value) => !value)}
+            onClick={toggleTagEmphasis}
             aria-pressed={emphasizeTagEdges}
             className="fa-control"
           >

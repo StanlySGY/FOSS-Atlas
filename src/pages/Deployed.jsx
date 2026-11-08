@@ -24,22 +24,35 @@ const EMPTY_PROBE_ROWS = []
 const DEPLOYED_GROUP_IDS = new Set(deployed.groups.map((group) => group.id))
 const DEPLOYED_INSTANCE_IDS = new Set(deployed.groups.flatMap((group) => group.items.map((item) => item.id)))
 
-/** The snapshot `npm run probe -- --out dist/probe.json` shipped with this build. */
+/**
+ * The snapshot `npm run probe -- --out dist/probe.json` shipped with this build.
+ *
+ * Four states, because "loading" and "this build has no snapshot" are different
+ * facts and the old single `null` conflated them: while the fetch was in flight
+ * the page flashed 「暂无快照」 and counted all 93 rows as 未探测, then the
+ * counts jumped to the real distribution once the response landed. `error` is
+ * a transient network failure and gets a retry; `missing` (HTTP 404) is a
+ * property of the build itself and a retry will not change it.
+ */
 function useProbe() {
-  const [probe, setProbe] = useState(null)
+  const [probeState, setProbeState] = useState({ status: 'loading', probe: null })
+  const [attempt, setAttempt] = useState(0)
   useEffect(() => {
     let alive = true
+    setProbeState({ status: 'loading', probe: null })
     fetch(`${import.meta.env.BASE_URL}probe.json`)
-      .then((r) => (r.ok ? r.json() : null))
+      .then((r) => (r.ok ? r.json() : Promise.reject(Object.assign(new Error('probe snapshot missing'), { missing: r.status === 404 }))))
       .then((d) => {
-        if (alive) setProbe(d ?? null)
+        if (alive) setProbeState({ status: 'ready', probe: d ?? null })
       })
-      .catch(() => {})
+      .catch((err) => {
+        if (alive) setProbeState({ status: err?.missing ? 'missing' : 'error', probe: null })
+      })
     return () => {
       alive = false
     }
-  }, [])
-  return probe
+  }, [attempt])
+  return { ...probeState, retry: () => setAttempt((n) => n + 1) }
 }
 
 const utcStamp = (iso) => String(iso ?? '').slice(0, 16).replace('T', ' ')
@@ -56,8 +69,10 @@ const utcStamp = (iso) => String(iso ?? '').slice(0, 16).replace('T', ' ')
  * must not compete for attention with a known failure; its --text-faint words
  * are 6.17:1, so it is quiet, not unreadable.
  */
-function StatusChip({ status, result }) {
-  const presentation = probeStatusPresentation(status, result)
+function StatusChip({ status, result, loading = false }) {
+  const presentation = loading
+    ? { label: '加载中', kind: 'neutral', title: '探测快照正在加载' }
+    : probeStatusPresentation(status, result)
   return (
     <span
       className={[
@@ -77,7 +92,7 @@ function StatusChip({ status, result }) {
   )
 }
 
-function ServiceRow({ item, result }) {
+function ServiceRow({ item, result, probeLoading = false }) {
   const resourceId = resourceIdFor(item)
   const resource = resourceById.get(resourceId)
   return (
@@ -100,7 +115,7 @@ function ServiceRow({ item, result }) {
           >
             {item.name}
           </a>
-          <StatusChip status={item.status} result={result} />
+          <StatusChip status={item.status} result={result} loading={probeLoading} />
         </div>
         <p className="mt-1 text-xs leading-relaxed text-[var(--text-dim)]">{item.desc}</p>
         <div className="mono mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-[var(--text-faint)]">
@@ -145,7 +160,7 @@ export default function Deployed() {
   const location = useLocation()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
-  const probe = useProbe()
+  const { status: probeState, probe, retry: retryProbe } = useProbe()
   const probeFreshness = resourceLinkFreshness(probe)
   const probeRows = probe?.rows ?? EMPTY_PROBE_ROWS
   const probeSummary = summarizeProbeRows(probeRows)
@@ -291,10 +306,10 @@ export default function Deployed() {
       <PageHeader
         eyebrow="运行实例 / DEPLOYED"
         title="自部署服务"
-        description={`管理 ${instanceTotal} 个公开服务与镜像，按名称、域名、技术栈或可达状态快速定位。清单更新于 ${deployed.updated}；探测快照 ${probe ? utcStamp(probe.ranAt) + ' UTC' : '暂无' }。`}
+        description={`管理 ${instanceTotal} 个公开服务与镜像，按名称、域名、技术栈或可达状态快速定位。清单更新于 ${deployed.updated}；探测快照 ${probeState === 'ready' ? utcStamp(probe.ranAt) + ' UTC' : probeState === 'loading' ? '加载中' : probeState === 'error' ? '加载失败' : '暂无' }。`}
       />
 
-      {probe ? (
+      {probeState === 'ready' ? (
         <details className="fa-disclosure fa-surface-muted px-4 py-3">
           <summary className="flex cursor-pointer flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--text-dim)]">
             <span className="font-semibold text-[var(--text-strong)]">发布连通性快照</span>
@@ -333,6 +348,13 @@ export default function Deployed() {
             </div>
           </div>
         </details>
+      ) : probeState === 'loading' ? (
+        <p className="fa-surface-muted px-4 py-3 text-xs text-[var(--text-faint)]" aria-busy="true">探测快照加载中…</p>
+      ) : probeState === 'error' ? (
+        <p className="fa-surface-muted flex flex-wrap items-center gap-2 px-4 py-3 text-xs text-[var(--text-faint)]">
+          <span>探测快照加载失败；部署清单仍可浏览，但当前可达性未知。</span>
+          <button type="button" onClick={retryProbe} className="text-[var(--accent-text)] underline underline-offset-2">重试</button>
+        </p>
       ) : (
         <p className="fa-surface-muted px-4 py-3 text-xs text-[var(--text-faint)]">暂无发布时的公网探测快照；部署清单仍可浏览，但当前可达性未知。</p>
       )}
@@ -347,7 +369,7 @@ export default function Deployed() {
               <h2 className="text-sm font-semibold text-[var(--text-strong)]">查找服务</h2>
               <p className="mt-1 text-[11px] text-[var(--text-faint)]">支持名称、域名、技术栈和分类关键词</p>
             </div>
-            <span className="mono text-[11px] text-[var(--text-faint)]">{filteredCount} / {instanceTotal}</span>
+            <span role="status" className="mono text-[11px] text-[var(--text-faint)]">{filteredCount} / {instanceTotal}</span>
           </div>
           <label className="fa-deployed-search relative block">
             <span className="sr-only">搜索自部署服务</span>
@@ -360,7 +382,7 @@ export default function Deployed() {
               onChange={(event) => setFilter('q', event.target.value)}
               placeholder="搜索服务、域名、技术栈…"
               aria-label="搜索自部署服务"
-              className="fa-catalog-search w-full rounded-[6px] border bg-[var(--ink-sunken)] py-3 pl-10 pr-3 text-sm text-[var(--text-strong)] placeholder:text-[var(--text-faint)]"
+              className="fa-catalog-search w-full rounded-[6px] border bg-[var(--ink-sunken)] py-3 pl-10 pr-3 text-base text-[var(--text-strong)] placeholder:text-[var(--text-faint)] sm:text-sm"
             />
           </label>
 
@@ -378,7 +400,7 @@ export default function Deployed() {
                   onClick={() => setFilter('status', value)}
                   className={statusFilter === value ? 'fa-filter-chip rounded-full border border-[var(--accent)]/55 bg-[var(--accent)]/10 px-3 py-1.5 text-[11px] text-[var(--accent-text)]' : 'fa-filter-chip rounded-full border border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--text-dim)] hover:border-[var(--line-strong)] hover:text-[var(--text-strong)]'}
                 >
-                  {label} <span className="mono ml-1 text-[10px] opacity-70">{statusCounts[value]}</span>
+                  {label} <span className="mono ml-1 text-[10px] opacity-70">{probeState === 'loading' ? '…' : statusCounts[value]}</span>
                 </button>
               ))}
             </div>
@@ -441,11 +463,17 @@ export default function Deployed() {
                 </span>
                 <span className="mt-1 block truncate text-[11px] text-[var(--text-faint)]">{group.note}</span>
                 <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px]">
-                  {groupCounts.down ? <span className="text-[var(--down-text)]">不可达 {groupCounts.down}</span> : null}
-                  {groupCounts.ok ? <span className="text-[var(--accent-text)]">正常 {groupCounts.ok}</span> : null}
-                  {groupCounts.restricted ? <span className="text-[var(--text-dim)]">受限 {groupCounts.restricted}</span> : null}
-                  {groupCounts.redirect ? <span className="text-[var(--text-faint)]">重定向 {groupCounts.redirect}</span> : null}
-                  {groupCounts.unknown ? <span className="text-[var(--text-faint)]">未探测 {groupCounts.unknown}</span> : null}
+                  {probeState === 'loading' ? (
+                    <span className="text-[var(--text-faint)]" aria-busy="true">探测快照加载中…</span>
+                  ) : (
+                    <>
+                      {groupCounts.down ? <span className="text-[var(--down-text)]">不可达 {groupCounts.down}</span> : null}
+                      {groupCounts.ok ? <span className="text-[var(--accent-text)]">正常 {groupCounts.ok}</span> : null}
+                      {groupCounts.restricted ? <span className="text-[var(--text-dim)]">受限 {groupCounts.restricted}</span> : null}
+                      {groupCounts.redirect ? <span className="text-[var(--text-faint)]">重定向 {groupCounts.redirect}</span> : null}
+                      {groupCounts.unknown ? <span className="text-[var(--text-faint)]">未探测 {groupCounts.unknown}</span> : null}
+                    </>
+                  )}
                 </span>
               </span>
               <svg aria-hidden="true" viewBox="0 0 16 16" className={`h-4 w-4 shrink-0 text-[var(--text-faint)] transition-transform ${isExpanded ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -456,7 +484,7 @@ export default function Deployed() {
               {isExpanded ? (
                 <ul className="grid grid-cols-1 gap-2.5 lg:grid-cols-2 2xl:grid-cols-3">
                   {group.items.map((item) => (
-                    <ServiceRow key={item.id} item={item} result={probeByKey.get(`${group.id}:${item.id}`)} />
+                    <ServiceRow key={item.id} item={item} result={probeByKey.get(`${group.id}:${item.id}`)} probeLoading={probeState === 'loading'} />
                   ))}
                 </ul>
               ) : null}

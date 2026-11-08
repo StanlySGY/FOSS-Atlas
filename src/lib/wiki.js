@@ -57,18 +57,17 @@ export function parseFrontmatter(raw) {
   return { data, content: raw.slice(match[0].length), hasFrontmatter: true }
 }
 
-/** Fetch a wiki markdown file from /public/wiki. Resolves to null when absent. */
+/**
+ * Fetch a wiki markdown file from /public/wiki. Resolves to null when absent.
+ * Network failures throw so the caller can offer a retry instead of misreading
+ * a dropped request as "this page does not exist".
+ */
 export async function fetchWiki(slug) {
   if (!slug) return null
-  try {
-    const res = await fetch(`${BASE}wiki/${slug}.md`, { cache: 'no-cache' })
-    if (!res.ok) return null
-    const text = await res.text()
-    return text.trim() ? text : null
-  } catch {
-    // Network failure: treat as "no wiki" rather than hanging the view.
-    return null
-  }
+  const res = await fetch(`${BASE}wiki/${slug}.md`, { cache: 'no-cache' })
+  if (!res.ok) return null
+  const text = await res.text()
+  return text.trim() ? text : null
 }
 
 /**

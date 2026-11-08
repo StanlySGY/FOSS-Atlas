@@ -221,7 +221,7 @@ export default function CommandPalette({ onClose }) {
             aria-expanded="true"
             aria-controls="fa-palette-list"
             aria-activedescendant={items.length ? `fa-palette-option-${clampedActive}` : undefined}
-            className="w-full bg-transparent py-3 text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none"
+            className="w-full bg-transparent py-3 text-base text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-none sm:text-sm"
           />
           <kbd className="mono shrink-0 rounded-[3px] border border-[var(--line)] px-1.5 py-0.5 text-[10px] text-[var(--text-faint)]">
             Esc
